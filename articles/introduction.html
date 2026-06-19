@@ -260,8 +260,8 @@ to within the CKKS tolerance. The maximum elementwise error is</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">max_err</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">doubled_vec</span> <span class="op">-</span> <span class="fl">2</span> <span class="op">*</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">max_err</span></span>
-<span><span class="co">#&gt; [1] 8.792966e-14</span></span></code></pre></div>
-<p>8.79^{-14} — small enough to be invisible at the precisions reported
+<span><span class="co">#&gt; [1] 5.861978e-14</span></span></code></pre></div>
+<p>5.86^{-14} — small enough to be invisible at the precisions reported
 in most statistical work. CKKS is the scheme to reach for when the
 encrypted computation is a likelihood, a gradient step, a regression
 coefficient, or anything else where a real-valued answer with bounded
