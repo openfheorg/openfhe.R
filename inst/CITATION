@@ -3,8 +3,7 @@
 ## OpenFHE library (Al Badawi et al., 2022).
 
 citHeader(
-  "To cite the openfhe.R package in publications, please cite both the",
-  "package and the underlying OpenFHE library:"
+  "If you use openfhe.R, please cite both this R package and the original paper:"
 )
 
 bibentry(
