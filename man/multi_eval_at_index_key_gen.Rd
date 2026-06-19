@@ -24,5 +24,5 @@ An \code{EvalKeyMap}.
 The \code{EvalAtIndex} flavor of \code{\link[=multi_eval_automorphism_key_gen]{multi_eval_automorphism_key_gen()}};
 takes signed rotation indices rather than automorphism indices.
 Semantically equivalent but lives on a distinct C++ entry
-point, matching the openfhe-python surface.
+point.
 }

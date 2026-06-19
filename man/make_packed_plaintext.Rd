@@ -15,8 +15,8 @@ make_packed_plaintext(cc, values, noise_scale_deg = 1L, level = 0L)
 \item{noise_scale_deg}{Integer degree of the initial scaling
 factor applied to the encoded plaintext. Defaults to \code{1L};
 only meaningful under \code{FIXEDMANUAL} scaling (under
-\code{FLEXIBLEAUTO} the scheme overrides this value — see discovery
-D011). Every current vignette leaves it at the default.}
+\code{FLEXIBLEAUTO} the scheme overrides this value). Every current
+vignette leaves it at the default.}
 
 \item{level}{Integer target level in the RNS modulus chain.
 Defaults to \code{0L}, meaning "fresh level, matching a

@@ -55,7 +55,7 @@ Collate:
     'ciphertext-accessors.R'
     'methods-encrypt.R'
     'methods-eval.R'
-    'methods-eval-9111.R'
+    'methods-eval-extra.R'
     'methods-ckks.R'
     'multiparty.R'
     'eval-key-map.R'

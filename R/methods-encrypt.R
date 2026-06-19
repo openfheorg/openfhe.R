@@ -65,8 +65,8 @@ method(decrypt, list(Ciphertext, PrivateKey)) <- function(ct, key, cc = NULL) {
 #' @param noise_scale_deg Integer degree of the initial scaling
 #'   factor applied to the encoded plaintext. Defaults to `1L`;
 #'   only meaningful under `FIXEDMANUAL` scaling (under
-#'   `FLEXIBLEAUTO` the scheme overrides this value — see discovery
-#'   D011). Every current vignette leaves it at the default.
+#'   `FLEXIBLEAUTO` the scheme overrides this value). Every current
+#'   vignette leaves it at the default.
 #' @param level Integer target level in the RNS modulus chain.
 #'   Defaults to `0L`, meaning "fresh level, matching a
 #'   just-encrypted ciphertext". Set to match the level of a

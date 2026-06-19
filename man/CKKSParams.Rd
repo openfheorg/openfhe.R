@@ -81,31 +81,31 @@ scaling Python example.}
 real vectors or complex vectors. All current R vignettes use
 \code{REAL}.}
 
-\item{max_relin_sk_deg}{\verb{parity-deferred:} see the BFV entry.}
+\item{max_relin_sk_deg}{see the BFV entry.}
 
-\item{pre_mode}{\verb{parity-deferred:} see the BFV entry.}
+\item{pre_mode}{see the BFV entry.}
 
-\item{execution_mode}{\verb{parity-deferred:} one of
+\item{execution_mode}{one of
 \code{ExecutionMode$EXEC_EVALUATION} (default) or
 \code{EXEC_NOISE_ESTIMATION}. The noise-estimation mode is only
 used by the adversarial-query noise-flooding path.}
 
-\item{decryption_noise_mode}{\verb{parity-deferred:} one of
+\item{decryption_noise_mode}{one of
 \code{DecryptionNoiseMode$FIXED_NOISE_DECRYPT} (default) or
 \code{NOISE_FLOODING_DECRYPT}.}
 
-\item{noise_estimate}{\verb{parity-deferred:} numeric noise estimate
+\item{noise_estimate}{numeric noise estimate
 used by the noise-flooding path. Paired with \code{execution_mode = EXEC_NOISE_ESTIMATION}.}
 
-\item{desired_precision}{\verb{parity-deferred:} numeric target
+\item{desired_precision}{numeric target
 precision (in bits) for the noise-flooding path.}
 
-\item{statistical_security}{\verb{parity-deferred:} see the BGV entry.}
+\item{statistical_security}{see the BGV entry.}
 
-\item{num_adversarial_queries}{\verb{parity-deferred:} see the BGV
+\item{num_adversarial_queries}{see the BGV
 entry.}
 
-\item{composite_degree}{\verb{parity-deferred:} composite scaling
+\item{composite_degree}{composite scaling
 degree for the \verb{COMPOSITESCALING*} scaling techniques. Upstream
 default 0 means single-prime scaling.}
 }
@@ -119,7 +119,7 @@ argument maps 1:1 to an enabled
 setters (\code{SetPlaintextModulus}, \code{SetEvalAddCount},
 \code{SetKeySwitchCount}, \code{SetEncryptionTechnique},
 \code{SetMultiplicationTechnique}, \code{SetPRENumHops}, \code{SetMultipartyMode},
-\code{SetThresholdNumOfParties}) are not exposed; see discovery D013.
+\code{SetThresholdNumOfParties}) are not exposed.
 CKKS is a fixed-point scheme over the complex numbers and has no
 plaintext modulus; \code{threshold_num_of_parties} is currently
 CKKS-disabled upstream even though the scheme supports threshold

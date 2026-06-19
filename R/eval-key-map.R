@@ -123,9 +123,8 @@ eval_rotate_key_gen <- function(cc, sk, index_list) {
 #' `CryptoContext::EvalAtIndexKeyGen(privateKey, indexList)` C++
 #' method. Functionally identical to [eval_rotate_key_gen()]
 #' (the C++ `EvalRotateKeyGen` is a thin inline wrapper around
-#' `EvalAtIndexKeyGen`) and provided for surface parity with the
-#' C++ header and openfhe-python, both of which bind the two
-#' names separately.
+#' `EvalAtIndexKeyGen`) and both names are provided to mirror the
+#' C++ API.
 #'
 #' @param cc A `CryptoContext`.
 #' @param sk A `PrivateKey` whose tag will be used to key the
@@ -173,7 +172,7 @@ multi_eval_automorphism_key_gen <- function(cc, sk, eval_key_map,
 #' The `EvalAtIndex` flavor of [multi_eval_automorphism_key_gen()];
 #' takes signed rotation indices rather than automorphism indices.
 #' Semantically equivalent but lives on a distinct C++ entry
-#' point, matching the openfhe-python surface.
+#' point.
 #'
 #' @param cc A `CryptoContext`.
 #' @param sk This party's `PrivateKey` share.
@@ -296,11 +295,6 @@ get_eval_automorphism_key_map <- function(key_tag) {
 #' (for example, selectively generating eval keys for a
 #' sparse set of rotation amounts).
 #'
-#' **R-first binding**:
-#' `openfhe-python` does not bind `FindAutomorphismIndex`.
-#' Logged in `notes/upstream-defects.md` under R-only
-#' surface.
-#'
 #' @param cc A `CryptoContext`.
 #' @param index Integer; the slot index (positive = left
 #'   rotation, negative = right rotation).
@@ -316,8 +310,7 @@ find_automorphism_index <- function(cc, index) {
 #'
 #' Vector form of [find_automorphism_index()]. Takes a vector
 #' of slot indices and returns the corresponding automorphism
-#' indices in the same order. **R-first binding** —
-#' `openfhe-python` does not bind `FindAutomorphismIndices`.
+#' indices in the same order.
 #'
 #' @param cc A `CryptoContext`.
 #' @param indices Integer vector of slot indices.
@@ -343,8 +336,8 @@ find_automorphism_indices <- function(cc, indices) {
 #' `EvalAutomorphismKeyGen(sk, indices)` which internally
 #' calls `CryptoContextImpl::InsertEvalAutomorphismKey` with
 #' the generated map (cryptocontext.h line 2237). The dual
-#' return / registry-insert pattern matches the openfhe-python
-#' behavior at the equivalent entry point.
+#' return / registry-insert pattern mirrors the equivalent C++
+#' entry point.
 #'
 #' Companion to `eval_rotate_key_gen()` (reached via
 #' [key_gen()]'s `rotations` argument): both populate the
@@ -465,8 +458,8 @@ get_all_eval_automorphism_keys <- function() {
 #' map. Structurally identical to
 #' [get_all_eval_automorphism_keys()]: both share backing
 #' storage on the C++ side, but the
-#' two accessors are exposed separately so that fixture
-#' authors can match whichever OpenFHE doc they are reading.
+#' two accessors are exposed separately so callers can match
+#' whichever OpenFHE doc they are reading.
 #'
 #' @return A named list keyed by key-tag string. Each element
 #'   is an `EvalKeyMap`.

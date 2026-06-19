@@ -68,11 +68,8 @@ serialize_eval_keys <- function(filename,
   ## `SerializeEvalAutomorphismKey` (cryptocontext-ser.h line 730),
   ## so the bytes on disk are identical between a `type = "sum"`
   ## and a `type = "automorphism"` write. Both entry points are
-  ## exposed so fixture authors can match whichever OpenFHE doc
-  ## they are reading. openfhe-python does not bind the sum-key
-  ## entry point (Python users reach for the automorphism form
-  ## directly); logged in notes/upstream-defects.md R-only
-  ## surface section.
+  ## exposed so callers can match whichever OpenFHE doc they are
+  ## reading.
   type <- match.arg(type)
   binary <- format == "binary"
   ok <- switch(type,

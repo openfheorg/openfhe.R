@@ -29,11 +29,6 @@ Used as a primitive by \code{\link[=find_automorphism_indices]{find_automorphism
 by code that needs to address automorphism keys directly
 (for example, selectively generating eval keys for a
 sparse set of rotation amounts).
-
-\strong{R-first binding}:
-\code{openfhe-python} does not bind \code{FindAutomorphismIndex}.
-Logged in \code{notes/upstream-defects.md} under R-only
-surface.
 }
 \seealso{
 \code{\link[=find_automorphism_indices]{find_automorphism_indices()}} for the vector form.

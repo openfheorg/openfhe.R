@@ -44,9 +44,8 @@ set_length <- function(pt, len) {
 #'   be subtracted from a ciphertext that has already been
 #'   rescaled once and the two noise levels must agree. Under
 #'   `FLEXIBLEAUTO` scaling the scheme's auto-rescale logic
-#'   overrides this argument at context-generation time — see
-#'   discovery D011 — so this parameter is only meaningful under
-#'   `FIXEDMANUAL`. Couples tightly to `level`: a plaintext at
+#'   overrides this argument at context-generation time, so this
+#'   parameter is only meaningful under `FIXEDMANUAL`. Couples tightly to `level`: a plaintext at
 #'   `(noise_scale_deg = k, level = L)` may only interact with
 #'   ciphertexts at the same `(k, L)`.
 #' @param level Integer target encryption level of the encoded
@@ -68,7 +67,7 @@ set_length <- function(pt, len) {
 #'   value any current vignette or test uses. There is no R-side
 #'   way to construct a fresh `ElementParams` (only to wrap one
 #'   returned by `get_element_params(cc)`), so in practice the
-#'   argument is accepted for surface parity with openfhe-python
+#'   argument is accepted for compatibility with the C++ API
 #'   but is normally left at its default.
 #' @param slots Integer number of CKKS slots to pack into.
 #'   Defaults to `0L`, which is the upstream sentinel for "use the

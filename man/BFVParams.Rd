@@ -121,25 +121,25 @@ modulus interacts with the ciphertext modulus during multiply.
 Default upstream is \code{HPSPOVERQLEVELED}; override only if you
 are benchmarking multiplication-path variants.}
 
-\item{max_relin_sk_deg}{\verb{parity-deferred:} maximum degree of the
+\item{max_relin_sk_deg}{maximum degree of the
 secret key that can be relinearized. Upstream default is 2.
 No current vignette or Python example exercises this; the
 cpp11 binding is in place so a later release can promote it
 without a recompile.}
 
-\item{pre_mode}{\verb{parity-deferred:} proxy re-encryption mode
+\item{pre_mode}{proxy re-encryption mode
 (\code{PREMode$NOT_SET}, \code{INDCPA}, \code{FIXED_NOISE_HRA},
 \code{NOISE_FLOODING_HRA}). Only meaningful if the \code{PRE} feature is
 enabled on the context. No current vignette uses PRE.}
 
-\item{eval_add_count}{\verb{parity-deferred:} upstream noise-budget
+\item{eval_add_count}{upstream noise-budget
 hint: maximum additions between multiplications. Used only by
 the noise-flooding path. Default 0.}
 
-\item{key_switch_count}{\verb{parity-deferred:} upstream noise-budget
+\item{key_switch_count}{upstream noise-budget
 hint: maximum key-switch count. Default 0.}
 
-\item{encryption_technique}{\verb{parity-deferred:} BFV-specific
+\item{encryption_technique}{BFV-specific
 encryption variant (\code{EncryptionTechnique$STANDARD} or
 \code{EXTENDED}). Default STANDARD.}
 }
@@ -152,5 +152,5 @@ maps 1:1 to an upstream \verb{CCParams<CryptoContextBFVRNS>::Set*} method
 whose override is \emph{not} disabled in the BFV specialization. The 13
 setters that BFV explicitly disables (\code{SetScalingTechnique},
 \code{SetFirstModSize}, \code{SetPRENumHops}, \code{SetExecutionMode}, …) are not
-exposed here; see discovery D013.
+exposed here.
 }

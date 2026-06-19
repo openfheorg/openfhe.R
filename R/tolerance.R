@@ -1,14 +1,12 @@
-## R-SPECIFIC: CKKS tolerance helper for the parity harness
+## R-SPECIFIC: CKKS tolerance helper
 ##
-## Per-test CKKS tolerance computed from circuit parameters, not the
-## tinytest default. Design principle #3 in
-## `notes/blocks/E-bindings-rewrite/plan.md`: tinytest's `expect_equal`
-## defaults to `sqrt(.Machine$double.eps)` (~1.5e-8), orders of
-## magnitude tighter than CKKS precision at depth >= 6, so a
-## default-tolerance comparison flakes and gets muted, defeating the
-## numeric-fixture signal of the parity harness.
+## Per-test CKKS tolerance computed from circuit parameters, not a
+## fixed default. tinytest's `expect_equal` defaults to
+## `sqrt(.Machine$double.eps)` (~1.5e-8), orders of magnitude tighter
+## than CKKS precision at depth >= 6, so a default-tolerance
+## comparison would flake.
 ##
-## The helper provides a **Stage 2** form (per harness.md §4.1): the
+## The helper provides a **Stage 2** form: the
 ## tolerance helper is an S7 generic dispatched on its first argument.
 ## Two methods:
 ##   - `class_numeric`: the Stage 1 form — parameters passed as
@@ -31,9 +29,8 @@
 #' Two dispatch forms:
 #'
 #' - **Stage 1 (numeric)**: pass parameters as direct arguments.
-#'   Useful when the ciphertext isn't yet constructed — e.g. in a
-#'   fixture setup block that has to produce a tolerance before
-#'   calling `encrypt()`.
+#'   Useful when the ciphertext isn't yet constructed — e.g. when
+#'   you need a tolerance before calling `encrypt()`.
 #' - **Stage 2 (Ciphertext)**: pass a `Ciphertext` directly. The
 #'   helper reads the associated `CryptoContext` via
 #'   [get_crypto_context()], pulls the multiplicative depth (from
@@ -148,10 +145,9 @@ scaling_technique_name <- function(tech_int) {
 ## values are conservative approximations from the OpenFHE paper
 ## and from reading `pke/schemerns/rns-cryptoparameters.cpp`. They
 ## are NOT tightened until validated against a known circuit at
-## fixture-authoring time. Per harness.md §4.2: "a loose
-## tolerance that passes is strictly better than a tight
-## tolerance that flakes and gets silently muted (the exact
-## failure mode design principle #3 exists to prevent)."
+## test-authoring time. A loose tolerance that passes is strictly
+## better than a tight tolerance that flakes and gets silently
+## muted.
 ##
 ## Unexported. Consumed by the numeric method body above and by
 ## the Ciphertext method via the numeric path.

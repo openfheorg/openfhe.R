@@ -32,8 +32,8 @@ On the C++ side this is equivalent to calling
 \code{EvalAutomorphismKeyGen(sk, indices)} which internally
 calls \code{CryptoContextImpl::InsertEvalAutomorphismKey} with
 the generated map (cryptocontext.h line 2237). The dual
-return / registry-insert pattern matches the openfhe-python
-behavior at the equivalent entry point.
+return / registry-insert pattern mirrors the equivalent C++
+entry point.
 
 Companion to \code{eval_rotate_key_gen()} (reached via
 \code{\link[=key_gen]{key_gen()}}'s \code{rotations} argument): both populate the

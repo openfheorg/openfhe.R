@@ -4,14 +4,14 @@
 \alias{PREMode}
 \title{Proxy Re-encryption Mode
 Source: pke/constants-defs.h enum ProxyReEncryptionMode
-R-side name \code{PREMode} matches the design.md §8 shortening convention
-(same pattern as \code{Feature} for \code{PKESchemeFeature}).}
+R-side name \code{PREMode} is a shortened form (same pattern as
+\code{Feature} for \code{PKESchemeFeature}).}
 \usage{
 PREMode
 }
 \description{
 Proxy Re-encryption Mode
 Source: pke/constants-defs.h enum ProxyReEncryptionMode
-R-side name \code{PREMode} matches the design.md §8 shortening convention
-(same pattern as \code{Feature} for \code{PKESchemeFeature}).
+R-side name \code{PREMode} is a shortened form (same pattern as
+\code{Feature} for \code{PKESchemeFeature}).
 }

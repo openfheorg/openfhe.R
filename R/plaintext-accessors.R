@@ -8,15 +8,12 @@
 ## that future Ciphertext accessor work can add methods
 ## to the same generic without having to rename or duplicate.
 ##
-## Seven accessors are "exercised" (used by at
-## least one openfhe-python example) and carry full semantic
-## roxygen: get_noise_scale_deg, get_length, get_level,
+## Seven accessors carry full semantic roxygen:
+## get_noise_scale_deg, get_length, get_level,
 ## get_scaling_factor, get_log_precision, get_formatted_values,
-## set_ckks_data_type. The other 19 are parity-deferred and carry
-## a minimal `parity-deferred:` marker per design.md §4.
+## set_ckks_data_type. The other 19 carry a minimal doc block.
 ##
-## Four of these plus the R-side helper are the "harness
-## unblockers" named in design.md §10:
+## Four of these plus the R-side helper map to these C++ methods:
 ##   get_noise_scale_deg  -> Plaintext__GetNoiseScaleDeg
 ##   get_level            -> Plaintext__GetLevel
 ##   get_slots            -> Plaintext__GetSlots
@@ -51,11 +48,8 @@ NULL
 #'   CKKS plaintext. After construction the degree is the value
 #'   passed to `make_ckks_packed_plaintext(..., noise_scale_deg)`
 #'   under `FIXEDMANUAL` scaling; under `FLEXIBLEAUTO` the scheme
-#'   overrides the user-supplied value at context-generation time
-#'   (see discovery D011). Incremented by each multiplication
-#'   before a rescale. The harness Signal 2 differential fixture
-#'   for `MakeCKKSPackedPlaintext` reads this value to verify the
-#'   `noise_scale_deg` argument reached the C++ call site.
+#'   overrides the user-supplied value at context-generation
+#'   time. Incremented by each multiplication before a rescale.
 #' @export
 get_noise_scale_deg <- new_generic("get_noise_scale_deg", "x")
 
@@ -72,8 +66,7 @@ get_length <- new_generic("get_length", "x")
 #'   incremented by each `rescale()` the plaintext survives. For
 #'   CKKS-packed plaintexts the level must match the ciphertext
 #'   level at every homomorphic operation, or the evaluator rejects
-#'   the pair. The harness Signal 2 fixture reads this value to
-#'   verify the `level` argument reached the C++ call site.
+#'   the pair.
 #' @export
 get_level <- new_generic("get_level", "x")
 
@@ -109,25 +102,25 @@ get_formatted_values <- new_generic("get_formatted_values", "x")
 #' @export
 set_ckks_data_type <- new_generic("set_ckks_data_type", "x")
 
-# ── Parity-deferred getters ────────────────────────────
+# ── Additional getters ────────────────────────────
 
-#' @describeIn plaintext_accessors `parity-deferred:` integer
+#' @describeIn plaintext_accessors integer
 #'   encoding type (see `PlaintextEncodings` for the enum values).
 #' @export
 get_encoding_type <- new_generic("get_encoding_type", "x")
 
-#' @describeIn plaintext_accessors `parity-deferred:` BGV integer
+#' @describeIn plaintext_accessors BGV integer
 #'   scaling factor. Returned as a double carrying a losslessly
-#'   rounded 53-bit integer per design.md §7.
+#'   rounded 53-bit integer.
 #' @export
 get_scaling_factor_int <- new_generic("get_scaling_factor_int", "x")
 
-#' @describeIn plaintext_accessors `parity-deferred:` scheme
+#' @describeIn plaintext_accessors scheme
 #'   identifier (see `SchemeId` enum).
 #' @export
 get_scheme_id <- new_generic("get_scheme_id", "x")
 
-#' @describeIn plaintext_accessors `parity-deferred:` logical
+#' @describeIn plaintext_accessors logical
 #'   "has the plaintext been encoded yet?" The factory methods
 #'   typically encode plaintexts eagerly, so this is `TRUE` for
 #'   fresh plaintexts. Returns `FALSE` only for plaintexts
@@ -141,89 +134,87 @@ is_encoded <- new_generic("is_encoded", "x")
 ## down in this file. Re-declaring the generic would overwrite
 ## the CCParams methods and break test_params_getters_9104.R.
 
-#' @describeIn plaintext_accessors `parity-deferred:` integer
+#' @describeIn plaintext_accessors integer
 #'   lower bound that can be encoded with the current plaintext
 #'   modulus: `-floor(t / 2)`.
 #' @export
 low_bound <- new_generic("low_bound", "x")
 
-#' @describeIn plaintext_accessors `parity-deferred:` integer
+#' @describeIn plaintext_accessors integer
 #'   upper bound that can be encoded with the current plaintext
 #'   modulus: `floor(t / 2)`.
 #' @export
 high_bound <- new_generic("high_bound", "x")
 
-#' @describeIn plaintext_accessors `parity-deferred:` integer CKKS
+#' @describeIn plaintext_accessors integer CKKS
 #'   slot count. For `Plaintext` dispatch this is the `GetSlots()`
-#'   value set at construction. The harness Signal 2 fixture reads
-#'   this value to verify the `slots` argument reached the C++
-#'   call site.
+#'   value set at construction.
 #' @export
 get_slots <- new_generic("get_slots", "x")
 
-#' @describeIn plaintext_accessors `parity-deferred:` numeric
+#' @describeIn plaintext_accessors numeric
 #'   log2 of the error estimate. Only meaningful for CKKS
 #'   plaintexts; throws for BFV/BGV.
 #' @export
 get_log_error <- new_generic("get_log_error", "x")
 
-#' @describeIn plaintext_accessors `parity-deferred:` integer
+#' @describeIn plaintext_accessors integer
 #'   vector of the underlying coef-packed encoding. Throws for
 #'   plaintexts whose subclass is not coef-packed.
 #' @export
 get_coef_packed_value <- new_generic("get_coef_packed_value", "x")
 
-#' @describeIn plaintext_accessors `parity-deferred:` string value
+#' @describeIn plaintext_accessors string value
 #'   of a string-encoded plaintext. Throws for plaintexts whose
 #'   subclass is not string-encoded.
 #' @export
 get_string_value <- new_generic("get_string_value", "x")
 
-#' @describeIn plaintext_accessors `parity-deferred:` integer ring
+#' @describeIn plaintext_accessors integer ring
 #'   dimension of the underlying `Element`. This is the plaintext's
 #'   view of the lattice ring dimension; typically matches the
 #'   crypto context's ring dimension.
 #' @export
 get_element_ring_dimension <- new_generic("get_element_ring_dimension", "x")
 
-# ── Parity-deferred setters ────────────────────────────
+# ── Additional setters ────────────────────────────
 
-#' @describeIn plaintext_accessors `parity-deferred:` set the CKKS
+#' @describeIn plaintext_accessors set the CKKS
 #'   plaintext scaling factor.
 #' @export
 set_scaling_factor <- new_generic("set_scaling_factor", "x")
 
-#' @describeIn plaintext_accessors `parity-deferred:` set the BGV
+#' @describeIn plaintext_accessors set the BGV
 #'   plaintext integer scaling factor.
 #' @export
 set_scaling_factor_int <- new_generic("set_scaling_factor_int", "x")
 
-#' @describeIn plaintext_accessors `parity-deferred:` set the
+#' @describeIn plaintext_accessors set the
 #'   plaintext noise scale degree. Most users should not call this
 #'   directly — the factory methods and the evaluator manage
 #'   `noise_scale_deg` automatically.
 #' @export
 set_noise_scale_deg <- new_generic("set_noise_scale_deg", "x")
 
-#' @describeIn plaintext_accessors `parity-deferred:` set the
+#' @describeIn plaintext_accessors set the
 #'   plaintext level. As with `set_noise_scale_deg`, most users
 #'   should not call this directly.
 #' @export
 set_level <- new_generic("set_level", "x")
 
-#' @describeIn plaintext_accessors `parity-deferred:` set the CKKS
+#' @describeIn plaintext_accessors set the CKKS
 #'   slot count. As with `set_length`, this is typically managed
 #'   by the factory methods.
 #' @export
 set_slots <- new_generic("set_slots", "x")
 
-#' @describeIn plaintext_accessors `parity-deferred:` set the
+#' @describeIn plaintext_accessors set the
 #'   string value of a string-encoded plaintext. Throws for
 #'   plaintexts whose subclass is not string-encoded.
 #' @export
 set_string_value <- new_generic("set_string_value", "x")
 
-#' @describeIn plaintext_accessors `parity-deferred:` set the
+#' @describeIn plaintext_accessors set the
 #'   integer-vector value of an integer-encoded plaintext. Throws
 #'   for plaintexts whose subclass does not support an integer
 #'   vector.
@@ -303,7 +294,7 @@ method(get_scheme_id, CryptoContext) <- function(x) {
   CryptoContext__GetSchemeId(get_ptr(x))
 }
 
-# ── plaintext_params_hash: R-side harness helper ───────
+# ── plaintext_params_hash: R-side helper ───────
 
 #' Deterministic hash of a plaintext's identifying parameters
 #'
@@ -312,13 +303,6 @@ method(get_scheme_id, CryptoContext) <- function(x) {
 #' representation. Two plaintexts with identical parameters produce
 #' identical strings; any parameter change produces a different
 #' string.
-#'
-#' Named `plaintext_params_hash` in design.md §10 as
-#' the fourth "harness unblocker" for the Signal 2 differential
-#' fixture for `make_ckks_packed_plaintext`. The fixture calls
-#' `plaintext_params_hash()` on a default and a perturbed plaintext
-#' and expects different strings when the perturbation reaches the
-#' C++ call site.
 #'
 #' Not a cryptographic hash — equality comparison is the only
 #' guarantee. The returned string's format is implementation

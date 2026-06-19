@@ -36,9 +36,8 @@ the \code{ScalingTechnique}-specific precision loss per level.
 Two dispatch forms:
 \itemize{
 \item \strong{Stage 1 (numeric)}: pass parameters as direct arguments.
-Useful when the ciphertext isn't yet constructed — e.g. in a
-fixture setup block that has to produce a tolerance before
-calling \code{encrypt()}.
+Useful when the ciphertext isn't yet constructed — e.g. when
+you need a tolerance before calling \code{encrypt()}.
 \item \strong{Stage 2 (Ciphertext)}: pass a \code{Ciphertext} directly. The
 helper reads the associated \code{CryptoContext} via
 \code{\link[=get_crypto_context]{get_crypto_context()}}, pulls the multiplicative depth (from

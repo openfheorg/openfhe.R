@@ -1,8 +1,7 @@
-## OPENFHE PYTHON SOURCE: NONE — ShareKeys/RecoverSharedKey are R-first bindings
+## OPENFHE PYTHON SOURCE: NONE (no Python binding for these)
 ##
 ## openfhe-python v1.5.1.0 does not bind ShareKeys or
-## RecoverSharedKey. R-first surface, tracked in
-## notes/upstream-defects.md.
+## RecoverSharedKey.
 ##
 ## SecretShareMap S7 class +
 ## share_keys() / recover_shared_key() wrappers for the abort-

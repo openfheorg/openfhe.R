@@ -7,7 +7,7 @@
 ## `<Scheme>Params__Get<Name>` cpp11 binding in
 ## `src/pke_ccparams_getters.cpp`.
 ##
-## Getter surface is uniform across schemes: per discovery D013 the
+## Getter surface is uniform across schemes: the
 ## derived-class CCParams<T> specializations override setters (not
 ## getters) with DISABLED_FOR_XXX throwing bodies, so no getter
 ## throws on any scheme. If a parameter is disabled upstream for a
@@ -15,10 +15,9 @@
 ## value of the underlying field (typically 0 for uint32_t, 0.0 for
 ## double, or the enum's zero sentinel) rather than a throw.
 ##
-## The 4 exercised getters (exercised by at least one openfhe-python
-## example): get_ring_dim, get_plaintext_modulus,
-## get_digit_size, get_composite_degree. The other 29 are
-## parity-deferred and carry a minimal doc block.
+## Four getters carry full documentation: get_ring_dim,
+## get_plaintext_modulus, get_digit_size, get_composite_degree.
+## The other 29 carry a minimal doc block.
 
 #' CCParams getters (all schemes)
 #'
@@ -26,8 +25,8 @@
 #' `CKKSParams` object. Each getter wraps the corresponding upstream
 #' `CCParams<T>::Get*` method and returns its value unchanged.
 #'
-#' Per discovery D013, several parameters are "disabled" on specific
-#' schemes (their setters throw at runtime). For a disabled
+#' Several parameters are "disabled" on specific schemes (their
+#' setters throw at runtime). For a disabled
 #' scheme/parameter combination the getter returns the default value
 #' of the underlying field (typically `0L` for `uint32_t`, `0` for
 #' `double`, or the enum's zero sentinel) rather than throwing. This
@@ -47,8 +46,7 @@
 #' `get_plaintext_modulus` returns an R `integer` on 32-bit-safe
 #' values; for moduli that exceed the 32-bit signed integer range
 #' the return value is a `numeric` (double) carrying a losslessly
-#' rounded 53-bit integer, per the `design.md` §7 return-type
-#' convention.
+#' rounded 53-bit integer.
 #'
 #' @param params A `BFVParams`, `BGVParams`, or `CKKSParams`.
 #' @param ... Reserved for future method-specific arguments (currently
@@ -75,7 +73,7 @@ get_ring_dim <- new_generic("get_ring_dim", "params")
 #'   `Z_t[x]/Phi_m(x)` and every homomorphic operation is performed
 #'   modulo `t`. On a `CKKSParams` object this returns the default
 #'   field value (`0`) because CKKS does not use a plaintext
-#'   modulus — see discovery D013.
+#'   modulus.
 #' @export
 get_plaintext_modulus <- new_generic("get_plaintext_modulus", "params")
 
@@ -94,152 +92,152 @@ get_digit_size <- new_generic("get_digit_size", "params")
 #' @export
 get_composite_degree <- new_generic("get_composite_degree", "params")
 
-# ── Parity-deferred getters (minimal doc) ───────────────
+# ── Additional getters (minimal doc) ───────────────
 
-#' @describeIn ccparams_getters `parity-deferred:` integer scheme
+#' @describeIn ccparams_getters integer scheme
 #'   identifier (see `SchemeId` for the enum values).
 #' @export
 get_scheme <- new_generic("get_scheme", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` standard deviation
+#' @describeIn ccparams_getters standard deviation
 #'   of the Gaussian error distribution.
 #' @export
 get_standard_deviation <- new_generic("get_standard_deviation", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` secret-key
+#' @describeIn ccparams_getters secret-key
 #'   distribution (see `SecretKeyDist`).
 #' @export
 get_secret_key_dist <- new_generic("get_secret_key_dist", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` maximum
+#' @describeIn ccparams_getters maximum
 #'   relinearization secret-key degree.
 #' @export
 get_max_relin_sk_deg <- new_generic("get_max_relin_sk_deg", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` proxy
+#' @describeIn ccparams_getters proxy
 #'   re-encryption mode (see `PREMode`).
 #' @export
 get_pre_mode <- new_generic("get_pre_mode", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` multiparty mode
+#' @describeIn ccparams_getters multiparty mode
 #'   (see `MultipartyMode`).
 #' @export
 get_multiparty_mode <- new_generic("get_multiparty_mode", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` execution mode
+#' @describeIn ccparams_getters execution mode
 #'   (see `ExecutionMode`).
 #' @export
 get_execution_mode <- new_generic("get_execution_mode", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` decryption noise
+#' @describeIn ccparams_getters decryption noise
 #'   mode (see `DecryptionNoiseMode`).
 #' @export
 get_decryption_noise_mode <- new_generic("get_decryption_noise_mode", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` noise-flooding
+#' @describeIn ccparams_getters noise-flooding
 #'   noise estimate (double).
 #' @export
 get_noise_estimate <- new_generic("get_noise_estimate", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` noise-flooding
+#' @describeIn ccparams_getters noise-flooding
 #'   target precision (double, bits).
 #' @export
 get_desired_precision <- new_generic("get_desired_precision", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` statistical
+#' @describeIn ccparams_getters statistical
 #'   security parameter. Return type is `double` per header
 #'   inconsistency; see the Return-type note.
 #' @export
 get_statistical_security <- new_generic("get_statistical_security", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` upper bound on
+#' @describeIn ccparams_getters upper bound on
 #'   adversarial queries. Return type is `double` per header
 #'   inconsistency; see the Return-type note.
 #' @export
 get_num_adversarial_queries <- new_generic("get_num_adversarial_queries", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` threshold-FHE
+#' @describeIn ccparams_getters threshold-FHE
 #'   party count.
 #' @export
 get_threshold_num_of_parties <- new_generic("get_threshold_num_of_parties", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` key-switching
+#' @describeIn ccparams_getters key-switching
 #'   technique (see `KeySwitchTechnique`).
 #' @export
 get_key_switch_technique <- new_generic("get_key_switch_technique", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` scaling technique
+#' @describeIn ccparams_getters scaling technique
 #'   (see `ScalingTechnique`).
 #' @export
 get_scaling_technique <- new_generic("get_scaling_technique", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` SIMD batch size.
+#' @describeIn ccparams_getters SIMD batch size.
 #' @export
 get_batch_size <- new_generic("get_batch_size", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` bit size of the
+#' @describeIn ccparams_getters bit size of the
 #'   first (largest) prime in the CKKS modulus chain.
 #' @export
 get_first_mod_size <- new_generic("get_first_mod_size", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` number of large
+#' @describeIn ccparams_getters number of large
 #'   digits for HYBRID key switching.
 #' @export
 get_num_large_digits <- new_generic("get_num_large_digits", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` configured
+#' @describeIn ccparams_getters configured
 #'   multiplicative depth. Note: this is the depth the context was
 #'   constructed to support, not the current depth budget after
 #'   operations.
 #' @export
 get_multiplicative_depth <- new_generic("get_multiplicative_depth", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` bit size of each
+#' @describeIn ccparams_getters bit size of each
 #'   CKKS scaling modulus.
 #' @export
 get_scaling_mod_size <- new_generic("get_scaling_mod_size", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` target security
+#' @describeIn ccparams_getters target security
 #'   level (see `SecurityLevel`).
 #' @export
 get_security_level <- new_generic("get_security_level", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` BFV/BGV
+#' @describeIn ccparams_getters BFV/BGV
 #'   noise-flooding hint: maximum additions between multiplications.
 #' @export
 get_eval_add_count <- new_generic("get_eval_add_count", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` BFV/BGV
+#' @describeIn ccparams_getters BFV/BGV
 #'   noise-flooding hint: maximum key-switch count.
 #' @export
 get_key_switch_count <- new_generic("get_key_switch_count", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` BFV encryption
+#' @describeIn ccparams_getters BFV encryption
 #'   technique (see `EncryptionTechnique`).
 #' @export
 get_encryption_technique <- new_generic("get_encryption_technique", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` BFV multiplication
+#' @describeIn ccparams_getters BFV multiplication
 #'   technique (see `MultiplicationTechnique`).
 #' @export
 get_multiplication_technique <- new_generic("get_multiplication_technique", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` PRE hop count.
+#' @describeIn ccparams_getters PRE hop count.
 #' @export
 get_pre_num_hops <- new_generic("get_pre_num_hops", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` CKKS interactive
+#' @describeIn ccparams_getters CKKS interactive
 #'   bootstrap compression level (see `CompressionLevel`).
 #' @export
 get_interactive_boot_compression_level <-
   new_generic("get_interactive_boot_compression_level", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` register word size
+#' @describeIn ccparams_getters register word size
 #'   for multi-precision arithmetic.
 #' @export
 get_register_word_size <- new_generic("get_register_word_size", "params")
 
-#' @describeIn ccparams_getters `parity-deferred:` CKKS data type
+#' @describeIn ccparams_getters CKKS data type
 #'   (see `CKKSDataType`).
 #' @export
 get_ckks_data_type <- new_generic("get_ckks_data_type", "params")

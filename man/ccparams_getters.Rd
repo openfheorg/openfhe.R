@@ -118,8 +118,8 @@ Retrieve a parameter from a \code{BFVParams}, \code{BGVParams}, or
 \verb{CCParams<T>::Get*} method and returns its value unchanged.
 }
 \details{
-Per discovery D013, several parameters are "disabled" on specific
-schemes (their setters throw at runtime). For a disabled
+Several parameters are "disabled" on specific schemes (their
+setters throw at runtime). For a disabled
 scheme/parameter combination the getter returns the default value
 of the underlying field (typically \code{0L} for \code{uint32_t}, \code{0} for
 \code{double}, or the enum's zero sentinel) rather than throwing. This
@@ -144,7 +144,7 @@ and BGV plaintext spaces. BFV/BGV plaintexts are elements of
 \code{Z_t[x]/Phi_m(x)} and every homomorphic operation is performed
 modulo \code{t}. On a \code{CKKSParams} object this returns the default
 field value (\code{0}) because CKKS does not use a plaintext
-modulus — see discovery D013.
+modulus.
 
 \item \code{get_digit_size}: Digit size \code{r} for BV key-switching:
 the base-\code{2^r} digit decomposition of the ciphertext during a
@@ -157,93 +157,93 @@ techniques. Only meaningful when
 \verb{scaling_technique = ScalingTechnique$COMPOSITESCALING*};
 \code{0} under the default FLEXIBLEAUTO path.
 
-\item \code{get_scheme}: \verb{parity-deferred:} integer scheme
+\item \code{get_scheme}: integer scheme
 identifier (see \code{SchemeId} for the enum values).
 
-\item \code{get_standard_deviation}: \verb{parity-deferred:} standard deviation
+\item \code{get_standard_deviation}: standard deviation
 of the Gaussian error distribution.
 
-\item \code{get_secret_key_dist}: \verb{parity-deferred:} secret-key
+\item \code{get_secret_key_dist}: secret-key
 distribution (see \code{SecretKeyDist}).
 
-\item \code{get_max_relin_sk_deg}: \verb{parity-deferred:} maximum
+\item \code{get_max_relin_sk_deg}: maximum
 relinearization secret-key degree.
 
-\item \code{get_pre_mode}: \verb{parity-deferred:} proxy
+\item \code{get_pre_mode}: proxy
 re-encryption mode (see \code{PREMode}).
 
-\item \code{get_multiparty_mode}: \verb{parity-deferred:} multiparty mode
+\item \code{get_multiparty_mode}: multiparty mode
 (see \code{MultipartyMode}).
 
-\item \code{get_execution_mode}: \verb{parity-deferred:} execution mode
+\item \code{get_execution_mode}: execution mode
 (see \code{ExecutionMode}).
 
-\item \code{get_decryption_noise_mode}: \verb{parity-deferred:} decryption noise
+\item \code{get_decryption_noise_mode}: decryption noise
 mode (see \code{DecryptionNoiseMode}).
 
-\item \code{get_noise_estimate}: \verb{parity-deferred:} noise-flooding
+\item \code{get_noise_estimate}: noise-flooding
 noise estimate (double).
 
-\item \code{get_desired_precision}: \verb{parity-deferred:} noise-flooding
+\item \code{get_desired_precision}: noise-flooding
 target precision (double, bits).
 
-\item \code{get_statistical_security}: \verb{parity-deferred:} statistical
+\item \code{get_statistical_security}: statistical
 security parameter. Return type is \code{double} per header
 inconsistency; see the Return-type note.
 
-\item \code{get_num_adversarial_queries}: \verb{parity-deferred:} upper bound on
+\item \code{get_num_adversarial_queries}: upper bound on
 adversarial queries. Return type is \code{double} per header
 inconsistency; see the Return-type note.
 
-\item \code{get_threshold_num_of_parties}: \verb{parity-deferred:} threshold-FHE
+\item \code{get_threshold_num_of_parties}: threshold-FHE
 party count.
 
-\item \code{get_key_switch_technique}: \verb{parity-deferred:} key-switching
+\item \code{get_key_switch_technique}: key-switching
 technique (see \code{KeySwitchTechnique}).
 
-\item \code{get_scaling_technique}: \verb{parity-deferred:} scaling technique
+\item \code{get_scaling_technique}: scaling technique
 (see \code{ScalingTechnique}).
 
-\item \code{get_batch_size}: \verb{parity-deferred:} SIMD batch size.
+\item \code{get_batch_size}: SIMD batch size.
 
-\item \code{get_first_mod_size}: \verb{parity-deferred:} bit size of the
+\item \code{get_first_mod_size}: bit size of the
 first (largest) prime in the CKKS modulus chain.
 
-\item \code{get_num_large_digits}: \verb{parity-deferred:} number of large
+\item \code{get_num_large_digits}: number of large
 digits for HYBRID key switching.
 
-\item \code{get_multiplicative_depth}: \verb{parity-deferred:} configured
+\item \code{get_multiplicative_depth}: configured
 multiplicative depth. Note: this is the depth the context was
 constructed to support, not the current depth budget after
 operations.
 
-\item \code{get_scaling_mod_size}: \verb{parity-deferred:} bit size of each
+\item \code{get_scaling_mod_size}: bit size of each
 CKKS scaling modulus.
 
-\item \code{get_security_level}: \verb{parity-deferred:} target security
+\item \code{get_security_level}: target security
 level (see \code{SecurityLevel}).
 
-\item \code{get_eval_add_count}: \verb{parity-deferred:} BFV/BGV
+\item \code{get_eval_add_count}: BFV/BGV
 noise-flooding hint: maximum additions between multiplications.
 
-\item \code{get_key_switch_count}: \verb{parity-deferred:} BFV/BGV
+\item \code{get_key_switch_count}: BFV/BGV
 noise-flooding hint: maximum key-switch count.
 
-\item \code{get_encryption_technique}: \verb{parity-deferred:} BFV encryption
+\item \code{get_encryption_technique}: BFV encryption
 technique (see \code{EncryptionTechnique}).
 
-\item \code{get_multiplication_technique}: \verb{parity-deferred:} BFV multiplication
+\item \code{get_multiplication_technique}: BFV multiplication
 technique (see \code{MultiplicationTechnique}).
 
-\item \code{get_pre_num_hops}: \verb{parity-deferred:} PRE hop count.
+\item \code{get_pre_num_hops}: PRE hop count.
 
-\item \code{get_interactive_boot_compression_level}: \verb{parity-deferred:} CKKS interactive
+\item \code{get_interactive_boot_compression_level}: CKKS interactive
 bootstrap compression level (see \code{CompressionLevel}).
 
-\item \code{get_register_word_size}: \verb{parity-deferred:} register word size
+\item \code{get_register_word_size}: register word size
 for multi-precision arithmetic.
 
-\item \code{get_ckks_data_type}: \verb{parity-deferred:} CKKS data type
+\item \code{get_ckks_data_type}: CKKS data type
 (see \code{CKKSDataType}).
 
 }}
@@ -259,7 +259,6 @@ header, not per the setter signature.
 \code{get_plaintext_modulus} returns an R \code{integer} on 32-bit-safe
 values; for moduli that exceed the 32-bit signed integer range
 the return value is a \code{numeric} (double) carrying a losslessly
-rounded 53-bit integer, per the \code{design.md} §7 return-type
-convention.
+rounded 53-bit integer.
 }
 

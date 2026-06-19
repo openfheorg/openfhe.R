@@ -22,7 +22,6 @@ Standalone wrapper around the
 \code{CryptoContext::EvalAtIndexKeyGen(privateKey, indexList)} C++
 method. Functionally identical to \code{\link[=eval_rotate_key_gen]{eval_rotate_key_gen()}}
 (the C++ \code{EvalRotateKeyGen} is a thin inline wrapper around
-\code{EvalAtIndexKeyGen}) and provided for surface parity with the
-C++ header and openfhe-python, both of which bind the two
-names separately.
+\code{EvalAtIndexKeyGen}) and both names are provided to mirror the
+C++ API.
 }

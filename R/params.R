@@ -1,18 +1,17 @@
 ## OPENFHE PYTHON SOURCE: src/lib/bindings.cpp (CCParams class)
 ##
-## Per discovery D013, each CCParams<T> specialization disables a
-## subset of the common Params-base setters via DISABLED_FOR_<SCHEME>
-## throwing overrides. The R constructors below expose **only** the
-## enabled subset per scheme:
+## Each CCParams<T> specialization disables a subset of the common
+## Params-base setters via DISABLED_FOR_<SCHEME> throwing overrides.
+## The R constructors below expose **only** the enabled subset per
+## scheme:
 ##
 ##   BFV  → 19 arguments (13 disabled upstream, not exposed)
 ##   BGV  → 22 arguments (10 disabled upstream, not exposed)
 ##   CKKS → 24 arguments ( 8 disabled upstream, not exposed)
 ##
-## Setters whose upstream audit count from openfhe-python examples is
-## zero carry a `parity-deferred:` marker in their @param body per
-## design.md §4. They are fully cpp11-bound, so promoting them to a
-## documented surface later is a roxygen-only change.
+## Setters not exercised by any example carry a minimal @param body.
+## They are fully cpp11-bound, so expanding their documentation later
+## is a roxygen-only change.
 
 # ── BFV Parameters ──────────────────────────────────────
 
@@ -23,7 +22,7 @@
 #' whose override is *not* disabled in the BFV specialization. The 13
 #' setters that BFV explicitly disables (`SetScalingTechnique`,
 #' `SetFirstModSize`, `SetPRENumHops`, `SetExecutionMode`, …) are not
-#' exposed here; see discovery D013.
+#' exposed here.
 #'
 #' @param plaintext_modulus Integer modulus `t` for the BFV plaintext
 #'   space. BFV plaintexts are elements of `Z_t[x]/Phi_m(x)` and every
@@ -105,21 +104,21 @@
 #'   modulus interacts with the ciphertext modulus during multiply.
 #'   Default upstream is `HPSPOVERQLEVELED`; override only if you
 #'   are benchmarking multiplication-path variants.
-#' @param max_relin_sk_deg `parity-deferred:` maximum degree of the
+#' @param max_relin_sk_deg maximum degree of the
 #'   secret key that can be relinearized. Upstream default is 2.
 #'   No current vignette or Python example exercises this; the
 #'   cpp11 binding is in place so a later release can promote it
 #'   without a recompile.
-#' @param pre_mode `parity-deferred:` proxy re-encryption mode
+#' @param pre_mode proxy re-encryption mode
 #'   (`PREMode$NOT_SET`, `INDCPA`, `FIXED_NOISE_HRA`,
 #'   `NOISE_FLOODING_HRA`). Only meaningful if the `PRE` feature is
 #'   enabled on the context. No current vignette uses PRE.
-#' @param eval_add_count `parity-deferred:` upstream noise-budget
+#' @param eval_add_count upstream noise-budget
 #'   hint: maximum additions between multiplications. Used only by
 #'   the noise-flooding path. Default 0.
-#' @param key_switch_count `parity-deferred:` upstream noise-budget
+#' @param key_switch_count upstream noise-budget
 #'   hint: maximum key-switch count. Default 0.
-#' @param encryption_technique `parity-deferred:` BFV-specific
+#' @param encryption_technique BFV-specific
 #'   encryption variant (`EncryptionTechnique$STANDARD` or
 #'   `EXTENDED`). Default STANDARD.
 #' @return A `BFVParams` S7 object.
@@ -197,7 +196,7 @@ BFVParams <- new_class("BFVParams",
 #' maps 1:1 to an enabled `CCParams<CryptoContextBGVRNS>::Set*` method.
 #' The 10 BGV-disabled setters (`SetEncryptionTechnique`,
 #' `SetMultiplicationTechnique`, `SetExecutionMode`, …) are not
-#' exposed; see discovery D013.
+#' exposed.
 #'
 #' @param plaintext_modulus Integer modulus `t` for the BGV plaintext
 #'   space. See the BFV entry for full semantics; BGV shares the
@@ -228,16 +227,16 @@ BFVParams <- new_class("BFVParams",
 #' @param standard_deviation See the BFV entry.
 #' @param multiparty_mode See the BFV entry.
 #' @param threshold_num_of_parties See the BFV entry.
-#' @param max_relin_sk_deg `parity-deferred:` see the BFV entry.
-#' @param pre_mode `parity-deferred:` see the BFV entry.
-#' @param statistical_security `parity-deferred:` statistical security
+#' @param max_relin_sk_deg see the BFV entry.
+#' @param pre_mode see the BFV entry.
+#' @param statistical_security statistical security
 #'   parameter (bits), used by the noise-flooding decryption path.
-#' @param num_adversarial_queries `parity-deferred:` upper bound on
+#' @param num_adversarial_queries upper bound on
 #'   the number of adversarial queries the noise-flooding path must
 #'   survive.
-#' @param eval_add_count `parity-deferred:` see the BFV entry.
-#' @param key_switch_count `parity-deferred:` see the BFV entry.
-#' @param pre_num_hops `parity-deferred:` maximum number of hops for
+#' @param eval_add_count see the BFV entry.
+#' @param key_switch_count see the BFV entry.
+#' @param pre_num_hops maximum number of hops for
 #'   proxy re-encryption in BGV. Only meaningful if the PRE feature
 #'   is enabled.
 #' @return A `BGVParams` S7 object.
@@ -326,7 +325,7 @@ BGVParams <- new_class("BGVParams",
 #' setters (`SetPlaintextModulus`, `SetEvalAddCount`,
 #' `SetKeySwitchCount`, `SetEncryptionTechnique`,
 #' `SetMultiplicationTechnique`, `SetPRENumHops`, `SetMultipartyMode`,
-#' `SetThresholdNumOfParties`) are not exposed; see discovery D013.
+#' `SetThresholdNumOfParties`) are not exposed.
 #' CKKS is a fixed-point scheme over the complex numbers and has no
 #' plaintext modulus; `threshold_num_of_parties` is currently
 #' CKKS-disabled upstream even though the scheme supports threshold
@@ -367,24 +366,24 @@ BGVParams <- new_class("BGVParams",
 #'   `COMPLEX`. Selects whether CKKS plaintexts are modeled as
 #'   real vectors or complex vectors. All current R vignettes use
 #'   `REAL`.
-#' @param max_relin_sk_deg `parity-deferred:` see the BFV entry.
-#' @param pre_mode `parity-deferred:` see the BFV entry.
-#' @param execution_mode `parity-deferred:` one of
+#' @param max_relin_sk_deg see the BFV entry.
+#' @param pre_mode see the BFV entry.
+#' @param execution_mode one of
 #'   `ExecutionMode$EXEC_EVALUATION` (default) or
 #'   `EXEC_NOISE_ESTIMATION`. The noise-estimation mode is only
 #'   used by the adversarial-query noise-flooding path.
-#' @param decryption_noise_mode `parity-deferred:` one of
+#' @param decryption_noise_mode one of
 #'   `DecryptionNoiseMode$FIXED_NOISE_DECRYPT` (default) or
 #'   `NOISE_FLOODING_DECRYPT`.
-#' @param noise_estimate `parity-deferred:` numeric noise estimate
+#' @param noise_estimate numeric noise estimate
 #'   used by the noise-flooding path. Paired with `execution_mode =
 #'   EXEC_NOISE_ESTIMATION`.
-#' @param desired_precision `parity-deferred:` numeric target
+#' @param desired_precision numeric target
 #'   precision (in bits) for the noise-flooding path.
-#' @param statistical_security `parity-deferred:` see the BGV entry.
-#' @param num_adversarial_queries `parity-deferred:` see the BGV
+#' @param statistical_security see the BGV entry.
+#' @param num_adversarial_queries see the BGV
 #'   entry.
-#' @param composite_degree `parity-deferred:` composite scaling
+#' @param composite_degree composite scaling
 #'   degree for the `COMPOSITESCALING*` scaling techniques. Upstream
 #'   default 0 means single-prime scaling.
 #' @return A `CKKSParams` S7 object.

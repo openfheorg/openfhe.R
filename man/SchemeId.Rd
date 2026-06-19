@@ -9,9 +9,8 @@ SchemeId
 \description{
 Returned by \code{get_scheme()} on any \code{CCParams} object. R-side name
 \code{SchemeId} matches the upstream \code{pke/scheme/scheme-id.h} header
-filename and avoids colliding with a future \code{Scheme} S7 class
-(design.md §6 mentions a potential wrapper around
-\verb{std::shared_ptr<SchemeBase<DCRTPoly>>} with that name).
+filename and avoids colliding with a potential future \code{Scheme} S7
+class.
 }
 \details{
 Source: pke/scheme/scheme-id.h enum SCHEME

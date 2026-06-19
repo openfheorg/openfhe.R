@@ -179,9 +179,7 @@ method(eval_fast_rotation, Ciphertext) <- function(ct, index, m = NULL, precomp)
   ## to the 3-arg header convenience overload (cryptocontext.h
   ## line 2395) that internally sets `m = GetRingDimension() * 2`.
   ## When supplied, route to the 4-arg form (header line 2362)
-  ## that takes `m` explicitly. Closes design.md §11 open
-  ## question #1: the Python 3-arg binding is NOT an upstream
-  ## defect — the C++ header declares both overloads.
+  ## that takes `m` explicitly.
   if (is.null(m)) {
     Ciphertext(ptr = EvalFastRotation__3arg(ct@ptr, as.integer(index),
                                             precomp@ptr))

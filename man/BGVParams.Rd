@@ -74,22 +74,22 @@ chain.}
 
 \item{threshold_num_of_parties}{See the BFV entry.}
 
-\item{max_relin_sk_deg}{\verb{parity-deferred:} see the BFV entry.}
+\item{max_relin_sk_deg}{see the BFV entry.}
 
-\item{pre_mode}{\verb{parity-deferred:} see the BFV entry.}
+\item{pre_mode}{see the BFV entry.}
 
-\item{statistical_security}{\verb{parity-deferred:} statistical security
+\item{statistical_security}{statistical security
 parameter (bits), used by the noise-flooding decryption path.}
 
-\item{num_adversarial_queries}{\verb{parity-deferred:} upper bound on
+\item{num_adversarial_queries}{upper bound on
 the number of adversarial queries the noise-flooding path must
 survive.}
 
-\item{eval_add_count}{\verb{parity-deferred:} see the BFV entry.}
+\item{eval_add_count}{see the BFV entry.}
 
-\item{key_switch_count}{\verb{parity-deferred:} see the BFV entry.}
+\item{key_switch_count}{see the BFV entry.}
 
-\item{pre_num_hops}{\verb{parity-deferred:} maximum number of hops for
+\item{pre_num_hops}{maximum number of hops for
 proxy re-encryption in BGV. Only meaningful if the PRE feature
 is enabled.}
 }
@@ -101,5 +101,5 @@ Constructor for the BGV scheme's \code{CCParams} surface. Every argument
 maps 1:1 to an enabled \verb{CCParams<CryptoContextBGVRNS>::Set*} method.
 The 10 BGV-disabled setters (\code{SetEncryptionTechnique},
 \code{SetMultiplicationTechnique}, \code{SetExecutionMode}, …) are not
-exposed; see discovery D013.
+exposed.
 }

@@ -236,9 +236,9 @@ method(eval_mult_and_relinearize, Ciphertext) <- function(x, y) {
 #'
 #' Synonym for [rescale()]. Both names dispatch to the same C++
 #' operation (`CryptoContextImpl::Rescale` delegates to
-#' `ModReduce` internally); the R binding keeps both so fixture
-#' and vignette authors can use whichever name matches the
-#' OpenFHE documentation they're following.
+#' `ModReduce` internally); the R binding keeps both so callers
+#' can use whichever name matches the OpenFHE documentation
+#' they're following.
 #'
 #' @param x A `Ciphertext`.
 #' @param ... Reserved for future method-specific arguments.
@@ -305,8 +305,7 @@ method(level_reduce_in_place, Ciphertext) <- function(x, eval_key, levels = 1L) 
 #' `towers_left` towers and sets its noise-scale-degree to
 #' `noise_scale_deg`. Used by the interactive multi-party
 #' bootstrapping protocol to shrink a ciphertext before sending
-#' it across the network (see `notes/blocks/E-bindings-rewrite/
-#' gap-matrix.md` §21 for the bootstrap-side context).
+#' it across the network.
 #'
 #' @param x A `Ciphertext`.
 #' @param ... Method-specific arguments: `towers_left` (integer,

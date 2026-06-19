@@ -15,8 +15,8 @@ Reads the entire \code{CryptoContextImpl} internal EvalSum key
 map. Structurally identical to
 \code{\link[=get_all_eval_automorphism_keys]{get_all_eval_automorphism_keys()}}: both share backing
 storage on the C++ side, but the
-two accessors are exposed separately so that fixture
-authors can match whichever OpenFHE doc they are reading.
+two accessors are exposed separately so callers can match
+whichever OpenFHE doc they are reading.
 }
 \seealso{
 \code{\link[=get_eval_sum_key_map]{get_eval_sum_key_map()}}, \code{\link[=insert_eval_sum_key]{insert_eval_sum_key()}}

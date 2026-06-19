@@ -21,11 +21,6 @@ switching — other key-switching techniques have no
 round-trip to extended P}Q and therefore nothing to scale
 back from.
 }
-\details{
-\strong{R-first binding}: openfhe-python v1.5.1.0 does not expose
-\code{KeySwitchDown} at all. See \code{notes/upstream-defects.md} for
-the R-only surface tracking.
-}
 \seealso{
 \code{\link[=eval_fast_rotation_ext]{eval_fast_rotation_ext()}}
 }

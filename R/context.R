@@ -19,7 +19,7 @@ CryptoContext <- new_class("CryptoContext",
 #' (`BFVParams()`, `BGVParams()`, or `CKKSParams()`). See those
 #' functions' argument lists for the valid per-scheme setter surface
 #' — each scheme accepts only the setters that are *not* disabled in
-#' its upstream `CCParams<T>` specialization (see discovery D013).
+#' its upstream `CCParams<T>` specialization.
 #' Passing an invalid scheme-specific argument produces an R-level
 #' "unused argument" error at the underlying `*Params()` call site.
 #'
@@ -70,7 +70,7 @@ fhe_context <- function(scheme = c("BFV", "BGV", "CKKS"), ..., features = NULL) 
 #'
 #' Accepts either a single `PKESchemeFeature` enum value or a
 #' `uint32_t` bitwise-OR mask of `PKESchemeFeature` values (for
-#' surface parity with the C++ `Enable(uint32_t)` overload). The two paths
+#' matching the C++ `Enable(uint32_t)` overload). The two paths
 #' dispatch on the value itself: a mask is detected by being
 #' strictly larger than the largest single-feature value
 #' (`Feature$SCHEMESWITCH = 0x80 = 128`) or by having more than one

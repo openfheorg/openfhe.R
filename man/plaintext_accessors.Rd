@@ -108,11 +108,8 @@ wrong value.
 CKKS plaintext. After construction the degree is the value
 passed to \code{make_ckks_packed_plaintext(..., noise_scale_deg)}
 under \code{FIXEDMANUAL} scaling; under \code{FLEXIBLEAUTO} the scheme
-overrides the user-supplied value at context-generation time
-(see discovery D011). Incremented by each multiplication
-before a rescale. The harness Signal 2 differential fixture
-for \code{MakeCKKSPackedPlaintext} reads this value to verify the
-\code{noise_scale_deg} argument reached the C++ call site.
+overrides the user-supplied value at context-generation
+time. Incremented by each multiplication before a rescale.
 
 \item \code{get_length}: Integer effective length of a
 packed plaintext — the number of slots that hold user-supplied
@@ -125,8 +122,7 @@ in the RNS modulus chain. \code{0} for a fresh plaintext;
 incremented by each \code{rescale()} the plaintext survives. For
 CKKS-packed plaintexts the level must match the ciphertext
 level at every homomorphic operation, or the evaluator rejects
-the pair. The harness Signal 2 fixture reads this value to
-verify the \code{level} argument reached the C++ call site.
+the pair.
 
 \item \code{get_scaling_factor}: Numeric scaling factor for
 CKKS-based plaintexts — the multiplier the real vector is
@@ -152,77 +148,75 @@ for CKKS plaintexts. Most R vignettes use the default \code{REAL}
 type; set to \code{COMPLEX} only when you are constructing a CKKS
 plaintext from a complex vector.
 
-\item \code{get_encoding_type}: \verb{parity-deferred:} integer
+\item \code{get_encoding_type}: integer
 encoding type (see \code{PlaintextEncodings} for the enum values).
 
-\item \code{get_scaling_factor_int}: \verb{parity-deferred:} BGV integer
+\item \code{get_scaling_factor_int}: BGV integer
 scaling factor. Returned as a double carrying a losslessly
-rounded 53-bit integer per design.md §7.
+rounded 53-bit integer.
 
-\item \code{get_scheme_id}: \verb{parity-deferred:} scheme
+\item \code{get_scheme_id}: scheme
 identifier (see \code{SchemeId} enum).
 
-\item \code{is_encoded}: \verb{parity-deferred:} logical
+\item \code{is_encoded}: logical
 "has the plaintext been encoded yet?" The factory methods
 typically encode plaintexts eagerly, so this is \code{TRUE} for
 fresh plaintexts. Returns \code{FALSE} only for plaintexts
 constructed in a two-step uninitialised form.
 
-\item \code{low_bound}: \verb{parity-deferred:} integer
+\item \code{low_bound}: integer
 lower bound that can be encoded with the current plaintext
 modulus: \code{-floor(t / 2)}.
 
-\item \code{high_bound}: \verb{parity-deferred:} integer
+\item \code{high_bound}: integer
 upper bound that can be encoded with the current plaintext
 modulus: \code{floor(t / 2)}.
 
-\item \code{get_slots}: \verb{parity-deferred:} integer CKKS
+\item \code{get_slots}: integer CKKS
 slot count. For \code{Plaintext} dispatch this is the \code{GetSlots()}
-value set at construction. The harness Signal 2 fixture reads
-this value to verify the \code{slots} argument reached the C++
-call site.
+value set at construction.
 
-\item \code{get_log_error}: \verb{parity-deferred:} numeric
+\item \code{get_log_error}: numeric
 log2 of the error estimate. Only meaningful for CKKS
 plaintexts; throws for BFV/BGV.
 
-\item \code{get_coef_packed_value}: \verb{parity-deferred:} integer
+\item \code{get_coef_packed_value}: integer
 vector of the underlying coef-packed encoding. Throws for
 plaintexts whose subclass is not coef-packed.
 
-\item \code{get_string_value}: \verb{parity-deferred:} string value
+\item \code{get_string_value}: string value
 of a string-encoded plaintext. Throws for plaintexts whose
 subclass is not string-encoded.
 
-\item \code{get_element_ring_dimension}: \verb{parity-deferred:} integer ring
+\item \code{get_element_ring_dimension}: integer ring
 dimension of the underlying \code{Element}. This is the plaintext's
 view of the lattice ring dimension; typically matches the
 crypto context's ring dimension.
 
-\item \code{set_scaling_factor}: \verb{parity-deferred:} set the CKKS
+\item \code{set_scaling_factor}: set the CKKS
 plaintext scaling factor.
 
-\item \code{set_scaling_factor_int}: \verb{parity-deferred:} set the BGV
+\item \code{set_scaling_factor_int}: set the BGV
 plaintext integer scaling factor.
 
-\item \code{set_noise_scale_deg}: \verb{parity-deferred:} set the
+\item \code{set_noise_scale_deg}: set the
 plaintext noise scale degree. Most users should not call this
 directly — the factory methods and the evaluator manage
 \code{noise_scale_deg} automatically.
 
-\item \code{set_level}: \verb{parity-deferred:} set the
+\item \code{set_level}: set the
 plaintext level. As with \code{set_noise_scale_deg}, most users
 should not call this directly.
 
-\item \code{set_slots}: \verb{parity-deferred:} set the CKKS
+\item \code{set_slots}: set the CKKS
 slot count. As with \code{set_length}, this is typically managed
 by the factory methods.
 
-\item \code{set_string_value}: \verb{parity-deferred:} set the
+\item \code{set_string_value}: set the
 string value of a string-encoded plaintext. Throws for
 plaintexts whose subclass is not string-encoded.
 
-\item \code{set_int_vector_value}: \verb{parity-deferred:} set the
+\item \code{set_int_vector_value}: set the
 integer-vector value of an integer-encoded plaintext. Throws
 for plaintexts whose subclass does not support an integer
 vector.

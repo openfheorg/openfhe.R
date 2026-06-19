@@ -1,8 +1,7 @@
 ## OPENFHE PYTHON SOURCE: src/lib/bindings.cpp (IntBoot* and IntMPBoot* families)
-##                       NONE for KeySwitchDown — R-first
 ##
 ## Three method groups:
-## KeySwitchDown (R-only wrapper on an R-first binding),
+## KeySwitchDown,
 ## the IntBoot* single-party interactive bootstrap family, and
 ## the IntMPBoot* multi-party interactive bootstrap family.
 
@@ -15,10 +14,6 @@
 #' switching — other key-switching techniques have no
 #' round-trip to extended P*Q and therefore nothing to scale
 #' back from.
-#'
-#' **R-first binding**: openfhe-python v1.5.1.0 does not expose
-#' `KeySwitchDown` at all. See `notes/upstream-defects.md` for
-#' the R-only surface tracking.
 #'
 #' @param ct A `Ciphertext` in the extended P*Q basis.
 #' @return A `Ciphertext` in the Q basis.

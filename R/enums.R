@@ -225,8 +225,8 @@ DecryptionNoiseMode <- list(
 
 #' Proxy Re-encryption Mode
 #' Source: pke/constants-defs.h enum ProxyReEncryptionMode
-#' R-side name `PREMode` matches the design.md §8 shortening convention
-#' (same pattern as `Feature` for `PKESchemeFeature`).
+#' R-side name `PREMode` is a shortened form (same pattern as
+#' `Feature` for `PKESchemeFeature`).
 #' @export
 PREMode <- list(
   NOT_SET            = 0L,
@@ -278,9 +278,8 @@ CompressionLevel <- list(
 #'
 #' Returned by `get_scheme()` on any `CCParams` object. R-side name
 #' `SchemeId` matches the upstream `pke/scheme/scheme-id.h` header
-#' filename and avoids colliding with a future `Scheme` S7 class
-#' (design.md §6 mentions a potential wrapper around
-#' `std::shared_ptr<SchemeBase<DCRTPoly>>` with that name).
+#' filename and avoids colliding with a potential future `Scheme` S7
+#' class.
 #'
 #' Source: pke/scheme/scheme-id.h enum SCHEME
 #' @export

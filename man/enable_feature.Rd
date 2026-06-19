@@ -19,7 +19,7 @@ i.e. \code{11L}).}
 \description{
 Accepts either a single \code{PKESchemeFeature} enum value or a
 \code{uint32_t} bitwise-OR mask of \code{PKESchemeFeature} values (for
-surface parity with the C++ \code{Enable(uint32_t)} overload). The two paths
+matching the C++ \code{Enable(uint32_t)} overload). The two paths
 dispatch on the value itself: a mask is detected by being
 strictly larger than the largest single-feature value
 (\code{Feature$SCHEMESWITCH = 0x80 = 128}) or by having more than one

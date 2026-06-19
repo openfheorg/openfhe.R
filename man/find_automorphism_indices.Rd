@@ -17,8 +17,7 @@ Integer vector of automorphism indices.
 \description{
 Vector form of \code{\link[=find_automorphism_index]{find_automorphism_index()}}. Takes a vector
 of slot indices and returns the corresponding automorphism
-indices in the same order. \strong{R-first binding} —
-\code{openfhe-python} does not bind \code{FindAutomorphismIndices}.
+indices in the same order.
 }
 \seealso{
 \code{\link[=find_automorphism_index]{find_automorphism_index()}}
