@@ -1,0 +1,520 @@
+# Package index
+
+## Context and Keys
+
+- [`fhe_context()`](https://bnaras.github.io/openfhe.R/reference/fhe_context.md)
+  : Create a fully homomorphic encryption context
+- [`key_gen()`](https://bnaras.github.io/openfhe.R/reference/key_gen.md)
+  : Generate key pair
+- [`enable_feature()`](https://bnaras.github.io/openfhe.R/reference/enable_feature.md)
+  : Enable a feature on a CryptoContext
+- [`CryptoContext()`](https://bnaras.github.io/openfhe.R/reference/CryptoContext.md)
+  : Crypto Context
+- [`BFVParams()`](https://bnaras.github.io/openfhe.R/reference/BFVParams.md)
+  : BFV Parameters
+- [`BGVParams()`](https://bnaras.github.io/openfhe.R/reference/BGVParams.md)
+  : BGV Parameters
+- [`CKKSParams()`](https://bnaras.github.io/openfhe.R/reference/CKKSParams.md)
+  : CKKS Parameters
+- [`KeyPair()`](https://bnaras.github.io/openfhe.R/reference/KeyPair.md)
+  : Key Pair
+- [`PublicKey()`](https://bnaras.github.io/openfhe.R/reference/PublicKey.md)
+  : Public Key
+- [`PrivateKey()`](https://bnaras.github.io/openfhe.R/reference/PrivateKey.md)
+  : Private Key
+
+## Encryption and Decryption
+
+- [`encrypt()`](https://bnaras.github.io/openfhe.R/reference/encrypt.md)
+  : Encrypt a plaintext
+- [`decrypt()`](https://bnaras.github.io/openfhe.R/reference/decrypt.md)
+  : Decrypt a ciphertext
+- [`make_packed_plaintext()`](https://bnaras.github.io/openfhe.R/reference/make_packed_plaintext.md)
+  : Make a packed integer plaintext
+- [`make_coef_packed_plaintext()`](https://bnaras.github.io/openfhe.R/reference/make_coef_packed_plaintext.md)
+  : Make a coefficient-packed integer plaintext
+- [`make_ckks_packed_plaintext()`](https://bnaras.github.io/openfhe.R/reference/make_ckks_packed_plaintext.md)
+  : Make a CKKS packed plaintext from real numbers
+- [`get_packed_value()`](https://bnaras.github.io/openfhe.R/reference/get_packed_value.md)
+  : Get packed integer values from a plaintext
+- [`get_real_packed_value()`](https://bnaras.github.io/openfhe.R/reference/get_real_packed_value.md)
+  : Get real values from a CKKS plaintext
+- [`Ciphertext()`](https://bnaras.github.io/openfhe.R/reference/Ciphertext.md)
+  : Ciphertext class
+- [`Plaintext()`](https://bnaras.github.io/openfhe.R/reference/Plaintext.md)
+  : Plaintext
+
+## Plaintext accessors
+
+- [`get_noise_scale_deg()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`get_length()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`get_level()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`get_scaling_factor()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`get_log_precision()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`get_formatted_values()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`set_ckks_data_type()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`get_encoding_type()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`get_scaling_factor_int()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`get_scheme_id()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`is_encoded()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`low_bound()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`high_bound()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`get_slots()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`get_log_error()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`get_coef_packed_value()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`get_string_value()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`get_element_ring_dimension()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`set_scaling_factor()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`set_scaling_factor_int()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`set_noise_scale_deg()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`set_level()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`set_slots()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`set_string_value()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  [`set_int_vector_value()`](https://bnaras.github.io/openfhe.R/reference/plaintext_accessors.md)
+  : Plaintext accessors
+- [`plaintext_params_hash()`](https://bnaras.github.io/openfhe.R/reference/plaintext_params_hash.md)
+  : Deterministic hash of a plaintext's identifying parameters
+
+## Key tags
+
+- [`get_key_tag()`](https://bnaras.github.io/openfhe.R/reference/key_tag.md)
+  [`set_key_tag()`](https://bnaras.github.io/openfhe.R/reference/key_tag.md)
+  : Key tag accessors
+- [`is_good()`](https://bnaras.github.io/openfhe.R/reference/is_good.md)
+  : Is a KeyPair valid?
+
+## Ciphertext accessors
+
+- [`get_crypto_context()`](https://bnaras.github.io/openfhe.R/reference/get_crypto_context.md)
+  : Associated CryptoContext of a Ciphertext
+- [`get_scaling_factor_real()`](https://bnaras.github.io/openfhe.R/reference/get_scaling_factor_real.md)
+  : Real-valued CKKS scaling factor at a modulus-chain level
+- [`ckks_scaling_factor_bits()`](https://bnaras.github.io/openfhe.R/reference/ckks_scaling_factor_bits.md)
+  : CKKS scaling-mod-size in bits
+
+## CryptoContext getters
+
+- [`get_crypto_parameters()`](https://bnaras.github.io/openfhe.R/reference/get_crypto_parameters.md)
+  : Crypto parameters of a CryptoContext
+- [`get_element_params()`](https://bnaras.github.io/openfhe.R/reference/get_element_params.md)
+  : Element parameters of a CryptoContext
+- [`get_encoding_params()`](https://bnaras.github.io/openfhe.R/reference/get_encoding_params.md)
+  : Encoding parameters of a CryptoContext
+- [`get_cyclotomic_order()`](https://bnaras.github.io/openfhe.R/reference/get_cyclotomic_order.md)
+  : Cyclotomic order of a CryptoContext
+- [`get_key_gen_level()`](https://bnaras.github.io/openfhe.R/reference/get_key_gen_level.md)
+  : Key-generation level of a CryptoContext
+- [`set_key_gen_level()`](https://bnaras.github.io/openfhe.R/reference/set_key_gen_level.md)
+  : Set the key-generation level of a CryptoContext
+
+## Homomorphic Operations
+
+- [`eval_add()`](https://bnaras.github.io/openfhe.R/reference/eval_add.md)
+  : Homomorphic addition
+- [`eval_sub()`](https://bnaras.github.io/openfhe.R/reference/eval_sub.md)
+  : Homomorphic subtraction
+- [`eval_mult()`](https://bnaras.github.io/openfhe.R/reference/eval_mult.md)
+  : Homomorphic multiplication
+- [`eval_negate()`](https://bnaras.github.io/openfhe.R/reference/eval_negate.md)
+  : Homomorphic negation
+- [`eval_square()`](https://bnaras.github.io/openfhe.R/reference/eval_square.md)
+  : Homomorphic squaring
+- [`eval_rotate()`](https://bnaras.github.io/openfhe.R/reference/eval_rotate.md)
+  : Rotate ciphertext slots
+- [`eval_sum()`](https://bnaras.github.io/openfhe.R/reference/eval_sum.md)
+  : Sum all slots in a ciphertext
+- [`rescale()`](https://bnaras.github.io/openfhe.R/reference/rescale.md)
+  : Rescale a CKKS ciphertext (alias for ModReduce)
+- [`ring_dimension()`](https://bnaras.github.io/openfhe.R/reference/ring_dimension.md)
+  : Ring dimension of a CryptoContext
+- [`eval_add_in_place()`](https://bnaras.github.io/openfhe.R/reference/eval_add_in_place.md)
+  : Homomorphic addition in place
+- [`eval_sub_in_place()`](https://bnaras.github.io/openfhe.R/reference/eval_sub_in_place.md)
+  : Homomorphic subtraction in place
+- [`eval_mult_in_place()`](https://bnaras.github.io/openfhe.R/reference/eval_mult_in_place.md)
+  : Homomorphic multiplication in place
+- [`eval_negate_in_place()`](https://bnaras.github.io/openfhe.R/reference/eval_negate_in_place.md)
+  : Homomorphic negation in place
+- [`eval_add_mutable()`](https://bnaras.github.io/openfhe.R/reference/eval_add_mutable.md)
+  : Homomorphic add, mutable variant
+- [`eval_sub_mutable()`](https://bnaras.github.io/openfhe.R/reference/eval_sub_mutable.md)
+  : Homomorphic subtract, mutable variant
+- [`eval_mult_mutable()`](https://bnaras.github.io/openfhe.R/reference/eval_mult_mutable.md)
+  : Homomorphic multiply, mutable variant
+- [`eval_square_mutable()`](https://bnaras.github.io/openfhe.R/reference/eval_square_mutable.md)
+  : Homomorphic square, mutable variant
+- [`eval_mult_no_relin()`](https://bnaras.github.io/openfhe.R/reference/eval_mult_no_relin.md)
+  : Homomorphic multiplication without relinearization
+- [`relinearize()`](https://bnaras.github.io/openfhe.R/reference/relinearize.md)
+  : Relinearize a higher-degree ciphertext
+- [`eval_mult_and_relinearize()`](https://bnaras.github.io/openfhe.R/reference/eval_mult_and_relinearize.md)
+  : Fused multiply-and-relinearize
+- [`mod_reduce()`](https://bnaras.github.io/openfhe.R/reference/mod_reduce.md)
+  : Reduce the modulus chain by one level
+- [`mod_reduce_in_place()`](https://bnaras.github.io/openfhe.R/reference/mod_reduce_in_place.md)
+  : Reduce the modulus chain by one level, in place
+- [`level_reduce()`](https://bnaras.github.io/openfhe.R/reference/level_reduce.md)
+  : Reduce the modulus chain by multiple levels
+- [`level_reduce_in_place()`](https://bnaras.github.io/openfhe.R/reference/level_reduce_in_place.md)
+  : Reduce the modulus chain by multiple levels, in place
+- [`compress()`](https://bnaras.github.io/openfhe.R/reference/compress.md)
+  : Compress a ciphertext to fewer towers
+
+## CKKS Advanced
+
+- [`eval_poly()`](https://bnaras.github.io/openfhe.R/reference/eval_poly.md)
+  : Evaluate a polynomial on a ciphertext
+- [`eval_poly_linear()`](https://bnaras.github.io/openfhe.R/reference/eval_poly_linear.md)
+  : Evaluate a polynomial via the linear evaluator
+- [`eval_poly_ps()`](https://bnaras.github.io/openfhe.R/reference/eval_poly_ps.md)
+  : Evaluate a polynomial via the Paterson-Stockmeyer method
+- [`eval_chebyshev()`](https://bnaras.github.io/openfhe.R/reference/eval_chebyshev.md)
+  : Evaluate a Chebyshev series on a ciphertext
+- [`eval_chebyshev_linear()`](https://bnaras.github.io/openfhe.R/reference/eval_chebyshev_linear.md)
+  : Evaluate a Chebyshev series via the linear evaluator
+- [`eval_chebyshev_ps()`](https://bnaras.github.io/openfhe.R/reference/eval_chebyshev_ps.md)
+  : Evaluate a Chebyshev series via the Paterson-Stockmeyer method
+- [`eval_chebyshev_coefficients()`](https://bnaras.github.io/openfhe.R/reference/eval_chebyshev_coefficients.md)
+  : Chebyshev coefficients for a real-valued function
+- [`eval_chebyshev_function()`](https://bnaras.github.io/openfhe.R/reference/eval_chebyshev_function.md)
+  : Evaluate a user-supplied function on a CKKS ciphertext via Chebyshev
+  approximation
+- [`eval_sin()`](https://bnaras.github.io/openfhe.R/reference/eval_sin.md)
+  : Evaluate sine on a ciphertext (Chebyshev approximation)
+- [`eval_cos()`](https://bnaras.github.io/openfhe.R/reference/eval_cos.md)
+  : Evaluate cosine on a ciphertext
+- [`eval_logistic()`](https://bnaras.github.io/openfhe.R/reference/eval_logistic.md)
+  : Evaluate logistic function on a ciphertext
+- [`eval_divide()`](https://bnaras.github.io/openfhe.R/reference/eval_divide.md)
+  : Evaluate division approximation on a ciphertext
+- [`eval_bootstrap()`](https://bnaras.github.io/openfhe.R/reference/eval_bootstrap.md)
+  : Perform CKKS bootstrapping
+- [`eval_bootstrap_setup()`](https://bnaras.github.io/openfhe.R/reference/eval_bootstrap_setup.md)
+  : Set up CKKS bootstrapping
+- [`eval_bootstrap_key_gen()`](https://bnaras.github.io/openfhe.R/reference/eval_bootstrap_key_gen.md)
+  : Generate bootstrapping keys
+- [`get_bootstrap_depth()`](https://bnaras.github.io/openfhe.R/reference/get_bootstrap_depth.md)
+  : Get the required multiplicative depth for CKKS bootstrapping
+- [`get_ckks_boot_correction_factor()`](https://bnaras.github.io/openfhe.R/reference/get_ckks_boot_correction_factor.md)
+  : Get the CKKS bootstrap correction factor
+- [`set_ckks_boot_correction_factor()`](https://bnaras.github.io/openfhe.R/reference/set_ckks_boot_correction_factor.md)
+  : Set the CKKS bootstrap correction factor
+- [`eval_fast_rotation()`](https://bnaras.github.io/openfhe.R/reference/eval_fast_rotation.md)
+  : Hoisted slot rotation using precomputed digits
+- [`eval_fast_rotation_ext()`](https://bnaras.github.io/openfhe.R/reference/eval_fast_rotation_ext.md)
+  : Extended hoisted slot rotation
+- [`eval_fast_rotation_precompute()`](https://bnaras.github.io/openfhe.R/reference/eval_fast_rotation_precompute.md)
+  : Precompute digit decomposition for hoisted fast rotations
+- [`FastRotationPrecomputation()`](https://bnaras.github.io/openfhe.R/reference/FastRotationPrecomputation.md)
+  : Precomputed digit decomposition for hoisted rotations
+- [`get_complex_packed_value()`](https://bnaras.github.io/openfhe.R/reference/get_complex_packed_value.md)
+  : Get complex values from a CKKS plaintext
+- [`find_automorphism_index()`](https://bnaras.github.io/openfhe.R/reference/find_automorphism_index.md)
+  : Compute the automorphism index for a single slot index
+- [`find_automorphism_indices()`](https://bnaras.github.io/openfhe.R/reference/find_automorphism_indices.md)
+  : Compute the automorphism indices for a list of slot indices
+- [`eval_automorphism_key_gen()`](https://bnaras.github.io/openfhe.R/reference/eval_automorphism_key_gen.md)
+  : Generate automorphism evaluation keys for a set of indices
+- [`eval_automorphism()`](https://bnaras.github.io/openfhe.R/reference/eval_automorphism.md)
+  : Apply an automorphism to a ciphertext
+
+## Interactive bootstrap
+
+- [`key_switch_down()`](https://bnaras.github.io/openfhe.R/reference/key_switch_down.md)
+  : Scale a ciphertext down from extended CRT basis to Q
+- [`int_boot_decrypt()`](https://bnaras.github.io/openfhe.R/reference/int_boot_decrypt.md)
+  : Server-side masked decryption for interactive bootstrap
+- [`int_boot_encrypt()`](https://bnaras.github.io/openfhe.R/reference/int_boot_encrypt.md)
+  : Client-side re-encryption for interactive bootstrap
+- [`int_boot_add()`](https://bnaras.github.io/openfhe.R/reference/int_boot_add.md)
+  : Combine encrypted and unencrypted masked decryptions
+- [`int_boot_adjust_scale()`](https://bnaras.github.io/openfhe.R/reference/int_boot_adjust_scale.md)
+  : Prepare a ciphertext for interactive bootstrap
+- [`int_mp_boot_adjust_scale()`](https://bnaras.github.io/openfhe.R/reference/int_mp_boot_adjust_scale.md)
+  : Prepare a ciphertext for multi-party interactive bootstrap
+- [`int_mp_boot_random_element_gen()`](https://bnaras.github.io/openfhe.R/reference/int_mp_boot_random_element_gen.md)
+  : Generate a common random element for multi-party bootstrap
+- [`int_mp_boot_decrypt()`](https://bnaras.github.io/openfhe.R/reference/int_mp_boot_decrypt.md)
+  : Multi-party masked decryption for interactive bootstrap
+- [`int_mp_boot_add()`](https://bnaras.github.io/openfhe.R/reference/int_mp_boot_add.md)
+  : Aggregate multi-party shares pairs
+- [`int_mp_boot_encrypt()`](https://bnaras.github.io/openfhe.R/reference/int_mp_boot_encrypt.md)
+  : Final re-encryption for multi-party interactive bootstrap
+
+## Serialization and key registry
+
+- [`fhe_serialize()`](https://bnaras.github.io/openfhe.R/reference/fhe_serialize.md)
+  : Serialize an OpenFHE object to file
+- [`fhe_deserialize()`](https://bnaras.github.io/openfhe.R/reference/fhe_deserialize.md)
+  : Deserialize an OpenFHE object from file
+- [`serialize_eval_keys()`](https://bnaras.github.io/openfhe.R/reference/serialize_eval_keys.md)
+  : Serialize evaluation keys to file
+- [`deserialize_eval_keys()`](https://bnaras.github.io/openfhe.R/reference/deserialize_eval_keys.md)
+  : Deserialize evaluation keys from file
+- [`clear_fhe_state()`](https://bnaras.github.io/openfhe.R/reference/clear_fhe_state.md)
+  : Clear cached evaluation keys and contexts
+- [`with_fhe_context()`](https://bnaras.github.io/openfhe.R/reference/with_fhe_context.md)
+  : Execute code with automatic cleanup of FHE state
+- [`eval_sum_key_gen()`](https://bnaras.github.io/openfhe.R/reference/eval_sum_key_gen.md)
+  : Generate sum keys for a secret key
+- [`eval_mult_key_gen()`](https://bnaras.github.io/openfhe.R/reference/eval_mult_key_gen.md)
+  : Generate relinearization (eval-mult) keys for a secret key
+- [`eval_rotate_key_gen()`](https://bnaras.github.io/openfhe.R/reference/eval_rotate_key_gen.md)
+  : Generate rotation keys for a secret key
+- [`eval_at_index_key_gen()`](https://bnaras.github.io/openfhe.R/reference/eval_at_index_key_gen.md)
+  : Generate at-index (rotation) keys for a secret key
+- [`insert_eval_mult_key()`](https://bnaras.github.io/openfhe.R/reference/insert_eval_mult_key.md)
+  : Insert an EvalMult key vector into the cc registry
+- [`insert_eval_sum_key()`](https://bnaras.github.io/openfhe.R/reference/insert_eval_sum_key.md)
+  : Insert a joined sum-key map into the cc registry
+- [`insert_eval_automorphism_key()`](https://bnaras.github.io/openfhe.R/reference/insert_eval_automorphism_key.md)
+  : Insert a joined automorphism-key map into the cc registry
+- [`clear_eval_mult_keys()`](https://bnaras.github.io/openfhe.R/reference/clear_eval_mult_keys.md)
+  : Clear the EvalMult key cache
+- [`clear_eval_automorphism_keys()`](https://bnaras.github.io/openfhe.R/reference/clear_eval_automorphism_keys.md)
+  : Clear the EvalAutomorphism key cache
+- [`get_all_eval_mult_keys()`](https://bnaras.github.io/openfhe.R/reference/get_all_eval_mult_keys.md)
+  : Retrieve all registered EvalMult key vectors
+- [`get_eval_mult_key_vector()`](https://bnaras.github.io/openfhe.R/reference/get_eval_mult_key_vector.md)
+  : Retrieve the EvalMult key vector for a given key tag
+- [`get_all_eval_automorphism_keys()`](https://bnaras.github.io/openfhe.R/reference/get_all_eval_automorphism_keys.md)
+  : Retrieve all registered EvalAutomorphism key maps
+- [`get_eval_automorphism_key_map()`](https://bnaras.github.io/openfhe.R/reference/get_eval_automorphism_key_map.md)
+  : Retrieve the automorphism-key map for a given key tag
+- [`get_all_eval_sum_keys()`](https://bnaras.github.io/openfhe.R/reference/get_all_eval_sum_keys.md)
+  : Retrieve all registered EvalSum key maps
+- [`get_eval_sum_key_map()`](https://bnaras.github.io/openfhe.R/reference/get_eval_sum_key_map.md)
+  : Retrieve the sum-key map for a given key tag
+
+## Threshold FHE
+
+- [`multiparty_key_gen()`](https://bnaras.github.io/openfhe.R/reference/multiparty_key_gen.md)
+  : Generate a key pair for a secondary party in threshold FHE
+- [`multiparty_decrypt_lead()`](https://bnaras.github.io/openfhe.R/reference/multiparty_decrypt_lead.md)
+  : Lead party's partial decryption
+- [`multiparty_decrypt_main()`](https://bnaras.github.io/openfhe.R/reference/multiparty_decrypt_main.md)
+  : Non-lead party's partial decryption
+- [`multiparty_decrypt_fusion()`](https://bnaras.github.io/openfhe.R/reference/multiparty_decrypt_fusion.md)
+  : Fuse partial decryptions into final plaintext
+- [`threshold_decrypt()`](https://bnaras.github.io/openfhe.R/reference/threshold_decrypt.md)
+  : Threshold decryption convenience: lead + main + fusion in one call
+- [`multi_add_pub_keys()`](https://bnaras.github.io/openfhe.R/reference/multi_add_pub_keys.md)
+  : Combine public keys from multiple parties
+- [`multi_add_eval_keys()`](https://bnaras.github.io/openfhe.R/reference/multi_add_eval_keys.md)
+  : Combine evaluation keys from multiple parties
+- [`multi_add_eval_mult_keys()`](https://bnaras.github.io/openfhe.R/reference/multi_add_eval_mult_keys.md)
+  : Combine partial eval-mult keys from multiple parties
+- [`multi_key_switch_gen()`](https://bnaras.github.io/openfhe.R/reference/multi_key_switch_gen.md)
+  : Multi-party key-switch eval-key generation
+- [`multi_eval_sum_key_gen()`](https://bnaras.github.io/openfhe.R/reference/multi_eval_sum_key_gen.md)
+  : Generate a joint sum-key share for multi-party EvalSum
+- [`multi_eval_automorphism_key_gen()`](https://bnaras.github.io/openfhe.R/reference/multi_eval_automorphism_key_gen.md)
+  : Generate a joint automorphism-key share for multi-party rotation
+- [`multi_eval_at_index_key_gen()`](https://bnaras.github.io/openfhe.R/reference/multi_eval_at_index_key_gen.md)
+  : Generate a joint rotation-at-index key share
+- [`multi_add_eval_sum_keys()`](https://bnaras.github.io/openfhe.R/reference/multi_add_eval_sum_keys.md)
+  : Combine two sum-key map shares into a joint sum-key map
+- [`multi_add_eval_automorphism_keys()`](https://bnaras.github.io/openfhe.R/reference/multi_add_eval_automorphism_keys.md)
+  : Combine two automorphism-key map shares
+- [`share_keys()`](https://bnaras.github.io/openfhe.R/reference/share_keys.md)
+  : Distribute a secret key into shares
+- [`recover_shared_key()`](https://bnaras.github.io/openfhe.R/reference/recover_shared_key.md)
+  : Recover a secret key from distributed shares
+- [`EvalKey()`](https://bnaras.github.io/openfhe.R/reference/EvalKey.md)
+  : EvalKey class for multi-party key operations
+- [`EvalKeyMap()`](https://bnaras.github.io/openfhe.R/reference/EvalKeyMap.md)
+  : Map of homomorphic evaluation keys
+- [`SecretShareMap()`](https://bnaras.github.io/openfhe.R/reference/SecretShareMap.md)
+  : Map of secret-key shares for threshold-FHE abort recovery
+
+## Binary FHE
+
+- [`bin_fhe_context()`](https://bnaras.github.io/openfhe.R/reference/bin_fhe_context.md)
+  : Create a Binary FHE context
+- [`bin_key_gen()`](https://bnaras.github.io/openfhe.R/reference/bin_key_gen.md)
+  : Generate BinFHE secret key
+- [`bin_bt_key_gen()`](https://bnaras.github.io/openfhe.R/reference/bin_bt_key_gen.md)
+  : Generate BinFHE bootstrapping keys
+- [`bin_encrypt()`](https://bnaras.github.io/openfhe.R/reference/bin_encrypt.md)
+  : Encrypt a value for Binary FHE
+- [`bin_decrypt()`](https://bnaras.github.io/openfhe.R/reference/bin_decrypt.md)
+  : Decrypt a Binary FHE ciphertext
+- [`eval_bin_gate()`](https://bnaras.github.io/openfhe.R/reference/eval_bin_gate.md)
+  : Evaluate a binary gate on encrypted values
+- [`eval_not()`](https://bnaras.github.io/openfhe.R/reference/eval_not.md)
+  : Evaluate NOT on an encrypted value
+- [`eval_sign()`](https://bnaras.github.io/openfhe.R/reference/eval_sign.md)
+  : Evaluate sign on an encrypted value (functional bootstrapping)
+- [`eval_func()`](https://bnaras.github.io/openfhe.R/reference/eval_func.md)
+  : Evaluate an arbitrary function on an encrypted value
+- [`eval_floor()`](https://bnaras.github.io/openfhe.R/reference/eval_floor.md)
+  : Evaluate a floor (rounding) function on an LWE ciphertext
+- [`generate_lut_via_function()`](https://bnaras.github.io/openfhe.R/reference/generate_lut_via_function.md)
+  : Generate a lookup table for an arbitrary plaintext function
+- [`get_max_plaintext_space()`](https://bnaras.github.io/openfhe.R/reference/get_max_plaintext_space.md)
+  : Maximum supported plaintext space for functional bootstrapping
+- [`LWECiphertext()`](https://bnaras.github.io/openfhe.R/reference/LWECiphertext.md)
+  : LWE Ciphertext (Binary FHE)
+- [`LWEPrivateKey()`](https://bnaras.github.io/openfhe.R/reference/LWEPrivateKey.md)
+  : LWE Private Key (Binary FHE)
+
+## Enums
+
+- [`Feature`](https://bnaras.github.io/openfhe.R/reference/Feature.md) :
+  PKE Scheme Features (bitmask) Source: pke/constants-defs.h enum
+  PKESchemeFeature
+
+- [`SecurityLevel`](https://bnaras.github.io/openfhe.R/reference/SecurityLevel.md)
+  : Security Levels Source: core/lattice/stdlatticeparms.h enum
+  SecurityLevel
+
+- [`ScalingTechnique`](https://bnaras.github.io/openfhe.R/reference/ScalingTechnique.md)
+  : Scaling Techniques (CKKS) Source: pke/constants-defs.h enum
+  ScalingTechnique
+
+- [`KeySwitchTechnique`](https://bnaras.github.io/openfhe.R/reference/KeySwitchTechnique.md)
+  : Key Switching Techniques Source: pke/constants-defs.h enum
+  KeySwitchTechnique
+
+- [`SecretKeyDist`](https://bnaras.github.io/openfhe.R/reference/SecretKeyDist.md)
+  : Secret Key Distribution Source: core/lattice/constants-lattice.h
+  enum SecretKeyDist
+
+- [`BinFHEParamSet`](https://bnaras.github.io/openfhe.R/reference/BinFHEParamSet.md)
+  : Binary FHE Parameter Sets Source: binfhe/binfhe-constants.h enum
+  BINFHE_PARAMSET (sequential from 0)
+
+- [`BinFHEMethod`](https://bnaras.github.io/openfhe.R/reference/BinFHEMethod.md)
+  : Binary FHE Methods Source: binfhe/binfhe-constants.h enum
+  BINFHE_METHOD
+
+- [`BinGate`](https://bnaras.github.io/openfhe.R/reference/BinGate.md) :
+  Binary Gate Types Source: binfhe/binfhe-constants.h enum BINGATE
+  (sequential from 0)
+
+- [`BinFHEOutput`](https://bnaras.github.io/openfhe.R/reference/BinFHEOutput.md)
+  : Binary FHE Output Types Source: binfhe/binfhe-constants.h enum
+  BINFHE_OUTPUT
+
+- [`KeygenMode`](https://bnaras.github.io/openfhe.R/reference/KeygenMode.md)
+  : Key Generation Mode Source: binfhe/binfhe-constants.h enum
+  KEYGEN_MODE
+
+- [`PlaintextEncodings`](https://bnaras.github.io/openfhe.R/reference/PlaintextEncodings.md)
+  : Plaintext Encoding Types Source: pke/constants-defs.h enum
+  PlaintextEncodings
+
+- [`DistributionType`](https://bnaras.github.io/openfhe.R/reference/DistributionType.md)
+  : Distribution Type (lattice parameters) Source:
+  core/lattice/stdlatticeparms.h enum DistributionType
+
+- [`MultipartyMode`](https://bnaras.github.io/openfhe.R/reference/MultipartyMode.md)
+  : Multiparty Mode Source: pke/constants-defs.h enum MultipartyMode
+
+- [`ExecutionMode`](https://bnaras.github.io/openfhe.R/reference/ExecutionMode.md)
+  : Execution Mode Source: pke/constants-defs.h enum ExecutionMode
+
+- [`DecryptionNoiseMode`](https://bnaras.github.io/openfhe.R/reference/DecryptionNoiseMode.md)
+  : Decryption Noise Mode Source: pke/constants-defs.h enum
+  DecryptionNoiseMode
+
+- [`PREMode`](https://bnaras.github.io/openfhe.R/reference/PREMode.md) :
+
+  Proxy Re-encryption Mode Source: pke/constants-defs.h enum
+  ProxyReEncryptionMode R-side name `PREMode` matches the design.md §8
+  shortening convention (same pattern as `Feature` for
+  `PKESchemeFeature`).
+
+- [`MultiplicationTechnique`](https://bnaras.github.io/openfhe.R/reference/MultiplicationTechnique.md)
+  : Multiplication Technique (BFV) Source: pke/constants-defs.h enum
+  MultiplicationTechnique
+
+- [`EncryptionTechnique`](https://bnaras.github.io/openfhe.R/reference/EncryptionTechnique.md)
+  : Encryption Technique Source: pke/constants-defs.h enum
+  EncryptionTechnique
+
+- [`CKKSDataType`](https://bnaras.github.io/openfhe.R/reference/CKKSDataType.md)
+  : CKKS Data Type Source: pke/constants-defs.h enum CKKSDataType
+
+- [`CompressionLevel`](https://bnaras.github.io/openfhe.R/reference/CompressionLevel.md)
+  : Compression Level (interactive multi-party bootstrap) Source:
+  pke/constants-defs.h enum CompressionLevel NOTE: values start at 2,
+  not 0. The header comment explains that compression levels 0 and 1 are
+  not supported and the values are not renumbered.
+
+- [`SchemeId`](https://bnaras.github.io/openfhe.R/reference/SchemeId.md)
+  : Scheme Identifier
+
+## Supporting types
+
+- [`ElementParams()`](https://bnaras.github.io/openfhe.R/reference/ElementParams.md)
+  : Element Parameters (opaque)
+- [`CryptoParameters()`](https://bnaras.github.io/openfhe.R/reference/CryptoParameters.md)
+  : Crypto Parameters (opaque)
+- [`EncodingParams()`](https://bnaras.github.io/openfhe.R/reference/EncodingParams.md)
+  : Encoding Parameters (opaque)
+
+## CCParams getters
+
+- [`get_ring_dim()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_plaintext_modulus()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_digit_size()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_composite_degree()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_scheme()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_standard_deviation()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_secret_key_dist()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_max_relin_sk_deg()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_pre_mode()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_multiparty_mode()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_execution_mode()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_decryption_noise_mode()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_noise_estimate()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_desired_precision()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_statistical_security()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_num_adversarial_queries()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_threshold_num_of_parties()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_key_switch_technique()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_scaling_technique()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_batch_size()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_first_mod_size()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_num_large_digits()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_multiplicative_depth()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_scaling_mod_size()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_security_level()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_eval_add_count()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_key_switch_count()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_encryption_technique()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_multiplication_technique()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_pre_num_hops()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_interactive_boot_compression_level()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_register_word_size()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  [`get_ckks_data_type()`](https://bnaras.github.io/openfhe.R/reference/ccparams_getters.md)
+  : CCParams getters (all schemes)
+
+## Utilities
+
+- [`get_native_int()`](https://bnaras.github.io/openfhe.R/reference/get_native_int.md)
+  : Get the native integer size of the OpenFHE build
+- [`set_num_threads()`](https://bnaras.github.io/openfhe.R/reference/set_num_threads.md)
+  : Set the number of OpenMP threads OpenFHE may use
+- [`get_num_threads()`](https://bnaras.github.io/openfhe.R/reference/get_num_threads.md)
+  : Report the number of OpenMP threads available to OpenFHE
+- [`set_length()`](https://bnaras.github.io/openfhe.R/reference/set_length.md)
+  : Set the effective length of a plaintext
+- [`clear_static_maps_and_vectors()`](https://bnaras.github.io/openfhe.R/reference/clear_static_maps_and_vectors.md)
+  : Clear OpenFHE static maps and vectors
+- [`OpenFHEObject()`](https://bnaras.github.io/openfhe.R/reference/OpenFHEObject.md)
+  : Base class for OpenFHE objects
+- [`ptr_is_valid()`](https://bnaras.github.io/openfhe.R/reference/ptr_is_valid.md)
+  : Check if an external pointer is valid (non-NULL)
+- [`get_ptr()`](https://bnaras.github.io/openfhe.R/reference/get_ptr.md)
+  : Extract pointer with validation
+- [`openfhe.R`](https://bnaras.github.io/openfhe.R/reference/openfhe.R-package.md)
+  [`openfhe.R-package`](https://bnaras.github.io/openfhe.R/reference/openfhe.R-package.md)
+  : openfhe.R: R Interface to the OpenFHE Fully Homomorphic Encryption
+  Library
+
+## CKKS numerical tolerance
+
+- [`fhe_ckks_tolerance()`](https://bnaras.github.io/openfhe.R/reference/fhe_ckks_tolerance.md)
+  : Per-test CKKS precision tolerance
