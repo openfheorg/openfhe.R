@@ -1,0 +1,52 @@
+## Citation for the openfhe.R package.
+## citation("openfhe.R") returns the package itself plus the underlying
+## OpenFHE library (Al Badawi et al., 2022).
+
+citHeader(
+  "To cite the openfhe.R package in publications, please cite both the",
+  "package and the underlying OpenFHE library:"
+)
+
+bibentry(
+  bibtype = "Manual",
+  title   = paste0("{", meta$Package, "}: ", meta$Title),
+  author  = person("Balasubramanian", "Narasimhan",
+                   comment = c(ORCID = "0000-0001-5852-7639")),
+  year    = "2026",
+  note    = paste("R package version", meta$Version),
+  url     = "https://bnaras.github.io/openfhe.R/"
+)
+
+bibentry(
+  bibtype      = "Misc",
+  key          = "cryptoeprint:2022/915",
+  title        = "{OpenFHE}: Open-Source Fully Homomorphic Encryption Library",
+  author       = c(
+    person("Ahmad", "Al Badawi"),
+    person("Andreea", "Alexandru"),
+    person("Jack", "Bates"),
+    person("Flavio", "Bergamaschi"),
+    person("David Bruce", "Cousins"),
+    person("Saroja", "Erabelli"),
+    person("Nicholas", "Genise"),
+    person("Shai", "Halevi"),
+    person("Hamish", "Hunt"),
+    person("Andrey", "Kim"),
+    person("Yongwoo", "Lee"),
+    person("Zeyu", "Liu"),
+    person("Daniele", "Micciancio"),
+    person("Carlo", "Pascoe"),
+    person("Yuriy", "Polyakov"),
+    person("Ian", "Quah"),
+    person("Saraswathy", "R.V."),
+    person("Kurt", "Rohloff"),
+    person("Jonathan", "Saylor"),
+    person("Dmitriy", "Suponitsky"),
+    person("Matthew", "Triplett"),
+    person("Vinod", "Vaikuntanathan"),
+    person("Vincent", "Zucca")
+  ),
+  howpublished = "Cryptology {ePrint} Archive, Paper 2022/915",
+  year         = "2022",
+  url          = "https://eprint.iacr.org/2022/915"
+)
