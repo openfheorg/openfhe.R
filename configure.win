@@ -1,0 +1,67 @@
+#!/bin/sh
+
+# Build OpenFHE from vendored source on Windows (Rtools) and write
+# src/Makevars.win.  On rtools45 R's own SHLIB_OPENMP_CXXFLAGS is defined
+# and resolves to -fopenmp, which the gcc driver correctly pairs with
+# the *dynamic* libgomp (via libgomp-1.dll) — so no configure-time
+# probing is needed, and no -lgomp is hardcoded (R-exts §1.6.4).
+
+: ${R_HOME=`R RHOME`}
+if test -z "${R_HOME}"; then
+    echo "ERROR: R_HOME could not be found!"
+    exit 1
+fi
+
+R_OPENFHE_PKG_HOME=`pwd`
+
+echo "* Building OpenFHE from vendored sources (Windows)..."
+
+# Pass R's OpenMP flag to the build script so OpenFHE's own static libs
+# use the same OpenMP ABI as the final R wrapper link.  rtools45's R
+# CMD config does NOT expose SHLIB_OPENMP_CXXFLAGS (the variable is in
+# Makeconf but outside R CMD config's whitelist — it prints an error to
+# stdout and exits 1). Use exit status, not the captured text, to decide
+# whether to trust the output.  Empty is a valid answer: OpenFHE's own
+# CMake find_package(OpenMP) will still detect -fopenmp on its own, and
+# the final R wrapper link picks up $(SHLIB_OPENMP_CXXFLAGS) as a
+# make-variable reference in Makevars.win.
+if _omp=`"${R_HOME}/bin/R" CMD config SHLIB_OPENMP_CXXFLAGS 2>/dev/null`; then
+    OPENFHE_OMP_CXXFLAGS="${_omp}"
+else
+    OPENFHE_OMP_CXXFLAGS=""
+fi
+export OPENFHE_OMP_CXXFLAGS
+
+# Build via cmake (Rtools provides cmake and make)
+bash inst/build_openfhe.sh || { echo "OpenFHE build failed!"; exit 1; }
+cd ${R_OPENFHE_PKG_HOME}
+
+OPENFHE_INSTALL_DIR=${R_OPENFHE_PKG_HOME}/src/openfhelib
+OPENFHE_INCDIR="${OPENFHE_INSTALL_DIR}/include/openfhe"
+
+# Same discipline as configure: delete inst/openfhe ONLY when we are at
+# the end-user install from a built tarball (inst/doc present), never at
+# R CMD build's pre-install vignette-build step (inst/doc absent). See
+# the detailed comment in configure for the reasoning.
+if test -d inst/doc; then
+    echo "* Removing inst/openfhe/ (tarball install, inst/doc present)"
+    rm -rf inst/openfhe
+fi
+
+OPENFHE_CFLAGS="-I${OPENFHE_INCDIR} -I${OPENFHE_INCDIR}/core -I${OPENFHE_INCDIR}/pke -I${OPENFHE_INCDIR}/binfhe -I${OPENFHE_INCDIR}/cereal"
+OPENFHE_LIBS="-L${OPENFHE_INSTALL_DIR}/lib -lOPENFHEpke -lOPENFHEbinfhe -lOPENFHEcore"
+
+# On Windows we substitute the Makefile variable reference itself (not a
+# literal flag). make expands $(SHLIB_OPENMP_CXXFLAGS) from R's Makeconf
+# at SHLIB time — keeps the flag in lockstep with whatever R was built
+# with, and matches the idiom used by e.g. data.table's Makevars.win.
+sed -e "s|@cflags@|${OPENFHE_CFLAGS}|" \
+    -e "s|@libs@|${OPENFHE_LIBS}|" \
+    -e "s|@openmp_cflags@|\$(SHLIB_OPENMP_CXXFLAGS)|" \
+    -e "s|@openmp_libs@|\$(SHLIB_OPENMP_CXXFLAGS)|" \
+    src/Makevars.in > src/Makevars.win
+
+echo "* Wrote src/Makevars.win"
+echo "  PKG_CPPFLAGS = ${OPENFHE_CFLAGS}"
+echo "  PKG_CXXFLAGS = \$(SHLIB_OPENMP_CXXFLAGS)"
+echo "  PKG_LIBS     = ${OPENFHE_LIBS} \$(SHLIB_OPENMP_CXXFLAGS)"

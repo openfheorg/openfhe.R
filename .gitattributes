@@ -1,0 +1,32 @@
+# Force LF line endings at checkout across all platforms. R CMD check
+# on Windows flags any CRLF in C/C++ sources and in Makefiles (Writing
+# R Extensions §1.1.3.1 step 16). Without this, actions/checkout@v4 on
+# windows-latest normalises to CRLF per the runner's core.autocrlf=true
+# default, and the check output trips on several hundred vendored
+# OpenFHE headers plus the CMake-generated Makefiles.
+* text=auto eol=lf
+
+# Explicit per-format pins for everything R CMD check scans.
+*.R         text eol=lf
+*.Rd        text eol=lf
+*.Rmd       text eol=lf
+*.c         text eol=lf
+*.cc        text eol=lf
+*.cpp       text eol=lf
+*.cxx       text eol=lf
+*.h         text eol=lf
+*.hh        text eol=lf
+*.hpp       text eol=lf
+*.in        text eol=lf
+*.sh        text eol=lf
+CMakeLists.txt text eol=lf
+*.cmake     text eol=lf
+Makefile*   text eol=lf
+configure   text eol=lf
+configure.win text eol=lf
+cleanup     text eol=lf
+
+# Binaries.
+*.png       binary
+*.jpg       binary
+*.pdf       binary

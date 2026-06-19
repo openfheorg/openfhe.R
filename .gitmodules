@@ -1,0 +1,4 @@
+[submodule "inst/openfhe"]
+	path = inst/openfhe
+	url = https://github.com/bnaras/openfhe-development.git
+	branch = r_pkg

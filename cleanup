@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# CMake build artifacts from build_openfhe.sh
+rm -rf inst/openfhe/build
+rm -rf src/openfhelib
+
+# Generated Makevars
+rm -f src/Makevars src/Makevars.win
+
+# Compiled objects and shared library
+find src -name "*.o" -delete 2>/dev/null
+find src -name "*.so" -delete 2>/dev/null
+find src -name "*.dylib" -delete 2>/dev/null
+find src -name "*.dll" -delete 2>/dev/null

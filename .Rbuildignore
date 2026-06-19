@@ -1,0 +1,63 @@
+^\.Rproj\.user$
+^.*\.Rproj$
+^CLAUDE\.md$
+^\.claude$
+# ── All hidden (dot) files/dirs anywhere in the OpenFHE submodule tree ──
+inst/openfhe/.*/\.
+inst/openfhe/\..+
+inst/openfhe/third-party/.*/\.
+inst/openfhe/third-party/\..+
+# ── CMake build artifacts (created at install time, never shipped) ──
+^inst/openfhe/build
+^src/openfhelib
+# ── OpenFHE directories not needed for library build ──
+^inst/openfhe/benchmark$
+^inst/openfhe/cicd$
+^inst/openfhe/demoData$
+^inst/openfhe/docker$
+^inst/openfhe/docs$
+^inst/openfhe/scripts$
+^inst/openfhe/test$
+# ── Per-component unittest/examples/extras ──
+^inst/openfhe/src/core/examples$
+^inst/openfhe/src/core/extras$
+^inst/openfhe/src/core/unittest$
+^inst/openfhe/src/pke/examples$
+^inst/openfhe/src/pke/extras$
+^inst/openfhe/src/pke/unittest$
+^inst/openfhe/src/binfhe/examples$
+^inst/openfhe/src/binfhe/unittest$
+# ── Third-party libraries not needed ──
+^inst/openfhe/third-party/google-benchmark$
+^inst/openfhe/third-party/google-test$
+^inst/openfhe/third-party/gperftools$
+# ── Non-source files in submodule ──
+^inst/openfhe/CMakePresets\.json$
+^inst/openfhe/README\.md$
+^inst/openfhe/CONTRIBUTING\.md$
+^inst/openfhe/CHANGELOG\.md$
+^inst/openfhe/LICENSE$
+^inst/openfhe/logo\.png$
+^man/figures/logo_v0_backup\.png$
+^inst/openfhe/CPPLINT\.cfg$
+^inst/openfhe/Makefile$
+# ── pkgdown / docs / github ──
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$
+^README\.Rmd$
+^README\.html$
+# ── Dev-only: local-path scripts, misc, data-raw ──
+^inst/scripts$
+^inst/misc$
+^data-raw$
+# test_surface_parity.R is a dev-box harness that depends on the
+# inst/scripts/ dumpers (above) plus hard-coded /Users/naras/ paths
+# to a local openfhe-python venv and notes/upstream-defects.md. Not
+# a package regression test — must not ship.
+^inst/tinytest/test_surface_parity\.R$
+# ── Debug artifacts from local R CMD build / check ──
+^build-check\.log$
+^openfhe\.R_.+\.tar\.gz$
+^openfhe\.R\.Rcheck$

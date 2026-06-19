@@ -1,0 +1,4 @@
+PKG_CPPFLAGS = @cflags@
+PKG_CXXFLAGS = @openmp_cflags@
+PKG_LIBS = @libs@ @openmp_libs@
+CXX_STD = CXX17

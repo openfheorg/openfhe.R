@@ -1,0 +1,274 @@
+url: https://bnaras.github.io/openfhe.R
+
+template:
+  bootstrap: 5
+
+authors:
+  Balasubramanian Narasimhan:
+    href: https://naras.su.domains
+
+navbar:
+  structure:
+    left: [intro, reference, articles]
+    right: [search, github]
+  components:
+    github:
+      icon: fa-github
+      href: https://github.com/bnaras/openfhe.R
+
+reference:
+- title: Context and Keys
+  contents:
+  - fhe_context
+  - key_gen
+  - enable_feature
+  - CryptoContext
+  - BFVParams
+  - BGVParams
+  - CKKSParams
+  - KeyPair
+  - PublicKey
+  - PrivateKey
+
+- title: Encryption and Decryption
+  contents:
+  - encrypt
+  - decrypt
+  - make_packed_plaintext
+  - make_coef_packed_plaintext
+  - make_ckks_packed_plaintext
+  - get_packed_value
+  - get_real_packed_value
+  - Ciphertext
+  - Plaintext
+
+- title: Plaintext accessors
+  contents:
+  - plaintext_accessors
+  - plaintext_params_hash
+
+- title: Key tags
+  contents:
+  - key_tag
+  - is_good
+
+- title: Ciphertext accessors
+  contents:
+  - get_crypto_context
+  - get_scaling_factor_real
+  - ckks_scaling_factor_bits
+
+- title: CryptoContext getters
+  contents:
+  - get_crypto_parameters
+  - get_element_params
+  - get_encoding_params
+  - get_cyclotomic_order
+  - get_key_gen_level
+  - set_key_gen_level
+
+- title: Homomorphic Operations
+  contents:
+  - eval_add
+  - eval_sub
+  - eval_mult
+  - eval_negate
+  - eval_square
+  - eval_rotate
+  - eval_sum
+  - rescale
+  - ring_dimension
+  - eval_add_in_place
+  - eval_sub_in_place
+  - eval_mult_in_place
+  - eval_negate_in_place
+  - eval_add_mutable
+  - eval_sub_mutable
+  - eval_mult_mutable
+  - eval_square_mutable
+  - eval_mult_no_relin
+  - relinearize
+  - eval_mult_and_relinearize
+  - mod_reduce
+  - mod_reduce_in_place
+  - level_reduce
+  - level_reduce_in_place
+  - compress
+
+- title: CKKS Advanced
+  contents:
+  - eval_poly
+  - eval_poly_linear
+  - eval_poly_ps
+  - eval_chebyshev
+  - eval_chebyshev_linear
+  - eval_chebyshev_ps
+  - eval_chebyshev_coefficients
+  - eval_chebyshev_function
+  - eval_sin
+  - eval_cos
+  - eval_logistic
+  - eval_divide
+  - eval_bootstrap
+  - eval_bootstrap_setup
+  - eval_bootstrap_key_gen
+  - get_bootstrap_depth
+  - get_ckks_boot_correction_factor
+  - set_ckks_boot_correction_factor
+  - eval_fast_rotation
+  - eval_fast_rotation_ext
+  - eval_fast_rotation_precompute
+  - FastRotationPrecomputation
+  - get_complex_packed_value
+  - find_automorphism_index
+  - find_automorphism_indices
+  - eval_automorphism_key_gen
+  - eval_automorphism
+
+- title: Interactive bootstrap
+  contents:
+  - key_switch_down
+  - int_boot_decrypt
+  - int_boot_encrypt
+  - int_boot_add
+  - int_boot_adjust_scale
+  - int_mp_boot_adjust_scale
+  - int_mp_boot_random_element_gen
+  - int_mp_boot_decrypt
+  - int_mp_boot_add
+  - int_mp_boot_encrypt
+
+- title: Serialization and key registry
+  contents:
+  - fhe_serialize
+  - fhe_deserialize
+  - serialize_eval_keys
+  - deserialize_eval_keys
+  - clear_fhe_state
+  - with_fhe_context
+  - eval_sum_key_gen
+  - eval_mult_key_gen
+  - eval_rotate_key_gen
+  - eval_at_index_key_gen
+  - insert_eval_mult_key
+  - insert_eval_sum_key
+  - insert_eval_automorphism_key
+  - clear_eval_mult_keys
+  - clear_eval_automorphism_keys
+  - get_all_eval_mult_keys
+  - get_eval_mult_key_vector
+  - get_all_eval_automorphism_keys
+  - get_eval_automorphism_key_map
+  - get_all_eval_sum_keys
+  - get_eval_sum_key_map
+
+- title: Threshold FHE
+  contents:
+  - multiparty_key_gen
+  - multiparty_decrypt_lead
+  - multiparty_decrypt_main
+  - multiparty_decrypt_fusion
+  - threshold_decrypt
+  - multi_add_pub_keys
+  - multi_add_eval_keys
+  - multi_add_eval_mult_keys
+  - multi_key_switch_gen
+  - multi_eval_sum_key_gen
+  - multi_eval_automorphism_key_gen
+  - multi_eval_at_index_key_gen
+  - multi_add_eval_sum_keys
+  - multi_add_eval_automorphism_keys
+  - share_keys
+  - recover_shared_key
+  - EvalKey
+  - EvalKeyMap
+  - SecretShareMap
+
+- title: Binary FHE
+  contents:
+  - bin_fhe_context
+  - bin_key_gen
+  - bin_bt_key_gen
+  - bin_encrypt
+  - bin_decrypt
+  - eval_bin_gate
+  - eval_not
+  - eval_sign
+  - eval_func
+  - eval_floor
+  - generate_lut_via_function
+  - get_max_plaintext_space
+  - LWECiphertext
+  - LWEPrivateKey
+
+- title: Enums
+  contents:
+  - Feature
+  - SecurityLevel
+  - ScalingTechnique
+  - KeySwitchTechnique
+  - SecretKeyDist
+  - BinFHEParamSet
+  - BinFHEMethod
+  - BinGate
+  - BinFHEOutput
+  - KeygenMode
+  - PlaintextEncodings
+  - DistributionType
+  - MultipartyMode
+  - ExecutionMode
+  - DecryptionNoiseMode
+  - PREMode
+  - MultiplicationTechnique
+  - EncryptionTechnique
+  - CKKSDataType
+  - CompressionLevel
+  - SchemeId
+
+- title: Supporting types
+  contents:
+  - ElementParams
+  - CryptoParameters
+  - EncodingParams
+
+- title: CCParams getters
+  contents:
+  - ccparams_getters
+
+- title: Utilities
+  contents:
+  - get_native_int
+  - set_num_threads
+  - get_num_threads
+  - set_length
+  - clear_static_maps_and_vectors
+  - OpenFHEObject
+  - ptr_is_valid
+  - get_ptr
+  - openfhe.R-package
+
+- title: CKKS numerical tolerance
+  contents:
+  - fhe_ckks_tolerance
+
+articles:
+- title: Basic Use
+  desc: >
+    Start here. A single-page tour of BFV, CKKS, BinFHE,
+    serialization, and the threshold decrypt flow.
+  contents:
+  - introduction
+
+- title: Advanced
+  desc: >
+    OpenFHE-specific deep features — CKKS bootstrapping for
+    refreshing deep circuits past their multiplicative depth,
+    and BinFHE boolean circuits over encrypted bits. The
+    statistical-application demos that previously lived here
+    (MLE, Cox regression, CVXR consensus ADMM, and their DP
+    variants) have been moved to the companion homomorpheR
+    package (version >= 1.0), the natural home for
+    stats-application demonstrations layered on top of openfhe.R.
+  contents:
+  - ckks-bootstrapping
+  - binfhe-boolean-circuits
