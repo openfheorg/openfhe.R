@@ -217,10 +217,10 @@ tolerance. The maximum elementwise error is
 
 max_err <- max(abs(doubled_vec - 2 * x))
 max_err
-#> [1] 1.039169e-13
+#> [1] 8.881784e-14
 ```
 
-1.04^{-13} — small enough to be invisible at the precisions reported in
+8.88^{-14} — small enough to be invisible at the precisions reported in
 most statistical work. CKKS is the scheme to reach for when the
 encrypted computation is a likelihood, a gradient step, a regression
 coefficient, or anything else where a real-valued answer with bounded
