@@ -19,8 +19,8 @@ Description: Provides an R interface to 'OpenFHE', the open-source C++
     <https://eprint.iacr.org/2018/421> schemes for evaluating arbitrary
     functions on encrypted bits.
 License: BSD_2_clause + file LICENSE
-URL: https://bnaras.github.io/openfhe.R/, https://github.com/bnaras/openfhe.R
-BugReports: https://github.com/bnaras/openfhe.R/issues
+URL: https://openfheorg.github.io/openfhe.R/, https://github.com/openfheorg/openfhe.R
+BugReports: https://github.com/openfheorg/openfhe.R/issues
 Depends:
     R (>= 4.3.0)
 Imports:

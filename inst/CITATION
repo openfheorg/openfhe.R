@@ -13,7 +13,7 @@ bibentry(
                    comment = c(ORCID = "0000-0001-5852-7639")),
   year    = "2026",
   note    = paste("R package version", meta$Version),
-  url     = "https://bnaras.github.io/openfhe.R/"
+  url     = "https://openfheorg.github.io/openfhe.R/"
 )
 
 bibentry(

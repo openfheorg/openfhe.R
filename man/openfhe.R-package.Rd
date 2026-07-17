@@ -13,9 +13,9 @@ Provides an R interface to 'OpenFHE', the open-source C++ library for fully homo
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://bnaras.github.io/openfhe.R/}
-  \item \url{https://github.com/bnaras/openfhe.R}
-  \item Report bugs at \url{https://github.com/bnaras/openfhe.R/issues}
+  \item \url{https://openfheorg.github.io/openfhe.R/}
+  \item \url{https://github.com/openfheorg/openfhe.R}
+  \item Report bugs at \url{https://github.com/openfheorg/openfhe.R/issues}
 }
 
 }

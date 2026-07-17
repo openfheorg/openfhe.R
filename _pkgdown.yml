@@ -1,4 +1,4 @@
-url: https://bnaras.github.io/openfhe.R
+url: https://openfheorg.github.io/openfhe.R
 
 template:
   bootstrap: 5
@@ -14,7 +14,7 @@ navbar:
   components:
     github:
       icon: fa-github
-      href: https://github.com/bnaras/openfhe.R
+      href: https://github.com/openfheorg/openfhe.R
 
 reference:
 - title: Context and Keys
