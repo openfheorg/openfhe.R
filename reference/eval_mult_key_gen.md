@@ -28,9 +28,9 @@ eval_mult_key_gen(cc, sk)
 
 ## Details
 
-[`key_gen()`](https://bnaras.github.io/openfhe.R/reference/key_gen.md)
+[`key_gen()`](https://openfheorg.github.io/openfhe.R/reference/key_gen.md)
 folds this into its `eval_mult = TRUE` branch as a convenience for fresh
 keypairs. The standalone wrapper is the right entry point when the
 secret key already exists — for example in any threshold or multi-party
 flow that holds a secret-key share but did not generate it through
-[`key_gen()`](https://bnaras.github.io/openfhe.R/reference/key_gen.md).
+[`key_gen()`](https://openfheorg.github.io/openfhe.R/reference/key_gen.md).

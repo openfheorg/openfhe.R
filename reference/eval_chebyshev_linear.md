@@ -34,5 +34,5 @@ A Ciphertext
 
 ## See also
 
-[`eval_chebyshev()`](https://bnaras.github.io/openfhe.R/reference/eval_chebyshev.md),
-[`eval_chebyshev_ps()`](https://bnaras.github.io/openfhe.R/reference/eval_chebyshev_ps.md)
+[`eval_chebyshev()`](https://openfheorg.github.io/openfhe.R/reference/eval_chebyshev.md),
+[`eval_chebyshev_ps()`](https://openfheorg.github.io/openfhe.R/reference/eval_chebyshev_ps.md)

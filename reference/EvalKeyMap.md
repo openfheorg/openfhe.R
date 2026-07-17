@@ -3,15 +3,15 @@
 Opaque S7 wrapper around a
 `shared_ptr<std::map<uint32_t, EvalKey<DCRTPoly>>>`. Produced by the
 `multi_eval_*_key_gen()` family and by
-[`get_eval_sum_key_map()`](https://bnaras.github.io/openfhe.R/reference/get_eval_sum_key_map.md)
+[`get_eval_sum_key_map()`](https://openfheorg.github.io/openfhe.R/reference/get_eval_sum_key_map.md)
 /
-[`get_eval_automorphism_key_map()`](https://bnaras.github.io/openfhe.R/reference/get_eval_automorphism_key_map.md);
+[`get_eval_automorphism_key_map()`](https://openfheorg.github.io/openfhe.R/reference/get_eval_automorphism_key_map.md);
 consumed by
-[`multi_add_eval_sum_keys()`](https://bnaras.github.io/openfhe.R/reference/multi_add_eval_sum_keys.md),
-[`multi_add_eval_automorphism_keys()`](https://bnaras.github.io/openfhe.R/reference/multi_add_eval_automorphism_keys.md),
-[`insert_eval_sum_key()`](https://bnaras.github.io/openfhe.R/reference/insert_eval_sum_key.md),
+[`multi_add_eval_sum_keys()`](https://openfheorg.github.io/openfhe.R/reference/multi_add_eval_sum_keys.md),
+[`multi_add_eval_automorphism_keys()`](https://openfheorg.github.io/openfhe.R/reference/multi_add_eval_automorphism_keys.md),
+[`insert_eval_sum_key()`](https://openfheorg.github.io/openfhe.R/reference/insert_eval_sum_key.md),
 and
-[`insert_eval_automorphism_key()`](https://bnaras.github.io/openfhe.R/reference/insert_eval_automorphism_key.md).
+[`insert_eval_automorphism_key()`](https://openfheorg.github.io/openfhe.R/reference/insert_eval_automorphism_key.md).
 The map is keyed by a rotation/automorphism index and carries one
 `EvalKey` per index.
 

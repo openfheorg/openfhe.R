@@ -22,7 +22,7 @@ multi_add_pub_keys(cc, pk1, pk2, key_tag = "")
 
   Character; optional tag to associate with the combined key. Default
   `""` (empty tag) to match the C++ header default. Round-trips through
-  [`get_key_tag()`](https://bnaras.github.io/openfhe.R/reference/key_tag.md).
+  [`get_key_tag()`](https://openfheorg.github.io/openfhe.R/reference/key_tag.md).
 
 ## Value
 

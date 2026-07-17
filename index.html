@@ -18,7 +18,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="R Interface to the OpenFHE Fully Homomorphic Encryption Library">
 <meta name="description" content="Provides an R interface to OpenFHE, the open-source C++ library for fully homomorphic encryption (Al Badawi and others, 2022) &lt;https://eprint.iacr.org/2022/915&gt;, which allows computation directly on encrypted data without access to the secret key. Supports the Brakerski-Fan-Vercauteren (BFV, 2012) &lt;https://eprint.iacr.org/2012/144&gt;, Brakerski-Gentry-Vaikuntanathan (BGV, 2014) &lt;doi:10.1145/2633600&gt;, and Cheon-Kim-Kim-Song (CKKS, 2017) &lt;https://eprint.iacr.org/2016/421&gt; schemes for arithmetic on encrypted numbers, together with the Ducas-Micciancio (FHEW, 2015) &lt;https://eprint.iacr.org/2014/816&gt; and Chillotti-Gama-Georgieva-Izabachene (TFHE, 2020) &lt;https://eprint.iacr.org/2018/421&gt; schemes for evaluating arbitrary functions on encrypted bits.">
 <meta property="og:description" content="Provides an R interface to OpenFHE, the open-source C++ library for fully homomorphic encryption (Al Badawi and others, 2022) &lt;https://eprint.iacr.org/2022/915&gt;, which allows computation directly on encrypted data without access to the secret key. Supports the Brakerski-Fan-Vercauteren (BFV, 2012) &lt;https://eprint.iacr.org/2012/144&gt;, Brakerski-Gentry-Vaikuntanathan (BGV, 2014) &lt;doi:10.1145/2633600&gt;, and Cheon-Kim-Kim-Song (CKKS, 2017) &lt;https://eprint.iacr.org/2016/421&gt; schemes for arithmetic on encrypted numbers, together with the Ducas-Micciancio (FHEW, 2015) &lt;https://eprint.iacr.org/2014/816&gt; and Chillotti-Gama-Georgieva-Izabachene (TFHE, 2020) &lt;https://eprint.iacr.org/2018/421&gt; schemes for evaluating arbitrary functions on encrypted bits.">
-<meta property="og:image" content="https://bnaras.github.io/openfhe.R/logo.png">
+<meta property="og:image" content="https://openfheorg.github.io/openfhe.R/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -44,7 +44,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/bnaras/openfhe.R"><span class="fa fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/openfheorg/openfhe.R"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -76,7 +76,7 @@
 <h2 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bnaras.github.io/openfhe.R/">openfhe.R</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://openfheorg.github.io/openfhe.R/">openfhe.R</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># BFV: exact integer arithmetic</span></span>
 <span><span class="va">cc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fhe_context.html">fhe_context</a></span><span class="op">(</span><span class="st">"BFV"</span>, plaintext_modulus <span class="op">=</span> <span class="fl">65537</span>, multiplicative_depth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
@@ -94,8 +94,8 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/bnaras/openfhe.R/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/bnaras/openfhe.R/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/openfheorg/openfhe.R/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/openfheorg/openfhe.R/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -136,7 +136,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

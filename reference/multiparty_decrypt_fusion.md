@@ -2,9 +2,9 @@
 
 Combines partial decryptions from any number of parties (n \>= 2). The
 lead party's partial decryption (from
-[`multiparty_decrypt_lead()`](https://bnaras.github.io/openfhe.R/reference/multiparty_decrypt_lead.md))
+[`multiparty_decrypt_lead()`](https://openfheorg.github.io/openfhe.R/reference/multiparty_decrypt_lead.md))
 must be supplied first; subsequent partials (from
-[`multiparty_decrypt_main()`](https://bnaras.github.io/openfhe.R/reference/multiparty_decrypt_main.md))
+[`multiparty_decrypt_main()`](https://openfheorg.github.io/openfhe.R/reference/multiparty_decrypt_main.md))
 follow in any order.
 
 ## Usage

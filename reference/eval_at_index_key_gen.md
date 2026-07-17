@@ -3,7 +3,7 @@
 Standalone wrapper around the
 `CryptoContext::EvalAtIndexKeyGen(privateKey, indexList)` C++ method.
 Functionally identical to
-[`eval_rotate_key_gen()`](https://bnaras.github.io/openfhe.R/reference/eval_rotate_key_gen.md)
+[`eval_rotate_key_gen()`](https://openfheorg.github.io/openfhe.R/reference/eval_rotate_key_gen.md)
 (the C++ `EvalRotateKeyGen` is a thin inline wrapper around
 `EvalAtIndexKeyGen`) and both names are provided to mirror the C++ API.
 

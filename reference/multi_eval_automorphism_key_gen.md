@@ -3,7 +3,7 @@
 Produces this party's share of the joined automorphism eval key map for
 the supplied `index_list`. Each other party calls the same method with
 their own secret share, and the shares are combined via
-[`multi_add_eval_automorphism_keys()`](https://bnaras.github.io/openfhe.R/reference/multi_add_eval_automorphism_keys.md)
+[`multi_add_eval_automorphism_keys()`](https://openfheorg.github.io/openfhe.R/reference/multi_add_eval_automorphism_keys.md)
 to produce the final joined map.
 
 ## Usage
@@ -26,7 +26,7 @@ multi_eval_automorphism_key_gen(cc, sk, eval_key_map, index_list, key_tag = "")
 
   An existing `EvalKeyMap` carrying the prior-party automorphism key
   state, obtained via
-  [`get_eval_automorphism_key_map()`](https://bnaras.github.io/openfhe.R/reference/get_eval_automorphism_key_map.md)
+  [`get_eval_automorphism_key_map()`](https://openfheorg.github.io/openfhe.R/reference/get_eval_automorphism_key_map.md)
   after the lead party has populated the cc registry through
   `key_gen(cc, rotations = ...)`.
 

@@ -30,7 +30,7 @@ Numeric scalar.
 ## Details
 
 Used by
-[`ckks_scaling_factor_bits()`](https://bnaras.github.io/openfhe.R/reference/ckks_scaling_factor_bits.md)
+[`ckks_scaling_factor_bits()`](https://openfheorg.github.io/openfhe.R/reference/ckks_scaling_factor_bits.md)
 (which takes `log2` of the level-0 value to recover the bit size
 originally set via `set_scaling_mod_size()`) and by the Stage 2 form of
-[`fhe_ckks_tolerance()`](https://bnaras.github.io/openfhe.R/reference/fhe_ckks_tolerance.md).
+[`fhe_ckks_tolerance()`](https://openfheorg.github.io/openfhe.R/reference/fhe_ckks_tolerance.md).

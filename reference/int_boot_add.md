@@ -15,9 +15,9 @@ int_boot_add(ct1, ct2)
 - ct1, ct2:
 
   `Ciphertext` objects — typically the outputs of
-  [`int_boot_decrypt()`](https://bnaras.github.io/openfhe.R/reference/int_boot_decrypt.md)
+  [`int_boot_decrypt()`](https://openfheorg.github.io/openfhe.R/reference/int_boot_decrypt.md)
   and
-  [`int_boot_encrypt()`](https://bnaras.github.io/openfhe.R/reference/int_boot_encrypt.md).
+  [`int_boot_encrypt()`](https://openfheorg.github.io/openfhe.R/reference/int_boot_encrypt.md).
 
 ## Value
 

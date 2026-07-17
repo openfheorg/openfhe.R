@@ -22,5 +22,5 @@ A list of `EvalKey` objects.
 
 ## See also
 
-[`get_all_eval_mult_keys()`](https://bnaras.github.io/openfhe.R/reference/get_all_eval_mult_keys.md),
-[`insert_eval_mult_key()`](https://bnaras.github.io/openfhe.R/reference/insert_eval_mult_key.md)
+[`get_all_eval_mult_keys()`](https://openfheorg.github.io/openfhe.R/reference/get_all_eval_mult_keys.md),
+[`insert_eval_mult_key()`](https://openfheorg.github.io/openfhe.R/reference/insert_eval_mult_key.md)

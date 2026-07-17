@@ -42,14 +42,14 @@ Two dispatch forms:
 - **Stage 1 (numeric)**: pass parameters as direct arguments. Useful
   when the ciphertext isn't yet constructed — e.g. when you need a
   tolerance before calling
-  [`encrypt()`](https://bnaras.github.io/openfhe.R/reference/encrypt.md).
+  [`encrypt()`](https://openfheorg.github.io/openfhe.R/reference/encrypt.md).
 
 - **Stage 2 (Ciphertext)**: pass a `Ciphertext` directly. The helper
   reads the associated `CryptoContext` via
-  [`get_crypto_context()`](https://bnaras.github.io/openfhe.R/reference/get_crypto_context.md),
+  [`get_crypto_context()`](https://openfheorg.github.io/openfhe.R/reference/get_crypto_context.md),
   pulls the multiplicative depth (from context) minus the ciphertext's
   current level, computes the scaling factor bits via
-  [`ckks_scaling_factor_bits()`](https://bnaras.github.io/openfhe.R/reference/ckks_scaling_factor_bits.md),
+  [`ckks_scaling_factor_bits()`](https://openfheorg.github.io/openfhe.R/reference/ckks_scaling_factor_bits.md),
   and looks up the scaling technique. This form is preferred at test
   sites where a ciphertext exists.
 

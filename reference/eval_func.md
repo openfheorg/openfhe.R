@@ -23,7 +23,7 @@ eval_func(ctx, ct, lut)
 
   A numeric vector of length `p` (the plaintext modulus) typically
   produced by
-  [`generate_lut_via_function()`](https://bnaras.github.io/openfhe.R/reference/generate_lut_via_function.md)
+  [`generate_lut_via_function()`](https://openfheorg.github.io/openfhe.R/reference/generate_lut_via_function.md)
 
 ## Value
 

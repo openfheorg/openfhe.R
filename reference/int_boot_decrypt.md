@@ -3,11 +3,11 @@
 First step of the single-party interactive bootstrap protocol. The
 server applies its secret key share to produce a "masked" partial
 decryption that the client can finish off-line. Pairs with
-[`int_boot_encrypt()`](https://bnaras.github.io/openfhe.R/reference/int_boot_encrypt.md)
+[`int_boot_encrypt()`](https://openfheorg.github.io/openfhe.R/reference/int_boot_encrypt.md)
 /
-[`int_boot_add()`](https://bnaras.github.io/openfhe.R/reference/int_boot_add.md)
+[`int_boot_add()`](https://openfheorg.github.io/openfhe.R/reference/int_boot_add.md)
 /
-[`int_boot_adjust_scale()`](https://bnaras.github.io/openfhe.R/reference/int_boot_adjust_scale.md)
+[`int_boot_adjust_scale()`](https://openfheorg.github.io/openfhe.R/reference/int_boot_adjust_scale.md)
 to complete the refresh.
 
 ## Usage
@@ -32,6 +32,6 @@ A `Ciphertext` holding the masked decryption.
 
 ## See also
 
-[`int_boot_encrypt()`](https://bnaras.github.io/openfhe.R/reference/int_boot_encrypt.md),
-[`int_boot_add()`](https://bnaras.github.io/openfhe.R/reference/int_boot_add.md),
-[`int_boot_adjust_scale()`](https://bnaras.github.io/openfhe.R/reference/int_boot_adjust_scale.md)
+[`int_boot_encrypt()`](https://openfheorg.github.io/openfhe.R/reference/int_boot_encrypt.md),
+[`int_boot_add()`](https://openfheorg.github.io/openfhe.R/reference/int_boot_add.md),
+[`int_boot_adjust_scale()`](https://openfheorg.github.io/openfhe.R/reference/int_boot_adjust_scale.md)

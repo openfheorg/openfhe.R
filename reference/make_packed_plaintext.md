@@ -2,7 +2,7 @@
 
 Encode an integer vector as a BFV / BGV packed plaintext. The result is
 an unencrypted `Plaintext` object that can then be passed to
-[`encrypt()`](https://bnaras.github.io/openfhe.R/reference/encrypt.md).
+[`encrypt()`](https://openfheorg.github.io/openfhe.R/reference/encrypt.md).
 
 ## Usage
 

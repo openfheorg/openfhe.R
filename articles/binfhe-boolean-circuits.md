@@ -52,7 +52,7 @@ sk <- bin_key_gen(ctx)
 bin_bt_key_gen(ctx, sk)
 ```
 
-[`bin_bt_key_gen()`](https://bnaras.github.io/openfhe.R/reference/bin_bt_key_gen.md)
+[`bin_bt_key_gen()`](https://openfheorg.github.io/openfhe.R/reference/bin_bt_key_gen.md)
 accepts an optional `keygen_mode` argument (`KeygenMode$SYM_ENCRYPT`
 default, or `KeygenMode$PUB_ENCRYPT`) that controls how the bootstrap
 keys are generated. Most users leave it at the default.
@@ -119,7 +119,7 @@ efficient than composing 2-input gates. The supported wide gates are
 **AND3**, **OR3**, **AND4**, **OR4**, **MAJORITY** (3-input majority
 vote), and **CMUX** (3-input conditional mux). All of them go through
 the same
-[`eval_bin_gate()`](https://bnaras.github.io/openfhe.R/reference/eval_bin_gate.md)
+[`eval_bin_gate()`](https://openfheorg.github.io/openfhe.R/reference/eval_bin_gate.md)
 entry point, but instead of passing two `Ciphertext` arguments you pass
 a **list** of ciphertexts.
 
@@ -210,7 +210,7 @@ workflow is:
     paramset and ring dimension large enough for the functional
     bootstrap.
 3.  Generate a lookup table via
-    [`generate_lut_via_function()`](https://bnaras.github.io/openfhe.R/reference/generate_lut_via_function.md).
+    [`generate_lut_via_function()`](https://openfheorg.github.io/openfhe.R/reference/generate_lut_via_function.md).
 4.  Call `eval_func(ctx, ct, lut)` on an encrypted input — the output is
     a ciphertext of `f(input)`.
 
@@ -245,7 +245,7 @@ bin_decrypt(ctx_f, sk_f, ct_out, p = p)
 ```
 
 The LUT evaluation runs one functional bootstrap per
-[`eval_func()`](https://bnaras.github.io/openfhe.R/reference/eval_func.md)
+[`eval_func()`](https://openfheorg.github.io/openfhe.R/reference/eval_func.md)
 call — so it’s not cheap — but it gives you arbitrary univariate
 functions over the plaintext domain without any polynomial
 approximation.
@@ -259,7 +259,7 @@ comparisons (convert `x > threshold` into
 `eval_sign(ct - threshold_ct)`).
 
 Unlike the other functional-bootstrap primitives in this vignette,
-[`eval_sign()`](https://bnaras.github.io/openfhe.R/reference/eval_sign.md)
+[`eval_sign()`](https://openfheorg.github.io/openfhe.R/reference/eval_sign.md)
 requires a **large-Q** context: the paramset must be **STD128** (not
 TOY), the `arb_func` flag must be `FALSE`, and an explicit `log_q` must
 be supplied. The encryption path uses the `LARGE_DIM` output mode with
@@ -317,7 +317,7 @@ The sign flips exactly at `i = 3` (msg = center) — inputs in the lower
 half of `[0, p_s)` return 0, inputs in the upper half return 1.
 
 The optional `scheme_switch` argument to
-[`eval_sign()`](https://bnaras.github.io/openfhe.R/reference/eval_sign.md)
+[`eval_sign()`](https://openfheorg.github.io/openfhe.R/reference/eval_sign.md)
 controls whether the output encoding is compatible with the
 CKKS\<-\>FHEW scheme-switching pipeline. Most users can ignore it
 (default `FALSE`).
@@ -353,7 +353,7 @@ The two schemes solve different problems.
 | Data type | real numbers (approximate) | single bits |
 | Batching | yes (thousands of slots per ciphertext) | no (one bit per ciphertext) |
 | Per-op cost | cheap multiply / add, expensive bootstrap | every gate is a bootstrap internally |
-| Depth budget | yes — bootstrap refreshes, see [ckks-bootstrapping](https://bnaras.github.io/openfhe.R/articles/ckks-bootstrapping.md) | no — gates self-refresh |
+| Depth budget | yes — bootstrap refreshes, see [ckks-bootstrapping](https://openfheorg.github.io/openfhe.R/articles/ckks-bootstrapping.md) | no — gates self-refresh |
 | Good at | polynomial arithmetic, statistics, batched linear algebra | comparisons, branching, per-bit logic, arbitrary univariate functions |
 | Audience-A fit in this package | **primary** — cox / cvxr / mle / encrypted-regression etc. | **secondary** — comparators, thresholding, custom LUT evaluation |
 

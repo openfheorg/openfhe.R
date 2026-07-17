@@ -1,11 +1,11 @@
 # Insert a joined automorphism-key map into the cc registry
 
 After combining multi-party automorphism-key shares via
-[`multi_add_eval_automorphism_keys()`](https://bnaras.github.io/openfhe.R/reference/multi_add_eval_automorphism_keys.md),
+[`multi_add_eval_automorphism_keys()`](https://openfheorg.github.io/openfhe.R/reference/multi_add_eval_automorphism_keys.md),
 insert the joined map into the cc-internal registry so that
-[`eval_rotate()`](https://bnaras.github.io/openfhe.R/reference/eval_rotate.md)
+[`eval_rotate()`](https://openfheorg.github.io/openfhe.R/reference/eval_rotate.md)
 /
-[`eval_fast_rotation()`](https://bnaras.github.io/openfhe.R/reference/eval_fast_rotation.md)
+[`eval_fast_rotation()`](https://openfheorg.github.io/openfhe.R/reference/eval_fast_rotation.md)
 can consume it.
 
 ## Usage

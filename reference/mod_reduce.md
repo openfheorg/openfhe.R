@@ -1,7 +1,7 @@
 # Reduce the modulus chain by one level
 
 Synonym for
-[`rescale()`](https://bnaras.github.io/openfhe.R/reference/rescale.md).
+[`rescale()`](https://openfheorg.github.io/openfhe.R/reference/rescale.md).
 Both names dispatch to the same C++ operation
 (`CryptoContextImpl::Rescale` delegates to `ModReduce` internally); the
 R binding keeps both so callers can use whichever name matches the
@@ -29,5 +29,5 @@ A `Ciphertext` at one lower level.
 
 ## See also
 
-[`rescale()`](https://bnaras.github.io/openfhe.R/reference/rescale.md),
-[`mod_reduce_in_place()`](https://bnaras.github.io/openfhe.R/reference/mod_reduce_in_place.md)
+[`rescale()`](https://openfheorg.github.io/openfhe.R/reference/rescale.md),
+[`mod_reduce_in_place()`](https://openfheorg.github.io/openfhe.R/reference/mod_reduce_in_place.md)

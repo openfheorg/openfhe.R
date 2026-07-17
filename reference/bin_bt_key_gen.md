@@ -21,7 +21,7 @@ bin_bt_key_gen(ctx, sk, keygen_mode = KeygenMode$SYM_ENCRYPT)
 - keygen_mode:
 
   Integer from
-  [KeygenMode](https://bnaras.github.io/openfhe.R/reference/KeygenMode.md);
+  [KeygenMode](https://openfheorg.github.io/openfhe.R/reference/KeygenMode.md);
   controls whether the bootstrapping keys are generated under
   symmetric-key encryption (`KeygenMode$SYM_ENCRYPT`, the default and
   the C++ default per `binfhe-constants.h` line 133) or public-key

@@ -44,7 +44,7 @@ share_keys(cc, sk, n_parties, threshold, index, sharing_scheme = "additive")
 ## Value
 
 A `SecretShareMap` suitable for passing to
-[`recover_shared_key()`](https://bnaras.github.io/openfhe.R/reference/recover_shared_key.md).
+[`recover_shared_key()`](https://openfheorg.github.io/openfhe.R/reference/recover_shared_key.md).
 
 ## Details
 
@@ -60,4 +60,4 @@ Two sharing schemes are supported:
 
 ## See also
 
-[`recover_shared_key()`](https://bnaras.github.io/openfhe.R/reference/recover_shared_key.md)
+[`recover_shared_key()`](https://openfheorg.github.io/openfhe.R/reference/recover_shared_key.md)

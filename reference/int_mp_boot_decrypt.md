@@ -2,11 +2,11 @@
 
 Each party calls this with their own secret share, the ciphertext being
 refreshed, and the common random element from
-[`int_mp_boot_random_element_gen()`](https://bnaras.github.io/openfhe.R/reference/int_mp_boot_random_element_gen.md).
+[`int_mp_boot_random_element_gen()`](https://openfheorg.github.io/openfhe.R/reference/int_mp_boot_random_element_gen.md).
 Returns a list of two `Ciphertext` objects — the party's
 masked-decryption "shares pair". Each party's shares pair gets collected
 and fed into
-[`int_mp_boot_add()`](https://bnaras.github.io/openfhe.R/reference/int_mp_boot_add.md).
+[`int_mp_boot_add()`](https://openfheorg.github.io/openfhe.R/reference/int_mp_boot_add.md).
 
 ## Usage
 
@@ -27,7 +27,7 @@ int_mp_boot_decrypt(sk, ct, a)
 - a:
 
   A `Ciphertext` holding the common random element from
-  [`int_mp_boot_random_element_gen()`](https://bnaras.github.io/openfhe.R/reference/int_mp_boot_random_element_gen.md).
+  [`int_mp_boot_random_element_gen()`](https://openfheorg.github.io/openfhe.R/reference/int_mp_boot_random_element_gen.md).
 
 ## Value
 

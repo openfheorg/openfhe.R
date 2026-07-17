@@ -16,7 +16,8 @@ eval_bin_gate(ctx, gate, ct1, ct2 = NULL)
 
 - gate:
 
-  A [BinGate](https://bnaras.github.io/openfhe.R/reference/BinGate.md)
+  A
+  [BinGate](https://openfheorg.github.io/openfhe.R/reference/BinGate.md)
   value. Two-input gates: `OR`, `AND`, `NOR`, `NAND`, `XOR`, `XNOR`,
   `XOR_FAST`, `XNOR_FAST`. Three or more input gates (vector form):
   `MAJORITY`, `AND3`, `OR3`, `AND4`, `OR4`, `CMUX`.

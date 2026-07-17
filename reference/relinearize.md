@@ -2,7 +2,7 @@
 
 Reduces a ciphertext to 2 polynomial components. Needed after a sequence
 of
-[`eval_mult_no_relin()`](https://bnaras.github.io/openfhe.R/reference/eval_mult_no_relin.md)
+[`eval_mult_no_relin()`](https://openfheorg.github.io/openfhe.R/reference/eval_mult_no_relin.md)
 calls to restore a decryptable form. A relinearization key must have
 been generated via `key_gen(cc, eval_mult = TRUE)` before calling this.
 

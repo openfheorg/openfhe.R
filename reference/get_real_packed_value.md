@@ -20,7 +20,7 @@ Numeric vector
 
 ## See also
 
-[`get_complex_packed_value()`](https://bnaras.github.io/openfhe.R/reference/get_complex_packed_value.md)
+[`get_complex_packed_value()`](https://openfheorg.github.io/openfhe.R/reference/get_complex_packed_value.md)
 for the complex-view accessor on the same underlying plaintext (each
 slot internally carries a complex pair — this function returns only the
 real parts).

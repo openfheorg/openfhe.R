@@ -30,39 +30,39 @@ dictionary you need to read the rest of this vignette.
 - **Plaintext.** The *encoded* form of the numeric input — not raw R
   values but a packed object the encryption step knows how to read. You
   build one from a numeric vector with
-  [`make_packed_plaintext()`](https://bnaras.github.io/openfhe.R/reference/make_packed_plaintext.md)
+  [`make_packed_plaintext()`](https://openfheorg.github.io/openfhe.R/reference/make_packed_plaintext.md)
   (for the integer schemes) or
-  [`make_ckks_packed_plaintext()`](https://bnaras.github.io/openfhe.R/reference/make_ckks_packed_plaintext.md)
+  [`make_ckks_packed_plaintext()`](https://openfheorg.github.io/openfhe.R/reference/make_ckks_packed_plaintext.md)
   (for real-valued data). Think of it as the moral equivalent of
   [`as.numeric()`](https://rdrr.io/r/base/numeric.html) for the
   encryption pipeline.
 - **Ciphertext.** What you get after encrypting a plaintext. All the
   encrypted-arithmetic functions operate on ciphertexts and return
   ciphertexts; the only way back to numbers is
-  [`decrypt()`](https://bnaras.github.io/openfhe.R/reference/decrypt.md)
+  [`decrypt()`](https://openfheorg.github.io/openfhe.R/reference/decrypt.md)
   plus an unpacker like
-  [`get_packed_value()`](https://bnaras.github.io/openfhe.R/reference/get_packed_value.md)
+  [`get_packed_value()`](https://openfheorg.github.io/openfhe.R/reference/get_packed_value.md)
   or
-  [`get_real_packed_value()`](https://bnaras.github.io/openfhe.R/reference/get_real_packed_value.md).
+  [`get_real_packed_value()`](https://openfheorg.github.io/openfhe.R/reference/get_real_packed_value.md).
 - **CryptoContext.** A parameter bundle returned by
-  [`fhe_context()`](https://bnaras.github.io/openfhe.R/reference/fhe_context.md).
+  [`fhe_context()`](https://openfheorg.github.io/openfhe.R/reference/fhe_context.md).
   It pins down the scheme, the precision budget, and the layout of the
   slots. Almost every other call takes a context as the `cc =` argument.
 - **Public and secret key.** Standard public-key roles.
-  [`key_gen()`](https://bnaras.github.io/openfhe.R/reference/key_gen.md)
+  [`key_gen()`](https://openfheorg.github.io/openfhe.R/reference/key_gen.md)
   returns a `KeyPair` with `@public` and `@secret` slots. Encryption
   uses the public key, decryption uses the secret key.
 - **Evaluation keys.** Auxiliary keys that *authorize* specific
   encrypted-side operations — multiplication of two ciphertexts,
   summation across slots, rotation. They are generated alongside the
   secret key when you ask for them (`eval_mult = TRUE` to
-  [`key_gen()`](https://bnaras.github.io/openfhe.R/reference/key_gen.md),
+  [`key_gen()`](https://openfheorg.github.io/openfhe.R/reference/key_gen.md),
   for example) and travel with the public key when you ship encrypted
   data.
 - **Slots.** Internally an encrypted vector has many more positions than
   the data you put in — typically thousands. You use the first few and
   call
-  [`set_length()`](https://bnaras.github.io/openfhe.R/reference/set_length.md)
+  [`set_length()`](https://openfheorg.github.io/openfhe.R/reference/set_length.md)
   on the decrypted result to trim back.
 
 That is the whole vocabulary and the rest of this vignette describes the
@@ -142,7 +142,7 @@ ct_prod <- ct_x * ct_y
 ```
 
 Decryption requires the secret key. The
-[`set_length()`](https://bnaras.github.io/openfhe.R/reference/set_length.md)
+[`set_length()`](https://openfheorg.github.io/openfhe.R/reference/set_length.md)
 call trims the result to the original input length, since the underlying
 packed representation has many more slots than we used.
 
@@ -198,7 +198,7 @@ ct_scaled  <- ct * 4.0
 ```
 
 Decryption returns a packed plaintext;
-[`get_real_packed_value()`](https://bnaras.github.io/openfhe.R/reference/get_real_packed_value.md)
+[`get_real_packed_value()`](https://openfheorg.github.io/openfhe.R/reference/get_real_packed_value.md)
 extracts the underlying doubles.
 
 ``` r
@@ -217,10 +217,10 @@ tolerance. The maximum elementwise error is
 
 max_err <- max(abs(doubled_vec - 2 * x))
 max_err
-#> [1] 8.881784e-14
+#> [1] 8.348877e-14
 ```
 
-8.88^{-14} — small enough to be invisible at the precisions reported in
+8.35^{-14} — small enough to be invisible at the precisions reported in
 most statistical work. CKKS is the scheme to reach for when the
 encrypted computation is a likelihood, a gradient step, a regression
 coefficient, or anything else where a real-valued answer with bounded
@@ -362,11 +362,11 @@ threshold-decrypt the final answer”.
 Two further vignettes in `openfhe.R` itself dig into the schemes in
 depth:
 
-- [`ckks-bootstrapping`](https://bnaras.github.io/openfhe.R/articles/ckks-bootstrapping.md)
+- [`ckks-bootstrapping`](https://openfheorg.github.io/openfhe.R/articles/ckks-bootstrapping.md)
   — what to do when a long CKKS computation runs out of multiplicative
   depth, including the multi-party variant that composes with the
   threshold flow above.
-- [`binfhe-boolean-circuits`](https://bnaras.github.io/openfhe.R/articles/binfhe-boolean-circuits.md)
+- [`binfhe-boolean-circuits`](https://openfheorg.github.io/openfhe.R/articles/binfhe-boolean-circuits.md)
   — comparators, arbitrary-function evaluation, and the full set of
   BinFHE operations.
 

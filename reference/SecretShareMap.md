@@ -2,10 +2,10 @@
 
 Opaque S7 wrapper around a
 `shared_ptr<std::unordered_map<uint32_t, DCRTPoly>>`. Produced by
-[`share_keys()`](https://bnaras.github.io/openfhe.R/reference/share_keys.md)
+[`share_keys()`](https://openfheorg.github.io/openfhe.R/reference/share_keys.md)
 — each call returns one party's contribution to the distributed shares
 of their own secret key. Consumed by
-[`recover_shared_key()`](https://bnaras.github.io/openfhe.R/reference/recover_shared_key.md),
+[`recover_shared_key()`](https://openfheorg.github.io/openfhe.R/reference/recover_shared_key.md),
 which reconstructs the original secret from `threshold` or more shares
 when a party drops out.
 

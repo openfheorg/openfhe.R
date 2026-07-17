@@ -7,7 +7,7 @@ variants that upstream-defects P1 refers to live on `SchemeBase` and are
 not exposed on `CryptoContextImpl`, so R's `eval_mult_in_place` supports
 only the scalar case. The ct/ct multiplication continues to work via the
 non-in-place
-[`eval_mult()`](https://bnaras.github.io/openfhe.R/reference/eval_mult.md)
+[`eval_mult()`](https://openfheorg.github.io/openfhe.R/reference/eval_mult.md)
 generic.
 
 ## Usage

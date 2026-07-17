@@ -18,11 +18,11 @@ functions on encrypted bits.
 
 Useful links:
 
-- <https://bnaras.github.io/openfhe.R/>
+- <https://openfheorg.github.io/openfhe.R/>
 
-- <https://github.com/bnaras/openfhe.R>
+- <https://github.com/openfheorg/openfhe.R>
 
-- Report bugs at <https://github.com/bnaras/openfhe.R/issues>
+- Report bugs at <https://github.com/openfheorg/openfhe.R/issues>
 
 ## Author
 

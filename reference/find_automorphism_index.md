@@ -30,12 +30,12 @@ Integer; the automorphism group element corresponding to that rotation.
 ## Details
 
 Used as a primitive by
-[`find_automorphism_indices()`](https://bnaras.github.io/openfhe.R/reference/find_automorphism_indices.md)
+[`find_automorphism_indices()`](https://openfheorg.github.io/openfhe.R/reference/find_automorphism_indices.md)
 and by code that needs to address automorphism keys directly (for
 example, selectively generating eval keys for a sparse set of rotation
 amounts).
 
 ## See also
 
-[`find_automorphism_indices()`](https://bnaras.github.io/openfhe.R/reference/find_automorphism_indices.md)
+[`find_automorphism_indices()`](https://openfheorg.github.io/openfhe.R/reference/find_automorphism_indices.md)
 for the vector form.

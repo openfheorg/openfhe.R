@@ -96,12 +96,12 @@ a silent wrong value.
 - `get_length`: Integer effective length of a packed plaintext — the
   number of slots that hold user-supplied values. Defaults to the full
   batch size at construction;
-  [`set_length()`](https://bnaras.github.io/openfhe.R/reference/set_length.md)
+  [`set_length()`](https://openfheorg.github.io/openfhe.R/reference/set_length.md)
   can shorten it for display or decryption purposes.
 
 - `get_level`: Integer level of the plaintext in the RNS modulus chain.
   `0` for a fresh plaintext; incremented by each
-  [`rescale()`](https://bnaras.github.io/openfhe.R/reference/rescale.md)
+  [`rescale()`](https://openfheorg.github.io/openfhe.R/reference/rescale.md)
   the plaintext survives. For CKKS-packed plaintexts the level must
   match the ciphertext level at every homomorphic operation, or the
   evaluator rejects the pair.

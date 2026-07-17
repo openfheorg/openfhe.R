@@ -1,7 +1,7 @@
 # Ring dimension of a CryptoContext
 
 Returns N, the cyclotomic ring dimension. The cyclotomic order M used by
-[`eval_fast_rotation()`](https://bnaras.github.io/openfhe.R/reference/eval_fast_rotation.md)
+[`eval_fast_rotation()`](https://openfheorg.github.io/openfhe.R/reference/eval_fast_rotation.md)
 is `2 * N`.
 
 ## Usage

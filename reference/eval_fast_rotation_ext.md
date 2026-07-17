@@ -1,7 +1,7 @@
 # Extended hoisted slot rotation
 
 Applies a rotation using precomputed digit decomposition like
-[`eval_fast_rotation()`](https://bnaras.github.io/openfhe.R/reference/eval_fast_rotation.md),
+[`eval_fast_rotation()`](https://openfheorg.github.io/openfhe.R/reference/eval_fast_rotation.md),
 but with the extension that the first digit of the decomposition can be
 folded into the output before the rotation is applied (controlled by
 `add_first`). Used inside the CKKS bootstrap fast-rotation inner loop
@@ -28,7 +28,7 @@ eval_fast_rotation_ext(ct, ...)
 
   Method-specific arguments: `index` (rotation amount, positive = left,
   negative = right), `precomp` (a `FastRotationPrecomputation` from
-  [`eval_fast_rotation_precompute()`](https://bnaras.github.io/openfhe.R/reference/eval_fast_rotation_precompute.md)),
+  [`eval_fast_rotation_precompute()`](https://openfheorg.github.io/openfhe.R/reference/eval_fast_rotation_precompute.md)),
   `add_first` (logical, default `FALSE`).
 
 ## Value
@@ -37,4 +37,4 @@ A `Ciphertext`.
 
 ## See also
 
-[`eval_fast_rotation()`](https://bnaras.github.io/openfhe.R/reference/eval_fast_rotation.md)
+[`eval_fast_rotation()`](https://openfheorg.github.io/openfhe.R/reference/eval_fast_rotation.md)

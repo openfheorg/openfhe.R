@@ -30,4 +30,4 @@ multi_add_eval_automorphism_keys(
 ## Value
 
 A combined `EvalKeyMap` suitable for insertion into the cc registry via
-[`insert_eval_automorphism_key()`](https://bnaras.github.io/openfhe.R/reference/insert_eval_automorphism_key.md).
+[`insert_eval_automorphism_key()`](https://openfheorg.github.io/openfhe.R/reference/insert_eval_automorphism_key.md).

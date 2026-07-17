@@ -4,7 +4,7 @@ Performs the LWE equivalent of `floor(ct / 2^roundbits)` via functional
 bootstrapping. Used as a primitive in arbitrary- function evaluation
 pipelines where the bit-level rounding operation is needed separately
 from
-[`eval_func()`](https://bnaras.github.io/openfhe.R/reference/eval_func.md)'s
+[`eval_func()`](https://openfheorg.github.io/openfhe.R/reference/eval_func.md)'s
 LUT path.
 
 ## Usage
@@ -40,5 +40,5 @@ path).
 
 ## See also
 
-[`eval_func()`](https://bnaras.github.io/openfhe.R/reference/eval_func.md),
-[`eval_sign()`](https://bnaras.github.io/openfhe.R/reference/eval_sign.md)
+[`eval_func()`](https://openfheorg.github.io/openfhe.R/reference/eval_func.md),
+[`eval_sign()`](https://openfheorg.github.io/openfhe.R/reference/eval_sign.md)

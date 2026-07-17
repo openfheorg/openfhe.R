@@ -32,7 +32,7 @@ parallelism. The package's own tests and vignettes call
 
 ## See also
 
-[`get_num_threads()`](https://bnaras.github.io/openfhe.R/reference/get_num_threads.md)
+[`get_num_threads()`](https://openfheorg.github.io/openfhe.R/reference/get_num_threads.md)
 
 ## Examples
 

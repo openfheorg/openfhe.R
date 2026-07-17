@@ -3,7 +3,7 @@
 Other parties call this after the lead. Accepts either a single
 `Ciphertext` or a list of `Ciphertext` objects with the same semantics
 as
-[`multiparty_decrypt_lead()`](https://bnaras.github.io/openfhe.R/reference/multiparty_decrypt_lead.md).
+[`multiparty_decrypt_lead()`](https://openfheorg.github.io/openfhe.R/reference/multiparty_decrypt_lead.md).
 
 ## Usage
 

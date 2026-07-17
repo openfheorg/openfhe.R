@@ -1,7 +1,7 @@
 # Key-generation level of a CryptoContext
 
 Integer level at which subsequent
-[`key_gen()`](https://bnaras.github.io/openfhe.R/reference/key_gen.md)
+[`key_gen()`](https://openfheorg.github.io/openfhe.R/reference/key_gen.md)
 calls will generate keys. Defaults to `0L`. Useful when generating keys
 at a non-fresh level for deep circuit protocols.
 

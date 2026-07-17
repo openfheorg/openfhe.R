@@ -25,4 +25,4 @@ multi_add_eval_sum_keys(cc, eval_key_map1, eval_key_map2, key_tag = "")
 ## Value
 
 A combined `EvalKeyMap` suitable for insertion into the cc registry via
-[`insert_eval_sum_key()`](https://bnaras.github.io/openfhe.R/reference/insert_eval_sum_key.md).
+[`insert_eval_sum_key()`](https://openfheorg.github.io/openfhe.R/reference/insert_eval_sum_key.md).

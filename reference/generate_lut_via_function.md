@@ -1,7 +1,7 @@
 # Generate a lookup table for an arbitrary plaintext function
 
 Computes `f(0:(p-1), p)` and returns it as a numeric vector suitable for
-[`eval_func()`](https://bnaras.github.io/openfhe.R/reference/eval_func.md).
+[`eval_func()`](https://openfheorg.github.io/openfhe.R/reference/eval_func.md).
 This is the R-side analogue of OpenFHE's `GenerateLUTviaFunction` — we
 don't bind the C++ helper because its signature takes a raw function
 pointer that can't capture an R closure, and R is natively vectorised so

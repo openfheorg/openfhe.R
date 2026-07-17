@@ -82,7 +82,7 @@ consumes modulus-chain levels, so the context’s `multiplicative_depth`
 must be at least the bootstrap budget plus whatever user compute the
 refreshed ciphertext needs to support.
 
-[`get_bootstrap_depth()`](https://bnaras.github.io/openfhe.R/reference/get_bootstrap_depth.md)
+[`get_bootstrap_depth()`](https://openfheorg.github.io/openfhe.R/reference/get_bootstrap_depth.md)
 computes the per-bootstrap level cost from the `level_budget` and the
 secret-key distribution.
 
@@ -187,7 +187,7 @@ pre-bootstrap form would have been exhausted.
 ## Iterative bootstrap
 
 For circuits deep enough that one refresh isn’t enough,
-[`eval_bootstrap()`](https://bnaras.github.io/openfhe.R/reference/eval_bootstrap.md)
+[`eval_bootstrap()`](https://openfheorg.github.io/openfhe.R/reference/eval_bootstrap.md)
 accepts a `num_iterations` argument that runs multiple refreshes in
 sequence with increasing precision. This is the iterative form — a
 quality/performance trade-off that lets the caller spend more cycles for
@@ -205,7 +205,7 @@ source of error in a long user circuit. Three or more iterations have
 diminishing returns and are rarely needed.
 
 The iterative form is hidden inside the same
-[`eval_bootstrap()`](https://bnaras.github.io/openfhe.R/reference/eval_bootstrap.md)
+[`eval_bootstrap()`](https://openfheorg.github.io/openfhe.R/reference/eval_bootstrap.md)
 entry point — there is no separate `eval_iterative_bootstrap()` generic.
 The `num_iterations` argument is optional and defaults to `1L`, so
 existing code that calls `eval_bootstrap(ct)` gets the classical non-
@@ -257,7 +257,7 @@ kp2 <- multiparty_key_gen(cc_mp, kp1@public)
 Encrypt a plaintext under party 2’s public key (the daisy-chained
 “joint” public key in the two-party threshold protocol), adjust the
 scale via
-[`int_mp_boot_adjust_scale()`](https://bnaras.github.io/openfhe.R/reference/int_mp_boot_adjust_scale.md),
+[`int_mp_boot_adjust_scale()`](https://openfheorg.github.io/openfhe.R/reference/int_mp_boot_adjust_scale.md),
 generate a common random element that all parties will use in their
 partial decryptions, and then run each party’s partial decryption.
 
@@ -287,13 +287,13 @@ shares2 <- int_mp_boot_decrypt(kp2@secret, ct_z_adjusted, a)
 ### Aggregate and finalize
 
 The shares pairs are aggregated into a single shares pair via
-[`int_mp_boot_add()`](https://bnaras.github.io/openfhe.R/reference/int_mp_boot_add.md)
+[`int_mp_boot_add()`](https://openfheorg.github.io/openfhe.R/reference/int_mp_boot_add.md)
 (parallel to how
-[`multiparty_decrypt_fusion()`](https://bnaras.github.io/openfhe.R/reference/multiparty_decrypt_fusion.md)
+[`multiparty_decrypt_fusion()`](https://openfheorg.github.io/openfhe.R/reference/multiparty_decrypt_fusion.md)
 aggregates lead + main partials in the ordinary threshold decrypt). The
 aggregated shares pair, the common random element, and the original
 ciphertext all go into
-[`int_mp_boot_encrypt()`](https://bnaras.github.io/openfhe.R/reference/int_mp_boot_encrypt.md)
+[`int_mp_boot_encrypt()`](https://openfheorg.github.io/openfhe.R/reference/int_mp_boot_encrypt.md)
 — the final step that produces the refreshed ciphertext at a fresh
 modulus level.
 

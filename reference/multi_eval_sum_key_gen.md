@@ -22,9 +22,9 @@ multi_eval_sum_key_gen(cc, sk, eval_key_map, key_tag = "")
 
   An existing `EvalKeyMap` carrying the prior-party sum-key state,
   obtained via
-  [`get_eval_sum_key_map()`](https://bnaras.github.io/openfhe.R/reference/get_eval_sum_key_map.md)
+  [`get_eval_sum_key_map()`](https://openfheorg.github.io/openfhe.R/reference/get_eval_sum_key_map.md)
   after the lead party has populated the cc registry through
-  [`eval_sum_key_gen()`](https://bnaras.github.io/openfhe.R/reference/eval_sum_key_gen.md).
+  [`eval_sum_key_gen()`](https://openfheorg.github.io/openfhe.R/reference/eval_sum_key_gen.md).
 
 - key_tag:
 

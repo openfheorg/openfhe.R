@@ -1,7 +1,7 @@
 # Generate a key pair for a secondary party in threshold FHE
 
 The lead party uses
-[`key_gen()`](https://bnaras.github.io/openfhe.R/reference/key_gen.md)
+[`key_gen()`](https://openfheorg.github.io/openfhe.R/reference/key_gen.md)
 to generate the initial keypair. Subsequent parties call this with the
 lead's public key.
 

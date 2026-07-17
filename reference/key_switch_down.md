@@ -2,7 +2,7 @@
 
 Brings a ciphertext that lives in the extended P*Q basis (for example,
 the output of
-[`eval_fast_rotation_ext()`](https://bnaras.github.io/openfhe.R/reference/eval_fast_rotation_ext.md)
+[`eval_fast_rotation_ext()`](https://openfheorg.github.io/openfhe.R/reference/eval_fast_rotation_ext.md)
 with hybrid key switching) back to the standard Q basis. Only supported
 when the scheme is configured with hybrid key switching — other
 key-switching techniques have no round-trip to extended P*Q and
@@ -26,4 +26,4 @@ A `Ciphertext` in the Q basis.
 
 ## See also
 
-[`eval_fast_rotation_ext()`](https://bnaras.github.io/openfhe.R/reference/eval_fast_rotation_ext.md)
+[`eval_fast_rotation_ext()`](https://openfheorg.github.io/openfhe.R/reference/eval_fast_rotation_ext.md)

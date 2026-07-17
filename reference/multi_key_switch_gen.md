@@ -33,5 +33,5 @@ multi_key_switch_gen(cc, sk_orig, sk_new, eval_key)
 ## Value
 
 An EvalKey suitable for routing through
-[`multi_add_eval_keys()`](https://bnaras.github.io/openfhe.R/reference/multi_add_eval_keys.md)
+[`multi_add_eval_keys()`](https://openfheorg.github.io/openfhe.R/reference/multi_add_eval_keys.md)
 to combine with other parties' key-switch shares

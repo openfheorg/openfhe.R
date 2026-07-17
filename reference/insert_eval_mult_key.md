@@ -17,8 +17,8 @@ insert_eval_mult_key(eval_keys, key_tag = "")
 - eval_keys:
 
   A list of `EvalKey` objects (from
-  [`multi_key_switch_gen()`](https://bnaras.github.io/openfhe.R/reference/multi_key_switch_gen.md),
-  [`multi_add_eval_mult_keys()`](https://bnaras.github.io/openfhe.R/reference/multi_add_eval_mult_keys.md),
+  [`multi_key_switch_gen()`](https://openfheorg.github.io/openfhe.R/reference/multi_key_switch_gen.md),
+  [`multi_add_eval_mult_keys()`](https://openfheorg.github.io/openfhe.R/reference/multi_add_eval_mult_keys.md),
   or from a deserialization).
 
 - key_tag:
@@ -34,14 +34,14 @@ insert_eval_mult_key(eval_keys, key_tag = "")
 
 Used in checkpoint/resume workflows: after `fhe_deserialize_eval_keys()`
 or
-[`multi_add_eval_mult_keys()`](https://bnaras.github.io/openfhe.R/reference/multi_add_eval_mult_keys.md)
+[`multi_add_eval_mult_keys()`](https://openfheorg.github.io/openfhe.R/reference/multi_add_eval_mult_keys.md)
 produces a combined eval-mult key vector, this function registers it
 into the cc's internal storage so that subsequent
-[`eval_mult()`](https://bnaras.github.io/openfhe.R/reference/eval_mult.md)
+[`eval_mult()`](https://openfheorg.github.io/openfhe.R/reference/eval_mult.md)
 calls on ciphertexts encrypted under the associated party's key can
 consume it.
 
 ## See also
 
-[`insert_eval_sum_key()`](https://bnaras.github.io/openfhe.R/reference/insert_eval_sum_key.md),
-[`insert_eval_automorphism_key()`](https://bnaras.github.io/openfhe.R/reference/insert_eval_automorphism_key.md)
+[`insert_eval_sum_key()`](https://openfheorg.github.io/openfhe.R/reference/insert_eval_sum_key.md),
+[`insert_eval_automorphism_key()`](https://openfheorg.github.io/openfhe.R/reference/insert_eval_automorphism_key.md)

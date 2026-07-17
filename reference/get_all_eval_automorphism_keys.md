@@ -18,7 +18,7 @@ A named list keyed by key-tag string. Each element is an `EvalKeyMap`
 
 ## See also
 
-[`get_eval_automorphism_key_map()`](https://bnaras.github.io/openfhe.R/reference/get_eval_automorphism_key_map.md)
+[`get_eval_automorphism_key_map()`](https://openfheorg.github.io/openfhe.R/reference/get_eval_automorphism_key_map.md)
 for per-tag lookup,
-[`insert_eval_automorphism_key()`](https://bnaras.github.io/openfhe.R/reference/insert_eval_automorphism_key.md)
+[`insert_eval_automorphism_key()`](https://openfheorg.github.io/openfhe.R/reference/insert_eval_automorphism_key.md)
 for the write path.

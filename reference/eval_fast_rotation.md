@@ -20,7 +20,7 @@ eval_fast_rotation(ct, ...)
   negative = right), `m` (cyclotomic order, typically
   `2 * ring_dimension(ctx)`), `precomp` (a FastRotationPrecomputation
   from
-  [`eval_fast_rotation_precompute()`](https://bnaras.github.io/openfhe.R/reference/eval_fast_rotation_precompute.md))
+  [`eval_fast_rotation_precompute()`](https://openfheorg.github.io/openfhe.R/reference/eval_fast_rotation_precompute.md))
 
 ## Value
 

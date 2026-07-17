@@ -6,7 +6,7 @@ Start here. A single-page tour of BFV, CKKS, BinFHE, serialization, and
 the threshold decrypt flow.
 
 - [Introduction to openfhe.R: Fully Homomorphic Encryption in
-  R](https://bnaras.github.io/openfhe.R/articles/introduction.md):
+  R](https://openfheorg.github.io/openfhe.R/articles/introduction.md):
 
 ### Advanced
 
@@ -19,6 +19,6 @@ variants) have been moved to the companion homomorpheR package (version
 on top of openfhe.R.
 
 - [CKKS Bootstrapping: Refreshing Deep
-  Circuits](https://bnaras.github.io/openfhe.R/articles/ckks-bootstrapping.md):
+  Circuits](https://openfheorg.github.io/openfhe.R/articles/ckks-bootstrapping.md):
 - [BinFHE: Boolean Circuits and Arbitrary Functions on Encrypted
-  Bits](https://bnaras.github.io/openfhe.R/articles/binfhe-boolean-circuits.md):
+  Bits](https://openfheorg.github.io/openfhe.R/articles/binfhe-boolean-circuits.md):

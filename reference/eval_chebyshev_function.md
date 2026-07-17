@@ -1,9 +1,9 @@
 # Evaluate a user-supplied function on a CKKS ciphertext via Chebyshev approximation
 
 Computes the Chebyshev coefficients for `func` on `[a, b]` via
-[`eval_chebyshev_coefficients()`](https://bnaras.github.io/openfhe.R/reference/eval_chebyshev_coefficients.md)
+[`eval_chebyshev_coefficients()`](https://openfheorg.github.io/openfhe.R/reference/eval_chebyshev_coefficients.md)
 and applies the resulting series to `ct` via
-[`eval_chebyshev()`](https://bnaras.github.io/openfhe.R/reference/eval_chebyshev.md).
+[`eval_chebyshev()`](https://openfheorg.github.io/openfhe.R/reference/eval_chebyshev.md).
 This mirrors the upstream `CryptoContext::EvalChebyshevFunction` helper,
 which is a thin wrapper around `EvalChebyshevCoefficients` followed by
 `EvalChebyshevSeries` on the C++ side.
@@ -45,9 +45,9 @@ the plaintext slots of `ct`.
 
 ## See also
 
-[`eval_chebyshev()`](https://bnaras.github.io/openfhe.R/reference/eval_chebyshev.md),
-[`eval_chebyshev_coefficients()`](https://bnaras.github.io/openfhe.R/reference/eval_chebyshev_coefficients.md),
-[`eval_logistic()`](https://bnaras.github.io/openfhe.R/reference/eval_logistic.md),
-[`eval_sin()`](https://bnaras.github.io/openfhe.R/reference/eval_sin.md),
-[`eval_cos()`](https://bnaras.github.io/openfhe.R/reference/eval_cos.md),
-[`eval_divide()`](https://bnaras.github.io/openfhe.R/reference/eval_divide.md).
+[`eval_chebyshev()`](https://openfheorg.github.io/openfhe.R/reference/eval_chebyshev.md),
+[`eval_chebyshev_coefficients()`](https://openfheorg.github.io/openfhe.R/reference/eval_chebyshev_coefficients.md),
+[`eval_logistic()`](https://openfheorg.github.io/openfhe.R/reference/eval_logistic.md),
+[`eval_sin()`](https://openfheorg.github.io/openfhe.R/reference/eval_sin.md),
+[`eval_cos()`](https://openfheorg.github.io/openfhe.R/reference/eval_cos.md),
+[`eval_divide()`](https://openfheorg.github.io/openfhe.R/reference/eval_divide.md).

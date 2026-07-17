@@ -6,7 +6,7 @@ discrete orthogonality formula at `degree + 1` Chebyshev nodes. This is
 a direct port of the upstream routine `EvalChebyshevCoefficients()` in
 `core/lib/math/chebyshev.cpp` of openfhe-development, and the returned
 vector is in exactly the form that
-[`eval_chebyshev()`](https://bnaras.github.io/openfhe.R/reference/eval_chebyshev.md)
+[`eval_chebyshev()`](https://openfheorg.github.io/openfhe.R/reference/eval_chebyshev.md)
 (and the upstream `EvalChebyshevSeries`) expect — the zeroth coefficient
 is not halved.
 
@@ -41,5 +41,5 @@ Numeric vector of length `degree + 1`.
 
 ## See also
 
-[`eval_chebyshev()`](https://bnaras.github.io/openfhe.R/reference/eval_chebyshev.md),
-[`eval_chebyshev_function()`](https://bnaras.github.io/openfhe.R/reference/eval_chebyshev_function.md).
+[`eval_chebyshev()`](https://openfheorg.github.io/openfhe.R/reference/eval_chebyshev.md),
+[`eval_chebyshev_function()`](https://openfheorg.github.io/openfhe.R/reference/eval_chebyshev_function.md).

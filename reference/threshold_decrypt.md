@@ -2,11 +2,11 @@
 
 Performs a full n-of-n threshold decryption of `ct` given the ordered
 list of party secret keys. The first key in `sks` is used for
-[`multiparty_decrypt_lead()`](https://bnaras.github.io/openfhe.R/reference/multiparty_decrypt_lead.md);
+[`multiparty_decrypt_lead()`](https://openfheorg.github.io/openfhe.R/reference/multiparty_decrypt_lead.md);
 the remaining keys for
-[`multiparty_decrypt_main()`](https://bnaras.github.io/openfhe.R/reference/multiparty_decrypt_main.md);
+[`multiparty_decrypt_main()`](https://openfheorg.github.io/openfhe.R/reference/multiparty_decrypt_main.md);
 the resulting partials are then fused with
-[`multiparty_decrypt_fusion()`](https://bnaras.github.io/openfhe.R/reference/multiparty_decrypt_fusion.md).
+[`multiparty_decrypt_fusion()`](https://openfheorg.github.io/openfhe.R/reference/multiparty_decrypt_fusion.md).
 
 ## Usage
 

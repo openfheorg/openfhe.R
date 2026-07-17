@@ -3,7 +3,7 @@
 Returns the `ElementParams` S7 object wrapping
 `std::shared_ptr<typename DCRTPoly::Params>`. This is the object that
 can be passed as the `params` argument to
-[`make_ckks_packed_plaintext()`](https://bnaras.github.io/openfhe.R/reference/make_ckks_packed_plaintext.md)
+[`make_ckks_packed_plaintext()`](https://openfheorg.github.io/openfhe.R/reference/make_ckks_packed_plaintext.md)
 to build a plaintext against a specific parameter set rather than the
 context default.
 

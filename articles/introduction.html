@@ -41,7 +41,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/bnaras/openfhe.R"><span class="fa fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/openfheorg/openfhe.R"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -58,9 +58,9 @@
                         <h4 data-toc-skip class="author">Balasubramanian
 Narasimhan</h4>
             
-            <h4 data-toc-skip class="date">2026-06-20</h4>
+            <h4 data-toc-skip class="date">2026-07-17</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/bnaras/openfhe.R/blob/main/vignettes/introduction.Rmd" class="external-link"><code>vignettes/introduction.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/openfheorg/openfhe.R/blob/main/vignettes/introduction.Rmd" class="external-link"><code>vignettes/introduction.Rmd</code></a></small>
       <div class="d-none name"><code>introduction.Rmd</code></div>
     </div>
 
@@ -178,7 +178,7 @@ have produced.</p>
 generate a public/secret key pair (and the evaluation keys that
 authorize multiplication of encrypted values).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bnaras.github.io/openfhe.R/">openfhe.R</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://openfheorg.github.io/openfhe.R/">openfhe.R</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">cc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fhe_context.html">fhe_context</a></span><span class="op">(</span><span class="st">"BFV"</span>,</span>
 <span>  plaintext_modulus    <span class="op">=</span> <span class="fl">65537</span>,</span>
@@ -260,8 +260,8 @@ to within the CKKS tolerance. The maximum elementwise error is</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">max_err</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">doubled_vec</span> <span class="op">-</span> <span class="fl">2</span> <span class="op">*</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">max_err</span></span>
-<span><span class="co">#&gt; [1] 8.881784e-14</span></span></code></pre></div>
-<p>8.88^{-14} — small enough to be invisible at the precisions reported
+<span><span class="co">#&gt; [1] 8.348877e-14</span></span></code></pre></div>
+<p>8.35^{-14} — small enough to be invisible at the precisions reported
 in most statistical work. CKKS is the scheme to reach for when the
 encrypted computation is a likelihood, a gradient step, a regression
 coefficient, or anything else where a real-valued answer with bounded
@@ -419,7 +419,7 @@ differential privacy workflows.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

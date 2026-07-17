@@ -1,7 +1,7 @@
 # Retrieve the sum-key map for a given key tag
 
 Accessor for the cc-internal static map populated by
-[`eval_sum_key_gen()`](https://bnaras.github.io/openfhe.R/reference/eval_sum_key_gen.md).
+[`eval_sum_key_gen()`](https://openfheorg.github.io/openfhe.R/reference/eval_sum_key_gen.md).
 Used by the multi-party sum protocol to pull the lead party's initial
 eval-sum map so other parties can produce their shares.
 
@@ -17,7 +17,7 @@ get_eval_sum_key_map(key_tag)
 
   Character; the key tag used when the map was originally generated.
   Typically the
-  [`get_key_tag()`](https://bnaras.github.io/openfhe.R/reference/key_tag.md)
+  [`get_key_tag()`](https://openfheorg.github.io/openfhe.R/reference/key_tag.md)
   of the secret key that produced it.
 
 ## Value

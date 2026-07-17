@@ -26,4 +26,4 @@ A refreshed `Ciphertext`.
 
 ## See also
 
-[`int_boot_decrypt()`](https://bnaras.github.io/openfhe.R/reference/int_boot_decrypt.md)
+[`int_boot_decrypt()`](https://openfheorg.github.io/openfhe.R/reference/int_boot_decrypt.md)
