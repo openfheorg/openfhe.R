@@ -102,6 +102,22 @@ EOF
         # For each candidate, try compiling the test .cpp with explicit -I.
         if [ -f "${R_LIB_DIR}/libomp.dylib" ]; then
             CANDIDATES="${R_HOME}/include"
+            # Directories R's own Makeconf advertises via -I in CPPFLAGS.
+            # On the CRAN macOS build farm this is /opt/R/<arch>/include —
+            # the build-dependency tree that carries the omp.h matched to
+            # the libomp.dylib bundled inside R.framework. This pairing is
+            # how the CRAN binary of data.table comes out OpenMP-enabled:
+            # its configure probes `R CMD SHLIB` with -Xclang -fopenmp and
+            # no -I at all, and Makeconf's own -I resolves omp.h on the
+            # farm. On end-user machines the directory does not exist and
+            # the [ -d ] guard skips it, so behavior is unchanged there.
+            _r_cppflags=`"${R_HOME}/bin/R" CMD config CPPFLAGS 2>/dev/null`
+            for _tok in ${_r_cppflags}; do
+                case "${_tok}" in
+                    -I*) _d="${_tok#-I}"
+                         [ -d "${_d}" ] && CANDIDATES="${CANDIDATES} ${_d}" ;;
+                esac
+            done
             if _rd=`clang --print-resource-dir 2>/dev/null` && [ -n "${_rd}" ]; then
                 CANDIDATES="${CANDIDATES} ${_rd}/include"
             fi

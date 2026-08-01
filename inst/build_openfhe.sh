@@ -237,3 +237,14 @@ fi
 echo ">>> OpenFHE installed to ${OPENFHE_INSTALL_DIR}"
 
 cd ${R_OPENFHE_PKG_HOME}
+
+# Remove the CMake build tree now that the libs and headers above have
+# been copied out. CMake's generate step pre-creates install(EXPORT)
+# stub directories under CMakeFiles/Export/<escaped absolute install
+# prefix>; when the package source sits inside a check directory (as on
+# mac-builder, which builds the binary before its subdirectory scan),
+# that mirrored path contains a directory literally named
+# "openfhe.R.Rcheck", which R CMD check flags as an erroneously
+# included check directory. Nothing reads the build tree after the
+# manual install, so it must not outlive this script.
+rm -rf ${OPENFHE_BUILD_DIR}
