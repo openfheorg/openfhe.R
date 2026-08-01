@@ -61,3 +61,5 @@ inst/openfhe/third-party/\..+
 ^build-check\.log$
 ^openfhe\.R_.+\.tar\.gz$
 ^openfhe\.R\.Rcheck$
+# ── CRAN submission comments (repo-only, never in the tarball) ──
+^cran-comments\.md$
