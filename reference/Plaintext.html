@@ -49,6 +49,16 @@
 <dd><p>External pointer (internal use)</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>An S7 object of class <code>Plaintext</code>, inheriting from <a href="OpenFHEObject.html">OpenFHEObject</a>,
+whose <code>ptr</code> property holds an external pointer to the C++ plaintext.
+A plaintext holds an encoded but unencrypted vector together with
+its encoding type; obtain one from a <code>make_*_plaintext()</code> factory or
+from <code><a href="decrypt.html">decrypt()</a></code> rather than by calling this constructor directly,
+and read its contents with <code><a href="get_packed_value.html">get_packed_value()</a></code>, <code>get_real_value()</code>
+and the other accessors.</p>
+    </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

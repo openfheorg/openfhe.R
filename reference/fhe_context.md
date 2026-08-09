@@ -56,3 +56,21 @@ the underlying `*Params()` call site.
 [`BFVParams()`](https://openfheorg.github.io/openfhe.R/reference/BFVParams.md),
 [`BGVParams()`](https://openfheorg.github.io/openfhe.R/reference/BGVParams.md),
 [`CKKSParams()`](https://openfheorg.github.io/openfhe.R/reference/CKKSParams.md)
+
+## Examples
+
+``` r
+## An exact context over the integers modulo 65537 (BFV). The ring
+## dimension is chosen for you from the security level.
+bfv <- fhe_context("BFV", plaintext_modulus = 65537L,
+                   multiplicative_depth = 2L)
+ring_dimension(bfv)
+#> [1] 8192
+
+## An approximate context over the reals (CKKS), which is what the
+## statistical applications use.
+ckks <- fhe_context("CKKS", multiplicative_depth = 2L,
+                    scaling_mod_size = 50L, batch_size = 8L)
+ring_dimension(ckks)
+#> [1] 16384
+```

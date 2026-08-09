@@ -58,6 +58,26 @@
     <p>A KeyPair</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">cc</span> <span class="op">&lt;-</span> <span class="fu"><a href="fhe_context.html">fhe_context</a></span><span class="op">(</span><span class="st">"CKKS"</span>, multiplicative_depth <span class="op">=</span> <span class="fl">2L</span>,</span></span>
+<span class="r-in"><span>                  scaling_mod_size <span class="op">=</span> <span class="fl">50L</span>, batch_size <span class="op">=</span> <span class="fl">8L</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Encryption keys only:</span></span></span>
+<span class="r-in"><span><span class="va">kp</span> <span class="op">&lt;-</span> <span class="fu">key_gen</span><span class="op">(</span><span class="va">cc</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">kp</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;KeyPair&gt;</span> [public + secret]</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Also generate the relinearization key homomorphic multiplication</span></span></span>
+<span class="r-in"><span><span class="co">## needs and the rotation keys for shifts by one slot either way.</span></span></span>
+<span class="r-in"><span><span class="co">## These are stored inside the context, not in the returned pair.</span></span></span>
+<span class="r-in"><span><span class="va">kp</span> <span class="op">&lt;-</span> <span class="fu">key_gen</span><span class="op">(</span><span class="va">cc</span>, eval_mult <span class="op">=</span> <span class="cn">TRUE</span>, rotations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="op">-</span><span class="fl">1L</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">kp</span><span class="op">@</span><span class="va">public</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;PublicKey&gt;</span> [active]</span>
+<span class="r-in"><span><span class="va">kp</span><span class="op">@</span><span class="va">secret</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;PrivateKey&gt;</span> [active]</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

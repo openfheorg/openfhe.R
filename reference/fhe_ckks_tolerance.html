@@ -96,15 +96,19 @@ test sites where a ciphertext exists.</p></li>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Stage 1 — pass parameters directly:</span></span></span>
-<span class="r-in"><span><span class="va">tol1</span> <span class="op">&lt;-</span> <span class="fu">fhe_ckks_tolerance</span><span class="op">(</span><span class="fl">4L</span>, <span class="fl">50L</span>, <span class="st">"FLEXIBLEAUTO"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Stage 1 -- pass the parameters directly:</span></span></span>
+<span class="r-in"><span><span class="fu">fhe_ckks_tolerance</span><span class="op">(</span><span class="fl">4L</span>, <span class="fl">50L</span>, <span class="st">"FLEXIBLEAUTO"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.136868e-13</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Stage 2 — pass a ciphertext (requires a live CKKS context):</span></span></span>
-<span class="r-in"><span><span class="co"># cc &lt;- fhe_context("CKKS", multiplicative_depth = 4L, scaling_mod_size = 50L)</span></span></span>
-<span class="r-in"><span><span class="co"># kp &lt;- key_gen(cc, eval_mult = TRUE)</span></span></span>
-<span class="r-in"><span><span class="co"># pt &lt;- make_ckks_packed_plaintext(cc, c(0.1, 0.2, 0.3, 0.4))</span></span></span>
-<span class="r-in"><span><span class="co"># ct &lt;- encrypt(kp@public, pt, cc)</span></span></span>
-<span class="r-in"><span><span class="co"># tol2 &lt;- fhe_ckks_tolerance(ct)</span></span></span>
+<span class="r-in"><span><span class="co">## Stage 2 -- pass a ciphertext and let it read the parameters</span></span></span>
+<span class="r-in"><span><span class="co">## off the associated context:</span></span></span>
+<span class="r-in"><span><span class="va">cc</span> <span class="op">&lt;-</span> <span class="fu"><a href="fhe_context.html">fhe_context</a></span><span class="op">(</span><span class="st">"CKKS"</span>, multiplicative_depth <span class="op">=</span> <span class="fl">4L</span>,</span></span>
+<span class="r-in"><span>                  scaling_mod_size <span class="op">=</span> <span class="fl">50L</span>, batch_size <span class="op">=</span> <span class="fl">8L</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">kp</span> <span class="op">&lt;-</span> <span class="fu"><a href="key_gen.html">key_gen</a></span><span class="op">(</span><span class="va">cc</span>, eval_mult <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pt</span> <span class="op">&lt;-</span> <span class="fu"><a href="make_ckks_packed_plaintext.html">make_ckks_packed_plaintext</a></span><span class="op">(</span><span class="va">cc</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ct</span> <span class="op">&lt;-</span> <span class="fu"><a href="encrypt.html">encrypt</a></span><span class="op">(</span><span class="va">kp</span><span class="op">@</span><span class="va">public</span>, <span class="va">pt</span>, cc <span class="op">=</span> <span class="va">cc</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">fhe_ckks_tolerance</span><span class="op">(</span><span class="va">ct</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0002441406</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

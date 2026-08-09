@@ -361,87 +361,45 @@
 ## Enums
 
 - [`Feature`](https://openfheorg.github.io/openfhe.R/reference/Feature.md)
-  : PKE Scheme Features (bitmask) Source: pke/constants-defs.h enum
-  PKESchemeFeature
-
+  : PKE Scheme Features (bitmask)
 - [`SecurityLevel`](https://openfheorg.github.io/openfhe.R/reference/SecurityLevel.md)
-  : Security Levels Source: core/lattice/stdlatticeparms.h enum
-  SecurityLevel
-
+  : Security Levels
 - [`ScalingTechnique`](https://openfheorg.github.io/openfhe.R/reference/ScalingTechnique.md)
-  : Scaling Techniques (CKKS) Source: pke/constants-defs.h enum
-  ScalingTechnique
-
+  : Scaling Techniques (CKKS)
 - [`KeySwitchTechnique`](https://openfheorg.github.io/openfhe.R/reference/KeySwitchTechnique.md)
-  : Key Switching Techniques Source: pke/constants-defs.h enum
-  KeySwitchTechnique
-
+  : Key Switching Techniques
 - [`SecretKeyDist`](https://openfheorg.github.io/openfhe.R/reference/SecretKeyDist.md)
-  : Secret Key Distribution Source: core/lattice/constants-lattice.h
-  enum SecretKeyDist
-
+  : Secret Key Distribution
 - [`BinFHEParamSet`](https://openfheorg.github.io/openfhe.R/reference/BinFHEParamSet.md)
-  : Binary FHE Parameter Sets Source: binfhe/binfhe-constants.h enum
-  BINFHE_PARAMSET (sequential from 0)
-
+  : Binary FHE Parameter Sets
 - [`BinFHEMethod`](https://openfheorg.github.io/openfhe.R/reference/BinFHEMethod.md)
-  : Binary FHE Methods Source: binfhe/binfhe-constants.h enum
-  BINFHE_METHOD
-
+  : Binary FHE Methods
 - [`BinGate`](https://openfheorg.github.io/openfhe.R/reference/BinGate.md)
-  : Binary Gate Types Source: binfhe/binfhe-constants.h enum BINGATE
-  (sequential from 0)
-
+  : Binary Gate Types
 - [`BinFHEOutput`](https://openfheorg.github.io/openfhe.R/reference/BinFHEOutput.md)
-  : Binary FHE Output Types Source: binfhe/binfhe-constants.h enum
-  BINFHE_OUTPUT
-
+  : Binary FHE Output Types
 - [`KeygenMode`](https://openfheorg.github.io/openfhe.R/reference/KeygenMode.md)
-  : Key Generation Mode Source: binfhe/binfhe-constants.h enum
-  KEYGEN_MODE
-
+  : Key Generation Mode
 - [`PlaintextEncodings`](https://openfheorg.github.io/openfhe.R/reference/PlaintextEncodings.md)
-  : Plaintext Encoding Types Source: pke/constants-defs.h enum
-  PlaintextEncodings
-
+  : Plaintext Encoding Types
 - [`DistributionType`](https://openfheorg.github.io/openfhe.R/reference/DistributionType.md)
-  : Distribution Type (lattice parameters) Source:
-  core/lattice/stdlatticeparms.h enum DistributionType
-
+  : Distribution Type (lattice parameters)
 - [`MultipartyMode`](https://openfheorg.github.io/openfhe.R/reference/MultipartyMode.md)
-  : Multiparty Mode Source: pke/constants-defs.h enum MultipartyMode
-
+  : Multiparty Mode
 - [`ExecutionMode`](https://openfheorg.github.io/openfhe.R/reference/ExecutionMode.md)
-  : Execution Mode Source: pke/constants-defs.h enum ExecutionMode
-
+  : Execution Mode
 - [`DecryptionNoiseMode`](https://openfheorg.github.io/openfhe.R/reference/DecryptionNoiseMode.md)
-  : Decryption Noise Mode Source: pke/constants-defs.h enum
-  DecryptionNoiseMode
-
+  : Decryption Noise Mode
 - [`PREMode`](https://openfheorg.github.io/openfhe.R/reference/PREMode.md)
-  :
-
-  Proxy Re-encryption Mode Source: pke/constants-defs.h enum
-  ProxyReEncryptionMode R-side name `PREMode` is a shortened form (same
-  pattern as `Feature` for `PKESchemeFeature`).
-
+  : Proxy Re-encryption Mode
 - [`MultiplicationTechnique`](https://openfheorg.github.io/openfhe.R/reference/MultiplicationTechnique.md)
-  : Multiplication Technique (BFV) Source: pke/constants-defs.h enum
-  MultiplicationTechnique
-
+  : Multiplication Technique (BFV)
 - [`EncryptionTechnique`](https://openfheorg.github.io/openfhe.R/reference/EncryptionTechnique.md)
-  : Encryption Technique Source: pke/constants-defs.h enum
-  EncryptionTechnique
-
+  : Encryption Technique
 - [`CKKSDataType`](https://openfheorg.github.io/openfhe.R/reference/CKKSDataType.md)
-  : CKKS Data Type Source: pke/constants-defs.h enum CKKSDataType
-
+  : CKKS Data Type
 - [`CompressionLevel`](https://openfheorg.github.io/openfhe.R/reference/CompressionLevel.md)
-  : Compression Level (interactive multi-party bootstrap) Source:
-  pke/constants-defs.h enum CompressionLevel NOTE: values start at 2,
-  not 0. The header comment explains that compression levels 0 and 1 are
-  not supported and the values are not renumbered.
-
+  : Compression Level (interactive multi-party bootstrap)
 - [`SchemeId`](https://openfheorg.github.io/openfhe.R/reference/SchemeId.md)
   : Scheme Identifier
 
@@ -511,7 +469,7 @@
   : Extract pointer with validation
 - [`openfhe.R`](https://openfheorg.github.io/openfhe.R/reference/openfhe.R-package.md)
   [`openfhe.R-package`](https://openfheorg.github.io/openfhe.R/reference/openfhe.R-package.md)
-  : openfhe.R: R Interface to the OpenFHE Fully Homomorphic Encryption
+  : openfhe.R: R Interface to the 'OpenFHE' Fully Homomorphic Encryption
   Library
 
 ## CKKS numerical tolerance

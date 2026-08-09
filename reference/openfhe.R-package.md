@@ -1,4 +1,4 @@
-# openfhe.R: R Interface to the OpenFHE Fully Homomorphic Encryption Library
+# openfhe.R: R Interface to the 'OpenFHE' Fully Homomorphic Encryption Library
 
 Provides an R interface to 'OpenFHE', the open-source C++ library for
 fully homomorphic encryption (Al Badawi and others, 2022)
@@ -27,13 +27,47 @@ Useful links:
 ## Author
 
 **Maintainer**: Balasubramanian Narasimhan <naras@stanford.edu>
-([ORCID](https://orcid.org/0000-0001-5852-7639))
+([ORCID](https://orcid.org/0000-0001-5852-7639)) \[copyright holder\]
 
 Authors:
 
 - Balasubramanian Narasimhan <naras@stanford.edu>
-  ([ORCID](https://orcid.org/0000-0001-5852-7639))
+  ([ORCID](https://orcid.org/0000-0001-5852-7639)) \[copyright holder\]
 
 Other contributors:
 
-- Authors of the OpenFHE C++ library \[contributor, copyright holder\]
+- New Jersey Institute of Technology (OpenFHE C++ library,
+  inst/openfhe/src) \[copyright holder\]
+
+- Duality Technologies, Inc. (OpenFHE C++ library, inst/openfhe/src)
+  \[contributor, copyright holder\]
+
+- Samuel Neves (BLAKE2 reference implementation, inst/openfhe/src/core)
+  \[contributor, copyright holder\]
+
+- Jean-Philippe Aumasson (BLAKE2X reference implementation,
+  inst/openfhe/src/core) \[contributor, copyright holder\]
+
+- Randolph Voorhies (cereal serialization library, inst/openfhe/cereal)
+  \[contributor, copyright holder\]
+
+- Shane Grant (cereal serialization library, inst/openfhe/cereal)
+  \[contributor, copyright holder\]
+
+- Juan Pedro Bolivar Puente (cereal std::optional and std::variant
+  support) \[contributor, copyright holder\]
+
+- THL A29 Limited, a Tencent company (RapidJSON, bundled in
+  inst/openfhe/cereal) \[copyright holder\]
+
+- Milo Yip (RapidJSON, bundled in inst/openfhe/cereal) \[contributor,
+  copyright holder\]
+
+- Alexander Chemeris (msinttypes, bundled in inst/openfhe/cereal)
+  \[contributor, copyright holder\]
+
+- Marcin Kalicinski (RapidXml, bundled in inst/openfhe/cereal)
+  \[contributor, copyright holder\]
+
+- Rene Nyffenegger (base64 encoder/decoder, bundled in
+  inst/openfhe/cereal) \[contributor, copyright holder\]

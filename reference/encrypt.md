@@ -31,3 +31,24 @@ encrypt(key, pt, ...)
 ## Value
 
 A `Ciphertext`.
+
+## Examples
+
+``` r
+cc <- fhe_context("CKKS", multiplicative_depth = 2L,
+                  scaling_mod_size = 50L, batch_size = 8L)
+kp <- key_gen(cc, eval_mult = TRUE)
+pt <- make_ckks_packed_plaintext(cc, c(0.5, 1.5, 2.5, 3.5))
+
+## Public-key encryption -- the usual path, and the one that lets a
+## party encrypt without holding the secret key:
+ct <- encrypt(kp@public, pt, cc = cc)
+ct
+#> <Ciphertext> [active]
+
+## Symmetric encryption with the secret key, for protocols where the
+## same party encrypts and decrypts:
+ct2 <- encrypt(kp@secret, pt, cc = cc)
+ct2
+#> <Ciphertext> [active]
+```

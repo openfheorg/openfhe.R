@@ -52,6 +52,15 @@ inherit from this class. It holds an external pointer to a C++ shared_ptr.</p>
 <dd><p>External pointer to C++ object (internal use)</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>An S7 object of class <code>OpenFHEObject</code>, the base class every object
+in this package inherits from. It has a single property, <code>ptr</code>,
+holding an external pointer to the underlying C++ <code>shared_ptr</code>.
+Constructing one directly is of no use; the class exists so that
+methods can dispatch on the common parent and so that the pointer is
+managed in one place.</p>
+    </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

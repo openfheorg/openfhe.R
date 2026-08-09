@@ -18,3 +18,13 @@ EncodingParams(ptr = NULL)
 - ptr:
 
   External pointer (internal use)
+
+## Value
+
+An S7 object of class `EncodingParams`, inheriting from
+[OpenFHEObject](https://openfheorg.github.io/openfhe.R/reference/OpenFHEObject.md),
+whose `ptr` property holds an external pointer to the C++
+`EncodingParamsImpl`. It is an opaque token describing how values are
+packed into a plaintext, obtained from
+[`get_encoding_params()`](https://openfheorg.github.io/openfhe.R/reference/get_encoding_params.md)
+rather than by calling this constructor directly.

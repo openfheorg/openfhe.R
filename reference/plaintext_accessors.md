@@ -138,7 +138,7 @@ a silent wrong value.
 - `is_encoded`: logical "has the plaintext been encoded yet?" The
   factory methods typically encode plaintexts eagerly, so this is `TRUE`
   for fresh plaintexts. Returns `FALSE` only for plaintexts constructed
-  in a two-step uninitialised form.
+  in a two-step uninitialized form.
 
 - `low_bound`: integer lower bound that can be encoded with the current
   plaintext modulus: `-floor(t / 2)`.

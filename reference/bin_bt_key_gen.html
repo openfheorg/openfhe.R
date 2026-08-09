@@ -64,6 +64,13 @@ default and the C++ default per
 <code>binfhecontext.h</code> line 273.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>Invisibly, the <code>ctx</code> BinFHE context that was passed in. Called for
+its side effect: the bootstrapping and key-switching keys are
+generated and stored inside the C++ context, after which
+<code><a href="eval_bin_gate.html">eval_bin_gate()</a></code> and the other gate evaluations can be used.</p>
+    </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

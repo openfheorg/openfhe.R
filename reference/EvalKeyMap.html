@@ -74,6 +74,16 @@ index.</p>
 
 </dl></div>
     <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>An S7 object of class <code>EvalKeyMap</code>, inheriting from <a href="OpenFHEObject.html">OpenFHEObject</a>,
+whose <code>ptr</code> property holds an external pointer to the C++
+<code>std::map&lt;uint32_t, EvalKey&lt;DCRTPoly&gt;&gt;</code>. It carries one evaluation
+key per rotation or automorphism index and acts as the transport
+format for the multi-party key protocols; it is produced by the
+<code>multi_eval_*_key_gen()</code> family rather than by calling this
+constructor directly.</p>
+    </div>
+    <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Users do not construct or index into an <code>EvalKeyMap</code>
 directly — it is a transport format for the multi-party

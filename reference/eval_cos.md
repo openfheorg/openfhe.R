@@ -25,3 +25,12 @@ eval_cos(ct, a, b, degree)
 - degree:
 
   Chebyshev polynomial degree
+
+## Value
+
+A
+[Ciphertext](https://openfheorg.github.io/openfhe.R/reference/Ciphertext.md)
+holding the encrypted, slot-wise cosine of `ct`, approximated by a
+Chebyshev polynomial of the given `degree` on the interval `[a, b]`.
+Accuracy degrades outside that interval, and the result sits
+`ceiling(log2(degree)) + 1` levels below `ct`.

@@ -49,6 +49,16 @@
 <dd><p>External pointer (internal use)</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>An S7 object of class <code>EvalKey</code>, inheriting from <a href="OpenFHEObject.html">OpenFHEObject</a>,
+whose <code>ptr</code> property holds an external pointer to the C++
+<code>EvalKey&lt;DCRTPoly&gt;</code>. An evaluation key is the public material that
+lets the computing party carry out one operation — a
+relinearization, a rotation, or a re-encryption — without the secret
+key. Obtain one from <code><a href="multi_key_switch_gen.html">multi_key_switch_gen()</a></code> or the rest of the
+<code>multi_*()</code> family rather than by calling this constructor directly.</p>
+    </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

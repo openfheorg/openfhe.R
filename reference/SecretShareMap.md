@@ -21,6 +21,17 @@ SecretShareMap(ptr = NULL)
 
   External pointer (internal use).
 
+## Value
+
+An S7 object of class `SecretShareMap`, inheriting from
+[OpenFHEObject](https://openfheorg.github.io/openfhe.R/reference/OpenFHEObject.md),
+whose `ptr` property holds an external pointer to the C++
+`std::unordered_map<uint32_t, DCRTPoly>`. It carries one share per party
+index and acts as the transport format for the threshold-FHE
+abort-recovery protocol; it is produced by
+[`share_keys()`](https://openfheorg.github.io/openfhe.R/reference/share_keys.md)
+rather than by calling this constructor directly.
+
 ## Details
 
 The map is keyed by party index (1-based uint32). Users do not index

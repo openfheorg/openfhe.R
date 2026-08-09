@@ -3,21 +3,56 @@
 ## Authors
 
 - **[Balasubramanian Narasimhan](https://naras.su.domains)**. Author,
-  maintainer. [](https://orcid.org/0000-0001-5852-7639)
+  maintainer, copyright holder.
+  [](https://orcid.org/0000-0001-5852-7639)
 
-- **Authors of the OpenFHE C++ library**. Contributor, copyright holder.
+- **New Jersey Institute of Technology**. Copyright holder.  
+  OpenFHE C++ library, inst/openfhe/src
+
+- **Duality Technologies, Inc.**. Contributor, copyright holder.  
+  OpenFHE C++ library, inst/openfhe/src
+
+- **Samuel Neves**. Contributor, copyright holder.  
+  BLAKE2 reference implementation, inst/openfhe/src/core
+
+- **Jean-Philippe Aumasson**. Contributor, copyright holder.  
+  BLAKE2X reference implementation, inst/openfhe/src/core
+
+- **Randolph Voorhies**. Contributor, copyright holder.  
+  cereal serialization library, inst/openfhe/cereal
+
+- **Shane Grant**. Contributor, copyright holder.  
+  cereal serialization library, inst/openfhe/cereal
+
+- **Juan Pedro Bolivar Puente**. Contributor, copyright holder.  
+  cereal std::optional and std::variant support
+
+- **THL A29 Limited, a Tencent company**. Copyright holder.  
+  RapidJSON, bundled in inst/openfhe/cereal
+
+- **Milo Yip**. Contributor, copyright holder.  
+  RapidJSON, bundled in inst/openfhe/cereal
+
+- **Alexander Chemeris**. Contributor, copyright holder.  
+  msinttypes, bundled in inst/openfhe/cereal
+
+- **Marcin Kalicinski**. Contributor, copyright holder.  
+  RapidXml, bundled in inst/openfhe/cereal
+
+- **Rene Nyffenegger**. Contributor, copyright holder.  
+  base64 encoder/decoder, bundled in inst/openfhe/cereal
 
 ## Citation
 
 Source:
 [`inst/CITATION`](https://github.com/openfheorg/openfhe.R/blob/main/inst/CITATION)
 
-Narasimhan B (2026). *openfhe.R: R Interface to the OpenFHE Fully
+Narasimhan B (2026). *openfhe.R: R Interface to the 'OpenFHE' Fully
 Homomorphic Encryption Library*. R package version 1.5.1,
 <https://openfheorg.github.io/openfhe.R/>.
 
     @Manual{,
-      title = {{openfhe.R}: R Interface to the OpenFHE Fully Homomorphic Encryption Library},
+      title = {{openfhe.R}: R Interface to the 'OpenFHE' Fully Homomorphic Encryption Library},
       author = {Balasubramanian Narasimhan},
       year = {2026},
       note = {R package version 1.5.1},

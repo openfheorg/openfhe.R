@@ -56,13 +56,17 @@ Two dispatch forms:
 ## Examples
 
 ``` r
-# Stage 1 — pass parameters directly:
-tol1 <- fhe_ckks_tolerance(4L, 50L, "FLEXIBLEAUTO")
+## Stage 1 -- pass the parameters directly:
+fhe_ckks_tolerance(4L, 50L, "FLEXIBLEAUTO")
+#> [1] 1.136868e-13
 
-# Stage 2 — pass a ciphertext (requires a live CKKS context):
-# cc <- fhe_context("CKKS", multiplicative_depth = 4L, scaling_mod_size = 50L)
-# kp <- key_gen(cc, eval_mult = TRUE)
-# pt <- make_ckks_packed_plaintext(cc, c(0.1, 0.2, 0.3, 0.4))
-# ct <- encrypt(kp@public, pt, cc)
-# tol2 <- fhe_ckks_tolerance(ct)
+## Stage 2 -- pass a ciphertext and let it read the parameters
+## off the associated context:
+cc <- fhe_context("CKKS", multiplicative_depth = 4L,
+                  scaling_mod_size = 50L, batch_size = 8L)
+kp <- key_gen(cc, eval_mult = TRUE)
+pt <- make_ckks_packed_plaintext(cc, c(0.1, 0.2, 0.3, 0.4))
+ct <- encrypt(kp@public, pt, cc = cc)
+fhe_ckks_tolerance(ct)
+#> [1] 0.0002441406
 ```

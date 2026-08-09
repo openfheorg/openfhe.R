@@ -18,3 +18,14 @@ CryptoParameters(ptr = NULL)
 - ptr:
 
   External pointer (internal use)
+
+## Value
+
+An S7 object of class `CryptoParameters`, inheriting from
+[OpenFHEObject](https://openfheorg.github.io/openfhe.R/reference/OpenFHEObject.md),
+whose `ptr` property holds an external pointer to the C++
+`CryptoParametersBase<DCRTPoly>`. It is an opaque token: its contents
+are read with the RNS-level accessors rather than from R, and it is
+obtained from
+[`get_crypto_parameters()`](https://openfheorg.github.io/openfhe.R/reference/get_crypto_parameters.md)
+rather than by calling this constructor directly.

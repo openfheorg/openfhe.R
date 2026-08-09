@@ -27,3 +27,11 @@ bin_bt_key_gen(ctx, sk, keygen_mode = KeygenMode$SYM_ENCRYPT)
   the C++ default per `binfhe-constants.h` line 133) or public-key
   encryption (`KeygenMode$PUB_ENCRYPT`), matching the
   `BTKeyGen(sk, keyGenMode)` overload at `binfhecontext.h` line 273.
+
+## Value
+
+Invisibly, the `ctx` BinFHE context that was passed in. Called for its
+side effect: the bootstrapping and key-switching keys are generated and
+stored inside the C++ context, after which
+[`eval_bin_gate()`](https://openfheorg.github.io/openfhe.R/reference/eval_bin_gate.md)
+and the other gate evaluations can be used.

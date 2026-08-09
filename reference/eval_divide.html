@@ -61,6 +61,14 @@
 <dd><p>Chebyshev polynomial degree</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A <a href="Ciphertext.html">Ciphertext</a> holding the encrypted, slot-wise reciprocal of <code>ct</code>,
+approximated by a Chebyshev polynomial of the given <code>degree</code> on the
+interval <code>[a, b]</code>. The interval must exclude zero, accuracy degrades
+outside it, and the result sits <code>ceiling(log2(degree)) + 1</code> levels
+below <code>ct</code>.</p>
+    </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

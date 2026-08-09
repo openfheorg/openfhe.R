@@ -47,3 +47,10 @@ eval_bootstrap_setup(
   Logical; controls whether the bootstrap precomputes with slot-count
   encoding (the `BTSlotsEncoding` tail argument on cryptocontext.h line
   3513). Default `FALSE` matching the C++ default.
+
+## Value
+
+Invisibly, the `cc` crypto context that was passed in. Called for its
+side effect: the linear transforms bootstrapping needs are precomputed
+and cached inside the C++ context. Call it before
+[`eval_bootstrap_key_gen()`](https://openfheorg.github.io/openfhe.R/reference/eval_bootstrap_key_gen.md).

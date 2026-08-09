@@ -27,6 +27,17 @@ EvalKeyMap(ptr = NULL)
 
   External pointer (internal use).
 
+## Value
+
+An S7 object of class `EvalKeyMap`, inheriting from
+[OpenFHEObject](https://openfheorg.github.io/openfhe.R/reference/OpenFHEObject.md),
+whose `ptr` property holds an external pointer to the C++
+`std::map<uint32_t, EvalKey<DCRTPoly>>`. It carries one evaluation key
+per rotation or automorphism index and acts as the transport format for
+the multi-party key protocols; it is produced by the
+`multi_eval_*_key_gen()` family rather than by calling this constructor
+directly.
+
 ## Details
 
 Users do not construct or index into an `EvalKeyMap` directly — it is a

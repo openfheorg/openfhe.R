@@ -86,6 +86,23 @@ Passing an invalid scheme-specific argument produces an R-level
     <div class="dont-index"><p><code><a href="BFVParams.html">BFVParams()</a></code>, <code><a href="BGVParams.html">BGVParams()</a></code>, <code><a href="CKKSParams.html">CKKSParams()</a></code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## An exact context over the integers modulo 65537 (BFV). The ring</span></span></span>
+<span class="r-in"><span><span class="co">## dimension is chosen for you from the security level.</span></span></span>
+<span class="r-in"><span><span class="va">bfv</span> <span class="op">&lt;-</span> <span class="fu">fhe_context</span><span class="op">(</span><span class="st">"BFV"</span>, plaintext_modulus <span class="op">=</span> <span class="fl">65537L</span>,</span></span>
+<span class="r-in"><span>                   multiplicative_depth <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ring_dimension.html">ring_dimension</a></span><span class="op">(</span><span class="va">bfv</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8192</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## An approximate context over the reals (CKKS), which is what the</span></span></span>
+<span class="r-in"><span><span class="co">## statistical applications use.</span></span></span>
+<span class="r-in"><span><span class="va">ckks</span> <span class="op">&lt;-</span> <span class="fu">fhe_context</span><span class="op">(</span><span class="st">"CKKS"</span>, multiplicative_depth <span class="op">=</span> <span class="fl">2L</span>,</span></span>
+<span class="r-in"><span>                    scaling_mod_size <span class="op">=</span> <span class="fl">50L</span>, batch_size <span class="op">=</span> <span class="fl">8L</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ring_dimension.html">ring_dimension</a></span><span class="op">(</span><span class="va">ckks</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 16384</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

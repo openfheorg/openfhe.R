@@ -55,6 +55,16 @@ decomposition over many rotations of the same source ciphertext.</p>
 <dd><p>External pointer (internal use)</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>An S7 object of class <code>FastRotationPrecomputation</code>, inheriting from
+<a href="OpenFHEObject.html">OpenFHEObject</a>, whose <code>ptr</code> property holds an external pointer to
+the C++ digit decomposition. It caches the work that is common to
+every rotation of one source ciphertext; obtain one from
+<code><a href="eval_fast_rotation_precompute.html">eval_fast_rotation_precompute()</a></code> and pass it to
+<code><a href="eval_fast_rotation.html">eval_fast_rotation()</a></code> rather than calling this constructor
+directly.</p>
+    </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

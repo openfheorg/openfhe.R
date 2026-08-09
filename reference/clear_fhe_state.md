@@ -14,3 +14,10 @@ clear_fhe_state(what = c("mult_keys", "automorphism_keys", "contexts"))
 
   Character vector: subset of "mult_keys", "automorphism_keys",
   "contexts"
+
+## Value
+
+No return value, called for side effects. Depending on `what`, it drops
+the process-wide caches of relinearization keys and of automorphism
+(rotation) keys, and releases the registry of crypto contexts, freeing
+the memory they hold.

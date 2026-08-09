@@ -83,3 +83,18 @@ make_ckks_packed_plaintext(
 ## Value
 
 A `Plaintext`.
+
+## Examples
+
+``` r
+cc <- fhe_context("CKKS", multiplicative_depth = 2L,
+                  scaling_mod_size = 50L, batch_size = 8L)
+
+## Encode four reals into the CKKS slots. The remaining slots are
+## zero-padded out to `batch_size`.
+pt <- make_ckks_packed_plaintext(cc, c(0.25, 0.5, 0.75, 1))
+pt
+#> <Plaintext>: (0.25, 0.5, 0.75, 1, ... ); Estimated precision: 50 bits
+get_real_packed_value(set_length(pt, 4L))
+#> [1] 0.25 0.50 0.75 1.00
+```
