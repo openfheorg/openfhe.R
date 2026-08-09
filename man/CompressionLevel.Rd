@@ -2,18 +2,23 @@
 % Please edit documentation in R/enums.R
 \name{CompressionLevel}
 \alias{CompressionLevel}
-\title{Compression Level (interactive multi-party bootstrap)
-Source: pke/constants-defs.h enum CompressionLevel
-NOTE: values start at 2, not 0. The header comment explains that
-compression levels 0 and 1 are not supported and the values are
-not renumbered.}
+\title{Compression Level (interactive multi-party bootstrap)}
 \usage{
 CompressionLevel
 }
+\value{
+A named \code{list} of 2 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name, naming how far a
+ciphertext is compressed before the interactive bootstrapping
+round-trip: \code{COMPACT} (2) sends the least data but is only safe
+when the result is decrypted immediately, while \code{SLACK} (3) leaves
+room for further computation on the result. Pass an element as the
+\code{interactive_boot_compression_level} argument of \code{\link[=CKKSParams]{CKKSParams()}} or
+\code{\link[=fhe_context]{fhe_context()}}.
+}
 \description{
-Compression Level (interactive multi-party bootstrap)
-Source: pke/constants-defs.h enum CompressionLevel
-NOTE: values start at 2, not 0. The header comment explains that
-compression levels 0 and 1 are not supported and the values are
-not renumbered.
+Mirrors the C++ enum \code{CompressionLevel} in \code{pke/constants-defs.h}.
+Note that the values start at 2, not 0: the header explains that
+compression levels 0 and 1 are not supported and that the remaining
+values are deliberately not renumbered.
 }

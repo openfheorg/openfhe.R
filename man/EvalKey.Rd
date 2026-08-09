@@ -9,6 +9,15 @@ EvalKey(ptr = NULL)
 \arguments{
 \item{ptr}{External pointer (internal use)}
 }
+\value{
+An S7 object of class \code{EvalKey}, inheriting from \link{OpenFHEObject},
+whose \code{ptr} property holds an external pointer to the C++
+\verb{EvalKey<DCRTPoly>}. An evaluation key is the public material that
+lets the computing party carry out one operation — a
+relinearization, a rotation, or a re-encryption — without the secret
+key. Obtain one from \code{\link[=multi_key_switch_gen]{multi_key_switch_gen()}} or the rest of the
+\verb{multi_*()} family rather than by calling this constructor directly.
+}
 \description{
 EvalKey class for multi-party key operations
 }

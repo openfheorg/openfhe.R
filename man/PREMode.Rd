@@ -2,16 +2,21 @@
 % Please edit documentation in R/enums.R
 \name{PREMode}
 \alias{PREMode}
-\title{Proxy Re-encryption Mode
-Source: pke/constants-defs.h enum ProxyReEncryptionMode
-R-side name \code{PREMode} is a shortened form (same pattern as
-\code{Feature} for \code{PKESchemeFeature}).}
+\title{Proxy Re-encryption Mode}
 \usage{
 PREMode
 }
+\value{
+A named \code{list} of 4 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name, naming the security notion
+the re-encryption key should satisfy: \code{INDCPA},
+\code{FIXED_NOISE_HRA} or \code{NOISE_FLOODING_HRA}, the last two being
+honest-re-encryption-attack secure. \code{NOT_SET} disables proxy
+re-encryption. Pass an element as the \code{pre_mode} argument of
+\code{\link[=CKKSParams]{CKKSParams()}}, \code{\link[=BFVParams]{BFVParams()}}, \code{\link[=BGVParams]{BGVParams()}} or \code{\link[=fhe_context]{fhe_context()}}.
+}
 \description{
-Proxy Re-encryption Mode
-Source: pke/constants-defs.h enum ProxyReEncryptionMode
-R-side name \code{PREMode} is a shortened form (same pattern as
-\code{Feature} for \code{PKESchemeFeature}).
+Mirrors the C++ enum \code{ProxyReEncryptionMode} in
+\code{pke/constants-defs.h}. The R-side name \code{PREMode} is a shortened
+form, the same pattern as \code{Feature} for \code{PKESchemeFeature}.
 }

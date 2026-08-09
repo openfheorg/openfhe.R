@@ -6,12 +6,15 @@
 \usage{
 SchemeId
 }
-\description{
-Returned by \code{get_scheme()} on any \code{CCParams} object. R-side name
-\code{SchemeId} matches the upstream \code{pke/scheme/scheme-id.h} header
-filename and avoids colliding with a potential future \code{Scheme} S7
-class.
+\value{
+A named \code{list} of 4 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name, identifying the encryption
+scheme a context implements: \code{CKKSRNS_SCHEME}, \code{BFVRNS_SCHEME} or
+\code{BGVRNS_SCHEME}, with \code{INVALID_SCHEME} for an unset value. This is
+the value reported by \code{get_scheme()} on any \code{CCParams} object.
 }
-\details{
-Source: pke/scheme/scheme-id.h enum SCHEME
+\description{
+Mirrors the C++ enum \code{SCHEME} in \code{pke/scheme/scheme-id.h}. The R-side
+name \code{SchemeId} matches the upstream header filename and avoids
+colliding with a potential future \code{Scheme} S7 class.
 }

@@ -34,6 +34,19 @@ its upstream \verb{CCParams<T>} specialization.
 Passing an invalid scheme-specific argument produces an R-level
 "unused argument" error at the underlying \verb{*Params()} call site.
 }
+\examples{
+## An exact context over the integers modulo 65537 (BFV). The ring
+## dimension is chosen for you from the security level.
+bfv <- fhe_context("BFV", plaintext_modulus = 65537L,
+                   multiplicative_depth = 2L)
+ring_dimension(bfv)
+
+## An approximate context over the reals (CKKS), which is what the
+## statistical applications use.
+ckks <- fhe_context("CKKS", multiplicative_depth = 2L,
+                    scaling_mod_size = 50L, batch_size = 8L)
+ring_dimension(ckks)
+}
 \seealso{
 \code{\link[=BFVParams]{BFVParams()}}, \code{\link[=BGVParams]{BGVParams()}}, \code{\link[=CKKSParams]{CKKSParams()}}
 }

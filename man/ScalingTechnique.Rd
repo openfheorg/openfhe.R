@@ -2,12 +2,22 @@
 % Please edit documentation in R/enums.R
 \name{ScalingTechnique}
 \alias{ScalingTechnique}
-\title{Scaling Techniques (CKKS)
-Source: pke/constants-defs.h enum ScalingTechnique}
+\title{Scaling Techniques (CKKS)}
 \usage{
 ScalingTechnique
 }
+\value{
+A named \code{list} of 8 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name. The element chosen tells a
+CKKS context how to manage the scaling factor between
+multiplications: \code{FIXEDMANUAL} leaves rescaling to the caller,
+\code{FIXEDAUTO} and the \verb{FLEXIBLE*} variants rescale automatically with
+increasing precision, the \verb{COMPOSITESCALING*} variants split the
+scaling factor across several moduli, and \code{NORESCALE} disables
+rescaling. \code{INVALID_RS_TECHNIQUE} marks an unset value. Pass an
+element as the \code{scaling_technique} argument of \code{\link[=CKKSParams]{CKKSParams()}},
+\code{\link[=BGVParams]{BGVParams()}} or \code{\link[=fhe_context]{fhe_context()}}.
+}
 \description{
-Scaling Techniques (CKKS)
-Source: pke/constants-defs.h enum ScalingTechnique
+Mirrors the C++ enum \code{ScalingTechnique} in \code{pke/constants-defs.h}.
 }

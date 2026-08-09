@@ -2,12 +2,18 @@
 % Please edit documentation in R/enums.R
 \name{DistributionType}
 \alias{DistributionType}
-\title{Distribution Type (lattice parameters)
-Source: core/lattice/stdlatticeparms.h enum DistributionType}
+\title{Distribution Type (lattice parameters)}
 \usage{
 DistributionType
 }
+\value{
+A named \code{list} of 3 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name, naming the secret
+distribution a row of the HomomorphicEncryption.org standard
+parameter tables applies to: \code{HEStd_uniform}, \code{HEStd_error} or
+\code{HEStd_ternary}.
+}
 \description{
-Distribution Type (lattice parameters)
-Source: core/lattice/stdlatticeparms.h enum DistributionType
+Mirrors the C++ enum \code{DistributionType} in
+\code{core/lattice/stdlatticeparms.h}.
 }

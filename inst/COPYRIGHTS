@@ -1,0 +1,118 @@
+The openfhe.R package as a whole is distributed under the BSD 2-Clause
+License; see the file LICENSE.
+
+The package bundles the source of the OpenFHE C++ library, which is
+compiled at install time, and that library in turn bundles several
+third-party components.  Every copyright holder whose code ships in
+this tarball is listed below, together with the files covered and the
+license those files carry.  The corresponding per-file copyright and
+license headers are preserved unmodified in the vendored sources.
+
+
+-------------------------------------------------------------------------
+The R package itself
+-------------------------------------------------------------------------
+
+Copyright (c) 2026 Balasubramanian Narasimhan
+  Files: R/**, src/**, man/**, vignettes/**, inst/tinytest/**,
+         configure, configure.win, cleanup, inst/build_openfhe.sh
+  License: BSD-2-Clause (see LICENSE)
+
+  The R and C++ binding layer was written by consulting both the
+  OpenFHE C++ headers and the corresponding pybind11 bindings in the
+  openfhe-python project (Copyright (c) 2023-2025, Duality
+  Technologies Inc. and other contributors; BSD-2-Clause).  Source
+  files that were written against a Python binding carry an
+  "OPENFHE PYTHON SOURCE:" header naming the file consulted.  No code
+  was copied; Duality Technologies is listed as a contributor and
+  copyright holder below on account of the C++ library.
+
+  src/r_streams.cpp implements an R-routed std::ostream.  The pattern
+  was adapted from the 'scip' R package's src/r_streams.cpp; no code
+  was copied verbatim.
+
+
+-------------------------------------------------------------------------
+Bundled third-party source, compiled at install time
+-------------------------------------------------------------------------
+
+OpenFHE (https://github.com/openfheorg/openfhe-development), v1.5.1
+  Files: inst/openfhe/src/**, inst/openfhe/CMakeLists.txt,
+         inst/openfhe/CMakeLists.User.txt, inst/openfhe/PreLoad.cmake,
+         inst/openfhe/OpenFHEConfig.cmake.in,
+         inst/openfhe/OpenFHEConfigVersion.cmake.in,
+         inst/openfhe/configure/**
+  Copyright (c) 2014-2026, NJIT, Duality Technologies Inc. and other
+    contributors.  All rights reserved.
+  Copyright (c) 2022, OpenFHE
+  License: BSD-2-Clause.  Full text in inst/openfhe/LICENSE, and
+    repeated in the header of every source file.
+
+BLAKE2 and BLAKE2X reference implementations
+  Files: inst/openfhe/src/core/include/utils/prng/blake2.h
+         inst/openfhe/src/core/include/utils/prng/blake2-impl.h
+         inst/openfhe/src/core/lib/utils/prng/blake2b-ref.c
+         inst/openfhe/src/core/lib/utils/prng/blake2xb-ref.c
+  Copyright 2012, 2016 Samuel Neves <sneves@dei.uc.pt>
+  Copyright 2016 JP Aumasson <jeanphilippe.aumasson@gmail.com>
+    (blake2xb-ref.c only)
+  License: at the recipient's option, CC0 1.0 Universal, the OpenSSL
+    License, or the Apache License 2.0.  See https://blake2.net.
+
+cereal (https://github.com/USCiLab/cereal), v1.3.2
+  Files: inst/openfhe/cereal/include/cereal/**, excluding the
+         external/ subtree covered separately below
+  Copyright (c) 2013-2022, Randolph Voorhies, Shane Grant.
+    All rights reserved.
+  Copyright (c) 2018, Shane Grant
+    (include/cereal/version.hpp)
+  Copyright (c) 2014, 2017, Randolph Voorhies, Shane Grant,
+    Juan Pedro Bolivar Puente
+    (include/cereal/types/variant.hpp)
+  Copyright (c) 2017, Juan Pedro Bolivar Puente
+    (include/cereal/types/optional.hpp)
+  License: BSD-3-Clause.  Full text in inst/openfhe/cereal/LICENSE.
+
+  cereal's polymorphic-type support is, in its own words, "heavily
+  inspired by the boost serialization implementation by the following
+  authors":
+    (C) Copyright 2002 Robert Ramey    - http://www.rrsd.com
+    (C) Copyright 2006 David Abrahams  - http://www.boost.org
+  used under the Boost Software License, Version 1.0
+  (http://www.boost.org/LICENSE_1_0.txt).  The acknowledgment appears
+  in inst/openfhe/cereal/include/cereal/details/polymorphic_impl.hpp,
+  .../polymorphic_impl_fwd.hpp and .../static_object.hpp; the files
+  themselves are governed by cereal's BSD-3-Clause header.
+
+RapidJSON (https://github.com/Tencent/rapidjson), v1.1.0,
+namespace-prefixed and bundled inside cereal
+  Files: inst/openfhe/cereal/include/cereal/external/rapidjson/**
+  Copyright (C) 2015 THL A29 Limited, a Tencent company, and Milo Yip.
+    All rights reserved.
+  License: MIT.  Full text in
+    inst/openfhe/cereal/include/cereal/external/rapidjson/LICENSE.
+
+msinttypes (ISO C9x compliant stdint.h and inttypes.h for Microsoft
+Visual Studio), bundled inside RapidJSON
+  Files: inst/openfhe/cereal/include/cereal/external/rapidjson/
+           msinttypes/stdint.h
+         inst/openfhe/cereal/include/cereal/external/rapidjson/
+           msinttypes/inttypes.h
+  Copyright (c) 2006-2013 Alexander Chemeris
+  License: BSD-3-Clause.  Full text in
+    inst/openfhe/cereal/include/cereal/external/rapidjson/
+      msinttypes/LICENSE.
+
+RapidXml (http://rapidxml.sourceforge.net), v1.13, bundled inside
+cereal
+  Files: inst/openfhe/cereal/include/cereal/external/rapidxml/**
+  Copyright (C) 2006, 2007, 2009 Marcin Kalicinski
+  License: dual-licensed; at the recipient's option, the Boost
+    Software License Version 1.0 or the MIT License.  Full text in
+    inst/openfhe/cereal/include/cereal/external/rapidxml/license.txt.
+
+base64 encoder and decoder, bundled inside cereal
+  Files: inst/openfhe/cereal/include/cereal/external/base64.hpp
+  Copyright (C) 2004-2008 Rene Nyffenegger
+  License: zlib-style permissive "as-is" grant.  Full text in
+    inst/openfhe/cereal/include/cereal/external/LICENSE.

@@ -31,12 +31,26 @@ inst/openfhe/third-party/\..+
 ^inst/openfhe/third-party/google-benchmark$
 ^inst/openfhe/third-party/google-test$
 ^inst/openfhe/third-party/gperftools$
+# ── cereal is header-only here: inst/openfhe/CMakeLists.txt line 631
+#    puts cereal/include on the include path and nothing else in the
+#    cereal tree is read, so the rest is dead weight in the tarball.
+#    Dropping it also removes bundled copies of doctest and of
+#    cereal's Boost-variant tests, whose copyright holders would
+#    otherwise have to be declared for code we never compile.
+#    cereal/LICENSE must stay: it licenses the headers we do ship.
+^inst/openfhe/cereal/unittests$
+^inst/openfhe/cereal/sandbox$
+^inst/openfhe/cereal/doc$
+^inst/openfhe/cereal/scripts$
+^inst/openfhe/cereal/appveyor\.yml$
+^inst/openfhe/cereal/CMakeLists\.txt$
+^inst/openfhe/cereal/Config\.cmake\.in$
+^inst/openfhe/cereal/README\.md$
 # ── Non-source files in submodule ──
 ^inst/openfhe/CMakePresets\.json$
 ^inst/openfhe/README\.md$
 ^inst/openfhe/CONTRIBUTING\.md$
 ^inst/openfhe/CHANGELOG\.md$
-^inst/openfhe/LICENSE$
 ^inst/openfhe/logo\.png$
 ^man/figures/logo_v0_backup\.png$
 ^inst/openfhe/CPPLINT\.cfg$

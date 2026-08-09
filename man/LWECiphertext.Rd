@@ -9,6 +9,14 @@ LWECiphertext(ptr = NULL)
 \arguments{
 \item{ptr}{External pointer (internal use)}
 }
+\value{
+An S7 object of class \code{LWECiphertext}, inheriting from
+\link{OpenFHEObject}, whose \code{ptr} property holds an external pointer to
+the C++ LWE ciphertext. This is the encrypted-bit type the boolean-
+circuit (BinFHE) schemes operate on; obtain one from \code{\link[=bin_encrypt]{bin_encrypt()}}
+or from a gate evaluation rather than by calling this constructor
+directly.
+}
 \description{
 LWE Ciphertext (Binary FHE)
 }

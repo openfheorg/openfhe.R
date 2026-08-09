@@ -2,12 +2,20 @@
 % Please edit documentation in R/enums.R
 \name{MultiplicationTechnique}
 \alias{MultiplicationTechnique}
-\title{Multiplication Technique (BFV)
-Source: pke/constants-defs.h enum MultiplicationTechnique}
+\title{Multiplication Technique (BFV)}
 \usage{
 MultiplicationTechnique
 }
+\value{
+A named \code{list} of 4 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name, selecting the algorithm
+BFV uses for homomorphic multiplication: \code{BEHZ}
+(Bajard-Eynard-Hasan-Zucca) or the Halevi-Polyakov-Shoup variants
+\code{HPS}, \code{HPSPOVERQ} and \code{HPSPOVERQLEVELED}. Pass an element as the
+\code{multiplication_technique} argument of \code{\link[=BFVParams]{BFVParams()}} or
+\code{\link[=fhe_context]{fhe_context()}}.
+}
 \description{
-Multiplication Technique (BFV)
-Source: pke/constants-defs.h enum MultiplicationTechnique
+Mirrors the C++ enum \code{MultiplicationTechnique} in
+\code{pke/constants-defs.h}.
 }

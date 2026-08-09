@@ -2,12 +2,19 @@
 % Please edit documentation in R/enums.R
 \name{KeySwitchTechnique}
 \alias{KeySwitchTechnique}
-\title{Key Switching Techniques
-Source: pke/constants-defs.h enum KeySwitchTechnique}
+\title{Key Switching Techniques}
 \usage{
 KeySwitchTechnique
 }
+\value{
+A named \code{list} of 3 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name. \code{BV} selects the
+Brakerski-Vaikuntanathan digit-decomposition key switch and
+\code{HYBRID} the hybrid variant, which is the usual choice;
+\code{INVALID_KS_TECH} marks an unset value. Pass an element as the
+\code{key_switch_technique} argument of \code{\link[=CKKSParams]{CKKSParams()}}, \code{\link[=BFVParams]{BFVParams()}},
+\code{\link[=BGVParams]{BGVParams()}} or \code{\link[=fhe_context]{fhe_context()}}.
+}
 \description{
-Key Switching Techniques
-Source: pke/constants-defs.h enum KeySwitchTechnique
+Mirrors the C++ enum \code{KeySwitchTechnique} in \code{pke/constants-defs.h}.
 }

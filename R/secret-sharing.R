@@ -25,6 +25,12 @@
 #' secret-sharing protocol.
 #'
 #' @param ptr External pointer (internal use).
+#' @return An S7 object of class `SecretShareMap`, inheriting from
+#'   [OpenFHEObject], whose `ptr` property holds an external pointer to
+#'   the C++ `std::unordered_map<uint32_t, DCRTPoly>`. It carries one
+#'   share per party index and acts as the transport format for the
+#'   threshold-FHE abort-recovery protocol; it is produced by
+#'   [share_keys()] rather than by calling this constructor directly.
 #' @export
 SecretShareMap <- new_class("SecretShareMap",
   parent = OpenFHEObject,

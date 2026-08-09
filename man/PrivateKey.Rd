@@ -9,6 +9,13 @@ PrivateKey(ptr = NULL)
 \arguments{
 \item{ptr}{External pointer (internal use)}
 }
+\value{
+An S7 object of class \code{PrivateKey}, inheriting from \link{OpenFHEObject},
+whose \code{ptr} property holds an external pointer to the C++ secret
+key. This is the key \code{\link[=decrypt]{decrypt()}} takes; obtain one as the \code{secret}
+element of the \link{KeyPair} returned by \code{\link[=key_gen]{key_gen()}} rather than by
+calling this constructor directly.
+}
 \description{
 Private Key
 }

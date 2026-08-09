@@ -9,6 +9,13 @@ ElementParams(ptr = NULL)
 \arguments{
 \item{ptr}{External pointer (internal use)}
 }
+\value{
+An S7 object of class \code{ElementParams}, inheriting from
+\link{OpenFHEObject}, whose \code{ptr} property holds an external pointer to
+the C++ \code{DCRTPoly::Params}. It is an opaque token describing the
+ring the polynomials live in, obtained from \code{get_element_params()}
+and passed on to the CKKS plaintext factories.
+}
 \description{
 Wraps \verb{std::shared_ptr<typename DCRTPoly::Params>} on the C++ side.
 Used by the \code{params} argument of CKKS plaintext factories and

@@ -2,12 +2,22 @@
 % Please edit documentation in R/enums.R
 \name{Feature}
 \alias{Feature}
-\title{PKE Scheme Features (bitmask)
-Source: pke/constants-defs.h enum PKESchemeFeature}
+\title{PKE Scheme Features (bitmask)}
 \usage{
 Feature
 }
+\value{
+A named \code{list} of 8 integer scalars. Each element carries the
+integer value the OpenFHE C++ enumerator of the same name has, and
+names a capability of a crypto context: \code{PKE} (encryption and
+decryption), \code{KEYSWITCH}, \code{PRE} (proxy re-encryption),
+\code{LEVELEDSHE} (leveled homomorphic arithmetic), \code{ADVANCEDSHE},
+\code{MULTIPARTY}, \code{FHE} (bootstrapping) and \code{SCHEMESWITCH}. Pass an
+element to \code{\link[=enable_feature]{enable_feature()}} to turn that capability on for a
+context.
+}
 \description{
-PKE Scheme Features (bitmask)
-Source: pke/constants-defs.h enum PKESchemeFeature
+Mirrors the C++ enum \code{PKESchemeFeature} in \code{pke/constants-defs.h}.
+The values are bit flags, so several may be combined with
+\code{\link[=bitwOr]{bitwOr()}} to describe a set of capabilities.
 }

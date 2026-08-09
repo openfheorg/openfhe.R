@@ -2,12 +2,15 @@
 % Please edit documentation in R/enums.R
 \name{CKKSDataType}
 \alias{CKKSDataType}
-\title{CKKS Data Type
-Source: pke/constants-defs.h enum CKKSDataType}
+\title{CKKS Data Type}
 \usage{
 CKKSDataType
 }
+\value{
+A named \code{list} of 2 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name, declaring whether the
+slots of a CKKS ciphertext hold \code{REAL} or \code{COMPLEX} numbers.
+}
 \description{
-CKKS Data Type
-Source: pke/constants-defs.h enum CKKSDataType
+Mirrors the C++ enum \code{CKKSDataType} in \code{pke/constants-defs.h}.
 }

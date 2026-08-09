@@ -203,6 +203,10 @@ eval_sin <- function(ct, a, b, degree) {
 
 #' Evaluate cosine on a ciphertext
 #' @inheritParams eval_sin
+#' @return A [Ciphertext] holding the encrypted, slot-wise cosine of `ct`,
+#'   approximated by a Chebyshev polynomial of the given `degree` on the
+#'   interval `[a, b]`. Accuracy degrades outside that interval, and the
+#'   result sits `ceiling(log2(degree)) + 1` levels below `ct`.
 #' @export
 eval_cos <- function(ct, a, b, degree) {
   Ciphertext(ptr = EvalCos_(ct@ptr, a, b, as.integer(degree)))
@@ -210,6 +214,11 @@ eval_cos <- function(ct, a, b, degree) {
 
 #' Evaluate logistic function on a ciphertext
 #' @inheritParams eval_sin
+#' @return A [Ciphertext] holding the encrypted, slot-wise logistic function `1
+#'   / (1 + exp(-x))` of `ct`, approximated by a Chebyshev polynomial of
+#'   the given `degree` on the interval `[a, b]`. Accuracy degrades
+#'   outside that interval, and the result sits `ceiling(log2(degree)) +
+#'   1` levels below `ct`.
 #' @export
 eval_logistic <- function(ct, a, b, degree) {
   Ciphertext(ptr = EvalLogistic_(ct@ptr, a, b, as.integer(degree)))
@@ -217,6 +226,11 @@ eval_logistic <- function(ct, a, b, degree) {
 
 #' Evaluate division approximation on a ciphertext
 #' @inheritParams eval_sin
+#' @return A [Ciphertext] holding the encrypted, slot-wise reciprocal of `ct`,
+#'   approximated by a Chebyshev polynomial of the given `degree` on the
+#'   interval `[a, b]`. The interval must exclude zero, accuracy degrades
+#'   outside it, and the result sits `ceiling(log2(degree)) + 1` levels
+#'   below `ct`.
 #' @export
 eval_divide <- function(ct, a, b, degree) {
   Ciphertext(ptr = EvalDivide_(ct@ptr, a, b, as.integer(degree)))
@@ -234,6 +248,10 @@ eval_divide <- function(ct, a, b, degree) {
 #'   bootstrap precomputes with slot-count encoding (the
 #'   `BTSlotsEncoding` tail argument on cryptocontext.h line
 #'   3513). Default `FALSE` matching the C++ default.
+#' @return Invisibly, the `cc` crypto context that was passed in. Called for
+#'   its side effect: the linear transforms bootstrapping needs are
+#'   precomputed and cached inside the C++ context. Call it before
+#'   [eval_bootstrap_key_gen()].
 #' @export
 eval_bootstrap_setup <- function(cc, level_budget = c(5L, 4L),
                                   dim1 = c(0L, 0L), slots = 0L,
@@ -252,6 +270,10 @@ eval_bootstrap_setup <- function(cc, level_budget = c(5L, 4L),
 #' @param cc A CryptoContext
 #' @param sk A PrivateKey
 #' @param slots Number of slots
+#' @return Invisibly, the `cc` crypto context that was passed in. Called for
+#'   its side effect: the rotation and evaluation keys bootstrapping
+#'   needs are generated from `sk` and stored inside the C++ context,
+#'   after which [eval_bootstrap()] can be called.
 #' @export
 eval_bootstrap_key_gen <- function(cc, sk, slots) {
   CryptoContext__EvalBootstrapKeyGen(get_ptr(cc), get_ptr(sk), as.integer(slots))

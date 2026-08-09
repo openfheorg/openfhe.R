@@ -2,12 +2,22 @@
 % Please edit documentation in R/enums.R
 \name{SecurityLevel}
 \alias{SecurityLevel}
-\title{Security Levels
-Source: core/lattice/stdlatticeparms.h enum SecurityLevel}
+\title{Security Levels}
 \usage{
 SecurityLevel
 }
+\value{
+A named \code{list} of 7 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name. An element names the
+number of bits of security the ring dimension is chosen to provide
+against a classical (\verb{HEStd_*_classic}) or quantum
+(\verb{HEStd_*_quantum}) adversary, following the HomomorphicEncryption.org
+standard tables. \code{HEStd_NotSet} skips the table lookup, in which
+case the ring dimension must be set explicitly. Pass an element as the
+\code{security_level} argument of \code{\link[=CKKSParams]{CKKSParams()}}, \code{\link[=BFVParams]{BFVParams()}},
+\code{\link[=BGVParams]{BGVParams()}} or \code{\link[=fhe_context]{fhe_context()}}.
+}
 \description{
-Security Levels
-Source: core/lattice/stdlatticeparms.h enum SecurityLevel
+Mirrors the C++ enum \code{SecurityLevel} in
+\code{core/lattice/stdlatticeparms.h}.
 }

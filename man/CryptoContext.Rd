@@ -9,6 +9,14 @@ CryptoContext(ptr = NULL)
 \arguments{
 \item{ptr}{External pointer (internal use)}
 }
+\value{
+An S7 object of class \code{CryptoContext}, inheriting from
+\link{OpenFHEObject}, whose \code{ptr} property holds an external pointer to
+the C++ crypto context. The context owns the scheme parameters and
+the registry of evaluation keys, and is the first argument to most
+operations. Obtain one from \code{\link[=fhe_context]{fhe_context()}} rather than by calling
+this constructor directly.
+}
 \description{
 Crypto Context
 }

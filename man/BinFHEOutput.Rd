@@ -2,12 +2,19 @@
 % Please edit documentation in R/enums.R
 \name{BinFHEOutput}
 \alias{BinFHEOutput}
-\title{Binary FHE Output Types
-Source: binfhe/binfhe-constants.h enum BINFHE_OUTPUT}
+\title{Binary FHE Output Types}
 \usage{
 BinFHEOutput
 }
+\value{
+A named \code{list} of 5 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name, describing the form the
+ciphertext produced by a BinFHE operation should take: \code{FRESH}
+(noise reset to the level of a fresh encryption), \code{BOOTSTRAPPED},
+\code{LARGE_DIM} and \code{SMALL_DIM} (the LWE dimension the result is
+expressed in). \code{INVALID_OUTPUT} marks an unset value. Pass an
+element as the \code{output} argument of \code{\link[=bin_encrypt]{bin_encrypt()}}.
+}
 \description{
-Binary FHE Output Types
-Source: binfhe/binfhe-constants.h enum BINFHE_OUTPUT
+Mirrors the C++ enum \code{BINFHE_OUTPUT} in \code{binfhe/binfhe-constants.h}.
 }

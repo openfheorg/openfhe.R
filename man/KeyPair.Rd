@@ -11,6 +11,12 @@ KeyPair(public = NULL, secret = NULL)
 
 \item{secret}{A PrivateKey}
 }
+\value{
+An S7 object of class \code{KeyPair} with two properties, \code{public} (a
+\link{PublicKey}) and \code{secret} (a \link{PrivateKey}), which are the two halves
+of one freshly generated key. Obtain one from \code{\link[=key_gen]{key_gen()}} rather
+than by calling this constructor directly.
+}
 \description{
 Contains a public key and a secret (private) key.
 }

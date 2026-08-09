@@ -78,3 +78,13 @@ Encode a real-valued numeric vector as a CKKS packed plaintext.
 The result is an unencrypted \code{Plaintext} object that can then
 be passed to \code{encrypt()}.
 }
+\examples{
+cc <- fhe_context("CKKS", multiplicative_depth = 2L,
+                  scaling_mod_size = 50L, batch_size = 8L)
+
+## Encode four reals into the CKKS slots. The remaining slots are
+## zero-padded out to `batch_size`.
+pt <- make_ckks_packed_plaintext(cc, c(0.25, 0.5, 0.75, 1))
+pt
+get_real_packed_value(set_length(pt, 4L))
+}

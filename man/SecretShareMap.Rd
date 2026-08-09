@@ -9,6 +9,14 @@ SecretShareMap(ptr = NULL)
 \arguments{
 \item{ptr}{External pointer (internal use).}
 }
+\value{
+An S7 object of class \code{SecretShareMap}, inheriting from
+\link{OpenFHEObject}, whose \code{ptr} property holds an external pointer to
+the C++ \verb{std::unordered_map<uint32_t, DCRTPoly>}. It carries one
+share per party index and acts as the transport format for the
+threshold-FHE abort-recovery protocol; it is produced by
+\code{\link[=share_keys]{share_keys()}} rather than by calling this constructor directly.
+}
 \description{
 Opaque S7 wrapper around a
 \verb{shared_ptr<std::unordered_map<uint32_t, DCRTPoly>>}. Produced

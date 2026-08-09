@@ -9,6 +9,14 @@ Ciphertext(ptr = NULL)
 \arguments{
 \item{ptr}{External pointer (internal use)}
 }
+\value{
+An S7 object of class \code{Ciphertext}, inheriting from \link{OpenFHEObject},
+whose \code{ptr} property holds an external pointer to the C++
+ciphertext. Ciphertexts are produced by \code{\link[=encrypt]{encrypt()}} and by the
+\verb{eval_*()} family rather than by calling this constructor directly,
+and they carry the encrypted vector together with the level and
+scaling-factor bookkeeping the scheme needs.
+}
 \description{
 Wraps an encrypted OpenFHE ciphertext. Supports arithmetic operators
 \code{+}, \code{-}, \code{*} which dispatch to homomorphic operations.

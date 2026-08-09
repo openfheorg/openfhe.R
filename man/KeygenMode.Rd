@@ -2,12 +2,17 @@
 % Please edit documentation in R/enums.R
 \name{KeygenMode}
 \alias{KeygenMode}
-\title{Key Generation Mode
-Source: binfhe/binfhe-constants.h enum KEYGEN_MODE}
+\title{Key Generation Mode}
 \usage{
 KeygenMode
 }
+\value{
+A named \code{list} of 2 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name: \code{SYM_ENCRYPT} generates
+only the material needed for symmetric-key encryption, while
+\code{PUB_ENCRYPT} additionally generates a public key. Pass an element
+as the \code{keygen_mode} argument of \code{\link[=bin_bt_key_gen]{bin_bt_key_gen()}}.
+}
 \description{
-Key Generation Mode
-Source: binfhe/binfhe-constants.h enum KEYGEN_MODE
+Mirrors the C++ enum \code{KEYGEN_MODE} in \code{binfhe/binfhe-constants.h}.
 }

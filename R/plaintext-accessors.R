@@ -124,7 +124,7 @@ get_scheme_id <- new_generic("get_scheme_id", "x")
 #'   "has the plaintext been encoded yet?" The factory methods
 #'   typically encode plaintexts eagerly, so this is `TRUE` for
 #'   fresh plaintexts. Returns `FALSE` only for plaintexts
-#'   constructed in a two-step uninitialised form.
+#'   constructed in a two-step uninitialized form.
 #' @export
 is_encoded <- new_generic("is_encoded", "x")
 

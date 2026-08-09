@@ -2,12 +2,20 @@
 % Please edit documentation in R/enums.R
 \name{PlaintextEncodings}
 \alias{PlaintextEncodings}
-\title{Plaintext Encoding Types
-Source: pke/constants-defs.h enum PlaintextEncodings}
+\title{Plaintext Encoding Types}
 \usage{
 PlaintextEncodings
 }
+\value{
+A named \code{list} of 5 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name, naming how values are laid
+out inside a plaintext polynomial: \code{COEF_PACKED_ENCODING},
+\code{PACKED_ENCODING} (integer SIMD slots), \code{STRING_ENCODING} and
+\code{CKKS_PACKED_ENCODING} (approximate real or complex slots).
+\code{INVALID_ENCODING} marks an unset value. This is the value reported
+by \code{get_encoding_type()} on a \code{Plaintext}.
+}
 \description{
-Plaintext Encoding Types
-Source: pke/constants-defs.h enum PlaintextEncodings
+Mirrors the C++ enum \code{PlaintextEncodings} in
+\code{pke/constants-defs.h}.
 }

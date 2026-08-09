@@ -9,6 +9,13 @@ LWEPrivateKey(ptr = NULL)
 \arguments{
 \item{ptr}{External pointer (internal use)}
 }
+\value{
+An S7 object of class \code{LWEPrivateKey}, inheriting from
+\link{OpenFHEObject}, whose \code{ptr} property holds an external pointer to
+the C++ LWE secret key. It both encrypts and decrypts in the
+boolean-circuit (BinFHE) schemes; obtain one from \code{\link[=bin_key_gen]{bin_key_gen()}}
+rather than by calling this constructor directly.
+}
 \description{
 LWE Private Key (Binary FHE)
 }

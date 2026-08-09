@@ -11,6 +11,12 @@
 #' constructor path from R.
 #'
 #' @param ptr External pointer (internal use)
+#' @return An S7 object of class `EncodingParams`, inheriting from
+#'   [OpenFHEObject], whose `ptr` property holds an external pointer to
+#'   the C++ `EncodingParamsImpl`. It is an opaque token describing how
+#'   values are packed into a plaintext, obtained from
+#'   `get_encoding_params()` rather than by calling this constructor
+#'   directly.
 #' @export
 EncodingParams <- new_class("EncodingParams",
   parent = OpenFHEObject,

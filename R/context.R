@@ -2,6 +2,12 @@
 
 #' Crypto Context
 #' @param ptr External pointer (internal use)
+#' @return An S7 object of class `CryptoContext`, inheriting from
+#'   [OpenFHEObject], whose `ptr` property holds an external pointer to
+#'   the C++ crypto context. The context owns the scheme parameters and
+#'   the registry of evaluation keys, and is the first argument to most
+#'   operations. Obtain one from [fhe_context()] rather than by calling
+#'   this constructor directly.
 #' @export
 CryptoContext <- new_class("CryptoContext",
   parent = OpenFHEObject,
@@ -34,6 +40,18 @@ CryptoContext <- new_class("CryptoContext",
 #'   context beyond the default `PKE|KEYSWITCH|LEVELEDSHE` triple.
 #' @return A `CryptoContext` object.
 #' @seealso [BFVParams()], [BGVParams()], [CKKSParams()]
+#' @examples
+#' ## An exact context over the integers modulo 65537 (BFV). The ring
+#' ## dimension is chosen for you from the security level.
+#' bfv <- fhe_context("BFV", plaintext_modulus = 65537L,
+#'                    multiplicative_depth = 2L)
+#' ring_dimension(bfv)
+#'
+#' ## An approximate context over the reals (CKKS), which is what the
+#' ## statistical applications use.
+#' ckks <- fhe_context("CKKS", multiplicative_depth = 2L,
+#'                     scaling_mod_size = 50L, batch_size = 8L)
+#' ring_dimension(ckks)
 #' @export
 fhe_context <- function(scheme = c("BFV", "BGV", "CKKS"), ..., features = NULL) {
   scheme <- match.arg(scheme)

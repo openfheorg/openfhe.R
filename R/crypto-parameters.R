@@ -11,6 +11,12 @@
 #' defined, but there is no constructor path from R.
 #'
 #' @param ptr External pointer (internal use)
+#' @return An S7 object of class `CryptoParameters`, inheriting from
+#'   [OpenFHEObject], whose `ptr` property holds an external pointer to
+#'   the C++ `CryptoParametersBase<DCRTPoly>`. It is an opaque token: its
+#'   contents are read with the RNS-level accessors rather than from R,
+#'   and it is obtained from `get_crypto_parameters()` rather than by
+#'   calling this constructor directly.
 #' @export
 CryptoParameters <- new_class("CryptoParameters",
   parent = OpenFHEObject,

@@ -2,12 +2,21 @@
 % Please edit documentation in R/enums.R
 \name{SecretKeyDist}
 \alias{SecretKeyDist}
-\title{Secret Key Distribution
-Source: core/lattice/constants-lattice.h enum SecretKeyDist}
+\title{Secret Key Distribution}
 \usage{
 SecretKeyDist
 }
+\value{
+A named \code{list} of 4 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name, naming the distribution
+the secret key polynomial is drawn from: \code{GAUSSIAN},
+\code{UNIFORM_TERNARY} (the default, coefficients uniform on
+-1, 0, 1), \code{SPARSE_TERNARY} (ternary with a fixed small Hamming
+weight) and \code{SPARSE_ENCAPSULATED}. Pass an element as the
+\code{secret_key_dist} argument of \code{\link[=CKKSParams]{CKKSParams()}}, \code{\link[=BFVParams]{BFVParams()}},
+\code{\link[=BGVParams]{BGVParams()}} or \code{\link[=fhe_context]{fhe_context()}}.
+}
 \description{
-Secret Key Distribution
-Source: core/lattice/constants-lattice.h enum SecretKeyDist
+Mirrors the C++ enum \code{SecretKeyDist} in
+\code{core/lattice/constants-lattice.h}.
 }

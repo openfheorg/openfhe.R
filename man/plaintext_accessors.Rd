@@ -162,7 +162,7 @@ identifier (see \code{SchemeId} enum).
 "has the plaintext been encoded yet?" The factory methods
 typically encode plaintexts eagerly, so this is \code{TRUE} for
 fresh plaintexts. Returns \code{FALSE} only for plaintexts
-constructed in a two-step uninitialised form.
+constructed in a two-step uninitialized form.
 
 \item \code{low_bound}: integer
 lower bound that can be encoded with the current plaintext

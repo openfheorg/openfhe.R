@@ -135,6 +135,13 @@ method(rescale, Ciphertext) <- function(ct) {
 #' decomposition over many rotations of the same source ciphertext.
 #'
 #' @param ptr External pointer (internal use)
+#' @return An S7 object of class `FastRotationPrecomputation`, inheriting from
+#'   [OpenFHEObject], whose `ptr` property holds an external pointer to
+#'   the C++ digit decomposition. It caches the work that is common to
+#'   every rotation of one source ciphertext; obtain one from
+#'   [eval_fast_rotation_precompute()] and pass it to
+#'   [eval_fast_rotation()] rather than calling this constructor
+#'   directly.
 #' @export
 FastRotationPrecomputation <- new_class("FastRotationPrecomputation",
   parent = OpenFHEObject,

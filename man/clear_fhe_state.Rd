@@ -9,6 +9,12 @@ clear_fhe_state(what = c("mult_keys", "automorphism_keys", "contexts"))
 \arguments{
 \item{what}{Character vector: subset of "mult_keys", "automorphism_keys", "contexts"}
 }
+\value{
+No return value, called for side effects. Depending on \code{what}, it
+drops the process-wide caches of relinearization keys and of
+automorphism (rotation) keys, and releases the registry of crypto
+contexts, freeing the memory they hold.
+}
 \description{
 Clear cached evaluation keys and contexts
 }

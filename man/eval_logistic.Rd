@@ -15,6 +15,11 @@ eval_logistic(ct, a, b, degree)
 
 \item{degree}{Chebyshev polynomial degree}
 }
+\value{
+A \link{Ciphertext} holding the encrypted, slot-wise logistic function \code{1 / (1 + exp(-x))} of \code{ct}, approximated by a Chebyshev polynomial of
+the given \code{degree} on the interval \verb{[a, b]}. Accuracy degrades
+outside that interval, and the result sits \code{ceiling(log2(degree)) + 1} levels below \code{ct}.
+}
 \description{
 Evaluate logistic function on a ciphertext
 }

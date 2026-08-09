@@ -32,6 +32,12 @@ bootstrap precomputes with slot-count encoding (the
 \code{BTSlotsEncoding} tail argument on cryptocontext.h line
 3513). Default \code{FALSE} matching the C++ default.}
 }
+\value{
+Invisibly, the \code{cc} crypto context that was passed in. Called for
+its side effect: the linear transforms bootstrapping needs are
+precomputed and cached inside the C++ context. Call it before
+\code{\link[=eval_bootstrap_key_gen]{eval_bootstrap_key_gen()}}.
+}
 \description{
 Set up CKKS bootstrapping
 }

@@ -111,6 +111,10 @@ deserialize_eval_keys <- function(filename,
 #' Clear cached evaluation keys and contexts
 #'
 #' @param what Character vector: subset of "mult_keys", "automorphism_keys", "contexts"
+#' @return No return value, called for side effects. Depending on `what`, it
+#'   drops the process-wide caches of relinearization keys and of
+#'   automorphism (rotation) keys, and releases the registry of crypto
+#'   contexts, freeing the memory they hold.
 #' @export
 clear_fhe_state <- function(what = c("mult_keys", "automorphism_keys", "contexts")) {
   what <- match.arg(what, several.ok = TRUE)

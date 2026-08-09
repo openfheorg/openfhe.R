@@ -9,6 +9,13 @@ PublicKey(ptr = NULL)
 \arguments{
 \item{ptr}{External pointer (internal use)}
 }
+\value{
+An S7 object of class \code{PublicKey}, inheriting from \link{OpenFHEObject},
+whose \code{ptr} property holds an external pointer to the C++ public
+key. This is the key \code{\link[=encrypt]{encrypt()}} takes; obtain one as the \code{public}
+element of the \link{KeyPair} returned by \code{\link[=key_gen]{key_gen()}} rather than by
+calling this constructor directly.
+}
 \description{
 Public Key
 }

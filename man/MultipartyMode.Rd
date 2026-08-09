@@ -2,12 +2,20 @@
 % Please edit documentation in R/enums.R
 \name{MultipartyMode}
 \alias{MultipartyMode}
-\title{Multiparty Mode
-Source: pke/constants-defs.h enum MultipartyMode}
+\title{Multiparty Mode}
 \usage{
 MultipartyMode
 }
+\value{
+A named \code{list} of 3 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name, selecting how a threshold
+context masks the secret shares: \code{FIXED_NOISE_MULTIPARTY} adds a
+fixed amount of noise, while \code{NOISE_FLOODING_MULTIPARTY} adds
+enough to give provable circuit privacy at a higher cost.
+\code{INVALID_MULTIPARTY_MODE} marks an unset value. Pass an element as the
+\code{multiparty_mode} argument of \code{\link[=BFVParams]{BFVParams()}}, \code{\link[=BGVParams]{BGVParams()}} or
+\code{\link[=fhe_context]{fhe_context()}}.
+}
 \description{
-Multiparty Mode
-Source: pke/constants-defs.h enum MultipartyMode
+Mirrors the C++ enum \code{MultipartyMode} in \code{pke/constants-defs.h}.
 }

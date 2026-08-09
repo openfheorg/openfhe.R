@@ -4,7 +4,7 @@
 \name{openfhe.R-package}
 \alias{openfhe.R}
 \alias{openfhe.R-package}
-\title{openfhe.R: R Interface to the OpenFHE Fully Homomorphic Encryption Library}
+\title{openfhe.R: R Interface to the 'OpenFHE' Fully Homomorphic Encryption Library}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
@@ -20,16 +20,27 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Balasubramanian Narasimhan \email{naras@stanford.edu} (\href{https://orcid.org/0000-0001-5852-7639}{ORCID})
+\strong{Maintainer}: Balasubramanian Narasimhan \email{naras@stanford.edu} (\href{https://orcid.org/0000-0001-5852-7639}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{
-  \item Balasubramanian Narasimhan \email{naras@stanford.edu} (\href{https://orcid.org/0000-0001-5852-7639}{ORCID})
+  \item Balasubramanian Narasimhan \email{naras@stanford.edu} (\href{https://orcid.org/0000-0001-5852-7639}{ORCID}) [copyright holder]
 }
 
 Other contributors:
 \itemize{
-  \item Authors of the OpenFHE C++ library [contributor, copyright holder]
+  \item New Jersey Institute of Technology (OpenFHE C++ library, inst/openfhe/src) [copyright holder]
+  \item Duality Technologies, Inc. (OpenFHE C++ library, inst/openfhe/src) [contributor, copyright holder]
+  \item Samuel Neves (BLAKE2 reference implementation, inst/openfhe/src/core) [contributor, copyright holder]
+  \item Jean-Philippe Aumasson (BLAKE2X reference implementation, inst/openfhe/src/core) [contributor, copyright holder]
+  \item Randolph Voorhies (cereal serialization library, inst/openfhe/cereal) [contributor, copyright holder]
+  \item Shane Grant (cereal serialization library, inst/openfhe/cereal) [contributor, copyright holder]
+  \item Juan Pedro Bolivar Puente (cereal std::optional and std::variant support) [contributor, copyright holder]
+  \item THL A29 Limited, a Tencent company (RapidJSON, bundled in inst/openfhe/cereal) [copyright holder]
+  \item Milo Yip (RapidJSON, bundled in inst/openfhe/cereal) [contributor, copyright holder]
+  \item Alexander Chemeris (msinttypes, bundled in inst/openfhe/cereal) [contributor, copyright holder]
+  \item Marcin Kalicinski (RapidXml, bundled in inst/openfhe/cereal) [contributor, copyright holder]
+  \item Rene Nyffenegger (base64 encoder/decoder, bundled in inst/openfhe/cereal) [contributor, copyright holder]
 }
 
 }

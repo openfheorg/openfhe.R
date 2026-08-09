@@ -9,6 +9,11 @@
 #' wrapping an existing external pointer.
 #'
 #' @param ptr External pointer (internal use)
+#' @return An S7 object of class `ElementParams`, inheriting from
+#'   [OpenFHEObject], whose `ptr` property holds an external pointer to
+#'   the C++ `DCRTPoly::Params`. It is an opaque token describing the
+#'   ring the polynomials live in, obtained from `get_element_params()`
+#'   and passed on to the CKKS plaintext factories.
 #' @export
 ElementParams <- new_class("ElementParams",
   parent = OpenFHEObject,

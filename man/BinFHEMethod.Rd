@@ -2,12 +2,18 @@
 % Please edit documentation in R/enums.R
 \name{BinFHEMethod}
 \alias{BinFHEMethod}
-\title{Binary FHE Methods
-Source: binfhe/binfhe-constants.h enum BINFHE_METHOD}
+\title{Binary FHE Methods}
 \usage{
 BinFHEMethod
 }
+\value{
+A named \code{list} of 4 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name, selecting the
+bootstrapping method a boolean-circuit context uses: \code{AP}
+(Alperin-Sheriff-Peikert), \code{GINX} (Gama-Izabachene-Nguyen-Xie, the
+default) or \code{LMKCDEY}. \code{INVALID_METHOD} marks an unset value. Pass
+an element as the \code{method} argument of \code{\link[=bin_fhe_context]{bin_fhe_context()}}.
+}
 \description{
-Binary FHE Methods
-Source: binfhe/binfhe-constants.h enum BINFHE_METHOD
+Mirrors the C++ enum \code{BINFHE_METHOD} in \code{binfhe/binfhe-constants.h}.
 }

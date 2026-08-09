@@ -29,6 +29,13 @@
 #' when the distributed-party flow needs to exchange it.
 #'
 #' @param ptr External pointer (internal use).
+#' @return An S7 object of class `EvalKeyMap`, inheriting from [OpenFHEObject],
+#'   whose `ptr` property holds an external pointer to the C++
+#'   `std::map<uint32_t, EvalKey<DCRTPoly>>`. It carries one evaluation
+#'   key per rotation or automorphism index and acts as the transport
+#'   format for the multi-party key protocols; it is produced by the
+#'   `multi_eval_*_key_gen()` family rather than by calling this
+#'   constructor directly.
 #' @export
 EvalKeyMap <- new_class("EvalKeyMap",
   parent = OpenFHEObject,

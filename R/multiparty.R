@@ -219,6 +219,13 @@ threshold_decrypt <- function(cc, sks, ct) {
 
 #' EvalKey class for multi-party key operations
 #' @param ptr External pointer (internal use)
+#' @return An S7 object of class `EvalKey`, inheriting from [OpenFHEObject],
+#'   whose `ptr` property holds an external pointer to the C++
+#'   `EvalKey<DCRTPoly>`. An evaluation key is the public material that
+#'   lets the computing party carry out one operation — a
+#'   relinearization, a rotation, or a re-encryption — without the secret
+#'   key. Obtain one from [multi_key_switch_gen()] or the rest of the
+#'   `multi_*()` family rather than by calling this constructor directly.
 #' @export
 EvalKey <- new_class("EvalKey",
   parent = OpenFHEObject,

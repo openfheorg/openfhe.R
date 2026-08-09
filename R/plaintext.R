@@ -2,6 +2,13 @@
 
 #' Plaintext
 #' @param ptr External pointer (internal use)
+#' @return An S7 object of class `Plaintext`, inheriting from [OpenFHEObject],
+#'   whose `ptr` property holds an external pointer to the C++ plaintext.
+#'   A plaintext holds an encoded but unencrypted vector together with
+#'   its encoding type; obtain one from a `make_*_plaintext()` factory or
+#'   from [decrypt()] rather than by calling this constructor directly,
+#'   and read its contents with [get_packed_value()], `get_real_value()`
+#'   and the other accessors.
 #' @export
 Plaintext <- new_class("Plaintext",
   parent = OpenFHEObject,
@@ -19,6 +26,10 @@ get_packed_value <- function(pt) {
 #' Set the effective length of a plaintext
 #' @param pt A Plaintext
 #' @param len Integer length
+#' @return Invisibly, the `pt` plaintext that was passed in. Called for its
+#'   side effect: the plaintext is truncated in place so that the
+#'   accessors report only the first `len` slots, which is how the
+#'   padding introduced by encoding is trimmed after decryption.
 #' @export
 set_length <- function(pt, len) {
   Plaintext__SetLength(get_ptr(pt), as.integer(len))
@@ -82,6 +93,15 @@ set_length <- function(pt, len) {
 #'   time to leave it at `0L` is when you are encoding a
 #'   full-width vector.
 #' @return A `Plaintext`.
+#' @examples
+#' cc <- fhe_context("CKKS", multiplicative_depth = 2L,
+#'                   scaling_mod_size = 50L, batch_size = 8L)
+#'
+#' ## Encode four reals into the CKKS slots. The remaining slots are
+#' ## zero-padded out to `batch_size`.
+#' pt <- make_ckks_packed_plaintext(cc, c(0.25, 0.5, 0.75, 1))
+#' pt
+#' get_real_packed_value(set_length(pt, 4L))
 #' @export
 make_ckks_packed_plaintext <- function(cc, values,
                                        noise_scale_deg = 1L,

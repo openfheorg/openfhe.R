@@ -2,12 +2,18 @@
 % Please edit documentation in R/enums.R
 \name{ExecutionMode}
 \alias{ExecutionMode}
-\title{Execution Mode
-Source: pke/constants-defs.h enum ExecutionMode}
+\title{Execution Mode}
 \usage{
 ExecutionMode
 }
+\value{
+A named \code{list} of 2 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name: \code{EXEC_EVALUATION} runs the
+computation normally, while \code{EXEC_NOISE_ESTIMATION} runs it only to
+measure the noise growth, which is the first of the two passes
+needed when decryption uses noise flooding. Pass an element as the
+\code{execution_mode} argument of \code{\link[=CKKSParams]{CKKSParams()}} or \code{\link[=fhe_context]{fhe_context()}}.
+}
 \description{
-Execution Mode
-Source: pke/constants-defs.h enum ExecutionMode
+Mirrors the C++ enum \code{ExecutionMode} in \code{pke/constants-defs.h}.
 }

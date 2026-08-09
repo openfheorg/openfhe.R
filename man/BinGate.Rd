@@ -2,12 +2,20 @@
 % Please edit documentation in R/enums.R
 \name{BinGate}
 \alias{BinGate}
-\title{Binary Gate Types
-Source: binfhe/binfhe-constants.h enum BINGATE (sequential from 0)}
+\title{Binary Gate Types}
 \usage{
 BinGate
 }
+\value{
+A named \code{list} of 14 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name, naming the boolean gate to
+evaluate on encrypted bits: the two-input gates \code{OR}, \code{AND}, \code{NOR},
+\code{NAND}, \code{XOR}, \code{XNOR} and the faster \code{XOR_FAST}, \code{XNOR_FAST}; the
+three- and four-input \code{AND3}, \code{OR3}, \code{AND4}, \code{OR4}; and \code{MAJORITY}
+and \code{CMUX}. Pass an element as the \code{gate} argument of
+\code{\link[=eval_bin_gate]{eval_bin_gate()}}.
+}
 \description{
-Binary Gate Types
-Source: binfhe/binfhe-constants.h enum BINGATE (sequential from 0)
+Mirrors the C++ enum \code{BINGATE} in \code{binfhe/binfhe-constants.h}, whose
+enumerators are numbered sequentially from 0.
 }

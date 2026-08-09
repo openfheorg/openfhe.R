@@ -9,6 +9,15 @@ Plaintext(ptr = NULL)
 \arguments{
 \item{ptr}{External pointer (internal use)}
 }
+\value{
+An S7 object of class \code{Plaintext}, inheriting from \link{OpenFHEObject},
+whose \code{ptr} property holds an external pointer to the C++ plaintext.
+A plaintext holds an encoded but unencrypted vector together with
+its encoding type; obtain one from a \verb{make_*_plaintext()} factory or
+from \code{\link[=decrypt]{decrypt()}} rather than by calling this constructor directly,
+and read its contents with \code{\link[=get_packed_value]{get_packed_value()}}, \code{get_real_value()}
+and the other accessors.
+}
 \description{
 Plaintext
 }

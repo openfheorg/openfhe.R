@@ -2,12 +2,19 @@
 % Please edit documentation in R/enums.R
 \name{EncryptionTechnique}
 \alias{EncryptionTechnique}
-\title{Encryption Technique
-Source: pke/constants-defs.h enum EncryptionTechnique}
+\title{Encryption Technique}
 \usage{
 EncryptionTechnique
 }
+\value{
+A named \code{list} of 2 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name: \code{STANDARD} encrypts in the
+ciphertext modulus, while \code{EXTENDED} encrypts in an enlarged
+modulus, which lowers the noise BFV multiplication starts from.
+Pass an element as the \code{encryption_technique} argument of
+\code{\link[=BFVParams]{BFVParams()}} or \code{\link[=fhe_context]{fhe_context()}}.
+}
 \description{
-Encryption Technique
-Source: pke/constants-defs.h enum EncryptionTechnique
+Mirrors the C++ enum \code{EncryptionTechnique} in
+\code{pke/constants-defs.h}.
 }

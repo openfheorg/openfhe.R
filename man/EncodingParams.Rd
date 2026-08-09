@@ -9,6 +9,14 @@ EncodingParams(ptr = NULL)
 \arguments{
 \item{ptr}{External pointer (internal use)}
 }
+\value{
+An S7 object of class \code{EncodingParams}, inheriting from
+\link{OpenFHEObject}, whose \code{ptr} property holds an external pointer to
+the C++ \code{EncodingParamsImpl}. It is an opaque token describing how
+values are packed into a plaintext, obtained from
+\code{get_encoding_params()} rather than by calling this constructor
+directly.
+}
 \description{
 Wraps \verb{std::shared_ptr<EncodingParamsImpl>} on the C++ side.
 Returned by \code{get_encoding_params(cc)} and by

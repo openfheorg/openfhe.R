@@ -13,6 +13,12 @@ eval_bootstrap_key_gen(cc, sk, slots)
 
 \item{slots}{Number of slots}
 }
+\value{
+Invisibly, the \code{cc} crypto context that was passed in. Called for
+its side effect: the rotation and evaluation keys bootstrapping
+needs are generated from \code{sk} and stored inside the C++ context,
+after which \code{\link[=eval_bootstrap]{eval_bootstrap()}} can be called.
+}
 \description{
 Generate bootstrapping keys
 }

@@ -20,6 +20,12 @@ default and the C++ default per
 \code{BTKeyGen(sk, keyGenMode)} overload at
 \code{binfhecontext.h} line 273.}
 }
+\value{
+Invisibly, the \code{ctx} BinFHE context that was passed in. Called for
+its side effect: the bootstrapping and key-switching keys are
+generated and stored inside the C++ context, after which
+\code{\link[=eval_bin_gate]{eval_bin_gate()}} and the other gate evaluations can be used.
+}
 \description{
 Generate BinFHE bootstrapping keys
 }

@@ -1,10 +1,34 @@
 Package: openfhe.R
-Title: R Interface to the OpenFHE Fully Homomorphic Encryption Library
+Title: R Interface to the 'OpenFHE' Fully Homomorphic Encryption Library
 Version: 1.5.1
 Authors@R: c(
     person("Balasubramanian", "Narasimhan", email = "naras@stanford.edu",
-           role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5852-7639")),
-    person("Authors of the OpenFHE C++ library", role = c("ctb", "cph"))
+           role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0001-5852-7639")),
+    person("New Jersey Institute of Technology", role = "cph",
+           comment = "OpenFHE C++ library, inst/openfhe/src"),
+    person("Duality Technologies, Inc.", role = c("ctb", "cph"),
+           comment = "OpenFHE C++ library, inst/openfhe/src"),
+    person("Samuel", "Neves", role = c("ctb", "cph"),
+           comment = "BLAKE2 reference implementation, inst/openfhe/src/core"),
+    person("Jean-Philippe", "Aumasson", role = c("ctb", "cph"),
+           comment = "BLAKE2X reference implementation, inst/openfhe/src/core"),
+    person("Randolph", "Voorhies", role = c("ctb", "cph"),
+           comment = "cereal serialization library, inst/openfhe/cereal"),
+    person("Shane", "Grant", role = c("ctb", "cph"),
+           comment = "cereal serialization library, inst/openfhe/cereal"),
+    person("Juan Pedro", "Bolivar Puente", role = c("ctb", "cph"),
+           comment = "cereal std::optional and std::variant support"),
+    person("THL A29 Limited, a Tencent company", role = "cph",
+           comment = "RapidJSON, bundled in inst/openfhe/cereal"),
+    person("Milo", "Yip", role = c("ctb", "cph"),
+           comment = "RapidJSON, bundled in inst/openfhe/cereal"),
+    person("Alexander", "Chemeris", role = c("ctb", "cph"),
+           comment = "msinttypes, bundled in inst/openfhe/cereal"),
+    person("Marcin", "Kalicinski", role = c("ctb", "cph"),
+           comment = "RapidXml, bundled in inst/openfhe/cereal"),
+    person("Rene", "Nyffenegger", role = c("ctb", "cph"),
+           comment = "base64 encoder/decoder, bundled in inst/openfhe/cereal")
   )
 Description: Provides an R interface to 'OpenFHE', the open-source C++
     library for fully homomorphic encryption (Al Badawi and others, 2022)
@@ -19,6 +43,7 @@ Description: Provides an R interface to 'OpenFHE', the open-source C++
     <https://eprint.iacr.org/2018/421> schemes for evaluating arbitrary
     functions on encrypted bits.
 License: BSD_2_clause + file LICENSE
+Copyright: file inst/COPYRIGHTS
 URL: https://openfheorg.github.io/openfhe.R/, https://github.com/openfheorg/openfhe.R
 BugReports: https://github.com/openfheorg/openfhe.R/issues
 Depends:

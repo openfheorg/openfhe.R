@@ -9,6 +9,14 @@ CryptoParameters(ptr = NULL)
 \arguments{
 \item{ptr}{External pointer (internal use)}
 }
+\value{
+An S7 object of class \code{CryptoParameters}, inheriting from
+\link{OpenFHEObject}, whose \code{ptr} property holds an external pointer to
+the C++ \verb{CryptoParametersBase<DCRTPoly>}. It is an opaque token: its
+contents are read with the RNS-level accessors rather than from R,
+and it is obtained from \code{get_crypto_parameters()} rather than by
+calling this constructor directly.
+}
 \description{
 Wraps \verb{std::shared_ptr<CryptoParametersBase<DCRTPoly>>} on the
 C++ side. Returned by \code{get_crypto_parameters(cc)} and used as

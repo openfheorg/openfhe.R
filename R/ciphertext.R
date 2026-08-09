@@ -5,6 +5,12 @@
 #' Wraps an encrypted OpenFHE ciphertext. Supports arithmetic operators
 #' `+`, `-`, `*` which dispatch to homomorphic operations.
 #' @param ptr External pointer (internal use)
+#' @return An S7 object of class `Ciphertext`, inheriting from [OpenFHEObject],
+#'   whose `ptr` property holds an external pointer to the C++
+#'   ciphertext. Ciphertexts are produced by [encrypt()] and by the
+#'   `eval_*()` family rather than by calling this constructor directly,
+#'   and they carry the encrypted vector together with the level and
+#'   scaling-factor bookkeeping the scheme needs.
 #' @export
 Ciphertext <- new_class("Ciphertext",
   parent = OpenFHEObject,

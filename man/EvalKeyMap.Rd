@@ -9,6 +9,15 @@ EvalKeyMap(ptr = NULL)
 \arguments{
 \item{ptr}{External pointer (internal use).}
 }
+\value{
+An S7 object of class \code{EvalKeyMap}, inheriting from \link{OpenFHEObject},
+whose \code{ptr} property holds an external pointer to the C++
+\verb{std::map<uint32_t, EvalKey<DCRTPoly>>}. It carries one evaluation
+key per rotation or automorphism index and acts as the transport
+format for the multi-party key protocols; it is produced by the
+\verb{multi_eval_*_key_gen()} family rather than by calling this
+constructor directly.
+}
 \description{
 Opaque S7 wrapper around a
 \verb{shared_ptr<std::map<uint32_t, EvalKey<DCRTPoly>>>}. Produced

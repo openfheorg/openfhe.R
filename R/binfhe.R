@@ -2,6 +2,12 @@
 
 #' LWE Ciphertext (Binary FHE)
 #' @param ptr External pointer (internal use)
+#' @return An S7 object of class `LWECiphertext`, inheriting from
+#'   [OpenFHEObject], whose `ptr` property holds an external pointer to
+#'   the C++ LWE ciphertext. This is the encrypted-bit type the boolean-
+#'   circuit (BinFHE) schemes operate on; obtain one from [bin_encrypt()]
+#'   or from a gate evaluation rather than by calling this constructor
+#'   directly.
 #' @export
 LWECiphertext <- new_class("LWECiphertext",
   parent = OpenFHEObject,
@@ -10,6 +16,11 @@ LWECiphertext <- new_class("LWECiphertext",
 
 #' LWE Private Key (Binary FHE)
 #' @param ptr External pointer (internal use)
+#' @return An S7 object of class `LWEPrivateKey`, inheriting from
+#'   [OpenFHEObject], whose `ptr` property holds an external pointer to
+#'   the C++ LWE secret key. It both encrypts and decrypts in the
+#'   boolean-circuit (BinFHE) schemes; obtain one from [bin_key_gen()]
+#'   rather than by calling this constructor directly.
 #' @export
 LWEPrivateKey <- new_class("LWEPrivateKey",
   parent = OpenFHEObject,
@@ -97,6 +108,10 @@ bin_key_gen <- function(ctx) {
 #'   (`KeygenMode$PUB_ENCRYPT`), matching the
 #'   `BTKeyGen(sk, keyGenMode)` overload at
 #'   `binfhecontext.h` line 273.
+#' @return Invisibly, the `ctx` BinFHE context that was passed in. Called for
+#'   its side effect: the bootstrapping and key-switching keys are
+#'   generated and stored inside the C++ context, after which
+#'   [eval_bin_gate()] and the other gate evaluations can be used.
 #' @export
 bin_bt_key_gen <- function(ctx, sk,
                            keygen_mode = KeygenMode$SYM_ENCRYPT) {

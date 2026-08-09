@@ -11,6 +11,12 @@ set_length(pt, len)
 
 \item{len}{Integer length}
 }
+\value{
+Invisibly, the \code{pt} plaintext that was passed in. Called for its
+side effect: the plaintext is truncated in place so that the
+accessors report only the first \code{len} slots, which is how the
+padding introduced by encoding is trimmed after decryption.
+}
 \description{
 Set the effective length of a plaintext
 }

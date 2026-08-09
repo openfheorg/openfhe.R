@@ -2,12 +2,20 @@
 % Please edit documentation in R/enums.R
 \name{DecryptionNoiseMode}
 \alias{DecryptionNoiseMode}
-\title{Decryption Noise Mode
-Source: pke/constants-defs.h enum DecryptionNoiseMode}
+\title{Decryption Noise Mode}
 \usage{
 DecryptionNoiseMode
 }
+\value{
+A named \code{list} of 2 integer scalars, each the value of the
+OpenFHE C++ enumerator of the same name: \code{FIXED_NOISE_DECRYPT}
+decrypts with a fixed noise estimate, while
+\code{NOISE_FLOODING_DECRYPT} floods the result with extra noise so that
+the decryption itself leaks nothing about the circuit. Pass an
+element as the \code{decryption_noise_mode} argument of \code{\link[=CKKSParams]{CKKSParams()}}
+or \code{\link[=fhe_context]{fhe_context()}}.
+}
 \description{
-Decryption Noise Mode
-Source: pke/constants-defs.h enum DecryptionNoiseMode
+Mirrors the C++ enum \code{DecryptionNoiseMode} in
+\code{pke/constants-defs.h}.
 }
