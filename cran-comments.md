@@ -108,12 +108,20 @@ copyright and license header is preserved byte for byte.
 
 ## Test environments
 
+All of the following were run against the tarball being submitted, not
+against an earlier one.
+
 * Local: macOS (Apple Silicon), R 4.6.1 — `R CMD check --as-cran`:
-  0 ERRORs, 0 WARNINGs, 1 NOTE.
-* mac-builder (r-release, arm64), win-builder (R-devel), and GitHub
-  Actions (Linux, macOS, Windows, all release) were all clean for the
-  previous submission and are re-run against this tarball before
-  upload.
+  0 ERRORs, 0 WARNINGs, 1 NOTE. This check is run with the check
+  farm's own thread environment forced (`OMP_THREAD_LIMIT=2`,
+  `_R_CHECK_LIMIT_CORES_=TRUE`, and the test, vignette and example
+  `CPU_TO_ELAPSED_THRESHOLD` gates at 2.5), so the CPU-time NOTEs that
+  a default local check silently skips would be reported here. None
+  appeared at any stage: tests 60s/36s, vignettes 50s/31s, examples OK.
+* mac-builder (r-release, arm64): passed.
+* win-builder (R-devel): passed.
+* GitHub Actions: ubuntu-latest (devel), ubuntu-latest (release),
+  macOS-latest (release), windows-latest (release) — all four passed.
 
 ## NOTEs
 
@@ -132,16 +140,16 @@ copyright and license header is preserved byte for byte.
   Vercauteren, Badawi, homomorphic): all are names of cryptographic
   schemes or the surnames of their authors, spelled as published.
 
-* win-builder and the CRAN Windows incoming pretest additionally
-  report a "checking compiled code" NOTE whose text is an internal
-  error of the check itself ("Error in ccE(...): 'cc' is not on the
-  path"): `tools:::ccE()` invokes the preprocessor as the literal
-  command `cc` while parsing R's own installed headers, before any
-  package code is examined, and no `cc` is on that machine's PATH.
-  Control experiment: uploading the current CRAN release of cubature
-  (unmodified) to win-builder R-devel reproduces the identical NOTE.
-  The check completes and passes for this package on the platforms
-  where it can run.
+* Should a "checking compiled code" NOTE appear on Windows, its text
+  is an internal error of the check itself rather than a finding about
+  this package ("Error in ccE(...): 'cc' is not on the path"):
+  `tools:::ccE()` invokes the preprocessor as the literal command `cc`
+  while parsing R's own installed headers, before any package code is
+  examined, and no `cc` is on that machine's PATH. We have seen it on
+  win-builder and on the CRAN Windows incoming pretest. Control
+  experiment: uploading the current CRAN release of cubature
+  (unmodified) to win-builder R-devel reproduces the identical NOTE, so
+  it is not specific to this package.
 
 ## Notes for the reviewers
 
