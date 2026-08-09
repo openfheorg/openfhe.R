@@ -140,17 +140,6 @@ against an earlier one.
   Vercauteren, Badawi, homomorphic): all are names of cryptographic
   schemes or the surnames of their authors, spelled as published.
 
-* Should a "checking compiled code" NOTE appear on Windows, its text
-  is an internal error of the check itself rather than a finding about
-  this package ("Error in ccE(...): 'cc' is not on the path"):
-  `tools:::ccE()` invokes the preprocessor as the literal command `cc`
-  while parsing R's own installed headers, before any package code is
-  examined, and no `cc` is on that machine's PATH. We have seen it on
-  win-builder and on the CRAN Windows incoming pretest. Control
-  experiment: uploading the current CRAN release of cubature
-  (unmodified) to win-builder R-devel reproduces the identical NOTE, so
-  it is not specific to this package.
-
 ## Notes for the reviewers
 
 * Installed size is about 9.8 Mb (libs about 8 Mb) because the OpenFHE
