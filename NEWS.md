@@ -1,3 +1,17 @@
+# openfhe.R 1.5.1.1
+
+* Fixed undefined behavior in the vendored OpenFHE library reported by
+  CRAN's UBSAN check platforms. `RingGSWAccumulator::SignedDigitDecompose`
+  sign-extended a balanced digit by shifting a signed value into and past
+  the sign bit, which is undefined in C++17. The vendored library now
+  carries the upstream fix (OpenFHE PR #1238), which computes the same
+  digits without signed shifts. Results are unchanged.
+
+* The `eval_sign()` example in the BinFHE vignette and its corresponding
+  test are skipped on CRAN, where their bootstrapping-key generation
+  dominated the check time. Both still run on CI and locally.
+
+
 # openfhe.R 1.5.1
 
 Initial release. An R interface to the OpenFHE C++ library for fully

@@ -1,5 +1,11 @@
 # openfhe.R <img src="man/figures/logo.png" align="right" height="139" alt="" />
 
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/openfhe.R)](https://CRAN.R-project.org/package=openfhe.R)
+[![R-CMD-check](https://github.com/openfheorg/openfhe.R/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/openfheorg/openfhe.R/actions/workflows/R-CMD-check.yaml)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/openfhe.R)](https://CRAN.R-project.org/package=openfhe.R)
+<!-- badges: end -->
+
 This is an interface to the [Fully Homomorphic Encryption](https://github.com/openfheorg/openfhe-development)
 library developed by [OpenFHE](https://openfhe.org).
 
@@ -9,7 +15,6 @@ The companion package
 a number of illustrative vignettes. Specifically, the examples
 demonstrate how to use existing R functions and optimizers to
 implement a homomorphic-encryption protocol across multiple sites.
-
 
 ## Schemes
 

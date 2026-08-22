@@ -272,12 +272,25 @@ The primary use case is threshold comparisons (convert
 `x > threshold` into `eval_sign(ct - threshold_ct)`).
 
 Unlike the other functional-bootstrap primitives in this
-vignette, `eval_sign()` requires a **large-Q** context:
-the paramset must be **STD128** (not TOY), the
-`arb_func` flag must be `FALSE`, and an explicit `log_q`
-must be supplied. The encryption path uses the
-`LARGE_DIM` output mode with both an explicit plaintext
-modulus `p` and an explicit ciphertext modulus `mod = Q`.
+vignette, `eval_sign()` requires a **large-Q** context: the
+`arb_func` flag must be `FALSE` and an explicit `log_q`
+must be supplied. Only **TOY** and **STD128** are available
+in this configuration — the remaining parameter sets raise
+an error. The encryption path uses the `LARGE_DIM` output
+mode with both an explicit plaintext modulus `p` and an
+explicit ciphertext modulus `mod = Q`.
+
+Every earlier section of this vignette runs on **TOY**,
+which the OpenFHE headers describe as carrying no security
+at all; it is there so that a tour of the gates builds
+quickly. This section uses **STD128** instead, so that at
+least one worked example runs at parameters you could
+actually deploy. That choice is not free — generating the
+bootstrap keys below is the dominant cost of building this
+vignette, and it is a cost a real deployment pays once per
+key. Take the pairing as the lesson: reach for **TOY**
+while you are learning the API, and for **STD128** or
+higher the moment anything real is encrypted.
 
 This setup mirrors the upstream `eval-sign.py` example.
 

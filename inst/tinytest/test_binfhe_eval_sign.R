@@ -2,6 +2,12 @@
 ## @openfhe-python: binfhe/eval-sign.py [FULL]
 library(openfhe.R)
 
+## One STD128 bootstrap-key generation plus eight functional bootstraps —
+## skip on CRAN for time, but run everywhere else: on CI (GitHub Actions
+## sets CI=true) and locally via tinytest::test_all() (sets TT_AT_HOME).
+if (!at_home() && Sys.getenv("CI") != "true")
+  exit_file("skipped on CRAN: heavy bootstrapping (runs on CI and at_home)")
+
 log_q <- 17L
 ctx <- bin_fhe_context(
   paramset = BinFHEParamSet$STD128,
