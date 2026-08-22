@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">openfhe.R</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,14 +32,20 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.5.1" id="openfher-151">openfhe.R 1.5.1<a class="anchor" aria-label="anchor" href="#openfher-151"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.5.1.1" id="openfher-1511">openfhe.R 1.5.1.1<a class="anchor" aria-label="anchor" href="#openfher-1511"></a></h2>
+<ul><li><p>Fixed undefined behavior in the vendored OpenFHE library reported by CRAN’s UBSAN check platforms. <code>RingGSWAccumulator::SignedDigitDecompose</code> sign-extended a balanced digit by shifting a signed value into and past the sign bit, which is undefined in C++17. The vendored library now carries the upstream fix (OpenFHE PR <a href="https://github.com/openfheorg/openfhe.R/issues/1238" class="external-link">#1238</a>), which computes the same digits without signed shifts. Results are unchanged.</p></li>
+<li><p>The <code><a href="../reference/eval_sign.html">eval_sign()</a></code> example in the BinFHE vignette and its corresponding test are skipped on CRAN, where their bootstrapping-key generation dominated the check time. Both still run on CI and locally.</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.5.1" id="openfher-151">openfhe.R 1.5.1<a class="anchor" aria-label="anchor" href="#openfher-151"></a></h2><p class="text-muted">CRAN release: 2026-08-21</p>
 <p>Initial release. An R interface to the OpenFHE C++ library for fully homomorphic encryption, with a binding surface that mirrors openfhe-python.</p>
 <ul><li><p>Supports the BFV, BGV, and CKKS schemes for computation on encrypted integers and approximate reals, plus BinFHE (FHEW/TFHE) for Boolean circuits over encrypted bits.</p></li>
 <li><p>Provides threshold (multiparty) FHE, including interactive bootstrapping, for computations shared across several key-holders.</p></li>
 <li><p>Built on S7 classes and cpp11 bindings; the OpenFHE C++ library is vendored and built from source, so the package version tracks the library version.</p></li>
 <li><p>Ships an API tour vignette plus worked examples of CKKS bootstrapping and BinFHE Boolean circuits.</p></li>
 </ul></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
