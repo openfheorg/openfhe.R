@@ -2,6 +2,8 @@
 
 ## openfhe.R 1.5.1.1
 
+CRAN release: 2026-08-23
+
 - Fixed undefined behavior in the vendored OpenFHE library reported by
   CRAN’s UBSAN check platforms.
   `RingGSWAccumulator::SignedDigitDecompose` sign-extended a balanced

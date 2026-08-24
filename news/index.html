@@ -28,11 +28,11 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/openfheorg/openfhe.R/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/openfheorg/openfhe.R/blob/v1.5.1.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.5.1.1" id="openfher-1511">openfhe.R 1.5.1.1<a class="anchor" aria-label="anchor" href="#openfher-1511"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.5.1.1" id="openfher-1511">openfhe.R 1.5.1.1<a class="anchor" aria-label="anchor" href="#openfher-1511"></a></h2><p class="text-muted">CRAN release: 2026-08-23</p>
 <ul><li><p>Fixed undefined behavior in the vendored OpenFHE library reported by CRAN’s UBSAN check platforms. <code>RingGSWAccumulator::SignedDigitDecompose</code> sign-extended a balanced digit by shifting a signed value into and past the sign bit, which is undefined in C++17. The vendored library now carries the upstream fix (OpenFHE PR <a href="https://github.com/openfheorg/openfhe.R/issues/1238" class="external-link">#1238</a>), which computes the same digits without signed shifts. Results are unchanged.</p></li>
 <li><p>The <code><a href="../reference/eval_sign.html">eval_sign()</a></code> example in the BinFHE vignette and its corresponding test are skipped on CRAN, where their bootstrapping-key generation dominated the check time. Both still run on CI and locally.</p></li>
 </ul></div>
