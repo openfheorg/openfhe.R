@@ -1,5 +1,37 @@
 # Changelog
 
+## openfhe.R 1.5.1.2
+
+- The package now installs on musl-based Linux (Alpine). The vendored
+  library included `execinfo.h`, a glibc extension, whenever it saw a
+  Linux compiler; it now includes it only where the header exists and
+  otherwise takes the same branch macOS and Windows always have. CRAN’s
+  musl check had reported 1.5.1.1 as failing to install.
+
+- `rlang` is declared in `Imports`. The package’s error and warning
+  messages go through cli functions that call rlang at run time, and cli
+  lists rlang only as a suggestion, so on a machine without rlang every
+  error read “there is no package called ‘rlang’” instead of the
+  intended message.
+
+- Every handle the package passes between R and C++ now carries its
+  type, and every binding checks that type before using the pointer.
+
+- [`bin_fhe_context()`](https://openfheorg.github.io/openfhe.R/reference/bin_fhe_context.md)
+  returns an object of the new `BinFHEContext` class instead of the base
+  `OpenFHEObject`. The boolean-circuit context and the `CryptoContext`
+  used by BFV, BGV, and CKKS are therefore distinct classes, and passing
+  one where the other belongs is an error rather than a silent misuse.
+
+- `OpenFHEObject`, the base class, is now abstract. It was never useful
+  to construct directly, and every handle now belongs to a concrete
+  class.
+
+- [`decrypt()`](https://openfheorg.github.io/openfhe.R/reference/decrypt.md)
+  accepts its arguments in either order, matching the C++ library, which
+  declares both. `decrypt(private_key, ciphertext)` is now equivalent to
+  `decrypt(ciphertext, private_key)`.
+
 ## openfhe.R 1.5.1.1
 
 CRAN release: 2026-08-23

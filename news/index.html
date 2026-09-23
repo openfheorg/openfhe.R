@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">openfhe.R</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,9 +28,18 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/openfheorg/openfhe.R/blob/v1.5.1.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/openfheorg/openfhe.R/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.5.1.2" id="openfher-1512">openfhe.R 1.5.1.2<a class="anchor" aria-label="anchor" href="#openfher-1512"></a></h2>
+<ul><li><p>The package now installs on musl-based Linux (Alpine). The vendored library included <code>execinfo.h</code>, a glibc extension, whenever it saw a Linux compiler; it now includes it only where the header exists and otherwise takes the same branch macOS and Windows always have. CRAN’s musl check had reported 1.5.1.1 as failing to install.</p></li>
+<li><p><code>rlang</code> is declared in <code>Imports</code>. The package’s error and warning messages go through cli functions that call rlang at run time, and cli lists rlang only as a suggestion, so on a machine without rlang every error read “there is no package called ‘rlang’” instead of the intended message.</p></li>
+<li><p>Every handle the package passes between R and C++ now carries its type, and every binding checks that type before using the pointer.</p></li>
+<li><p><code><a href="../reference/bin_fhe_context.html">bin_fhe_context()</a></code> returns an object of the new <code>BinFHEContext</code> class instead of the base <code>OpenFHEObject</code>. The boolean-circuit context and the <code>CryptoContext</code> used by BFV, BGV, and CKKS are therefore distinct classes, and passing one where the other belongs is an error rather than a silent misuse.</p></li>
+<li><p><code>OpenFHEObject</code>, the base class, is now abstract. It was never useful to construct directly, and every handle now belongs to a concrete class.</p></li>
+<li><p><code><a href="../reference/decrypt.html">decrypt()</a></code> accepts its arguments in either order, matching the C++ library, which declares both. <code>decrypt(private_key, ciphertext)</code> is now equivalent to <code>decrypt(ciphertext, private_key)</code>.</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.5.1.1" id="openfher-1511">openfhe.R 1.5.1.1<a class="anchor" aria-label="anchor" href="#openfher-1511"></a></h2><p class="text-muted">CRAN release: 2026-08-23</p>
 <ul><li><p>Fixed undefined behavior in the vendored OpenFHE library reported by CRAN’s UBSAN check platforms. <code>RingGSWAccumulator::SignedDigitDecompose</code> sign-extended a balanced digit by shifting a signed value into and past the sign bit, which is undefined in C++17. The vendored library now carries the upstream fix (OpenFHE PR <a href="https://github.com/openfheorg/openfhe.R/issues/1238" class="external-link">#1238</a>), which computes the same digits without signed shifts. Results are unchanged.</p></li>

@@ -45,17 +45,17 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/openfheorg/openfhe.R/blob/v1.5.1.1/inst/CITATION)
+[`inst/CITATION`](https://github.com/openfheorg/openfhe.R/blob/main/inst/CITATION)
 
 Narasimhan B (2026). *openfhe.R: R Interface to the 'OpenFHE' Fully
-Homomorphic Encryption Library*. R package version 1.5.1.1,
+Homomorphic Encryption Library*. R package version 1.5.1.2,
 <https://openfheorg.github.io/openfhe.R/>.
 
     @Manual{,
       title = {{openfhe.R}: R Interface to the 'OpenFHE' Fully Homomorphic Encryption Library},
       author = {Balasubramanian Narasimhan},
       year = {2026},
-      note = {R package version 1.5.1.1},
+      note = {R package version 1.5.1.2},
       url = {https://openfheorg.github.io/openfhe.R/},
     }
 

@@ -353,6 +353,8 @@
   : Generate a lookup table for an arbitrary plaintext function
 - [`get_max_plaintext_space()`](https://openfheorg.github.io/openfhe.R/reference/get_max_plaintext_space.md)
   : Maximum supported plaintext space for functional bootstrapping
+- [`BinFHEContext()`](https://openfheorg.github.io/openfhe.R/reference/BinFHEContext.md)
+  : BinFHE context (Binary FHE)
 - [`LWECiphertext()`](https://openfheorg.github.io/openfhe.R/reference/LWECiphertext.md)
   : LWE Ciphertext (Binary FHE)
 - [`LWEPrivateKey()`](https://openfheorg.github.io/openfhe.R/reference/LWEPrivateKey.md)

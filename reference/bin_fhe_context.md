@@ -46,4 +46,6 @@ bin_fhe_context(
 
 ## Value
 
-A BinFHEContext (stored as OpenFHEObject)
+A
+[BinFHEContext](https://openfheorg.github.io/openfhe.R/reference/BinFHEContext.md)
+object.

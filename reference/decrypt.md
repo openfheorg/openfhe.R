@@ -1,6 +1,13 @@
 # Decrypt a ciphertext
 
-Decrypt a ciphertext
+`decrypt` dispatches on both arguments and accepts them in either order,
+as the C++ header does: `Decrypt(ciphertext, privateKey)` is the primary
+form and `Decrypt(privateKey, ciphertext)` forwards to it
+(`cryptocontext.h`, both overloads). The key-first order lets code that
+is written around the holder of the key, such as a party object in a
+protocol, put that holder first, the same way
+[`encrypt()`](https://openfheorg.github.io/openfhe.R/reference/encrypt.md)
+puts the key first.
 
 ## Usage
 
@@ -12,11 +19,11 @@ decrypt(ct, key, ...)
 
 - ct:
 
-  A Ciphertext
+  A `Ciphertext`, or a `PrivateKey` when the key-first order is used.
 
 - key:
 
-  A PrivateKey
+  A `PrivateKey`, or a `Ciphertext` when the key-first order is used.
 
 - ...:
 
@@ -41,5 +48,10 @@ ct <- encrypt(kp@public, pt, cc = cc)
 out <- decrypt(eval_add(ct, ct), kp@secret, cc = cc)
 out <- set_length(out, 4L)
 get_real_packed_value(out)
+#> [1] 0.5 1.0 1.5 2.0
+
+## The same call with the key first:
+out2 <- decrypt(kp@secret, eval_add(ct, ct), cc = cc)
+get_real_packed_value(set_length(out2, 4L))
 #> [1] 0.5 1.0 1.5 2.0
 ```
