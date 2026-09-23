@@ -28,14 +28,14 @@ using namespace cpp11;
 [[cpp11::register]]
 list MultipartyKeyGen(SEXP cc_xp, SEXP pk_xp,
                       bool make_sparse, bool fresh) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PublicKey<DCRTPoly>> pk(pk_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PublicKey<DCRTPoly>> pk(pk_xp);
   return catch_openfhe("CryptoContext::MultipartyKeyGen(pk)", [&]() {
     auto kp = (*cc)->MultipartyKeyGen(*pk, make_sparse, fresh);
     writable::list result(2);
-    result[0] = external_pointer<PublicKey<DCRTPoly>>(
+    result[0] = xptr<PublicKey<DCRTPoly>>(
       new PublicKey<DCRTPoly>(kp.publicKey));
-    result[1] = external_pointer<PrivateKey<DCRTPoly>>(
+    result[1] = xptr<PrivateKey<DCRTPoly>>(
       new PrivateKey<DCRTPoly>(kp.secretKey));
     result.attr("names") = writable::strings({"public", "secret"});
     return result;
@@ -50,12 +50,12 @@ list MultipartyKeyGen(SEXP cc_xp, SEXP pk_xp,
 [[cpp11::register]]
 SEXP MultiAddPubKeys(SEXP cc_xp, SEXP pk1_xp, SEXP pk2_xp,
                     std::string key_tag) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PublicKey<DCRTPoly>> pk1(pk1_xp);
-  external_pointer<PublicKey<DCRTPoly>> pk2(pk2_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PublicKey<DCRTPoly>> pk1(pk1_xp);
+  xptr<PublicKey<DCRTPoly>> pk2(pk2_xp);
   return catch_openfhe("CryptoContext::MultiAddPubKeys", [&]() {
     auto result = (*cc)->MultiAddPubKeys(*pk1, *pk2, key_tag);
-    return external_pointer<PublicKey<DCRTPoly>>(
+    return xptr<PublicKey<DCRTPoly>>(
       new PublicKey<DCRTPoly>(result));
   });
 }
@@ -64,12 +64,12 @@ SEXP MultiAddPubKeys(SEXP cc_xp, SEXP pk1_xp, SEXP pk2_xp,
 [[cpp11::register]]
 SEXP MultiAddEvalKeys(SEXP cc_xp, SEXP ek1_xp, SEXP ek2_xp,
                      std::string key_tag) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<EvalKey<DCRTPoly>> ek1(ek1_xp);
-  external_pointer<EvalKey<DCRTPoly>> ek2(ek2_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<EvalKey<DCRTPoly>> ek1(ek1_xp);
+  xptr<EvalKey<DCRTPoly>> ek2(ek2_xp);
   return catch_openfhe("CryptoContext::MultiAddEvalKeys", [&]() {
     auto result = (*cc)->MultiAddEvalKeys(*ek1, *ek2, key_tag);
-    return external_pointer<EvalKey<DCRTPoly>>(
+    return xptr<EvalKey<DCRTPoly>>(
       new EvalKey<DCRTPoly>(result));
   });
 }
@@ -81,12 +81,12 @@ SEXP MultiAddEvalKeys(SEXP cc_xp, SEXP ek1_xp, SEXP ek2_xp,
 [[cpp11::register]]
 SEXP MultiAddEvalMultKeys(SEXP cc_xp, SEXP ek1_xp, SEXP ek2_xp,
                          std::string key_tag) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<EvalKey<DCRTPoly>> ek1(ek1_xp);
-  external_pointer<EvalKey<DCRTPoly>> ek2(ek2_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<EvalKey<DCRTPoly>> ek1(ek1_xp);
+  xptr<EvalKey<DCRTPoly>> ek2(ek2_xp);
   return catch_openfhe("CryptoContext::MultiAddEvalMultKeys", [&]() {
     auto result = (*cc)->MultiAddEvalMultKeys(*ek1, *ek2, key_tag);
-    return external_pointer<EvalKey<DCRTPoly>>(
+    return xptr<EvalKey<DCRTPoly>>(
       new EvalKey<DCRTPoly>(result));
   });
 }
@@ -96,13 +96,13 @@ SEXP MultiAddEvalMultKeys(SEXP cc_xp, SEXP ek1_xp, SEXP ek2_xp,
 // carries the key-switch auxiliary information.
 [[cpp11::register]]
 SEXP MultiKeySwitchGen(SEXP cc_xp, SEXP sk_orig_xp, SEXP sk_new_xp, SEXP ek_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk_orig(sk_orig_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk_new(sk_new_xp);
-  external_pointer<EvalKey<DCRTPoly>> ek(ek_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk_orig(sk_orig_xp);
+  xptr<PrivateKey<DCRTPoly>> sk_new(sk_new_xp);
+  xptr<EvalKey<DCRTPoly>> ek(ek_xp);
   return catch_openfhe("CryptoContext::MultiKeySwitchGen", [&]() {
     auto result = (*cc)->MultiKeySwitchGen(*sk_orig, *sk_new, *ek);
-    return external_pointer<EvalKey<DCRTPoly>>(
+    return xptr<EvalKey<DCRTPoly>>(
       new EvalKey<DCRTPoly>(result));
   });
 }
@@ -114,13 +114,13 @@ SEXP MultiKeySwitchGen(SEXP cc_xp, SEXP sk_orig_xp, SEXP sk_new_xp, SEXP ek_xp) 
 // provided separately.
 [[cpp11::register]]
 SEXP MultipartyDecryptLead(SEXP cc_xp, SEXP sk_xp, SEXP ct_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("CryptoContext::MultipartyDecryptLead", [&]() {
     std::vector<Ciphertext<DCRTPoly>> ct_vec = {*ct};
     auto result = (*cc)->MultipartyDecryptLead(ct_vec, *sk);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result[0]));
   });
 }
@@ -128,13 +128,13 @@ SEXP MultipartyDecryptLead(SEXP cc_xp, SEXP sk_xp, SEXP ct_xp) {
 // Other party's partial decryption, single-ciphertext form.
 [[cpp11::register]]
 SEXP MultipartyDecryptMain(SEXP cc_xp, SEXP sk_xp, SEXP ct_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("CryptoContext::MultipartyDecryptMain", [&]() {
     std::vector<Ciphertext<DCRTPoly>> ct_vec = {*ct};
     auto result = (*cc)->MultipartyDecryptMain(ct_vec, *sk);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result[0]));
   });
 }
@@ -148,17 +148,17 @@ SEXP MultipartyDecryptMain(SEXP cc_xp, SEXP sk_xp, SEXP ct_xp) {
 // (threshold-fhe-5p.py) as well as the original 2-party case.
 [[cpp11::register]]
 SEXP MultipartyDecryptFusion(SEXP cc_xp, list partials_list) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::MultipartyDecryptFusion", [&]() {
     std::vector<Ciphertext<DCRTPoly>> partials;
     partials.reserve(partials_list.size());
     for (R_xlen_t i = 0; i < partials_list.size(); ++i) {
       SEXP p_xp = partials_list[i];
-      external_pointer<Ciphertext<DCRTPoly>> p(p_xp);
+      xptr<Ciphertext<DCRTPoly>> p(p_xp);
       partials.push_back(*p);
     }
     Plaintext result;
     (*cc)->MultipartyDecryptFusion(partials, &result);
-    return external_pointer<Plaintext>(new Plaintext(result));
+    return xptr<Plaintext>(new Plaintext(result));
   });
 }

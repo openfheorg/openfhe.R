@@ -39,37 +39,37 @@ bool selftest_bfv() {
 
 [[cpp11::register]]
 SEXP BFVParams__new() {
-  return external_pointer<CCParams<CryptoContextBFVRNS>>(
+  return xptr<CCParams<CryptoContextBFVRNS>>(
     new CCParams<CryptoContextBFVRNS>());
 }
 
 [[cpp11::register]]
 void BFVParams__SetPlaintextModulus(SEXP params_xp, int64_t value) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   p->SetPlaintextModulus(static_cast<PlaintextModulus>(value));
 }
 
 [[cpp11::register]]
 void BFVParams__SetMultiplicativeDepth(SEXP params_xp, int depth) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   p->SetMultiplicativeDepth(static_cast<uint32_t>(depth));
 }
 
 [[cpp11::register]]
 void BFVParams__SetSecurityLevel(SEXP params_xp, int level) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   p->SetSecurityLevel(static_cast<SecurityLevel>(level));
 }
 
 [[cpp11::register]]
 void BFVParams__SetBatchSize(SEXP params_xp, int size) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   p->SetBatchSize(static_cast<uint32_t>(size));
 }
 
 [[cpp11::register]]
 void BFVParams__SetRingDim(SEXP params_xp, int dim) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   p->SetRingDim(static_cast<uint32_t>(dim));
 }
 
@@ -77,23 +77,23 @@ void BFVParams__SetRingDim(SEXP params_xp, int dim) {
 
 [[cpp11::register]]
 SEXP GenCryptoContext__BFV(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   CryptoContext<DCRTPoly> cc = GenCryptoContext(*p);
   // CryptoContext is already shared_ptr<CryptoContextImpl<DCRTPoly>>
   // Store a heap copy of the shared_ptr
-  return external_pointer<CryptoContext<DCRTPoly>>(
+  return xptr<CryptoContext<DCRTPoly>>(
     new CryptoContext<DCRTPoly>(cc));
 }
 
 [[cpp11::register]]
 void CryptoContext__Enable(SEXP cc_xp, int feature) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   (*cc)->Enable(static_cast<PKESchemeFeature>(feature));
 }
 
 [[cpp11::register]]
 int CryptoContext__GetRingDimension(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return static_cast<int>((*cc)->GetRingDimension());
 }
 
@@ -101,13 +101,13 @@ int CryptoContext__GetRingDimension(SEXP cc_xp) {
 
 [[cpp11::register]]
 list CryptoContext__KeyGen(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   auto kp = (*cc)->KeyGen();
 
   writable::list result(2);
-  result[0] = external_pointer<PublicKey<DCRTPoly>>(
+  result[0] = xptr<PublicKey<DCRTPoly>>(
     new PublicKey<DCRTPoly>(kp.publicKey));
-  result[1] = external_pointer<PrivateKey<DCRTPoly>>(
+  result[1] = xptr<PrivateKey<DCRTPoly>>(
     new PrivateKey<DCRTPoly>(kp.secretKey));
 
   result.attr("names") = writable::strings({"public", "secret"});
@@ -116,15 +116,15 @@ list CryptoContext__KeyGen(SEXP cc_xp) {
 
 [[cpp11::register]]
 void CryptoContext__EvalMultKeyGen(SEXP cc_xp, SEXP sk_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
   (*cc)->EvalMultKeyGen(*sk);
 }
 
 [[cpp11::register]]
 void CryptoContext__EvalRotateKeyGen(SEXP cc_xp, SEXP sk_xp, integers indices) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
   std::vector<int32_t> idx_vec;
   for (R_xlen_t i = 0; i < indices.size(); i++) {
     idx_vec.push_back(indices[i]);
@@ -138,8 +138,8 @@ void CryptoContext__EvalRotateKeyGen(SEXP cc_xp, SEXP sk_xp, integers indices) {
 // C++ header and openfhe-python, which binds them separately.
 [[cpp11::register]]
 void CryptoContext__EvalAtIndexKeyGen(SEXP cc_xp, SEXP sk_xp, integers indices) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
   std::vector<int32_t> idx_vec;
   for (R_xlen_t i = 0; i < indices.size(); i++) {
     idx_vec.push_back(indices[i]);
@@ -153,7 +153,7 @@ void CryptoContext__EvalAtIndexKeyGen(SEXP cc_xp, SEXP sk_xp, integers indices) 
 SEXP CryptoContext__MakePackedPlaintext(SEXP cc_xp, integers values,
                                          int noise_scale_deg,
                                          int level) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   std::vector<int64_t> vec;
   vec.reserve(values.size());
   for (R_xlen_t i = 0; i < values.size(); i++) {
@@ -163,12 +163,12 @@ SEXP CryptoContext__MakePackedPlaintext(SEXP cc_xp, integers values,
       vec,
       static_cast<size_t>(noise_scale_deg),
       static_cast<uint32_t>(level));
-  return external_pointer<Plaintext>(new Plaintext(pt));
+  return xptr<Plaintext>(new Plaintext(pt));
 }
 
 [[cpp11::register]]
 integers Plaintext__GetPackedValue(SEXP pt_xp) {
-  external_pointer<Plaintext> pt(pt_xp);
+  xptr<Plaintext> pt(pt_xp);
   auto& vals = (*pt)->GetPackedValue();
   writable::integers result(vals.size());
   for (size_t i = 0; i < vals.size(); i++) {
@@ -179,13 +179,13 @@ integers Plaintext__GetPackedValue(SEXP pt_xp) {
 
 [[cpp11::register]]
 void Plaintext__SetLength(SEXP pt_xp, int len) {
-  external_pointer<Plaintext> pt(pt_xp);
+  xptr<Plaintext> pt(pt_xp);
   (*pt)->SetLength(static_cast<size_t>(len));
 }
 
 [[cpp11::register]]
 std::string Plaintext__ToString(SEXP pt_xp) {
-  external_pointer<Plaintext> pt(pt_xp);
+  xptr<Plaintext> pt(pt_xp);
   std::stringstream ss;
   ss << **pt;
   return ss.str();
@@ -195,31 +195,31 @@ std::string Plaintext__ToString(SEXP pt_xp) {
 
 [[cpp11::register]]
 SEXP CryptoContext__Encrypt_PublicKey(SEXP cc_xp, SEXP pk_xp, SEXP pt_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PublicKey<DCRTPoly>> pk(pk_xp);
-  external_pointer<Plaintext> pt(pt_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PublicKey<DCRTPoly>> pk(pk_xp);
+  xptr<Plaintext> pt(pt_xp);
   auto ct = (*cc)->Encrypt(*pk, *pt);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(ct));
 }
 
 [[cpp11::register]]
 SEXP CryptoContext__Decrypt(SEXP cc_xp, SEXP sk_xp, SEXP ct_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   Plaintext result;
   (*cc)->Decrypt(*sk, *ct, &result);
-  return external_pointer<Plaintext>(new Plaintext(result));
+  return xptr<Plaintext>(new Plaintext(result));
 }
 
 // ── Get CryptoContext from Ciphertext ───────────────────
 
 [[cpp11::register]]
 SEXP Ciphertext__GetCryptoContext(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
-  return external_pointer<CryptoContext<DCRTPoly>>(
+  return xptr<CryptoContext<DCRTPoly>>(
     new CryptoContext<DCRTPoly>(cc));
 }
 
@@ -228,155 +228,155 @@ SEXP Ciphertext__GetCryptoContext(SEXP ct_xp) {
 // ct + ct
 [[cpp11::register]]
 SEXP EvalAdd__ct_ct(SEXP ct1_xp, SEXP ct2_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct1(ct1_xp);
-  external_pointer<Ciphertext<DCRTPoly>> ct2(ct2_xp);
+  xptr<Ciphertext<DCRTPoly>> ct1(ct1_xp);
+  xptr<Ciphertext<DCRTPoly>> ct2(ct2_xp);
   auto cc = (*ct1)->GetCryptoContext();
   auto result = cc->EvalAdd(*ct1, *ct2);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 // ct + pt
 [[cpp11::register]]
 SEXP EvalAdd__ct_pt(SEXP ct_xp, SEXP pt_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
-  external_pointer<Plaintext> pt(pt_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Plaintext> pt(pt_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalAdd(*ct, *pt);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 // ct + scalar (double — works for CKKS; for BFV/BGV use ct_pt overload)
 [[cpp11::register]]
 SEXP EvalAdd__ct_scalar(SEXP ct_xp, double scalar) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalAdd(*ct, scalar);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 // ct + integer (create constant packed plaintext, then add)
 [[cpp11::register]]
 SEXP EvalAdd__ct_int(SEXP ct_xp, int scalar) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto n = cc->GetRingDimension();
   std::vector<int64_t> vec(n, static_cast<int64_t>(scalar));
   Plaintext pt = cc->MakePackedPlaintext(vec);
   auto result = cc->EvalAdd(*ct, pt);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 // ct - ct
 [[cpp11::register]]
 SEXP EvalSub__ct_ct(SEXP ct1_xp, SEXP ct2_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct1(ct1_xp);
-  external_pointer<Ciphertext<DCRTPoly>> ct2(ct2_xp);
+  xptr<Ciphertext<DCRTPoly>> ct1(ct1_xp);
+  xptr<Ciphertext<DCRTPoly>> ct2(ct2_xp);
   auto cc = (*ct1)->GetCryptoContext();
   auto result = cc->EvalSub(*ct1, *ct2);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 // ct - scalar (double)
 [[cpp11::register]]
 SEXP EvalSub__ct_scalar(SEXP ct_xp, double scalar) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalSub(*ct, scalar);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 // ct - integer
 [[cpp11::register]]
 SEXP EvalSub__ct_int(SEXP ct_xp, int scalar) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto n = cc->GetRingDimension();
   std::vector<int64_t> vec(n, static_cast<int64_t>(scalar));
   Plaintext pt = cc->MakePackedPlaintext(vec);
   auto result = cc->EvalSub(*ct, pt);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 // ct - pt
 [[cpp11::register]]
 SEXP EvalSub__ct_pt(SEXP ct_xp, SEXP pt_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
-  external_pointer<Plaintext> pt(pt_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Plaintext> pt(pt_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalSub(*ct, *pt);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 // ct * ct
 [[cpp11::register]]
 SEXP EvalMult__ct_ct(SEXP ct1_xp, SEXP ct2_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct1(ct1_xp);
-  external_pointer<Ciphertext<DCRTPoly>> ct2(ct2_xp);
+  xptr<Ciphertext<DCRTPoly>> ct1(ct1_xp);
+  xptr<Ciphertext<DCRTPoly>> ct2(ct2_xp);
   auto cc = (*ct1)->GetCryptoContext();
   auto result = cc->EvalMult(*ct1, *ct2);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 // ct * scalar (double)
 [[cpp11::register]]
 SEXP EvalMult__ct_scalar(SEXP ct_xp, double scalar) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalMult(*ct, scalar);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 // ct * pt
 [[cpp11::register]]
 SEXP EvalMult__ct_pt(SEXP ct_xp, SEXP pt_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
-  external_pointer<Plaintext> pt(pt_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Plaintext> pt(pt_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalMult(*ct, *pt);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 // ct * integer
 [[cpp11::register]]
 SEXP EvalMult__ct_int(SEXP ct_xp, int scalar) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto n = cc->GetRingDimension();
   std::vector<int64_t> vec(n, static_cast<int64_t>(scalar));
   Plaintext pt = cc->MakePackedPlaintext(vec);
   auto result = cc->EvalMult(*ct, pt);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 // -ct
 [[cpp11::register]]
 SEXP EvalNegate(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalNegate(*ct);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 // ct * ct (square)
 [[cpp11::register]]
 SEXP EvalSquare(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalSquare(*ct);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
@@ -384,28 +384,28 @@ SEXP EvalSquare(SEXP ct_xp) {
 
 [[cpp11::register]]
 SEXP EvalRotate(SEXP ct_xp, int index) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalRotate(*ct, index);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 [[cpp11::register]]
 SEXP EvalSum(SEXP ct_xp, int batch_size) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalSum(*ct, static_cast<uint32_t>(batch_size));
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 [[cpp11::register]]
 SEXP Rescale(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->Rescale(*ct);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
@@ -417,23 +417,23 @@ using FastRotationPrecomp = std::shared_ptr<std::vector<DCRTPoly>>;
 
 [[cpp11::register]]
 SEXP EvalFastRotationPrecompute(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   FastRotationPrecomp precomp = cc->EvalFastRotationPrecompute(*ct);
-  return external_pointer<FastRotationPrecomp>(
+  return xptr<FastRotationPrecomp>(
     new FastRotationPrecomp(precomp));
 }
 
 [[cpp11::register]]
 SEXP EvalFastRotation(SEXP ct_xp, int index, double m, SEXP precomp_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
-  external_pointer<FastRotationPrecomp> precomp(precomp_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<FastRotationPrecomp> precomp(precomp_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalFastRotation(*ct,
     static_cast<uint32_t>(index),
     static_cast<uint32_t>(m),
     *precomp);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
@@ -441,27 +441,27 @@ SEXP EvalFastRotation(SEXP ct_xp, int index, double m, SEXP precomp_xp) {
 
 [[cpp11::register]]
 SEXP BGVParams__new() {
-  return external_pointer<CCParams<CryptoContextBGVRNS>>(
+  return xptr<CCParams<CryptoContextBGVRNS>>(
     new CCParams<CryptoContextBGVRNS>());
 }
 
 [[cpp11::register]]
 void BGVParams__SetPlaintextModulus(SEXP params_xp, int64_t value) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   p->SetPlaintextModulus(static_cast<PlaintextModulus>(value));
 }
 
 [[cpp11::register]]
 void BGVParams__SetMultiplicativeDepth(SEXP params_xp, int depth) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   p->SetMultiplicativeDepth(static_cast<uint32_t>(depth));
 }
 
 [[cpp11::register]]
 SEXP GenCryptoContext__BGV(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   CryptoContext<DCRTPoly> cc = GenCryptoContext(*p);
-  return external_pointer<CryptoContext<DCRTPoly>>(
+  return xptr<CryptoContext<DCRTPoly>>(
     new CryptoContext<DCRTPoly>(cc));
 }
 
@@ -469,75 +469,75 @@ SEXP GenCryptoContext__BGV(SEXP params_xp) {
 
 [[cpp11::register]]
 SEXP CKKSParams__new() {
-  return external_pointer<CCParams<CryptoContextCKKSRNS>>(
+  return xptr<CCParams<CryptoContextCKKSRNS>>(
     new CCParams<CryptoContextCKKSRNS>());
 }
 
 [[cpp11::register]]
 void CKKSParams__SetMultiplicativeDepth(SEXP params_xp, int depth) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   p->SetMultiplicativeDepth(static_cast<uint32_t>(depth));
 }
 
 [[cpp11::register]]
 void CKKSParams__SetScalingModSize(SEXP params_xp, int size) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   p->SetScalingModSize(static_cast<uint32_t>(size));
 }
 
 [[cpp11::register]]
 void CKKSParams__SetBatchSize(SEXP params_xp, int size) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   p->SetBatchSize(static_cast<uint32_t>(size));
 }
 
 [[cpp11::register]]
 void CKKSParams__SetRingDim(SEXP params_xp, int dim) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   p->SetRingDim(static_cast<uint32_t>(dim));
 }
 
 [[cpp11::register]]
 void CKKSParams__SetSecurityLevel(SEXP params_xp, int level) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   p->SetSecurityLevel(static_cast<SecurityLevel>(level));
 }
 
 [[cpp11::register]]
 void CKKSParams__SetScalingTechnique(SEXP params_xp, int tech) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   p->SetScalingTechnique(static_cast<ScalingTechnique>(tech));
 }
 
 [[cpp11::register]]
 void CKKSParams__SetFirstModSize(SEXP params_xp, int size) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   p->SetFirstModSize(static_cast<uint32_t>(size));
 }
 
 [[cpp11::register]]
 void CKKSParams__SetNumLargeDigits(SEXP params_xp, int dnum) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   p->SetNumLargeDigits(static_cast<uint32_t>(dnum));
 }
 
 [[cpp11::register]]
 void CKKSParams__SetKeySwitchTechnique(SEXP params_xp, int tech) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   p->SetKeySwitchTechnique(static_cast<KeySwitchTechnique>(tech));
 }
 
 [[cpp11::register]]
 void CKKSParams__SetDigitSize(SEXP params_xp, int size) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   p->SetDigitSize(static_cast<uint32_t>(size));
 }
 
 [[cpp11::register]]
 SEXP GenCryptoContext__CKKS(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   CryptoContext<DCRTPoly> cc = GenCryptoContext(*p);
-  return external_pointer<CryptoContext<DCRTPoly>>(
+  return xptr<CryptoContext<DCRTPoly>>(
     new CryptoContext<DCRTPoly>(cc));
 }
 
@@ -549,7 +549,7 @@ SEXP CryptoContext__MakeCKKSPackedPlaintext(SEXP cc_xp, doubles values,
                                              int level,
                                              SEXP params_xp,
                                              int slots) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   std::vector<double> vec;
   vec.reserve(values.size());
   for (R_xlen_t i = 0; i < values.size(); i++) {
@@ -561,7 +561,7 @@ SEXP CryptoContext__MakeCKKSPackedPlaintext(SEXP cc_xp, doubles values,
   // value for params_xp is NULL.
   std::shared_ptr<typename DCRTPoly::Params> params_ptr = nullptr;
   if (params_xp != R_NilValue) {
-    external_pointer<std::shared_ptr<typename DCRTPoly::Params>> ep(params_xp);
+    xptr<std::shared_ptr<typename DCRTPoly::Params>> ep(params_xp);
     params_ptr = *ep;
   }
   Plaintext pt = (*cc)->MakeCKKSPackedPlaintext(
@@ -570,14 +570,14 @@ SEXP CryptoContext__MakeCKKSPackedPlaintext(SEXP cc_xp, doubles values,
       static_cast<uint32_t>(level),
       params_ptr,
       static_cast<uint32_t>(slots));
-  return external_pointer<Plaintext>(new Plaintext(pt));
+  return xptr<Plaintext>(new Plaintext(pt));
 }
 
 [[cpp11::register]]
 SEXP CryptoContext__MakeCoefPackedPlaintext(SEXP cc_xp, integers values,
                                              int noise_scale_deg,
                                              int level) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   std::vector<int64_t> vec;
   vec.reserve(values.size());
   for (R_xlen_t i = 0; i < values.size(); i++) {
@@ -587,12 +587,12 @@ SEXP CryptoContext__MakeCoefPackedPlaintext(SEXP cc_xp, integers values,
       vec,
       static_cast<size_t>(noise_scale_deg),
       static_cast<uint32_t>(level));
-  return external_pointer<Plaintext>(new Plaintext(pt));
+  return xptr<Plaintext>(new Plaintext(pt));
 }
 
 [[cpp11::register]]
 doubles Plaintext__GetRealPackedValue(SEXP pt_xp) {
-  external_pointer<Plaintext> pt(pt_xp);
+  xptr<Plaintext> pt(pt_xp);
   auto vals = (*pt)->GetRealPackedValue();
   writable::doubles result(vals.size());
   for (size_t i = 0; i < vals.size(); i++) {
@@ -605,27 +605,27 @@ doubles Plaintext__GetRealPackedValue(SEXP pt_xp) {
 
 [[cpp11::register]]
 SEXP EvalPoly(SEXP ct_xp, doubles coefficients) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   std::vector<double> coeffs;
   coeffs.reserve(coefficients.size());
   for (R_xlen_t i = 0; i < coefficients.size(); i++)
     coeffs.push_back(coefficients[i]);
   auto result = cc->EvalPoly(*ct, coeffs);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 [[cpp11::register]]
 SEXP EvalChebyshevSeries(SEXP ct_xp, doubles coefficients, double a, double b) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   std::vector<double> coeffs;
   coeffs.reserve(coefficients.size());
   for (R_xlen_t i = 0; i < coefficients.size(); i++)
     coeffs.push_back(coefficients[i]);
   auto result = cc->EvalChebyshevSeries(*ct, coeffs, a, b);
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
@@ -633,37 +633,37 @@ SEXP EvalChebyshevSeries(SEXP ct_xp, doubles coefficients, double a, double b) {
 
 [[cpp11::register]]
 SEXP EvalSin_(SEXP ct_xp, double a, double b, int degree) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalSin(*ct, a, b, static_cast<uint32_t>(degree));
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 [[cpp11::register]]
 SEXP EvalCos_(SEXP ct_xp, double a, double b, int degree) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalCos(*ct, a, b, static_cast<uint32_t>(degree));
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 [[cpp11::register]]
 SEXP EvalLogistic_(SEXP ct_xp, double a, double b, int degree) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalLogistic(*ct, a, b, static_cast<uint32_t>(degree));
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
 [[cpp11::register]]
 SEXP EvalDivide_(SEXP ct_xp, double a, double b, int degree) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalDivide(*ct, a, b, static_cast<uint32_t>(degree));
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
@@ -677,7 +677,7 @@ void CryptoContext__EvalBootstrapSetup(SEXP cc_xp,
   // was added per cryptocontext.h line 3513. It had been missing
   // from the R binding despite being part of the header
   // signature since v1.5.1.0.
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   std::vector<uint32_t> lb, d1;
   for (R_xlen_t i = 0; i < level_budget.size(); i++)
     lb.push_back(static_cast<uint32_t>(level_budget[i]));
@@ -689,18 +689,18 @@ void CryptoContext__EvalBootstrapSetup(SEXP cc_xp,
 
 [[cpp11::register]]
 void CryptoContext__EvalBootstrapKeyGen(SEXP cc_xp, SEXP sk_xp, int slots) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
   (*cc)->EvalBootstrapKeyGen(*sk, static_cast<uint32_t>(slots));
 }
 
 [[cpp11::register]]
 SEXP CryptoContext__EvalBootstrap(SEXP ct_xp, int num_iterations, int precision) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   auto cc = (*ct)->GetCryptoContext();
   auto result = cc->EvalBootstrap(*ct, static_cast<uint32_t>(num_iterations),
     static_cast<uint32_t>(precision));
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(result));
 }
 
@@ -719,7 +719,7 @@ int FHECKKSRNS__GetBootstrapDepth(integers level_budget, int secret_key_dist) {
 
 [[cpp11::register]]
 void CryptoContext__EvalSumKeyGen(SEXP cc_xp, SEXP sk_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
   (*cc)->EvalSumKeyGen(*sk);
 }

@@ -10,13 +10,13 @@ using namespace cpp11;
 [[cpp11::register]]
 SEXP BinFHEContext__new() {
   auto ctx = std::make_shared<BinFHEContext>();
-  return external_pointer<std::shared_ptr<BinFHEContext>>(
+  return xptr<std::shared_ptr<BinFHEContext>>(
     new std::shared_ptr<BinFHEContext>(ctx));
 }
 
 [[cpp11::register]]
 void BinFHEContext__GenerateBinFHEContext(SEXP ctx_xp, int paramset, int method) {
-  external_pointer<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
+  xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
   (*ctx)->GenerateBinFHEContext(
     static_cast<BINFHE_PARAMSET>(paramset),
     static_cast<BINFHE_METHOD>(method));
@@ -31,7 +31,7 @@ void BinFHEContext__GenerateBinFHEContext(SEXP ctx_xp, int paramset, int method)
 void BinFHEContext__GenerateBinFHEContextArbFunc(SEXP ctx_xp, int paramset,
                                                  bool arb_func, int log_q, int n,
                                                  int method, bool time_optimization) {
-  external_pointer<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
+  xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
   (*ctx)->GenerateBinFHEContext(
     static_cast<BINFHE_PARAMSET>(paramset),
     arb_func,
@@ -43,7 +43,7 @@ void BinFHEContext__GenerateBinFHEContextArbFunc(SEXP ctx_xp, int paramset,
 
 [[cpp11::register]]
 double BinFHEContext__GetMaxPlaintextSpace(SEXP ctx_xp) {
-  external_pointer<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
+  xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
   return static_cast<double>((*ctx)->GetMaxPlaintextSpace().ConvertToInt());
 }
 
@@ -51,9 +51,9 @@ double BinFHEContext__GetMaxPlaintextSpace(SEXP ctx_xp) {
 
 [[cpp11::register]]
 SEXP BinFHEContext__KeyGen(SEXP ctx_xp) {
-  external_pointer<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
+  xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
   auto sk = (*ctx)->KeyGen();
-  return external_pointer<LWEPrivateKey>(new LWEPrivateKey(sk));
+  return xptr<LWEPrivateKey>(new LWEPrivateKey(sk));
 }
 
 // keygen_mode argument added per
@@ -63,8 +63,8 @@ SEXP BinFHEContext__KeyGen(SEXP ctx_xp) {
 // default is KeygenMode$SYM_ENCRYPT.
 [[cpp11::register]]
 void BinFHEContext__BTKeyGen(SEXP ctx_xp, SEXP sk_xp, int keygen_mode) {
-  external_pointer<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
-  external_pointer<LWEPrivateKey> sk(sk_xp);
+  xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
+  xptr<LWEPrivateKey> sk(sk_xp);
   (*ctx)->BTKeyGen(*sk, static_cast<KEYGEN_MODE>(keygen_mode));
 }
 
@@ -73,11 +73,11 @@ void BinFHEContext__BTKeyGen(SEXP ctx_xp, SEXP sk_xp, int keygen_mode) {
 [[cpp11::register]]
 SEXP BinFHEContext__Encrypt(SEXP ctx_xp, SEXP sk_xp, int message,
                             int output, int p) {
-  external_pointer<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
-  external_pointer<LWEPrivateKey> sk(sk_xp);
+  xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
+  xptr<LWEPrivateKey> sk(sk_xp);
   auto ct = (*ctx)->Encrypt(*sk, static_cast<LWEPlaintext>(message),
     static_cast<BINFHE_OUTPUT>(output), static_cast<LWEPlaintextModulus>(p));
-  return external_pointer<LWECiphertext>(new LWECiphertext(ct));
+  return xptr<LWECiphertext>(new LWECiphertext(ct));
 }
 
 // Variant exposing the BINFHE_OUTPUT, p, and mod parameters for the
@@ -87,21 +87,21 @@ SEXP BinFHEContext__Encrypt(SEXP ctx_xp, SEXP sk_xp, int message,
 [[cpp11::register]]
 SEXP BinFHEContext__EncryptWithMod(SEXP ctx_xp, SEXP sk_xp, double message,
                                    int output, double p, double mod) {
-  external_pointer<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
-  external_pointer<LWEPrivateKey> sk(sk_xp);
+  xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
+  xptr<LWEPrivateKey> sk(sk_xp);
   auto ct = (*ctx)->Encrypt(*sk,
     static_cast<LWEPlaintext>(static_cast<int64_t>(message)),
     static_cast<BINFHE_OUTPUT>(output),
     static_cast<LWEPlaintextModulus>(static_cast<uint64_t>(p)),
     NativeInteger(static_cast<uint64_t>(mod)));
-  return external_pointer<LWECiphertext>(new LWECiphertext(ct));
+  return xptr<LWECiphertext>(new LWECiphertext(ct));
 }
 
 [[cpp11::register]]
 int BinFHEContext__Decrypt(SEXP ctx_xp, SEXP sk_xp, SEXP ct_xp, int p) {
-  external_pointer<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
-  external_pointer<LWEPrivateKey> sk(sk_xp);
-  external_pointer<LWECiphertext> ct(ct_xp);
+  xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
+  xptr<LWEPrivateKey> sk(sk_xp);
+  xptr<LWECiphertext> ct(ct_xp);
   LWEPlaintext result;
   (*ctx)->Decrypt(*sk, *ct, &result, static_cast<LWEPlaintextModulus>(p));
   return static_cast<int>(result);
@@ -111,11 +111,11 @@ int BinFHEContext__Decrypt(SEXP ctx_xp, SEXP sk_xp, SEXP ct_xp, int p) {
 
 [[cpp11::register]]
 SEXP BinFHEContext__EvalBinGate(SEXP ctx_xp, int gate, SEXP ct1_xp, SEXP ct2_xp) {
-  external_pointer<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
-  external_pointer<LWECiphertext> ct1(ct1_xp);
-  external_pointer<LWECiphertext> ct2(ct2_xp);
+  xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
+  xptr<LWECiphertext> ct1(ct1_xp);
+  xptr<LWECiphertext> ct2(ct2_xp);
   auto result = (*ctx)->EvalBinGate(static_cast<BINGATE>(gate), *ct1, *ct2);
-  return external_pointer<LWECiphertext>(new LWECiphertext(result));
+  return xptr<LWECiphertext>(new LWECiphertext(result));
 }
 
 // vector-form EvalBinGate per
@@ -127,42 +127,42 @@ SEXP BinFHEContext__EvalBinGate(SEXP ctx_xp, int gate, SEXP ct1_xp, SEXP ct2_xp)
 [[cpp11::register]]
 SEXP BinFHEContext__EvalBinGate__vec(SEXP ctx_xp, int gate,
                                      cpp11::list ct_list) {
-  external_pointer<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
+  xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
   std::vector<LWECiphertext> ct_vec;
   ct_vec.reserve(ct_list.size());
   for (R_xlen_t i = 0; i < ct_list.size(); ++i) {
     SEXP ct_xp = ct_list[i];
-    external_pointer<LWECiphertext> ct(ct_xp);
+    xptr<LWECiphertext> ct(ct_xp);
     ct_vec.push_back(*ct);
   }
   auto result = (*ctx)->EvalBinGate(static_cast<BINGATE>(gate), ct_vec);
-  return external_pointer<LWECiphertext>(new LWECiphertext(result));
+  return xptr<LWECiphertext>(new LWECiphertext(result));
 }
 
 [[cpp11::register]]
 SEXP BinFHEContext__EvalNOT(SEXP ctx_xp, SEXP ct_xp) {
-  external_pointer<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
-  external_pointer<LWECiphertext> ct(ct_xp);
+  xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
+  xptr<LWECiphertext> ct(ct_xp);
   auto result = (*ctx)->EvalNOT(*ct);
-  return external_pointer<LWECiphertext>(new LWECiphertext(result));
+  return xptr<LWECiphertext>(new LWECiphertext(result));
 }
 
 // ── Functional bootstrapping ────────────────────────────
 
 [[cpp11::register]]
 SEXP BinFHEContext__EvalSign(SEXP ctx_xp, SEXP ct_xp, bool scheme_switch) {
-  external_pointer<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
-  external_pointer<LWECiphertext> ct(ct_xp);
+  xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
+  xptr<LWECiphertext> ct(ct_xp);
   auto result = (*ctx)->EvalSign(*ct, scheme_switch);
-  return external_pointer<LWECiphertext>(new LWECiphertext(result));
+  return xptr<LWECiphertext>(new LWECiphertext(result));
 }
 
 [[cpp11::register]]
 SEXP BinFHEContext__EvalFloor(SEXP ctx_xp, SEXP ct_xp, int roundbits) {
-  external_pointer<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
-  external_pointer<LWECiphertext> ct(ct_xp);
+  xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
+  xptr<LWECiphertext> ct(ct_xp);
   auto result = (*ctx)->EvalFloor(*ct, static_cast<uint32_t>(roundbits));
-  return external_pointer<LWECiphertext>(new LWECiphertext(result));
+  return xptr<LWECiphertext>(new LWECiphertext(result));
 }
 
 // Evaluate an arbitrary function on an LWE ciphertext via a precomputed
@@ -177,8 +177,8 @@ SEXP BinFHEContext__EvalFloor(SEXP ctx_xp, SEXP ct_xp, int roundbits) {
 // (q/p) * f(idx, p) where idx = (i*p)/q, with q the inner LWE modulus.
 [[cpp11::register]]
 SEXP BinFHEContext__EvalFunc(SEXP ctx_xp, SEXP ct_xp, doubles plaintext_lut) {
-  external_pointer<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
-  external_pointer<LWECiphertext> ct(ct_xp);
+  xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
+  xptr<LWECiphertext> ct(ct_xp);
 
   uint64_t p_int = static_cast<uint64_t>(plaintext_lut.size());
   if (p_int == 0 || (p_int & (p_int - 1)) != 0) {
@@ -201,5 +201,5 @@ SEXP BinFHEContext__EvalFunc(SEXP ctx_xp, SEXP ct_xp, doubles plaintext_lut) {
   }
 
   auto result = (*ctx)->EvalFunc(*ct, lut_vec);
-  return external_pointer<LWECiphertext>(new LWECiphertext(result));
+  return xptr<LWECiphertext>(new LWECiphertext(result));
 }

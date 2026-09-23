@@ -22,7 +22,7 @@
 
 using namespace cpp11;
 
-// Helper: marshal a cpp11::list of external_pointer<EvalKey>
+// Helper: marshal a cpp11::list of xptr<EvalKey>
 // into std::vector<EvalKey<DCRTPoly>>. Parallel to the
 // list_to_ct_vec helper for Ciphertexts; distinct because
 // EvalKey<DCRTPoly> and Ciphertext<DCRTPoly> are different
@@ -32,7 +32,7 @@ static std::vector<EvalKey<DCRTPoly>> list_to_evalkey_vec(list ek_list) {
   out.reserve(ek_list.size());
   for (R_xlen_t i = 0; i < ek_list.size(); ++i) {
     SEXP ek_xp = ek_list[i];
-    external_pointer<EvalKey<DCRTPoly>> ek(ek_xp);
+    xptr<EvalKey<DCRTPoly>> ek(ek_xp);
     out.push_back(*ek);
   }
   return out;

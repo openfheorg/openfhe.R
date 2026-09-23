@@ -198,6 +198,7 @@ reference:
   - eval_floor
   - generate_lut_via_function
   - get_max_plaintext_space
+  - BinFHEContext
   - LWECiphertext
   - LWEPrivateKey
 

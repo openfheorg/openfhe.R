@@ -22,12 +22,12 @@ using namespace cpp11;
 
 [[cpp11::register]]
 SEXP CryptoContext__Encrypt_PrivateKey(SEXP cc_xp, SEXP sk_xp, SEXP pt_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
-  external_pointer<Plaintext> pt(pt_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<Plaintext> pt(pt_xp);
   return catch_openfhe("CryptoContext::Encrypt(PrivateKey)", [&]() {
     auto ct = (*cc)->Encrypt(*sk, *pt);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
         new Ciphertext<DCRTPoly>(ct));
   });
 }
@@ -36,7 +36,7 @@ SEXP CryptoContext__Encrypt_PrivateKey(SEXP cc_xp, SEXP sk_xp, SEXP pt_xp) {
 
 [[cpp11::register]]
 void CryptoContext__Enable_Mask(SEXP cc_xp, int mask) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   catch_openfhe("CryptoContext::Enable(mask)", [&]() {
     (*cc)->Enable(static_cast<uint32_t>(mask));
   });
@@ -46,7 +46,7 @@ void CryptoContext__Enable_Mask(SEXP cc_xp, int mask) {
 
 [[cpp11::register]]
 int CryptoContext__GetSchemeId(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::getSchemeId", [&]() -> int {
     return static_cast<int>((*cc)->getSchemeId());
   });
@@ -65,7 +65,7 @@ void CryptoContext__ClearStaticMapsAndVectors() {
 
 [[cpp11::register]]
 std::string PublicKey__GetKeyTag(SEXP key_xp) {
-  external_pointer<PublicKey<DCRTPoly>> key(key_xp);
+  xptr<PublicKey<DCRTPoly>> key(key_xp);
   return catch_openfhe("PublicKey::GetKeyTag", [&]() -> std::string {
     return (*key)->GetKeyTag();
   });
@@ -73,7 +73,7 @@ std::string PublicKey__GetKeyTag(SEXP key_xp) {
 
 [[cpp11::register]]
 void PublicKey__SetKeyTag(SEXP key_xp, std::string tag) {
-  external_pointer<PublicKey<DCRTPoly>> key(key_xp);
+  xptr<PublicKey<DCRTPoly>> key(key_xp);
   catch_openfhe("PublicKey::SetKeyTag", [&]() {
     (*key)->SetKeyTag(tag);
   });
@@ -81,7 +81,7 @@ void PublicKey__SetKeyTag(SEXP key_xp, std::string tag) {
 
 [[cpp11::register]]
 std::string PrivateKey__GetKeyTag(SEXP key_xp) {
-  external_pointer<PrivateKey<DCRTPoly>> key(key_xp);
+  xptr<PrivateKey<DCRTPoly>> key(key_xp);
   return catch_openfhe("PrivateKey::GetKeyTag", [&]() -> std::string {
     return (*key)->GetKeyTag();
   });
@@ -89,7 +89,7 @@ std::string PrivateKey__GetKeyTag(SEXP key_xp) {
 
 [[cpp11::register]]
 void PrivateKey__SetKeyTag(SEXP key_xp, std::string tag) {
-  external_pointer<PrivateKey<DCRTPoly>> key(key_xp);
+  xptr<PrivateKey<DCRTPoly>> key(key_xp);
   catch_openfhe("PrivateKey::SetKeyTag", [&]() {
     (*key)->SetKeyTag(tag);
   });

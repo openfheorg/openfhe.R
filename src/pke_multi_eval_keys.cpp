@@ -51,9 +51,9 @@ using EvalKeyMapSP = std::shared_ptr<EvalKeyMapT>;
 [[cpp11::register]]
 SEXP MultiEvalAutomorphismKeyGen__(SEXP cc_xp, SEXP sk_xp, SEXP map_xp,
                                    integers index_list, std::string key_tag) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
-  external_pointer<EvalKeyMapSP> map_sp(map_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<EvalKeyMapSP> map_sp(map_xp);
   return catch_openfhe("CryptoContext::MultiEvalAutomorphismKeyGen", [&]() {
     std::vector<uint32_t> indices;
     indices.reserve(index_list.size());
@@ -61,16 +61,16 @@ SEXP MultiEvalAutomorphismKeyGen__(SEXP cc_xp, SEXP sk_xp, SEXP map_xp,
       indices.push_back(static_cast<uint32_t>(index_list[i]));
     }
     auto result = (*cc)->MultiEvalAutomorphismKeyGen(*sk, *map_sp, indices, key_tag);
-    return external_pointer<EvalKeyMapSP>(new EvalKeyMapSP(result));
+    return xptr<EvalKeyMapSP>(new EvalKeyMapSP(result));
   });
 }
 
 [[cpp11::register]]
 SEXP MultiEvalAtIndexKeyGen__(SEXP cc_xp, SEXP sk_xp, SEXP map_xp,
                               integers index_list, std::string key_tag) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
-  external_pointer<EvalKeyMapSP> map_sp(map_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<EvalKeyMapSP> map_sp(map_xp);
   return catch_openfhe("CryptoContext::MultiEvalAtIndexKeyGen", [&]() {
     std::vector<int32_t> indices;
     indices.reserve(index_list.size());
@@ -78,19 +78,19 @@ SEXP MultiEvalAtIndexKeyGen__(SEXP cc_xp, SEXP sk_xp, SEXP map_xp,
       indices.push_back(static_cast<int32_t>(index_list[i]));
     }
     auto result = (*cc)->MultiEvalAtIndexKeyGen(*sk, *map_sp, indices, key_tag);
-    return external_pointer<EvalKeyMapSP>(new EvalKeyMapSP(result));
+    return xptr<EvalKeyMapSP>(new EvalKeyMapSP(result));
   });
 }
 
 [[cpp11::register]]
 SEXP MultiEvalSumKeyGen__(SEXP cc_xp, SEXP sk_xp, SEXP map_xp,
                           std::string key_tag) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
-  external_pointer<EvalKeyMapSP> map_sp(map_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<EvalKeyMapSP> map_sp(map_xp);
   return catch_openfhe("CryptoContext::MultiEvalSumKeyGen", [&]() {
     auto result = (*cc)->MultiEvalSumKeyGen(*sk, *map_sp, key_tag);
-    return external_pointer<EvalKeyMapSP>(new EvalKeyMapSP(result));
+    return xptr<EvalKeyMapSP>(new EvalKeyMapSP(result));
   });
 }
 
@@ -99,24 +99,24 @@ SEXP MultiEvalSumKeyGen__(SEXP cc_xp, SEXP sk_xp, SEXP map_xp,
 [[cpp11::register]]
 SEXP MultiAddEvalSumKeys__(SEXP cc_xp, SEXP map1_xp, SEXP map2_xp,
                            std::string key_tag) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<EvalKeyMapSP> map1(map1_xp);
-  external_pointer<EvalKeyMapSP> map2(map2_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<EvalKeyMapSP> map1(map1_xp);
+  xptr<EvalKeyMapSP> map2(map2_xp);
   return catch_openfhe("CryptoContext::MultiAddEvalSumKeys", [&]() {
     auto result = (*cc)->MultiAddEvalSumKeys(*map1, *map2, key_tag);
-    return external_pointer<EvalKeyMapSP>(new EvalKeyMapSP(result));
+    return xptr<EvalKeyMapSP>(new EvalKeyMapSP(result));
   });
 }
 
 [[cpp11::register]]
 SEXP MultiAddEvalAutomorphismKeys__(SEXP cc_xp, SEXP map1_xp, SEXP map2_xp,
                                     std::string key_tag) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<EvalKeyMapSP> map1(map1_xp);
-  external_pointer<EvalKeyMapSP> map2(map2_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<EvalKeyMapSP> map1(map1_xp);
+  xptr<EvalKeyMapSP> map2(map2_xp);
   return catch_openfhe("CryptoContext::MultiAddEvalAutomorphismKeys", [&]() {
     auto result = (*cc)->MultiAddEvalAutomorphismKeys(*map1, *map2, key_tag);
-    return external_pointer<EvalKeyMapSP>(new EvalKeyMapSP(result));
+    return xptr<EvalKeyMapSP>(new EvalKeyMapSP(result));
   });
 }
 
@@ -131,7 +131,7 @@ SEXP CryptoContext__GetEvalSumKeyMap(std::string key_tag) {
     const auto& map_ref =
       CryptoContextImpl<DCRTPoly>::GetEvalSumKeyMap(key_tag);
     EvalKeyMapSP sp = std::make_shared<EvalKeyMapT>(map_ref);
-    return external_pointer<EvalKeyMapSP>(new EvalKeyMapSP(sp));
+    return xptr<EvalKeyMapSP>(new EvalKeyMapSP(sp));
   });
 }
 
@@ -142,7 +142,7 @@ SEXP CryptoContext__GetEvalAutomorphismKeyMapPtr(std::string key_tag) {
   return catch_openfhe("CryptoContextImpl::GetEvalAutomorphismKeyMapPtr", [&]() {
     EvalKeyMapSP sp =
       CryptoContextImpl<DCRTPoly>::GetEvalAutomorphismKeyMapPtr(key_tag);
-    return external_pointer<EvalKeyMapSP>(new EvalKeyMapSP(sp));
+    return xptr<EvalKeyMapSP>(new EvalKeyMapSP(sp));
   });
 }
 
@@ -153,7 +153,7 @@ SEXP CryptoContext__GetEvalAutomorphismKeyMapPtr(std::string key_tag) {
 // R layer matches the Python surface.
 [[cpp11::register]]
 void CryptoContext__InsertEvalSumKey(SEXP map_xp, std::string key_tag) {
-  external_pointer<EvalKeyMapSP> map_sp(map_xp);
+  xptr<EvalKeyMapSP> map_sp(map_xp);
   catch_openfhe("CryptoContextImpl::InsertEvalSumKey", [&]() {
     CryptoContextImpl<DCRTPoly>::InsertEvalSumKey(*map_sp, key_tag);
   });
@@ -161,7 +161,7 @@ void CryptoContext__InsertEvalSumKey(SEXP map_xp, std::string key_tag) {
 
 [[cpp11::register]]
 void CryptoContext__InsertEvalAutomorphismKey(SEXP map_xp, std::string key_tag) {
-  external_pointer<EvalKeyMapSP> map_sp(map_xp);
+  xptr<EvalKeyMapSP> map_sp(map_xp);
   catch_openfhe("CryptoContextImpl::InsertEvalAutomorphismKey", [&]() {
     CryptoContextImpl<DCRTPoly>::InsertEvalAutomorphismKey(*map_sp, key_tag);
   });

@@ -2,6 +2,7 @@
 
 export(BFVParams)
 export(BGVParams)
+export(BinFHEContext)
 export(BinFHEMethod)
 export(BinFHEOutput)
 export(BinFHEParamSet)
@@ -238,8 +239,11 @@ export(share_keys)
 export(threshold_decrypt)
 export(with_fhe_context)
 import(S7)
-importFrom(cli,cli_abort)
-importFrom(cli,cli_inform)
-importFrom(cli,cli_warn)
+importFrom(cli,
+  cli_abort,
+  cli_inform,
+  cli_warn
+)
 importFrom(methods,new)
+importFrom(rlang,abort)
 useDynLib(openfhe.R, .registration = TRUE)

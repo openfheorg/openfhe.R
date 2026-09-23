@@ -41,7 +41,7 @@ using namespace cpp11;
 
 [[cpp11::register]]
 int Plaintext__GetEncodingType(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::GetEncodingType", [&]() -> int {
     return static_cast<int>((*p)->GetEncodingType());
   });
@@ -49,7 +49,7 @@ int Plaintext__GetEncodingType(SEXP pt_xp) {
 
 [[cpp11::register]]
 double Plaintext__GetScalingFactor(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::GetScalingFactor", [&]() -> double {
     return (*p)->GetScalingFactor();
   });
@@ -57,7 +57,7 @@ double Plaintext__GetScalingFactor(SEXP pt_xp) {
 
 [[cpp11::register]]
 double Plaintext__GetScalingFactorInt(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::GetScalingFactorInt", [&]() -> double {
     // NativeInteger -> double via ConvertToInt, matching the
     // BinFHEContext__GetMaxPlaintextSpace pattern in pke_bindings.cpp.
@@ -67,7 +67,7 @@ double Plaintext__GetScalingFactorInt(SEXP pt_xp) {
 
 [[cpp11::register]]
 int Plaintext__GetSchemeID(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::GetSchemeID", [&]() -> int {
     return static_cast<int>((*p)->GetSchemeID());
   });
@@ -75,7 +75,7 @@ int Plaintext__GetSchemeID(SEXP pt_xp) {
 
 [[cpp11::register]]
 bool Plaintext__IsEncoded(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::IsEncoded", [&]() -> bool {
     return (*p)->IsEncoded();
   });
@@ -83,7 +83,7 @@ bool Plaintext__IsEncoded(SEXP pt_xp) {
 
 [[cpp11::register]]
 int Plaintext__GetCKKSDataType(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::GetCKKSDataType", [&]() -> int {
     return static_cast<int>((*p)->GetCKKSDataType());
   });
@@ -91,7 +91,7 @@ int Plaintext__GetCKKSDataType(SEXP pt_xp) {
 
 [[cpp11::register]]
 int Plaintext__GetLength(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::GetLength", [&]() -> int {
     return static_cast<int>((*p)->GetLength());
   });
@@ -99,7 +99,7 @@ int Plaintext__GetLength(SEXP pt_xp) {
 
 [[cpp11::register]]
 int64_t Plaintext__LowBound(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::LowBound", [&]() -> int64_t {
     return (*p)->LowBound();
   });
@@ -107,7 +107,7 @@ int64_t Plaintext__LowBound(SEXP pt_xp) {
 
 [[cpp11::register]]
 int64_t Plaintext__HighBound(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::HighBound", [&]() -> int64_t {
     return (*p)->HighBound();
   });
@@ -115,7 +115,7 @@ int64_t Plaintext__HighBound(SEXP pt_xp) {
 
 [[cpp11::register]]
 int Plaintext__GetNoiseScaleDeg(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::GetNoiseScaleDeg", [&]() -> int {
     return static_cast<int>((*p)->GetNoiseScaleDeg());
   });
@@ -123,7 +123,7 @@ int Plaintext__GetNoiseScaleDeg(SEXP pt_xp) {
 
 [[cpp11::register]]
 int Plaintext__GetLevel(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::GetLevel", [&]() -> int {
     return static_cast<int>((*p)->GetLevel());
   });
@@ -131,7 +131,7 @@ int Plaintext__GetLevel(SEXP pt_xp) {
 
 [[cpp11::register]]
 int Plaintext__GetSlots(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::GetSlots", [&]() -> int {
     return static_cast<int>((*p)->GetSlots());
   });
@@ -139,7 +139,7 @@ int Plaintext__GetSlots(SEXP pt_xp) {
 
 [[cpp11::register]]
 double Plaintext__GetLogError(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::GetLogError", [&]() -> double {
     return (*p)->GetLogError();
   });
@@ -147,7 +147,7 @@ double Plaintext__GetLogError(SEXP pt_xp) {
 
 [[cpp11::register]]
 double Plaintext__GetLogPrecision(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::GetLogPrecision", [&]() -> double {
     return (*p)->GetLogPrecision();
   });
@@ -155,7 +155,7 @@ double Plaintext__GetLogPrecision(SEXP pt_xp) {
 
 [[cpp11::register]]
 std::string Plaintext__GetFormattedValues(SEXP pt_xp, int64_t precision) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::GetFormattedValues", [&]() -> std::string {
     return (*p)->GetFormattedValues(precision);
   });
@@ -163,7 +163,7 @@ std::string Plaintext__GetFormattedValues(SEXP pt_xp, int64_t precision) {
 
 [[cpp11::register]]
 cpp11::integers Plaintext__GetCoefPackedValue(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::GetCoefPackedValue", [&]() {
     const std::vector<int64_t>& v = (*p)->GetCoefPackedValue();
     writable::integers out(v.size());
@@ -176,7 +176,7 @@ cpp11::integers Plaintext__GetCoefPackedValue(SEXP pt_xp) {
 
 [[cpp11::register]]
 std::string Plaintext__GetStringValue(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::GetStringValue", [&]() -> std::string {
     return (*p)->GetStringValue();
   });
@@ -184,7 +184,7 @@ std::string Plaintext__GetStringValue(SEXP pt_xp) {
 
 [[cpp11::register]]
 int Plaintext__GetElementRingDimension(SEXP pt_xp) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   return catch_openfhe("Plaintext::GetElementRingDimension", [&]() -> int {
     return static_cast<int>((*p)->GetElementRingDimension());
   });
@@ -194,7 +194,7 @@ int Plaintext__GetElementRingDimension(SEXP pt_xp) {
 
 [[cpp11::register]]
 void Plaintext__SetScalingFactor(SEXP pt_xp, double sf) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   catch_openfhe("Plaintext::SetScalingFactor", [&]() {
     (*p)->SetScalingFactor(sf);
   });
@@ -202,7 +202,7 @@ void Plaintext__SetScalingFactor(SEXP pt_xp, double sf) {
 
 [[cpp11::register]]
 void Plaintext__SetScalingFactorInt(SEXP pt_xp, int64_t sf) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   catch_openfhe("Plaintext::SetScalingFactorInt", [&]() {
     (*p)->SetScalingFactorInt(NativeInteger(static_cast<uint64_t>(sf)));
   });
@@ -210,7 +210,7 @@ void Plaintext__SetScalingFactorInt(SEXP pt_xp, int64_t sf) {
 
 [[cpp11::register]]
 void Plaintext__SetCKKSDataType(SEXP pt_xp, int cdt) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   catch_openfhe("Plaintext::SetCKKSDataType", [&]() {
     (*p)->SetCKKSDataType(static_cast<CKKSDataType>(cdt));
   });
@@ -218,7 +218,7 @@ void Plaintext__SetCKKSDataType(SEXP pt_xp, int cdt) {
 
 [[cpp11::register]]
 void Plaintext__SetNoiseScaleDeg(SEXP pt_xp, int d) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   catch_openfhe("Plaintext::SetNoiseScaleDeg", [&]() {
     (*p)->SetNoiseScaleDeg(static_cast<size_t>(d));
   });
@@ -226,7 +226,7 @@ void Plaintext__SetNoiseScaleDeg(SEXP pt_xp, int d) {
 
 [[cpp11::register]]
 void Plaintext__SetLevel(SEXP pt_xp, int level) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   catch_openfhe("Plaintext::SetLevel", [&]() {
     (*p)->SetLevel(static_cast<size_t>(level));
   });
@@ -234,7 +234,7 @@ void Plaintext__SetLevel(SEXP pt_xp, int level) {
 
 [[cpp11::register]]
 void Plaintext__SetSlots(SEXP pt_xp, int slots) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   catch_openfhe("Plaintext::SetSlots", [&]() {
     (*p)->SetSlots(static_cast<uint32_t>(slots));
   });
@@ -242,7 +242,7 @@ void Plaintext__SetSlots(SEXP pt_xp, int slots) {
 
 [[cpp11::register]]
 void Plaintext__SetStringValue(SEXP pt_xp, std::string value) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   catch_openfhe("Plaintext::SetStringValue", [&]() {
     (*p)->SetStringValue(value);
   });
@@ -250,7 +250,7 @@ void Plaintext__SetStringValue(SEXP pt_xp, std::string value) {
 
 [[cpp11::register]]
 void Plaintext__SetIntVectorValue(SEXP pt_xp, cpp11::integers value) {
-  external_pointer<Plaintext> p(pt_xp);
+  xptr<Plaintext> p(pt_xp);
   catch_openfhe("Plaintext::SetIntVectorValue", [&]() {
     std::vector<int64_t> v(value.size());
     for (R_xlen_t i = 0; i < value.size(); i++) {

@@ -30,7 +30,7 @@ using namespace cpp11;
 
 [[cpp11::register]]
 int Ciphertext__GetLevel(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("Ciphertext::GetLevel", [&]() -> int {
     return static_cast<int>((*ct)->GetLevel());
   });
@@ -38,7 +38,7 @@ int Ciphertext__GetLevel(SEXP ct_xp) {
 
 [[cpp11::register]]
 void Ciphertext__SetLevel(SEXP ct_xp, int level) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   catch_openfhe("Ciphertext::SetLevel", [&]() {
     (*ct)->SetLevel(static_cast<size_t>(level));
   });
@@ -46,7 +46,7 @@ void Ciphertext__SetLevel(SEXP ct_xp, int level) {
 
 [[cpp11::register]]
 int Ciphertext__GetSlots(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("Ciphertext::GetSlots", [&]() -> int {
     return static_cast<int>((*ct)->GetSlots());
   });
@@ -54,7 +54,7 @@ int Ciphertext__GetSlots(SEXP ct_xp) {
 
 [[cpp11::register]]
 void Ciphertext__SetSlots(SEXP ct_xp, int slots) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   catch_openfhe("Ciphertext::SetSlots", [&]() {
     (*ct)->SetSlots(static_cast<uint32_t>(slots));
   });
@@ -62,7 +62,7 @@ void Ciphertext__SetSlots(SEXP ct_xp, int slots) {
 
 [[cpp11::register]]
 int Ciphertext__GetNoiseScaleDeg(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("Ciphertext::GetNoiseScaleDeg", [&]() -> int {
     return static_cast<int>((*ct)->GetNoiseScaleDeg());
   });
@@ -70,7 +70,7 @@ int Ciphertext__GetNoiseScaleDeg(SEXP ct_xp) {
 
 [[cpp11::register]]
 void Ciphertext__SetNoiseScaleDeg(SEXP ct_xp, int d) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   catch_openfhe("Ciphertext::SetNoiseScaleDeg", [&]() {
     (*ct)->SetNoiseScaleDeg(static_cast<size_t>(d));
   });
@@ -78,7 +78,7 @@ void Ciphertext__SetNoiseScaleDeg(SEXP ct_xp, int d) {
 
 [[cpp11::register]]
 double Ciphertext__GetScalingFactor(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("Ciphertext::GetScalingFactor", [&]() -> double {
     return (*ct)->GetScalingFactor();
   });
@@ -86,7 +86,7 @@ double Ciphertext__GetScalingFactor(SEXP ct_xp) {
 
 [[cpp11::register]]
 void Ciphertext__SetScalingFactor(SEXP ct_xp, double sf) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   catch_openfhe("Ciphertext::SetScalingFactor", [&]() {
     (*ct)->SetScalingFactor(sf);
   });
@@ -94,7 +94,7 @@ void Ciphertext__SetScalingFactor(SEXP ct_xp, double sf) {
 
 [[cpp11::register]]
 double Ciphertext__GetScalingFactorInt(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("Ciphertext::GetScalingFactorInt", [&]() -> double {
     return static_cast<double>((*ct)->GetScalingFactorInt().ConvertToInt());
   });
@@ -102,7 +102,7 @@ double Ciphertext__GetScalingFactorInt(SEXP ct_xp) {
 
 [[cpp11::register]]
 void Ciphertext__SetScalingFactorInt(SEXP ct_xp, int64_t sf) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   catch_openfhe("Ciphertext::SetScalingFactorInt", [&]() {
     (*ct)->SetScalingFactorInt(NativeInteger(static_cast<uint64_t>(sf)));
   });
@@ -110,7 +110,7 @@ void Ciphertext__SetScalingFactorInt(SEXP ct_xp, int64_t sf) {
 
 [[cpp11::register]]
 int Ciphertext__GetEncodingType(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("Ciphertext::GetEncodingType", [&]() -> int {
     return static_cast<int>((*ct)->GetEncodingType());
   });
@@ -123,7 +123,7 @@ int Ciphertext__GetEncodingType(SEXP ct_xp) {
 
 [[cpp11::register]]
 std::string Ciphertext__GetKeyTag(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("Ciphertext::GetKeyTag", [&]() -> std::string {
     return (*ct)->GetKeyTag();
   });
@@ -131,7 +131,7 @@ std::string Ciphertext__GetKeyTag(SEXP ct_xp) {
 
 [[cpp11::register]]
 void Ciphertext__SetKeyTag(SEXP ct_xp, std::string tag) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   catch_openfhe("Ciphertext::SetKeyTag", [&]() {
     (*ct)->SetKeyTag(tag);
   });
@@ -156,7 +156,7 @@ extern std::shared_ptr<CryptoParametersRNS> as_rns_params(
 
 [[cpp11::register]]
 double CryptoContext__GetScalingFactorReal(SEXP cc_xp, int level) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetScalingFactorReal", [&]() -> double {
     auto rns = as_rns_params((*cc)->GetCryptoParameters(),
                              "CryptoContext::GetScalingFactorReal");

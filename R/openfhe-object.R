@@ -14,13 +14,36 @@
 #' @export
 OpenFHEObject <- new_class("OpenFHEObject",
   package = "openfhe.R",
+  ## Abstract for two reasons. Nothing should hold a bare handle: every
+  ## pointer the C++ layer creates belongs to a concrete class. And S7
+  ## only re-runs a parent's validator on the finished child object when
+  ## the parent is abstract; a concrete parent is validated once, empty,
+  ## before the child's properties exist, which would let the tag check
+  ## below miss Ciphertext(ptr = <plaintext pointer>).
+  abstract = TRUE,
   properties = list(
     ptr = new_property(class_any, default = NULL)
   ),
   validator = function(self) {
-    if (!is.null(self@ptr) && !inherits(self@ptr, "externalptr")) {
-      "@ptr must be an external pointer or NULL"
+    if (is.null(self@ptr)) return(NULL)
+    if (!inherits(self@ptr, "externalptr")) {
+      return("@ptr must be an external pointer or NULL")
     }
+    ## Every pointer the C++ layer hands out carries a tag naming the
+    ## S7 class it belongs to (src/openfhe_cpp11.h). A subclass whose
+    ## pointer carries someone else's tag is a wrong-type handle, for
+    ## example Ciphertext(ptr = pt@ptr); refuse it here, at
+    ## construction, rather than let the first C++ call see it. The base
+    ## class itself is exempt because it is what a not-yet-classed
+    ## handle is wrapped in.
+    cls <- class(self)[1]
+    if (cls != "openfhe.R::OpenFHEObject" && ptr_is_valid(self)) {
+      tag <- xptr_type(self@ptr)
+      if (nzchar(tag) && tag != cls) {
+        return(sprintf("@ptr holds a <%s> handle, not a <%s>", tag, cls))
+      }
+    }
+    NULL
   }
 )
 

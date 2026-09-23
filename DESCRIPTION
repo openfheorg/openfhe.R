@@ -1,6 +1,6 @@
 Package: openfhe.R
 Title: R Interface to the 'OpenFHE' Fully Homomorphic Encryption Library
-Version: 1.5.1.1
+Version: 1.5.1.2
 Authors@R: c(
     person("Balasubramanian", "Narasimhan", email = "naras@stanford.edu",
            role = c("aut", "cre", "cph"),
@@ -51,6 +51,7 @@ Depends:
 Imports:
     S7,
     cli,
+    rlang,
     methods
 Suggests:
     tinytest,
@@ -94,4 +95,4 @@ Collate:
     'zzz.R'
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0

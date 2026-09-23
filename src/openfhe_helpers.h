@@ -20,6 +20,13 @@ template <typename F>
 auto catch_openfhe(const char* op, F&& fn) -> decltype(fn()) {
     try {
         return fn();
+    } catch (const cpp11::unwind_exception&) {
+        // Already an R error in flight (cpp11::stop from inside fn,
+        // for example an xptr<T> type check). It derives from
+        // std::exception, so without this arm it would be re-wrapped
+        // below as "OpenFHE error in <op>: std::exception" and its
+        // message lost. Let it propagate untouched.
+        throw;
     } catch (const std::exception& e) {
         cpp11::stop("OpenFHE error in %s: %s", op, e.what());
     } catch (...) {

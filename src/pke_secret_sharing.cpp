@@ -51,7 +51,7 @@ using ShareMapSP = std::shared_ptr<ShareMapT>;
 
 // ── Vector-form distributed decryption ──────────────────
 
-// Helper: marshal a cpp11::list of external_pointer<Ciphertext>
+// Helper: marshal a cpp11::list of xptr<Ciphertext>
 // into std::vector<Ciphertext<DCRTPoly>>. Each element must be a
 // Ciphertext external_pointer; the caller is responsible for
 // type-checking on the R side.
@@ -60,18 +60,18 @@ static std::vector<Ciphertext<DCRTPoly>> list_to_ct_vec(list ct_list) {
   out.reserve(ct_list.size());
   for (R_xlen_t i = 0; i < ct_list.size(); ++i) {
     SEXP ct_xp = ct_list[i];
-    external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+    xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
     out.push_back(*ct);
   }
   return out;
 }
 
 // Helper: marshal a std::vector<Ciphertext> into a cpp11::list
-// of external_pointer<Ciphertext>.
+// of xptr<Ciphertext>.
 static list ct_vec_to_list(const std::vector<Ciphertext<DCRTPoly>>& ct_vec) {
   writable::list out(ct_vec.size());
   for (size_t i = 0; i < ct_vec.size(); ++i) {
-    out[i] = external_pointer<Ciphertext<DCRTPoly>>(
+    out[i] = xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(ct_vec[i]));
   }
   return out;
@@ -79,8 +79,8 @@ static list ct_vec_to_list(const std::vector<Ciphertext<DCRTPoly>>& ct_vec) {
 
 [[cpp11::register]]
 SEXP MultipartyDecryptLead__ct_vec(SEXP cc_xp, SEXP sk_xp, list ct_list) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
   return catch_openfhe("CryptoContext::MultipartyDecryptLead(vec)", [&]() {
     auto ct_vec = list_to_ct_vec(ct_list);
     auto result = (*cc)->MultipartyDecryptLead(ct_vec, *sk);
@@ -90,8 +90,8 @@ SEXP MultipartyDecryptLead__ct_vec(SEXP cc_xp, SEXP sk_xp, list ct_list) {
 
 [[cpp11::register]]
 SEXP MultipartyDecryptMain__ct_vec(SEXP cc_xp, SEXP sk_xp, list ct_list) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
   return catch_openfhe("CryptoContext::MultipartyDecryptMain(vec)", [&]() {
     auto ct_vec = list_to_ct_vec(ct_list);
     auto result = (*cc)->MultipartyDecryptMain(ct_vec, *sk);
@@ -111,8 +111,8 @@ SEXP MultipartyDecryptMain__ct_vec(SEXP cc_xp, SEXP sk_xp, list ct_list) {
 SEXP CryptoContext__ShareKeys(SEXP cc_xp, SEXP sk_xp,
                               int n_parties, int threshold, int index,
                               std::string sharing_scheme) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
   return catch_openfhe("CryptoContext::ShareKeys", [&]() {
     auto result = (*cc)->ShareKeys(
       *sk,
@@ -121,7 +121,7 @@ SEXP CryptoContext__ShareKeys(SEXP cc_xp, SEXP sk_xp,
       static_cast<uint32_t>(index),
       sharing_scheme);
     ShareMapSP sp = std::make_shared<ShareMapT>(std::move(result));
-    return external_pointer<ShareMapSP>(new ShareMapSP(sp));
+    return xptr<ShareMapSP>(new ShareMapSP(sp));
   });
 }
 
@@ -134,8 +134,8 @@ SEXP CryptoContext__ShareKeys(SEXP cc_xp, SEXP sk_xp,
 SEXP CryptoContext__RecoverSharedKey(SEXP cc_xp, SEXP share_map_xp,
                                      int n_parties, int threshold,
                                      std::string sharing_scheme) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<ShareMapSP> share_map(share_map_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<ShareMapSP> share_map(share_map_xp);
   return catch_openfhe("CryptoContext::RecoverSharedKey", [&]() {
     PrivateKey<DCRTPoly> sk_recovered =
       std::make_shared<PrivateKeyImpl<DCRTPoly>>(*cc);
@@ -145,7 +145,7 @@ SEXP CryptoContext__RecoverSharedKey(SEXP cc_xp, SEXP share_map_xp,
       static_cast<uint32_t>(n_parties),
       static_cast<uint32_t>(threshold),
       sharing_scheme);
-    return external_pointer<PrivateKey<DCRTPoly>>(
+    return xptr<PrivateKey<DCRTPoly>>(
       new PrivateKey<DCRTPoly>(sk_recovered));
   });
 }

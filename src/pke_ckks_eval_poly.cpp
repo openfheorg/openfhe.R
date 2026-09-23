@@ -46,22 +46,22 @@ static std::vector<double> doubles_to_vec(doubles coeffs) {
 
 [[cpp11::register]]
 SEXP EvalPolyLinear__(SEXP ct_xp, doubles coefficients) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("CryptoContext::EvalPolyLinear", [&]() {
     auto cc = (*ct)->GetCryptoContext();
     auto result = cc->EvalPolyLinear(*ct, doubles_to_vec(coefficients));
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }
 
 [[cpp11::register]]
 SEXP EvalPolyPS__(SEXP ct_xp, doubles coefficients) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("CryptoContext::EvalPolyPS", [&]() {
     auto cc = (*ct)->GetCryptoContext();
     auto result = cc->EvalPolyPS(*ct, doubles_to_vec(coefficients));
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }
@@ -71,12 +71,12 @@ SEXP EvalPolyPS__(SEXP ct_xp, doubles coefficients) {
 [[cpp11::register]]
 SEXP EvalChebyshevSeriesLinear__(SEXP ct_xp, doubles coefficients,
                                  double a, double b) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("CryptoContext::EvalChebyshevSeriesLinear", [&]() {
     auto cc = (*ct)->GetCryptoContext();
     auto result = cc->EvalChebyshevSeriesLinear(*ct, doubles_to_vec(coefficients),
                                                 a, b);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }
@@ -84,12 +84,12 @@ SEXP EvalChebyshevSeriesLinear__(SEXP ct_xp, doubles coefficients,
 [[cpp11::register]]
 SEXP EvalChebyshevSeriesPS__(SEXP ct_xp, doubles coefficients,
                              double a, double b) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("CryptoContext::EvalChebyshevSeriesPS", [&]() {
     auto cc = (*ct)->GetCryptoContext();
     auto result = cc->EvalChebyshevSeriesPS(*ct, doubles_to_vec(coefficients),
                                             a, b);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }

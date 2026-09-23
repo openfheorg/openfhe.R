@@ -7,9 +7,11 @@
 decrypt(ct, key, ...)
 }
 \arguments{
-\item{ct}{A Ciphertext}
+\item{ct}{A \code{Ciphertext}, or a \code{PrivateKey} when the key-first
+order is used.}
 
-\item{key}{A PrivateKey}
+\item{key}{A \code{PrivateKey}, or a \code{Ciphertext} when the key-first
+order is used.}
 
 \item{...}{Additional arguments (cc = CryptoContext)}
 }
@@ -17,7 +19,13 @@ decrypt(ct, key, ...)
 A Plaintext
 }
 \description{
-Decrypt a ciphertext
+\code{decrypt} dispatches on both arguments and accepts them in either
+order, as the C++ header does: \code{Decrypt(ciphertext, privateKey)} is
+the primary form and \code{Decrypt(privateKey, ciphertext)} forwards to
+it (\code{cryptocontext.h}, both overloads). The key-first order lets
+code that is written around the holder of the key, such as a party
+object in a protocol, put that holder first, the same way
+\code{\link[=encrypt]{encrypt()}} puts the key first.
 }
 \examples{
 cc <- fhe_context("CKKS", multiplicative_depth = 2L,
@@ -32,4 +40,8 @@ ct <- encrypt(kp@public, pt, cc = cc)
 out <- decrypt(eval_add(ct, ct), kp@secret, cc = cc)
 out <- set_length(out, 4L)
 get_real_packed_value(out)
+
+## The same call with the key first:
+out2 <- decrypt(kp@secret, eval_add(ct, ct), cc = cc)
+get_real_packed_value(set_length(out2, 4L))
 }

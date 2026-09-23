@@ -51,7 +51,7 @@ using FastRotationPrecomp = std::shared_ptr<std::vector<DCRTPoly>>;
 
 [[cpp11::register]]
 int CryptoContext__GetCKKSBootCorrectionFactor(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetCKKSBootCorrectionFactor", [&]() {
     return static_cast<int>((*cc)->GetCKKSBootCorrectionFactor());
   });
@@ -59,7 +59,7 @@ int CryptoContext__GetCKKSBootCorrectionFactor(SEXP cc_xp) {
 
 [[cpp11::register]]
 void CryptoContext__SetCKKSBootCorrectionFactor(SEXP cc_xp, int cf) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   catch_openfhe("CryptoContext::SetCKKSBootCorrectionFactor", [&]() {
     (*cc)->SetCKKSBootCorrectionFactor(static_cast<uint32_t>(cf));
   });
@@ -77,15 +77,15 @@ void CryptoContext__SetCKKSBootCorrectionFactor(SEXP cc_xp, int cf) {
 [[cpp11::register]]
 SEXP EvalFastRotationExt__(SEXP ct_xp, int index, SEXP precomp_xp,
                            bool add_first) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
-  external_pointer<FastRotationPrecomp> precomp(precomp_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<FastRotationPrecomp> precomp(precomp_xp);
   return catch_openfhe("CryptoContext::EvalFastRotationExt", [&]() {
     auto cc = (*ct)->GetCryptoContext();
     auto result = cc->EvalFastRotationExt(*ct,
       static_cast<uint32_t>(index),
       *precomp,
       add_first);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }
@@ -100,14 +100,14 @@ SEXP EvalFastRotationExt__(SEXP ct_xp, int index, SEXP precomp_xp,
 // to whichever form matches the caller's intent.
 [[cpp11::register]]
 SEXP EvalFastRotation__3arg(SEXP ct_xp, int index, SEXP precomp_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
-  external_pointer<FastRotationPrecomp> precomp(precomp_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<FastRotationPrecomp> precomp(precomp_xp);
   return catch_openfhe("CryptoContext::EvalFastRotation(3-arg)", [&]() {
     auto cc = (*ct)->GetCryptoContext();
     auto result = cc->EvalFastRotation(*ct,
       static_cast<uint32_t>(index),
       *precomp);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }

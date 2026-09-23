@@ -32,7 +32,7 @@ example).}
 \item{time_optimization}{Enable the GINX time-optimization variant.}
 }
 \value{
-A BinFHEContext (stored as OpenFHEObject)
+A \link{BinFHEContext} object.
 }
 \description{
 Create a Binary FHE context

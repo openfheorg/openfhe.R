@@ -45,7 +45,7 @@ static std::vector<Ciphertext<DCRTPoly>> list_to_ct_vec_9117(list ct_list) {
   out.reserve(ct_list.size());
   for (R_xlen_t i = 0; i < ct_list.size(); ++i) {
     SEXP ct_xp = ct_list[i];
-    external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+    xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
     out.push_back(*ct);
   }
   return out;
@@ -54,7 +54,7 @@ static std::vector<Ciphertext<DCRTPoly>> list_to_ct_vec_9117(list ct_list) {
 static list ct_vec_to_list_9117(const std::vector<Ciphertext<DCRTPoly>>& ct_vec) {
   writable::list out(ct_vec.size());
   for (size_t i = 0; i < ct_vec.size(); ++i) {
-    out[i] = external_pointer<Ciphertext<DCRTPoly>>(
+    out[i] = xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(ct_vec[i]));
   }
   return out;
@@ -64,11 +64,11 @@ static list ct_vec_to_list_9117(const std::vector<Ciphertext<DCRTPoly>>& ct_vec)
 
 [[cpp11::register]]
 SEXP KeySwitchDown__(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("CryptoContext::KeySwitchDown", [&]() {
     auto cc = (*ct)->GetCryptoContext();
     auto result = cc->KeySwitchDown(*ct);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }
@@ -77,47 +77,47 @@ SEXP KeySwitchDown__(SEXP ct_xp) {
 
 [[cpp11::register]]
 SEXP IntBootDecrypt__(SEXP sk_xp, SEXP ct_xp) {
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("CryptoContext::IntBootDecrypt", [&]() {
     auto cc = (*ct)->GetCryptoContext();
     auto result = cc->IntBootDecrypt(*sk, *ct);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }
 
 [[cpp11::register]]
 SEXP IntBootEncrypt__(SEXP pk_xp, SEXP ct_xp) {
-  external_pointer<PublicKey<DCRTPoly>> pk(pk_xp);
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<PublicKey<DCRTPoly>> pk(pk_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("CryptoContext::IntBootEncrypt", [&]() {
     auto cc = (*ct)->GetCryptoContext();
     auto result = cc->IntBootEncrypt(*pk, *ct);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }
 
 [[cpp11::register]]
 SEXP IntBootAdd__(SEXP ct1_xp, SEXP ct2_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct1(ct1_xp);
-  external_pointer<Ciphertext<DCRTPoly>> ct2(ct2_xp);
+  xptr<Ciphertext<DCRTPoly>> ct1(ct1_xp);
+  xptr<Ciphertext<DCRTPoly>> ct2(ct2_xp);
   return catch_openfhe("CryptoContext::IntBootAdd", [&]() {
     auto cc = (*ct1)->GetCryptoContext();
     auto result = cc->IntBootAdd(*ct1, *ct2);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }
 
 [[cpp11::register]]
 SEXP IntBootAdjustScale__(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("CryptoContext::IntBootAdjustScale", [&]() {
     auto cc = (*ct)->GetCryptoContext();
     auto result = cc->IntBootAdjustScale(*ct);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }
@@ -126,11 +126,11 @@ SEXP IntBootAdjustScale__(SEXP ct_xp) {
 
 [[cpp11::register]]
 SEXP IntMPBootAdjustScale__(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("CryptoContext::IntMPBootAdjustScale", [&]() {
     auto cc = (*ct)->GetCryptoContext();
     auto result = cc->IntMPBootAdjustScale(*ct);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }
@@ -138,11 +138,11 @@ SEXP IntMPBootAdjustScale__(SEXP ct_xp) {
 // Overload 1: generate a random element from a PublicKey.
 [[cpp11::register]]
 SEXP IntMPBootRandomElementGen__pk(SEXP cc_xp, SEXP pk_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PublicKey<DCRTPoly>> pk(pk_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PublicKey<DCRTPoly>> pk(pk_xp);
   return catch_openfhe("CryptoContext::IntMPBootRandomElementGen(pk)", [&]() {
     auto result = (*cc)->IntMPBootRandomElementGen(*pk);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }
@@ -151,11 +151,11 @@ SEXP IntMPBootRandomElementGen__pk(SEXP cc_xp, SEXP pk_xp) {
 // Ciphertext (the reference supplies the cc and parameters).
 [[cpp11::register]]
 SEXP IntMPBootRandomElementGen__ct(SEXP ct_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("CryptoContext::IntMPBootRandomElementGen(ct)", [&]() {
     auto cc = (*ct)->GetCryptoContext();
     auto result = cc->IntMPBootRandomElementGen(*ct);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }
@@ -165,9 +165,9 @@ SEXP IntMPBootRandomElementGen__ct(SEXP ct_xp) {
 // partial view is desired.
 [[cpp11::register]]
 SEXP IntMPBootDecrypt__(SEXP sk_xp, SEXP ct_xp, SEXP a_xp) {
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
-  external_pointer<Ciphertext<DCRTPoly>> a(a_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> a(a_xp);
   return catch_openfhe("CryptoContext::IntMPBootDecrypt", [&]() {
     auto cc = (*ct)->GetCryptoContext();
     auto result = cc->IntMPBootDecrypt(*sk, *ct, *a);
@@ -186,7 +186,7 @@ SEXP IntMPBootDecrypt__(SEXP sk_xp, SEXP ct_xp, SEXP a_xp) {
 // the R list and pass it.
 [[cpp11::register]]
 SEXP IntMPBootAdd__(SEXP cc_xp, list shares_pair_list) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::IntMPBootAdd", [&]() {
     std::vector<std::vector<Ciphertext<DCRTPoly>>> shares_vec;
     shares_vec.reserve(shares_pair_list.size());
@@ -208,14 +208,14 @@ SEXP IntMPBootAdd__(SEXP cc_xp, list shares_pair_list) {
 [[cpp11::register]]
 SEXP IntMPBootEncrypt__(SEXP pk_xp, list shares_pair_list,
                         SEXP a_xp, SEXP ct_xp) {
-  external_pointer<PublicKey<DCRTPoly>> pk(pk_xp);
-  external_pointer<Ciphertext<DCRTPoly>> a(a_xp);
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<PublicKey<DCRTPoly>> pk(pk_xp);
+  xptr<Ciphertext<DCRTPoly>> a(a_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   return catch_openfhe("CryptoContext::IntMPBootEncrypt", [&]() {
     auto cc = (*ct)->GetCryptoContext();
     auto shares_pair = list_to_ct_vec_9117(shares_pair_list);
     auto result = cc->IntMPBootEncrypt(*pk, shares_pair, *a, *ct);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }

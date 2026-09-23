@@ -13,7 +13,7 @@ using namespace cpp11;
 
 [[cpp11::register]]
 bool Serialize__CryptoContext(SEXP cc_xp, std::string filename, bool binary) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   if (binary)
     return Serial::SerializeToFile(filename, *cc, SerType::BINARY);
   else
@@ -22,7 +22,7 @@ bool Serialize__CryptoContext(SEXP cc_xp, std::string filename, bool binary) {
 
 [[cpp11::register]]
 bool Serialize__PublicKey(SEXP pk_xp, std::string filename, bool binary) {
-  external_pointer<PublicKey<DCRTPoly>> pk(pk_xp);
+  xptr<PublicKey<DCRTPoly>> pk(pk_xp);
   if (binary)
     return Serial::SerializeToFile(filename, *pk, SerType::BINARY);
   else
@@ -31,7 +31,7 @@ bool Serialize__PublicKey(SEXP pk_xp, std::string filename, bool binary) {
 
 [[cpp11::register]]
 bool Serialize__PrivateKey(SEXP sk_xp, std::string filename, bool binary) {
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
   if (binary)
     return Serial::SerializeToFile(filename, *sk, SerType::BINARY);
   else
@@ -40,7 +40,7 @@ bool Serialize__PrivateKey(SEXP sk_xp, std::string filename, bool binary) {
 
 [[cpp11::register]]
 bool Serialize__Ciphertext(SEXP ct_xp, std::string filename, bool binary) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   if (binary)
     return Serial::SerializeToFile(filename, *ct, SerType::BINARY);
   else
@@ -58,7 +58,7 @@ SEXP Deserialize__CryptoContext(std::string filename, bool binary) {
   else
     ok = Serial::DeserializeFromFile<DCRTPoly>(filename, cc, SerType::JSON);
   if (!ok) cpp11::stop("Failed to deserialize CryptoContext from '%s'", filename.c_str());
-  return external_pointer<CryptoContext<DCRTPoly>>(
+  return xptr<CryptoContext<DCRTPoly>>(
     new CryptoContext<DCRTPoly>(cc));
 }
 
@@ -71,7 +71,7 @@ SEXP Deserialize__PublicKey(std::string filename, bool binary) {
   else
     ok = Serial::DeserializeFromFile(filename, pk, SerType::JSON);
   if (!ok) cpp11::stop("Failed to deserialize PublicKey from '%s'", filename.c_str());
-  return external_pointer<PublicKey<DCRTPoly>>(
+  return xptr<PublicKey<DCRTPoly>>(
     new PublicKey<DCRTPoly>(pk));
 }
 
@@ -84,7 +84,7 @@ SEXP Deserialize__PrivateKey(std::string filename, bool binary) {
   else
     ok = Serial::DeserializeFromFile(filename, sk, SerType::JSON);
   if (!ok) cpp11::stop("Failed to deserialize PrivateKey from '%s'", filename.c_str());
-  return external_pointer<PrivateKey<DCRTPoly>>(
+  return xptr<PrivateKey<DCRTPoly>>(
     new PrivateKey<DCRTPoly>(sk));
 }
 
@@ -97,7 +97,7 @@ SEXP Deserialize__Ciphertext(std::string filename, bool binary) {
   else
     ok = Serial::DeserializeFromFile(filename, ct, SerType::JSON);
   if (!ok) cpp11::stop("Failed to deserialize Ciphertext from '%s'", filename.c_str());
-  return external_pointer<Ciphertext<DCRTPoly>>(
+  return xptr<Ciphertext<DCRTPoly>>(
     new Ciphertext<DCRTPoly>(ct));
 }
 

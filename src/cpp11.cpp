@@ -2864,6 +2864,13 @@ extern "C" SEXP _openfhe_R_Deserialize__EvalSumKey(SEXP filename, SEXP binary) {
     return cpp11::as_sexp(Deserialize__EvalSumKey(cpp11::as_cpp<cpp11::decay_t<std::string>>(filename), cpp11::as_cpp<cpp11::decay_t<bool>>(binary)));
   END_CPP11
 }
+// xptr.cpp
+std::string xptr_type(SEXP xp);
+extern "C" SEXP _openfhe_R_xptr_type(SEXP xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(xptr_type(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp)));
+  END_CPP11
+}
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
@@ -3259,6 +3266,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_openfhe_R_openfhe_native_int",                             (DL_FUNC) &_openfhe_R_openfhe_native_int,                             0},
     {"_openfhe_R_openfhe_set_num_threads",                        (DL_FUNC) &_openfhe_R_openfhe_set_num_threads,                        1},
     {"_openfhe_R_selftest_bfv",                                   (DL_FUNC) &_openfhe_R_selftest_bfv,                                   0},
+    {"_openfhe_R_xptr_type",                                      (DL_FUNC) &_openfhe_R_xptr_type,                                      1},
     {NULL, NULL, 0}
 };
 }

@@ -40,7 +40,7 @@ using namespace cpp11;
 
 [[cpp11::register]]
 int BFVParams__GetScheme(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetScheme", [&]() -> int {
     return static_cast<int>(p->GetScheme());
   });
@@ -48,7 +48,7 @@ int BFVParams__GetScheme(SEXP params_xp) {
 
 [[cpp11::register]]
 int64_t BFVParams__GetPlaintextModulus(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetPlaintextModulus", [&]() -> int64_t {
     return static_cast<int64_t>(p->GetPlaintextModulus());
   });
@@ -56,7 +56,7 @@ int64_t BFVParams__GetPlaintextModulus(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetDigitSize(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetDigitSize", [&]() -> int {
     return static_cast<int>(p->GetDigitSize());
   });
@@ -64,7 +64,7 @@ int BFVParams__GetDigitSize(SEXP params_xp) {
 
 [[cpp11::register]]
 double BFVParams__GetStandardDeviation(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetStandardDeviation", [&]() -> double {
     return static_cast<double>(p->GetStandardDeviation());
   });
@@ -72,7 +72,7 @@ double BFVParams__GetStandardDeviation(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetSecretKeyDist(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetSecretKeyDist", [&]() -> int {
     return static_cast<int>(p->GetSecretKeyDist());
   });
@@ -80,7 +80,7 @@ int BFVParams__GetSecretKeyDist(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetMaxRelinSkDeg(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetMaxRelinSkDeg", [&]() -> int {
     return static_cast<int>(p->GetMaxRelinSkDeg());
   });
@@ -88,7 +88,7 @@ int BFVParams__GetMaxRelinSkDeg(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetPREMode(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetPREMode", [&]() -> int {
     return static_cast<int>(p->GetPREMode());
   });
@@ -96,7 +96,7 @@ int BFVParams__GetPREMode(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetMultipartyMode(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetMultipartyMode", [&]() -> int {
     return static_cast<int>(p->GetMultipartyMode());
   });
@@ -104,7 +104,7 @@ int BFVParams__GetMultipartyMode(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetExecutionMode(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetExecutionMode", [&]() -> int {
     return static_cast<int>(p->GetExecutionMode());
   });
@@ -112,7 +112,7 @@ int BFVParams__GetExecutionMode(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetDecryptionNoiseMode(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetDecryptionNoiseMode", [&]() -> int {
     return static_cast<int>(p->GetDecryptionNoiseMode());
   });
@@ -120,7 +120,7 @@ int BFVParams__GetDecryptionNoiseMode(SEXP params_xp) {
 
 [[cpp11::register]]
 double BFVParams__GetNoiseEstimate(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetNoiseEstimate", [&]() -> double {
     return p->GetNoiseEstimate();
   });
@@ -128,7 +128,7 @@ double BFVParams__GetNoiseEstimate(SEXP params_xp) {
 
 [[cpp11::register]]
 double BFVParams__GetDesiredPrecision(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetDesiredPrecision", [&]() -> double {
     return p->GetDesiredPrecision();
   });
@@ -136,7 +136,7 @@ double BFVParams__GetDesiredPrecision(SEXP params_xp) {
 
 [[cpp11::register]]
 double BFVParams__GetStatisticalSecurity(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetStatisticalSecurity", [&]() -> double {
     return p->GetStatisticalSecurity();
   });
@@ -144,7 +144,7 @@ double BFVParams__GetStatisticalSecurity(SEXP params_xp) {
 
 [[cpp11::register]]
 double BFVParams__GetNumAdversarialQueries(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetNumAdversarialQueries", [&]() -> double {
     return p->GetNumAdversarialQueries();
   });
@@ -152,7 +152,7 @@ double BFVParams__GetNumAdversarialQueries(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetThresholdNumOfParties(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetThresholdNumOfParties", [&]() -> int {
     return static_cast<int>(p->GetThresholdNumOfParties());
   });
@@ -160,7 +160,7 @@ int BFVParams__GetThresholdNumOfParties(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetKeySwitchTechnique(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetKeySwitchTechnique", [&]() -> int {
     return static_cast<int>(p->GetKeySwitchTechnique());
   });
@@ -168,7 +168,7 @@ int BFVParams__GetKeySwitchTechnique(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetScalingTechnique(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetScalingTechnique", [&]() -> int {
     return static_cast<int>(p->GetScalingTechnique());
   });
@@ -176,7 +176,7 @@ int BFVParams__GetScalingTechnique(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetBatchSize(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetBatchSize", [&]() -> int {
     return static_cast<int>(p->GetBatchSize());
   });
@@ -184,7 +184,7 @@ int BFVParams__GetBatchSize(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetFirstModSize(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetFirstModSize", [&]() -> int {
     return static_cast<int>(p->GetFirstModSize());
   });
@@ -192,7 +192,7 @@ int BFVParams__GetFirstModSize(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetNumLargeDigits(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetNumLargeDigits", [&]() -> int {
     return static_cast<int>(p->GetNumLargeDigits());
   });
@@ -200,7 +200,7 @@ int BFVParams__GetNumLargeDigits(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetMultiplicativeDepth(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetMultiplicativeDepth", [&]() -> int {
     return static_cast<int>(p->GetMultiplicativeDepth());
   });
@@ -208,7 +208,7 @@ int BFVParams__GetMultiplicativeDepth(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetScalingModSize(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetScalingModSize", [&]() -> int {
     return static_cast<int>(p->GetScalingModSize());
   });
@@ -216,7 +216,7 @@ int BFVParams__GetScalingModSize(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetSecurityLevel(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetSecurityLevel", [&]() -> int {
     return static_cast<int>(p->GetSecurityLevel());
   });
@@ -224,7 +224,7 @@ int BFVParams__GetSecurityLevel(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetRingDim(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetRingDim", [&]() -> int {
     return static_cast<int>(p->GetRingDim());
   });
@@ -232,7 +232,7 @@ int BFVParams__GetRingDim(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetEvalAddCount(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetEvalAddCount", [&]() -> int {
     return static_cast<int>(p->GetEvalAddCount());
   });
@@ -240,7 +240,7 @@ int BFVParams__GetEvalAddCount(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetKeySwitchCount(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetKeySwitchCount", [&]() -> int {
     return static_cast<int>(p->GetKeySwitchCount());
   });
@@ -248,7 +248,7 @@ int BFVParams__GetKeySwitchCount(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetEncryptionTechnique(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetEncryptionTechnique", [&]() -> int {
     return static_cast<int>(p->GetEncryptionTechnique());
   });
@@ -256,7 +256,7 @@ int BFVParams__GetEncryptionTechnique(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetMultiplicationTechnique(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetMultiplicationTechnique", [&]() -> int {
     return static_cast<int>(p->GetMultiplicationTechnique());
   });
@@ -264,7 +264,7 @@ int BFVParams__GetMultiplicationTechnique(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetPRENumHops(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetPRENumHops", [&]() -> int {
     return static_cast<int>(p->GetPRENumHops());
   });
@@ -272,7 +272,7 @@ int BFVParams__GetPRENumHops(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetInteractiveBootCompressionLevel(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetInteractiveBootCompressionLevel", [&]() -> int {
     return static_cast<int>(p->GetInteractiveBootCompressionLevel());
   });
@@ -280,7 +280,7 @@ int BFVParams__GetInteractiveBootCompressionLevel(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetCompositeDegree(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetCompositeDegree", [&]() -> int {
     return static_cast<int>(p->GetCompositeDegree());
   });
@@ -288,7 +288,7 @@ int BFVParams__GetCompositeDegree(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetRegisterWordSize(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetRegisterWordSize", [&]() -> int {
     return static_cast<int>(p->GetRegisterWordSize());
   });
@@ -296,7 +296,7 @@ int BFVParams__GetRegisterWordSize(SEXP params_xp) {
 
 [[cpp11::register]]
 int BFVParams__GetCKKSDataType(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBFVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
   return catch_openfhe("BFVParams::GetCKKSDataType", [&]() -> int {
     return static_cast<int>(p->GetCKKSDataType());
   });
@@ -306,7 +306,7 @@ int BFVParams__GetCKKSDataType(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetScheme(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetScheme", [&]() -> int {
     return static_cast<int>(p->GetScheme());
   });
@@ -314,7 +314,7 @@ int BGVParams__GetScheme(SEXP params_xp) {
 
 [[cpp11::register]]
 int64_t BGVParams__GetPlaintextModulus(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetPlaintextModulus", [&]() -> int64_t {
     return static_cast<int64_t>(p->GetPlaintextModulus());
   });
@@ -322,7 +322,7 @@ int64_t BGVParams__GetPlaintextModulus(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetDigitSize(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetDigitSize", [&]() -> int {
     return static_cast<int>(p->GetDigitSize());
   });
@@ -330,7 +330,7 @@ int BGVParams__GetDigitSize(SEXP params_xp) {
 
 [[cpp11::register]]
 double BGVParams__GetStandardDeviation(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetStandardDeviation", [&]() -> double {
     return static_cast<double>(p->GetStandardDeviation());
   });
@@ -338,7 +338,7 @@ double BGVParams__GetStandardDeviation(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetSecretKeyDist(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetSecretKeyDist", [&]() -> int {
     return static_cast<int>(p->GetSecretKeyDist());
   });
@@ -346,7 +346,7 @@ int BGVParams__GetSecretKeyDist(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetMaxRelinSkDeg(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetMaxRelinSkDeg", [&]() -> int {
     return static_cast<int>(p->GetMaxRelinSkDeg());
   });
@@ -354,7 +354,7 @@ int BGVParams__GetMaxRelinSkDeg(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetPREMode(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetPREMode", [&]() -> int {
     return static_cast<int>(p->GetPREMode());
   });
@@ -362,7 +362,7 @@ int BGVParams__GetPREMode(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetMultipartyMode(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetMultipartyMode", [&]() -> int {
     return static_cast<int>(p->GetMultipartyMode());
   });
@@ -370,7 +370,7 @@ int BGVParams__GetMultipartyMode(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetExecutionMode(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetExecutionMode", [&]() -> int {
     return static_cast<int>(p->GetExecutionMode());
   });
@@ -378,7 +378,7 @@ int BGVParams__GetExecutionMode(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetDecryptionNoiseMode(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetDecryptionNoiseMode", [&]() -> int {
     return static_cast<int>(p->GetDecryptionNoiseMode());
   });
@@ -386,7 +386,7 @@ int BGVParams__GetDecryptionNoiseMode(SEXP params_xp) {
 
 [[cpp11::register]]
 double BGVParams__GetNoiseEstimate(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetNoiseEstimate", [&]() -> double {
     return p->GetNoiseEstimate();
   });
@@ -394,7 +394,7 @@ double BGVParams__GetNoiseEstimate(SEXP params_xp) {
 
 [[cpp11::register]]
 double BGVParams__GetDesiredPrecision(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetDesiredPrecision", [&]() -> double {
     return p->GetDesiredPrecision();
   });
@@ -402,7 +402,7 @@ double BGVParams__GetDesiredPrecision(SEXP params_xp) {
 
 [[cpp11::register]]
 double BGVParams__GetStatisticalSecurity(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetStatisticalSecurity", [&]() -> double {
     return p->GetStatisticalSecurity();
   });
@@ -410,7 +410,7 @@ double BGVParams__GetStatisticalSecurity(SEXP params_xp) {
 
 [[cpp11::register]]
 double BGVParams__GetNumAdversarialQueries(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetNumAdversarialQueries", [&]() -> double {
     return p->GetNumAdversarialQueries();
   });
@@ -418,7 +418,7 @@ double BGVParams__GetNumAdversarialQueries(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetThresholdNumOfParties(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetThresholdNumOfParties", [&]() -> int {
     return static_cast<int>(p->GetThresholdNumOfParties());
   });
@@ -426,7 +426,7 @@ int BGVParams__GetThresholdNumOfParties(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetKeySwitchTechnique(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetKeySwitchTechnique", [&]() -> int {
     return static_cast<int>(p->GetKeySwitchTechnique());
   });
@@ -434,7 +434,7 @@ int BGVParams__GetKeySwitchTechnique(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetScalingTechnique(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetScalingTechnique", [&]() -> int {
     return static_cast<int>(p->GetScalingTechnique());
   });
@@ -442,7 +442,7 @@ int BGVParams__GetScalingTechnique(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetBatchSize(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetBatchSize", [&]() -> int {
     return static_cast<int>(p->GetBatchSize());
   });
@@ -450,7 +450,7 @@ int BGVParams__GetBatchSize(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetFirstModSize(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetFirstModSize", [&]() -> int {
     return static_cast<int>(p->GetFirstModSize());
   });
@@ -458,7 +458,7 @@ int BGVParams__GetFirstModSize(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetNumLargeDigits(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetNumLargeDigits", [&]() -> int {
     return static_cast<int>(p->GetNumLargeDigits());
   });
@@ -466,7 +466,7 @@ int BGVParams__GetNumLargeDigits(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetMultiplicativeDepth(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetMultiplicativeDepth", [&]() -> int {
     return static_cast<int>(p->GetMultiplicativeDepth());
   });
@@ -474,7 +474,7 @@ int BGVParams__GetMultiplicativeDepth(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetScalingModSize(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetScalingModSize", [&]() -> int {
     return static_cast<int>(p->GetScalingModSize());
   });
@@ -482,7 +482,7 @@ int BGVParams__GetScalingModSize(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetSecurityLevel(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetSecurityLevel", [&]() -> int {
     return static_cast<int>(p->GetSecurityLevel());
   });
@@ -490,7 +490,7 @@ int BGVParams__GetSecurityLevel(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetRingDim(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetRingDim", [&]() -> int {
     return static_cast<int>(p->GetRingDim());
   });
@@ -498,7 +498,7 @@ int BGVParams__GetRingDim(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetEvalAddCount(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetEvalAddCount", [&]() -> int {
     return static_cast<int>(p->GetEvalAddCount());
   });
@@ -506,7 +506,7 @@ int BGVParams__GetEvalAddCount(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetKeySwitchCount(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetKeySwitchCount", [&]() -> int {
     return static_cast<int>(p->GetKeySwitchCount());
   });
@@ -514,7 +514,7 @@ int BGVParams__GetKeySwitchCount(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetEncryptionTechnique(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetEncryptionTechnique", [&]() -> int {
     return static_cast<int>(p->GetEncryptionTechnique());
   });
@@ -522,7 +522,7 @@ int BGVParams__GetEncryptionTechnique(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetMultiplicationTechnique(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetMultiplicationTechnique", [&]() -> int {
     return static_cast<int>(p->GetMultiplicationTechnique());
   });
@@ -530,7 +530,7 @@ int BGVParams__GetMultiplicationTechnique(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetPRENumHops(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetPRENumHops", [&]() -> int {
     return static_cast<int>(p->GetPRENumHops());
   });
@@ -538,7 +538,7 @@ int BGVParams__GetPRENumHops(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetInteractiveBootCompressionLevel(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetInteractiveBootCompressionLevel", [&]() -> int {
     return static_cast<int>(p->GetInteractiveBootCompressionLevel());
   });
@@ -546,7 +546,7 @@ int BGVParams__GetInteractiveBootCompressionLevel(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetCompositeDegree(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetCompositeDegree", [&]() -> int {
     return static_cast<int>(p->GetCompositeDegree());
   });
@@ -554,7 +554,7 @@ int BGVParams__GetCompositeDegree(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetRegisterWordSize(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetRegisterWordSize", [&]() -> int {
     return static_cast<int>(p->GetRegisterWordSize());
   });
@@ -562,7 +562,7 @@ int BGVParams__GetRegisterWordSize(SEXP params_xp) {
 
 [[cpp11::register]]
 int BGVParams__GetCKKSDataType(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextBGVRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
   return catch_openfhe("BGVParams::GetCKKSDataType", [&]() -> int {
     return static_cast<int>(p->GetCKKSDataType());
   });
@@ -572,7 +572,7 @@ int BGVParams__GetCKKSDataType(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetScheme(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetScheme", [&]() -> int {
     return static_cast<int>(p->GetScheme());
   });
@@ -580,7 +580,7 @@ int CKKSParams__GetScheme(SEXP params_xp) {
 
 [[cpp11::register]]
 int64_t CKKSParams__GetPlaintextModulus(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetPlaintextModulus", [&]() -> int64_t {
     return static_cast<int64_t>(p->GetPlaintextModulus());
   });
@@ -588,7 +588,7 @@ int64_t CKKSParams__GetPlaintextModulus(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetDigitSize(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetDigitSize", [&]() -> int {
     return static_cast<int>(p->GetDigitSize());
   });
@@ -596,7 +596,7 @@ int CKKSParams__GetDigitSize(SEXP params_xp) {
 
 [[cpp11::register]]
 double CKKSParams__GetStandardDeviation(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetStandardDeviation", [&]() -> double {
     return static_cast<double>(p->GetStandardDeviation());
   });
@@ -604,7 +604,7 @@ double CKKSParams__GetStandardDeviation(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetSecretKeyDist(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetSecretKeyDist", [&]() -> int {
     return static_cast<int>(p->GetSecretKeyDist());
   });
@@ -612,7 +612,7 @@ int CKKSParams__GetSecretKeyDist(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetMaxRelinSkDeg(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetMaxRelinSkDeg", [&]() -> int {
     return static_cast<int>(p->GetMaxRelinSkDeg());
   });
@@ -620,7 +620,7 @@ int CKKSParams__GetMaxRelinSkDeg(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetPREMode(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetPREMode", [&]() -> int {
     return static_cast<int>(p->GetPREMode());
   });
@@ -628,7 +628,7 @@ int CKKSParams__GetPREMode(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetMultipartyMode(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetMultipartyMode", [&]() -> int {
     return static_cast<int>(p->GetMultipartyMode());
   });
@@ -636,7 +636,7 @@ int CKKSParams__GetMultipartyMode(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetExecutionMode(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetExecutionMode", [&]() -> int {
     return static_cast<int>(p->GetExecutionMode());
   });
@@ -644,7 +644,7 @@ int CKKSParams__GetExecutionMode(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetDecryptionNoiseMode(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetDecryptionNoiseMode", [&]() -> int {
     return static_cast<int>(p->GetDecryptionNoiseMode());
   });
@@ -652,7 +652,7 @@ int CKKSParams__GetDecryptionNoiseMode(SEXP params_xp) {
 
 [[cpp11::register]]
 double CKKSParams__GetNoiseEstimate(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetNoiseEstimate", [&]() -> double {
     return p->GetNoiseEstimate();
   });
@@ -660,7 +660,7 @@ double CKKSParams__GetNoiseEstimate(SEXP params_xp) {
 
 [[cpp11::register]]
 double CKKSParams__GetDesiredPrecision(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetDesiredPrecision", [&]() -> double {
     return p->GetDesiredPrecision();
   });
@@ -668,7 +668,7 @@ double CKKSParams__GetDesiredPrecision(SEXP params_xp) {
 
 [[cpp11::register]]
 double CKKSParams__GetStatisticalSecurity(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetStatisticalSecurity", [&]() -> double {
     return p->GetStatisticalSecurity();
   });
@@ -676,7 +676,7 @@ double CKKSParams__GetStatisticalSecurity(SEXP params_xp) {
 
 [[cpp11::register]]
 double CKKSParams__GetNumAdversarialQueries(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetNumAdversarialQueries", [&]() -> double {
     return p->GetNumAdversarialQueries();
   });
@@ -684,7 +684,7 @@ double CKKSParams__GetNumAdversarialQueries(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetThresholdNumOfParties(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetThresholdNumOfParties", [&]() -> int {
     return static_cast<int>(p->GetThresholdNumOfParties());
   });
@@ -692,7 +692,7 @@ int CKKSParams__GetThresholdNumOfParties(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetKeySwitchTechnique(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetKeySwitchTechnique", [&]() -> int {
     return static_cast<int>(p->GetKeySwitchTechnique());
   });
@@ -700,7 +700,7 @@ int CKKSParams__GetKeySwitchTechnique(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetScalingTechnique(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetScalingTechnique", [&]() -> int {
     return static_cast<int>(p->GetScalingTechnique());
   });
@@ -708,7 +708,7 @@ int CKKSParams__GetScalingTechnique(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetBatchSize(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetBatchSize", [&]() -> int {
     return static_cast<int>(p->GetBatchSize());
   });
@@ -716,7 +716,7 @@ int CKKSParams__GetBatchSize(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetFirstModSize(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetFirstModSize", [&]() -> int {
     return static_cast<int>(p->GetFirstModSize());
   });
@@ -724,7 +724,7 @@ int CKKSParams__GetFirstModSize(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetNumLargeDigits(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetNumLargeDigits", [&]() -> int {
     return static_cast<int>(p->GetNumLargeDigits());
   });
@@ -732,7 +732,7 @@ int CKKSParams__GetNumLargeDigits(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetMultiplicativeDepth(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetMultiplicativeDepth", [&]() -> int {
     return static_cast<int>(p->GetMultiplicativeDepth());
   });
@@ -740,7 +740,7 @@ int CKKSParams__GetMultiplicativeDepth(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetScalingModSize(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetScalingModSize", [&]() -> int {
     return static_cast<int>(p->GetScalingModSize());
   });
@@ -748,7 +748,7 @@ int CKKSParams__GetScalingModSize(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetSecurityLevel(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetSecurityLevel", [&]() -> int {
     return static_cast<int>(p->GetSecurityLevel());
   });
@@ -756,7 +756,7 @@ int CKKSParams__GetSecurityLevel(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetRingDim(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetRingDim", [&]() -> int {
     return static_cast<int>(p->GetRingDim());
   });
@@ -764,7 +764,7 @@ int CKKSParams__GetRingDim(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetEvalAddCount(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetEvalAddCount", [&]() -> int {
     return static_cast<int>(p->GetEvalAddCount());
   });
@@ -772,7 +772,7 @@ int CKKSParams__GetEvalAddCount(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetKeySwitchCount(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetKeySwitchCount", [&]() -> int {
     return static_cast<int>(p->GetKeySwitchCount());
   });
@@ -780,7 +780,7 @@ int CKKSParams__GetKeySwitchCount(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetEncryptionTechnique(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetEncryptionTechnique", [&]() -> int {
     return static_cast<int>(p->GetEncryptionTechnique());
   });
@@ -788,7 +788,7 @@ int CKKSParams__GetEncryptionTechnique(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetMultiplicationTechnique(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetMultiplicationTechnique", [&]() -> int {
     return static_cast<int>(p->GetMultiplicationTechnique());
   });
@@ -796,7 +796,7 @@ int CKKSParams__GetMultiplicationTechnique(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetPRENumHops(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetPRENumHops", [&]() -> int {
     return static_cast<int>(p->GetPRENumHops());
   });
@@ -804,7 +804,7 @@ int CKKSParams__GetPRENumHops(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetInteractiveBootCompressionLevel(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetInteractiveBootCompressionLevel", [&]() -> int {
     return static_cast<int>(p->GetInteractiveBootCompressionLevel());
   });
@@ -812,7 +812,7 @@ int CKKSParams__GetInteractiveBootCompressionLevel(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetCompositeDegree(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetCompositeDegree", [&]() -> int {
     return static_cast<int>(p->GetCompositeDegree());
   });
@@ -820,7 +820,7 @@ int CKKSParams__GetCompositeDegree(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetRegisterWordSize(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetRegisterWordSize", [&]() -> int {
     return static_cast<int>(p->GetRegisterWordSize());
   });
@@ -828,7 +828,7 @@ int CKKSParams__GetRegisterWordSize(SEXP params_xp) {
 
 [[cpp11::register]]
 int CKKSParams__GetCKKSDataType(SEXP params_xp) {
-  external_pointer<CCParams<CryptoContextCKKSRNS>> p(params_xp);
+  xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
   return catch_openfhe("CKKSParams::GetCKKSDataType", [&]() -> int {
     return static_cast<int>(p->GetCKKSDataType());
   });

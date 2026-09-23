@@ -35,8 +35,19 @@
 encrypt <- new_generic("encrypt", dispatch_args = c("key", "pt"))
 
 #' Decrypt a ciphertext
-#' @param ct A Ciphertext
-#' @param key A PrivateKey
+#'
+#' `decrypt` dispatches on both arguments and accepts them in either
+#' order, as the C++ header does: `Decrypt(ciphertext, privateKey)` is
+#' the primary form and `Decrypt(privateKey, ciphertext)` forwards to
+#' it (`cryptocontext.h`, both overloads). The key-first order lets
+#' code that is written around the holder of the key, such as a party
+#' object in a protocol, put that holder first, the same way
+#' [encrypt()] puts the key first.
+#'
+#' @param ct A `Ciphertext`, or a `PrivateKey` when the key-first
+#'   order is used.
+#' @param key A `PrivateKey`, or a `Ciphertext` when the key-first
+#'   order is used.
 #' @param ... Additional arguments (cc = CryptoContext)
 #' @return A Plaintext
 #' @examples
@@ -52,6 +63,10 @@ encrypt <- new_generic("encrypt", dispatch_args = c("key", "pt"))
 #' out <- decrypt(eval_add(ct, ct), kp@secret, cc = cc)
 #' out <- set_length(out, 4L)
 #' get_real_packed_value(out)
+#'
+#' ## The same call with the key first:
+#' out2 <- decrypt(kp@secret, eval_add(ct, ct), cc = cc)
+#' get_real_packed_value(set_length(out2, 4L))
 #' @export
 decrypt <- new_generic("decrypt", dispatch_args = c("ct", "key"))
 
@@ -71,6 +86,15 @@ method(encrypt, list(PrivateKey, Plaintext)) <- function(key, pt, cc = NULL) {
   }
   ct_xp <- CryptoContext__Encrypt_PrivateKey(get_ptr(cc), get_ptr(key), get_ptr(pt))
   Ciphertext(ptr = ct_xp)
+}
+
+# decrypt(PrivateKey, Ciphertext) -> Plaintext: the header's key-first
+# forwarder (cryptocontext.h, second Decrypt overload). S7 dispatches on
+# the classes of the first two arguments positionally, so in this
+# method `ct` holds the key and `key` holds the ciphertext; hand them to
+# the ciphertext-first method the right way round.
+method(decrypt, list(PrivateKey, Ciphertext)) <- function(ct, key, cc = NULL) {
+  decrypt(key, ct, cc = cc)
 }
 
 method(decrypt, list(Ciphertext, PrivateKey)) <- function(ct, key, cc = NULL) {

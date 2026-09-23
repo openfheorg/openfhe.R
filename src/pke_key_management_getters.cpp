@@ -45,13 +45,13 @@ using EvalKeyMapSP = std::shared_ptr<EvalKeyMapT>;
 // ── Inner-value marshallers ─────────────────────────────
 
 // Marshal a std::vector<EvalKey<DCRTPoly>> into a cpp11 list
-// of external_pointer<EvalKey<DCRTPoly>>. Each element is a
+// of xptr<EvalKey<DCRTPoly>>. Each element is a
 // heap-allocated copy of the shared_ptr so the R wrapper has
 // owning semantics independent of the cc-internal vector.
 static list evalkey_vec_to_list(const std::vector<EvalKey<DCRTPoly>>& v) {
   writable::list out(v.size());
   for (size_t i = 0; i < v.size(); ++i) {
-    out[i] = external_pointer<EvalKey<DCRTPoly>>(
+    out[i] = xptr<EvalKey<DCRTPoly>>(
       new EvalKey<DCRTPoly>(v[i]));
   }
   return out;
@@ -61,7 +61,7 @@ static list evalkey_vec_to_list(const std::vector<EvalKey<DCRTPoly>>& v) {
 // as an external_pointer. This is the inner-value marshaller for
 // GetAllEvalAutomorphismKeys / GetAllEvalSumKeys.
 static SEXP wrap_evalkey_map_sp(const EvalKeyMapSP& sp) {
-  return external_pointer<EvalKeyMapSP>(new EvalKeyMapSP(sp));
+  return xptr<EvalKeyMapSP>(new EvalKeyMapSP(sp));
 }
 
 // ── GetAllEvalMultKeys ──────────────────────────────────

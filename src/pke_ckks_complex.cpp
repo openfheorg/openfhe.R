@@ -54,7 +54,7 @@ using EvalKeyMapSP = std::shared_ptr<EvalKeyMapT>;
 SEXP MakeCKKSPackedPlaintext__complex(SEXP cc_xp, SEXP values_complex,
                                       int noise_scale_deg, int level,
                                       int slots) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   if (TYPEOF(values_complex) != CPLXSXP) {
     cpp11::stop("values must be a complex vector");
   }
@@ -72,7 +72,7 @@ SEXP MakeCKKSPackedPlaintext__complex(SEXP cc_xp, SEXP values_complex,
       static_cast<uint32_t>(level),
       nullptr,
       static_cast<uint32_t>(slots));
-    return external_pointer<Plaintext>(new Plaintext(pt));
+    return xptr<Plaintext>(new Plaintext(pt));
   });
 }
 
@@ -80,7 +80,7 @@ SEXP MakeCKKSPackedPlaintext__complex(SEXP cc_xp, SEXP values_complex,
 
 [[cpp11::register]]
 SEXP Plaintext__GetCKKSPackedValue(SEXP pt_xp) {
-  external_pointer<Plaintext> pt(pt_xp);
+  xptr<Plaintext> pt(pt_xp);
   return catch_openfhe("Plaintext::GetCKKSPackedValue", [&]() {
     const auto& vec = (*pt)->GetCKKSPackedValue();
     const R_xlen_t n = static_cast<R_xlen_t>(vec.size());
@@ -99,7 +99,7 @@ SEXP Plaintext__GetCKKSPackedValue(SEXP pt_xp) {
 
 [[cpp11::register]]
 int CryptoContext__FindAutomorphismIndex(SEXP cc_xp, int idx) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::FindAutomorphismIndex", [&]() {
     uint32_t result = (*cc)->FindAutomorphismIndex(static_cast<uint32_t>(idx));
     return static_cast<int>(result);
@@ -109,7 +109,7 @@ int CryptoContext__FindAutomorphismIndex(SEXP cc_xp, int idx) {
 [[cpp11::register]]
 integers CryptoContext__FindAutomorphismIndices(SEXP cc_xp,
                                                 integers idx_list) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::FindAutomorphismIndices", [&]() {
     std::vector<uint32_t> indices;
     indices.reserve(idx_list.size());
@@ -134,8 +134,8 @@ integers CryptoContext__FindAutomorphismIndices(SEXP cc_xp,
 [[cpp11::register]]
 SEXP CryptoContext__EvalAutomorphismKeyGen(SEXP cc_xp, SEXP sk_xp,
                                            integers idx_list) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
-  external_pointer<PrivateKey<DCRTPoly>> sk(sk_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
   return catch_openfhe("CryptoContext::EvalAutomorphismKeyGen", [&]() {
     std::vector<uint32_t> indices;
     indices.reserve(idx_list.size());
@@ -143,7 +143,7 @@ SEXP CryptoContext__EvalAutomorphismKeyGen(SEXP cc_xp, SEXP sk_xp,
       indices.push_back(static_cast<uint32_t>(idx_list[i]));
     }
     EvalKeyMapSP sp = (*cc)->EvalAutomorphismKeyGen(*sk, indices);
-    return external_pointer<EvalKeyMapSP>(new EvalKeyMapSP(sp));
+    return xptr<EvalKeyMapSP>(new EvalKeyMapSP(sp));
   });
 }
 
@@ -152,14 +152,14 @@ SEXP CryptoContext__EvalAutomorphismKeyGen(SEXP cc_xp, SEXP sk_xp,
 // EvalKeyMapSP twice to get the map value.
 [[cpp11::register]]
 SEXP EvalAutomorphism__(SEXP ct_xp, int idx, SEXP map_xp) {
-  external_pointer<Ciphertext<DCRTPoly>> ct(ct_xp);
-  external_pointer<EvalKeyMapSP> map_sp(map_xp);
+  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
+  xptr<EvalKeyMapSP> map_sp(map_xp);
   return catch_openfhe("CryptoContext::EvalAutomorphism", [&]() {
     auto cc = (*ct)->GetCryptoContext();
     auto result = cc->EvalAutomorphism(*ct,
                                        static_cast<uint32_t>(idx),
                                        **map_sp);
-    return external_pointer<Ciphertext<DCRTPoly>>(
+    return xptr<Ciphertext<DCRTPoly>>(
       new Ciphertext<DCRTPoly>(result));
   });
 }

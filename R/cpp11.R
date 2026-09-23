@@ -1567,3 +1567,7 @@ Serialize__EvalSumKey <- function(filename, binary, key_tag) {
 Deserialize__EvalSumKey <- function(filename, binary) {
   .Call(`_openfhe_R_Deserialize__EvalSumKey`, filename, binary)
 }
+
+xptr_type <- function(xp) {
+  .Call(`_openfhe_R_xptr_type`, xp)
+}

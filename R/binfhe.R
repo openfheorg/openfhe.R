@@ -1,5 +1,20 @@
 ## OPENFHE PYTHON SOURCE: src/lib/binfhe_bindings.cpp
 
+#' BinFHE context (Binary FHE)
+#' @param ptr External pointer (internal use)
+#' @return An S7 object of class `BinFHEContext`, inheriting from
+#'   [OpenFHEObject], whose `ptr` property holds an external pointer to
+#'   the C++ boolean-circuit context. It is the BinFHE counterpart of
+#'   [CryptoContext] and is deliberately a different class, so a
+#'   [CryptoContext] cannot be passed where a BinFHE context belongs or
+#'   the other way round. Obtain one from [bin_fhe_context()] rather
+#'   than by calling this constructor directly.
+#' @export
+BinFHEContext <- new_class("BinFHEContext",
+  parent = OpenFHEObject,
+  package = "openfhe.R"
+)
+
 #' LWE Ciphertext (Binary FHE)
 #' @param ptr External pointer (internal use)
 #' @return An S7 object of class `LWECiphertext`, inheriting from
@@ -51,7 +66,7 @@ LWEPrivateKey <- new_class("LWEPrivateKey",
 #'   example).
 #' @param n Ring dimension override (0 lets OpenFHE pick).
 #' @param time_optimization Enable the GINX time-optimization variant.
-#' @return A BinFHEContext (stored as OpenFHEObject)
+#' @return A [BinFHEContext] object.
 #' @export
 bin_fhe_context <- function(paramset = BinFHEParamSet$STD128,
                             method = BinFHEMethod$GINX,
@@ -74,7 +89,7 @@ bin_fhe_context <- function(paramset = BinFHEParamSet$STD128,
   } else {
     BinFHEContext__GenerateBinFHEContext(ctx_xp, as.integer(paramset), as.integer(method))
   }
-  OpenFHEObject(ptr = ctx_xp)
+  BinFHEContext(ptr = ctx_xp)
 }
 
 #' Maximum supported plaintext space for functional bootstrapping

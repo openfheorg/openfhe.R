@@ -39,17 +39,17 @@ using namespace cpp11;
 
 [[cpp11::register]]
 SEXP CryptoContext__GetCryptoParameters(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetCryptoParameters", [&]() {
     auto cp = (*cc)->GetCryptoParameters();
-    return external_pointer<std::shared_ptr<CryptoParametersBase<DCRTPoly>>>(
+    return xptr<std::shared_ptr<CryptoParametersBase<DCRTPoly>>>(
         new std::shared_ptr<CryptoParametersBase<DCRTPoly>>(cp));
   });
 }
 
 [[cpp11::register]]
 int CryptoContext__GetKeyGenLevel(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetKeyGenLevel", [&]() -> int {
     return static_cast<int>((*cc)->GetKeyGenLevel());
   });
@@ -57,7 +57,7 @@ int CryptoContext__GetKeyGenLevel(SEXP cc_xp) {
 
 [[cpp11::register]]
 void CryptoContext__SetKeyGenLevel(SEXP cc_xp, int level) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   catch_openfhe("CryptoContext::SetKeyGenLevel", [&]() {
     (*cc)->SetKeyGenLevel(static_cast<size_t>(level));
   });
@@ -65,27 +65,27 @@ void CryptoContext__SetKeyGenLevel(SEXP cc_xp, int level) {
 
 [[cpp11::register]]
 SEXP CryptoContext__GetElementParams(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetElementParams", [&]() {
     auto ep = (*cc)->GetElementParams();
-    return external_pointer<std::shared_ptr<typename DCRTPoly::Params>>(
+    return xptr<std::shared_ptr<typename DCRTPoly::Params>>(
         new std::shared_ptr<typename DCRTPoly::Params>(ep));
   });
 }
 
 [[cpp11::register]]
 SEXP CryptoContext__GetEncodingParams(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetEncodingParams", [&]() {
     auto ep = (*cc)->GetEncodingParams();
-    return external_pointer<std::shared_ptr<EncodingParamsImpl>>(
+    return xptr<std::shared_ptr<EncodingParamsImpl>>(
         new std::shared_ptr<EncodingParamsImpl>(ep));
   });
 }
 
 [[cpp11::register]]
 int CryptoContext__GetCyclotomicOrder(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetCyclotomicOrder", [&]() -> int {
     return static_cast<int>((*cc)->GetCyclotomicOrder());
   });
@@ -93,7 +93,7 @@ int CryptoContext__GetCyclotomicOrder(SEXP cc_xp) {
 
 [[cpp11::register]]
 int CryptoContext__GetCKKSDataType(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetCKKSDataType", [&]() -> int {
     return static_cast<int>((*cc)->GetCKKSDataType());
   });
@@ -137,7 +137,7 @@ std::shared_ptr<CryptoParametersRNS> as_rns_params(
 
 [[cpp11::register]]
 int64_t CryptoContext__GetPlaintextModulus(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetPlaintextModulus", [&]() -> int64_t {
     return static_cast<int64_t>(
         (*cc)->GetCryptoParameters()->GetPlaintextModulus());
@@ -146,7 +146,7 @@ int64_t CryptoContext__GetPlaintextModulus(SEXP cc_xp) {
 
 [[cpp11::register]]
 int CryptoContext__GetBatchSize(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetBatchSize", [&]() -> int {
     return static_cast<int>(
         (*cc)->GetCryptoParameters()->GetEncodingParams()->GetBatchSize());
@@ -155,7 +155,7 @@ int CryptoContext__GetBatchSize(SEXP cc_xp) {
 
 [[cpp11::register]]
 int CryptoContext__GetScalingTechnique(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetScalingTechnique", [&]() -> int {
     auto rns = as_rns_params((*cc)->GetCryptoParameters(),
                              "CryptoContext::GetScalingTechnique");
@@ -165,7 +165,7 @@ int CryptoContext__GetScalingTechnique(SEXP cc_xp) {
 
 [[cpp11::register]]
 int CryptoContext__GetDigitSize(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetDigitSize", [&]() -> int {
     return static_cast<int>(
         (*cc)->GetCryptoParameters()->GetDigitSize());
@@ -174,7 +174,7 @@ int CryptoContext__GetDigitSize(SEXP cc_xp) {
 
 [[cpp11::register]]
 double CryptoContext__GetNoiseEstimate(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetNoiseEstimate", [&]() -> double {
     auto rns = as_rns_params((*cc)->GetCryptoParameters(),
                              "CryptoContext::GetNoiseEstimate");
@@ -184,7 +184,7 @@ double CryptoContext__GetNoiseEstimate(SEXP cc_xp) {
 
 [[cpp11::register]]
 int CryptoContext__GetMultiplicativeDepth(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetMultiplicativeDepth", [&]() -> int {
     auto rns = as_rns_params((*cc)->GetCryptoParameters(),
                              "CryptoContext::GetMultiplicativeDepth");
@@ -194,7 +194,7 @@ int CryptoContext__GetMultiplicativeDepth(SEXP cc_xp) {
 
 [[cpp11::register]]
 int CryptoContext__GetEvalAddCount(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetEvalAddCount", [&]() -> int {
     auto rns = as_rns_params((*cc)->GetCryptoParameters(),
                              "CryptoContext::GetEvalAddCount");
@@ -204,7 +204,7 @@ int CryptoContext__GetEvalAddCount(SEXP cc_xp) {
 
 [[cpp11::register]]
 int CryptoContext__GetKeySwitchCount(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetKeySwitchCount", [&]() -> int {
     auto rns = as_rns_params((*cc)->GetCryptoParameters(),
                              "CryptoContext::GetKeySwitchCount");
@@ -214,7 +214,7 @@ int CryptoContext__GetKeySwitchCount(SEXP cc_xp) {
 
 [[cpp11::register]]
 int CryptoContext__GetPRENumHops(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetPRENumHops", [&]() -> int {
     auto rns = as_rns_params((*cc)->GetCryptoParameters(),
                              "CryptoContext::GetPRENumHops");
@@ -224,7 +224,7 @@ int CryptoContext__GetPRENumHops(SEXP cc_xp) {
 
 [[cpp11::register]]
 int CryptoContext__GetRegisterWordSize(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetRegisterWordSize", [&]() -> int {
     auto rns = as_rns_params((*cc)->GetCryptoParameters(),
                              "CryptoContext::GetRegisterWordSize");
@@ -234,7 +234,7 @@ int CryptoContext__GetRegisterWordSize(SEXP cc_xp) {
 
 [[cpp11::register]]
 int CryptoContext__GetCompositeDegree(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetCompositeDegree", [&]() -> int {
     auto rns = as_rns_params((*cc)->GetCryptoParameters(),
                              "CryptoContext::GetCompositeDegree");
@@ -244,7 +244,7 @@ int CryptoContext__GetCompositeDegree(SEXP cc_xp) {
 
 [[cpp11::register]]
 int CryptoContext__GetKeySwitchTechnique(SEXP cc_xp) {
-  external_pointer<CryptoContext<DCRTPoly>> cc(cc_xp);
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   return catch_openfhe("CryptoContext::GetKeySwitchTechnique", [&]() -> int {
     auto rns = as_rns_params((*cc)->GetCryptoParameters(),
                              "CryptoContext::GetKeySwitchTechnique");
