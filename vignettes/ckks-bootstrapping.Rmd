@@ -10,9 +10,7 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
-# Cap OpenMP to CRAN's two-core policy (see ?openfhe.R::set_num_threads).
 library(openfhe.R)
-openfhe.R::set_num_threads(2L)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"

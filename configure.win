@@ -51,6 +51,20 @@ fi
 OPENFHE_CFLAGS="-I${OPENFHE_INCDIR} -I${OPENFHE_INCDIR}/core -I${OPENFHE_INCDIR}/pke -I${OPENFHE_INCDIR}/binfhe -I${OPENFHE_INCDIR}/cereal"
 OPENFHE_LIBS="-L${OPENFHE_INSTALL_DIR}/lib -lOPENFHEpke -lOPENFHEbinfhe -lOPENFHEcore"
 
+# ── Mirror the library's PARALLEL define ───────────────
+# Same block as in configure: OpenFHE's CMake adds -DPARALLEL exactly
+# when WITH_OPENMP is on, and the installed config_core.h records that
+# decision. The wrapper calls the inline
+# OpenFHEParallelControls::SetNumThreads() (src/init.cpp), whose body and
+# class layout both change under PARALLEL, so this translation unit must
+# see the same define as the library did. src/init.cpp fails the build
+# if the two disagree -- which is exactly what happened on win-builder
+# when this block existed only in configure.
+if grep -q '^#define WITH_OPENMP' "${OPENFHE_INCDIR}/core/config_core.h" 2>/dev/null; then
+    OPENFHE_CFLAGS="${OPENFHE_CFLAGS} -DPARALLEL"
+    echo "* OpenFHE was built WITH_OPENMP; defining PARALLEL for the wrapper"
+fi
+
 # On Windows we substitute the Makefile variable reference itself (not a
 # literal flag). make expands $(SHLIB_OPENMP_CXXFLAGS) from R's Makeconf
 # at SHLIB time — keeps the flag in lockstep with whatever R was built

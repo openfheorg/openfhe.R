@@ -61,7 +61,7 @@ BinFHEContext__EvalFunc <- function(ctx_xp, ct_xp, plaintext_lut) {
 }
 
 openfhe_set_num_threads <- function(n) {
-  invisible(.Call(`_openfhe_R_openfhe_set_num_threads`, n))
+  .Call(`_openfhe_R_openfhe_set_num_threads`, n)
 }
 
 openfhe_get_num_threads <- function() {

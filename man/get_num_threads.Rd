@@ -7,12 +7,12 @@
 get_num_threads()
 }
 \value{
-integer; the OpenMP thread limit.
+integer; the current thread cap.
 }
 \description{
-Returns \code{omp_get_max_threads()}: the maximum number of threads OpenFHE
-will use for a parallel region under the current settings (see
-\code{\link[=set_num_threads]{set_num_threads()}}). Returns \code{1} when the package was built without
+Returns the cap OpenFHE currently applies to its parallel regions: the
+number of hardware threads at load, or the value most recently passed
+to \code{\link[=set_num_threads]{set_num_threads()}}. Returns \code{1} when the package was built without
 OpenMP.
 }
 \examples{

@@ -1,15 +1,95 @@
-# CRAN submission comments — openfhe.R 1.5.1.2
+# CRAN submission comments — openfhe.R 1.5.1.2 (resubmission)
 
-## Why this release
+## Why this resubmission
 
-1.5.1.1 was published on 2026-08-23. This release, a month later,
-closes a memory-safety hole at the R-to-C++ boundary that a systematic
-audit of the binding surface found, and fixes the installation failure
-that the musl entry under *Additional issues* reports for 1.5.1.1. No
-OpenFHE library upgrade is involved; the bundled library is the same
-1.5.1 source with one further one-line patch, described below.
+This is the 1.5.1.2 submission of 2026-09-23 with one further fix. The
+incoming pretest on the Debian clang flavor reported
 
-## The defect
+```
+* checking examples ... [23s/1s] NOTE
+Examples with CPU time > 2.5 times elapsed time
+                    user system elapsed  ratio
+fhe_context        1.244  0.066   0.042 31.190
+fhe_ckks_tolerance 3.142  0.142   0.109 30.128
+encrypt            3.107  0.136   0.112 28.955
+key_gen            1.571  0.057   0.093 17.505
+decrypt            1.245  0.071   0.106 12.415
+```
+
+while tests and vignettes on the same run sat at 2.0. The notes from
+the first submission stand and are carried below; the next section
+explains the NOTE and its fix. The version number is unchanged because
+the first tarball did not reach CRAN.
+
+## Examples CPU time
+
+The package's tests and vignettes capped OpenFHE at two OpenMP threads
+by calling `set_num_threads(2L)`. The examples had no such call, so each
+one ran with a team of every hardware thread on the machine, 32 on the
+Debian box. The examples are small (40 to 110 ms each), and LLVM's
+OpenMP runtime, which a clang build of R uses, keeps idle worker
+threads spinning for 200 ms after every parallel region by default. For
+the whole of a small example, therefore, all 32 workers consumed CPU,
+and the ratio is the thread count. The gcc flavor's libgomp spins for
+far less time, which is why only the clang flavor reported it.
+
+Two changes:
+
+* When the package is loaded under `R CMD check` (which sets
+  `_R_CHECK_LIMIT_CORES_`; the package reads it with the same rule
+  `parallel:::.check_ncores()` applies before spawning workers),
+  `.onLoad()` caps OpenFHE at two threads. This is now the package's
+  only cap: the explicit `set_num_threads(2L)` calls that the tests and
+  vignettes carried are removed, since the load hook runs before any of
+  them and also covers packages that import 'openfhe.R'. Interactive use
+  is unchanged.
+
+* `set_num_threads()` now sets the cap through OpenFHE's own thread
+  controls rather than through `omp_set_num_threads()`. The bundled
+  library carries upstream OpenFHE PR #1233 (a process-wide cap that
+  every parallel region in the library consults, not yet in an OpenFHE
+  release), replacing the one-line fork patch that 1.5.1 and 1.5.1.1
+  shipped for the same purpose. The library source is otherwise the
+  same as in 1.5.1.2.
+
+I reproduced the NOTE before fixing it, rather than reasoning about it:
+on a 16-core macOS machine with libomp's default 200 ms block time
+restored (the Homebrew build sets it to zero) and a 32-thread team to
+match the Debian box, `R CMD check --as-cran` on the 1.5.1.2 tarball
+prints the same NOTE with the same examples at ratios of 13.5 to 15.4.
+The resubmitted tarball under the same environment reports examples
+OK, with every example between 1.5 and 2.1, and the example that
+prints `get_num_threads()` shows 2.
+
+## Test environments
+
+All run against the tarball being submitted.
+
+* Local: macOS Tahoe 26.6.2 (Apple Silicon), R 4.6.1 — `R CMD check
+  --as-cran`: 0 ERRORs, 0 WARNINGs, 0 NOTEs, with the check platforms'
+  thread environment applied (`_R_CHECK_LIMIT_CORES_=TRUE`, the test,
+  vignette and example `CPU_TO_ELAPSED_THRESHOLD` gates at 2.5,
+  `KMP_BLOCKTIME=200ms`, `OMP_NUM_THREADS=32`, and no
+  `OMP_THREAD_LIMIT`), so that the NOTE above would appear here if it
+  were still present. Tests 25s/13s, vignettes 54s/29s, examples OK.
+  The bundled library was compiled from source in this check, as it is
+  on CRAN.
+* win-builder, R-devel (x86_64 Windows, gcc 14.3.0): passed,
+  2026-09-24. A first upload of this resubmission failed to compile
+  there: the wrapper now calls the library's thread controls, which are
+  compiled only when the library's OpenMP define is visible, and the
+  Windows configure script did not pass that define to the wrapper as
+  the Unix one does. `configure.win` now does, and the wrapper refuses
+  to compile if the two ever disagree again.
+* The Alpine and GitHub Actions results below are for the first 1.5.1.2
+  tarball. The difference between the two is confined to the library's
+  thread-controls header and one `num_threads` clause, and on the R side
+  to `.onLoad()`, the two thread functions, the removed
+  `set_num_threads(2L)` calls, and `configure.win`.
+
+## Notes carried over from the first submission
+
+### The defect this release fixes
 
 Every object the package hands between R and C++ (crypto contexts,
 keys, plaintexts, ciphertexts, parameter objects) is an external
@@ -25,77 +105,41 @@ own validators happened to look at the memory first.
 Every binding now consumes handles through a small wrapper that tags
 the pointer with its type when it is created and refuses a mismatched,
 untagged, or released handle when it is consumed, raising an ordinary
-R error naming both classes. The tag is the S7 class name, so the
-R-side validator compares it against `class(self)[1]` with no lookup
-table. `inst/tinytest/test_pointer_tags.R` replays all seventeen
-calls and requires each to be an error.
+R error naming both classes. `inst/tinytest/test_pointer_tags.R`
+replays all seventeen calls and requires each to be an error.
+`bin_fhe_context()` returns an object of a new `BinFHEContext` class,
+and `decrypt()` accepts the private key first as well as second,
+mirroring the two `Decrypt` overloads the C++ header provides.
 
-Two smaller changes follow from the same audit. `bin_fhe_context()`
-returns an object of a new `BinFHEContext` class rather than the base
-class, so a Boolean-circuit context and a `CryptoContext` are distinct
-types and passing one for the other is an error; and `decrypt()`
-accepts the private key first as well as second, mirroring the two
-`Decrypt` overloads the C++ header provides.
-
-## Installation on musl
+### Installation on musl
 
 The check results for 1.5.1.1 list it under *Additional issues: musl*.
 The bundled library's `get-call-stack.cpp` includes `<execinfo.h>`
 under `#if defined(__linux__) && defined(__GNUC__)`. That header is a
 glibc extension; musl-based Linux satisfies both tests and does not
-have it, so the C++ build stops and the package does not install.
-
-The guard now also requires `__has_include(<execinfo.h>)`, which is
-standard in C++17. Where the header is absent the file takes the same
-branch that macOS and Windows builds have always taken, returning an
-empty call stack. Nothing observable changes on any platform: the
-function is called only from OpenFHE's exception constructor, and the
-stored call stack has no readers in the library or in this package.
-
-I verified this in an Alpine Linux container (musl, aarch64, gcc
-14.2.0, R from the `rhub/r-minimal` image) rather than taking it on
-trust: the 1.5.1.1 tarball as submitted to CRAN fails there at
+have it. The guard now also requires `__has_include(<execinfo.h>)`.
+Verified in an Alpine Linux container (musl, aarch64, gcc 14.2.0,
+`rhub/r-minimal`): the 1.5.1.1 tarball fails there at
 `get-call-stack.cpp:39` with the message the musl check reports, and
-the tarball being submitted installs and passes the package's test
-suite.
+the fixed tarball installs and passes the test suite (863 assertions).
 
-## A dependency that was not declared
+### A dependency that was not declared
 
-The same container, having only the packages DESCRIPTION asked for,
-showed that the package's error and warning messages go through cli
-functions that call rlang at run time, and that cli lists rlang only
-in Suggests. On a machine without rlang every one of the package's
-error paths reported "there is no package called 'rlang'" instead of
-its own message. `rlang` is now in Imports.
+The same container showed that the package's error and warning
+messages go through cli functions that call rlang at run time, and that
+cli lists rlang only in Suggests. `rlang` is now in Imports.
 
-## Test environments
+### Other environments, first tarball
 
-All run against the tarball being submitted.
-
-* Local: macOS Tahoe 26.6.2 (Apple Silicon), R 4.6.1 — `R CMD check
-  --as-cran`: 0 ERRORs, 0 WARNINGs, 0 NOTEs. Run with the check
-  platforms' own thread environment forced (`OMP_THREAD_LIMIT=2`,
-  `_R_CHECK_LIMIT_CORES_=TRUE`, and the test, vignette and example
-  `CPU_TO_ELAPSED_THRESHOLD` gates at 2.5), so CPU-time NOTEs that a
-  default local check silently skips would appear here. None did:
-  install 64s/35s, tests 23s/15s, vignettes 52s/32s, examples OK. The
-  bundled library was compiled from source in this check, as it is on
-  CRAN.
-* Alpine Linux 3.22, musl libc, aarch64, gcc 14.2.0, cmake 3.31
-  (`rhub/r-minimal` container) — installs; 863 test assertions pass.
-  In the same container without rlang, installation now stops at
-  dependency resolution rather than installing a package whose error
-  messages cannot be raised.
-* [TO FILL BEFORE UPLOAD: GitHub Actions ubuntu-latest (devel),
-  ubuntu-latest (release), macOS-latest (release), windows-latest
-  (release); win-builder R-devel.]
+* GitHub Actions: ubuntu-latest (R-devel), ubuntu-latest (release),
+  macOS-latest (release), windows-latest (release) — all four passed.
 
 ## NOTE
 
 * "checking CRAN incoming feasibility" may report the interval since
-  the previous release, about one month. The reasons are given at the
-  top of this file: a crash-class defect and a platform on which the
-  current release does not install.
+  the previous release, about one month. The reasons are given above: a
+  crash-class defect and a platform on which the current release does
+  not install.
 
 Possibly misspelled words in DESCRIPTION have been reported on some
 platforms (BFV, BGV, CKKS, FHEW, TFHE, Brakerski, Cheon, Chillotti,
@@ -110,12 +154,9 @@ schemes or the surnames of their authors, spelled as published.
   object, which is the supported way to ship it without a system
   dependency.
 
-* Tests and vignettes cap OpenMP at 2 threads via the package's
-  `set_num_threads()`, in compliance with CRAN's two-core policy —
-  once in `tests/tinytest.R` and once in each vignette's `setup`
-  chunk. The examples are small enough not to need it. On the CRAN
-  macOS build system the package links the libomp bundled with the
-  CRAN distribution of R.
+* Thread policy: two OpenMP threads under `R CMD check`, set once in
+  `.onLoad()` as described above. On the CRAN macOS build system the
+  package links the libomp bundled with the CRAN distribution of R.
 
 * Five test files are skipped on CRAN and run everywhere else, all for
   the same wall-clock reason: three cover BinFHE bootstrapping
@@ -128,6 +169,4 @@ schemes or the surnames of their authors, spelled as published.
 * The four points raised in the review of the first submission
   (single-quoting 'OpenFHE', `\value` tags, commented-out example
   code, and naming every copyright holder in `Authors@R` plus
-  `inst/COPYRIGHTS`) remain addressed. The new `BinFHEContext` class
-  page carries a `\value` tag, and the key-first `decrypt()` order is
-  covered by the existing `decrypt()` page and its executable example.
+  `inst/COPYRIGHTS`) remain addressed.

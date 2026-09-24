@@ -1,10 +1,8 @@
-# Cap OpenMP to CRAN's two-core policy. set_num_threads() writes the live
-# OpenMP ICV, which the r_pkg OpenFHE fork honors (GetThreadLimit clamps by
-# omp_get_max_threads()), so this caps the library's parallel regions
-# immediately and on every platform -- unlike an OMP_NUM_THREADS env var,
-# which the runtime latches before this file can run.
+# No thread cap here on purpose. Under R CMD check the package caps
+# OpenFHE at CRAN's two threads in .onLoad() (keyed on
+# _R_CHECK_LIMIT_CORES_, which --as-cran sets); outside a check the tests
+# should use whatever the machine has.
 library(openfhe.R)
-set_num_threads(2L)
 if (requireNamespace("tinytest", quietly = TRUE)) {
   tinytest::test_package("openfhe.R")
 }

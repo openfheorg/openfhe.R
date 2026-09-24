@@ -288,6 +288,20 @@ if [ -z "${USE_SYSTEM}" ]; then
     fi
 fi
 
+# ── Mirror the library's PARALLEL define ───────────────
+# OpenFHE's CMake adds -DPARALLEL exactly when WITH_OPENMP is on, and the
+# installed config_core.h records that decision. The wrapper calls the
+# inline OpenFHEParallelControls::SetNumThreads() (src/init.cpp), whose
+# body and whose class layout both change under PARALLEL, so this
+# translation unit must see the same define as the library did or the
+# thread cap compiles to a no-op. src/init.cpp fails the build if the
+# two disagree.
+if [ -n "${OPENFHE_CFLAGS}" ] \
+        && grep -q '^#define WITH_OPENMP' "${OPENFHE_INCDIR}/core/config_core.h" 2>/dev/null; then
+    OPENFHE_CFLAGS="${OPENFHE_CFLAGS} -DPARALLEL"
+    echo "* OpenFHE was built WITH_OPENMP; defining PARALLEL for the wrapper"
+fi
+
 # ── Failure ────────────────────────────────────────────
 if [ -z "${OPENFHE_CFLAGS}" ]; then
     echo "ERROR: OpenFHE could not be found or built."

@@ -114,11 +114,10 @@ extern "C" SEXP _openfhe_R_BinFHEContext__EvalFunc(SEXP ctx_xp, SEXP ct_xp, SEXP
   END_CPP11
 }
 // init.cpp
-void openfhe_set_num_threads(int n);
+int openfhe_set_num_threads(int n);
 extern "C" SEXP _openfhe_R_openfhe_set_num_threads(SEXP n) {
   BEGIN_CPP11
-    openfhe_set_num_threads(cpp11::as_cpp<cpp11::decay_t<int>>(n));
-    return R_NilValue;
+    return cpp11::as_sexp(openfhe_set_num_threads(cpp11::as_cpp<cpp11::decay_t<int>>(n)));
   END_CPP11
 }
 // init.cpp
