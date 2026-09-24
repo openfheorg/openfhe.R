@@ -1,8 +1,8 @@
 # Report the number of OpenMP threads available to OpenFHE
 
-Returns `omp_get_max_threads()`: the maximum number of threads OpenFHE
-will use for a parallel region under the current settings (see
-[`set_num_threads()`](https://openfheorg.github.io/openfhe.R/reference/set_num_threads.md)).
+Returns the cap OpenFHE currently applies to its parallel regions: the
+number of hardware threads at load, or the value most recently passed to
+[`set_num_threads()`](https://openfheorg.github.io/openfhe.R/reference/set_num_threads.md).
 Returns `1` when the package was built without OpenMP.
 
 ## Usage
@@ -13,7 +13,7 @@ get_num_threads()
 
 ## Value
 
-integer; the OpenMP thread limit.
+integer; the current thread cap.
 
 ## See also
 

@@ -2,17 +2,15 @@
 
 ## openfhe.R 1.5.1.2
 
-- The package now installs on musl-based Linux (Alpine). The vendored
-  library included `execinfo.h`, a glibc extension, whenever it saw a
-  Linux compiler; it now includes it only where the header exists and
-  otherwise takes the same branch macOS and Windows always have. CRAN’s
-  musl check had reported 1.5.1.1 as failing to install.
+- Under `R CMD check` the package caps OpenFHE at two threads.
 
-- `rlang` is declared in `Imports`. The package’s error and warning
-  messages go through cli functions that call rlang at run time, and cli
-  lists rlang only as a suggestion, so on a machine without rlang every
-  error read “there is no package called ‘rlang’” instead of the
-  intended message.
+- [`set_num_threads()`](https://openfheorg.github.io/openfhe.R/reference/set_num_threads.md)
+  now sets the cap through OpenFHE’s own thread controls rather than the
+  OpenMP runtime, and returns the cap in effect (invisibly).
+
+- The package now installs on musl-based Linux (Alpine).
+
+- `rlang` is declared in `Imports`.
 
 - Every handle the package passes between R and C++ now carries its
   type, and every binding checks that type before using the pointer.

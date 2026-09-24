@@ -1,12 +1,12 @@
 # Set the number of OpenMP threads OpenFHE may use
 
 OpenFHE parallelizes its core arithmetic with OpenMP and, by default,
-uses every core the machine reports. `set_num_threads()` calls the
-OpenMP runtime directly (`omp_set_num_threads`) to cap the threads used
-by homomorphic operations run afterward in the current session. The
-change takes effect immediately and on every platform, regardless of
-when the package was loaded. It is a no-op when the package was built
-without OpenMP.
+uses every hardware thread the machine reports. `set_num_threads()` sets
+the cap through OpenFHE's own thread controls, which every parallel
+region in the library consults when it starts, so the change takes
+effect immediately, on every platform, and regardless of which thread
+the work runs on. It is a no-op when the package was built without
+OpenMP.
 
 ## Usage
 
@@ -18,17 +18,26 @@ set_num_threads(n)
 
 - n:
 
-  integer; the maximum number of threads (at least 1).
+  integer; the requested maximum number of threads (at least 1).
 
 ## Value
 
-`NULL`, invisibly. Called for its side effect.
+integer; the cap now in effect, invisibly.
 
 ## Details
 
+Requests above the number of threads available when the library was
+loaded (the hardware count, or `OMP_NUM_THREADS` if that was set before
+R started) are reduced to that number. The value in effect is returned,
+so a reduced request is visible to the caller;
+[`get_num_threads()`](https://openfheorg.github.io/openfhe.R/reference/get_num_threads.md)
+reports the same value later.
+
 The package default is uncapped, so interactive users get full
-parallelism. The package's own tests and vignettes call
-`set_num_threads(2L)` to stay within CRAN's two-thread policy.
+parallelism. Under `R CMD check`, which sets `_R_CHECK_LIMIT_CORES_`,
+the package caps itself at two threads when it is loaded, in line with
+CRAN's two-thread policy. This also covers packages that depend on
+'openfhe.R', which therefore need no thread handling of their own.
 
 ## See also
 

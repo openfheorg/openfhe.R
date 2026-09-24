@@ -5,7 +5,7 @@ articles:
   binfhe-boolean-circuits: binfhe-boolean-circuits.html
   ckks-bootstrapping: ckks-bootstrapping.html
   introduction: introduction.html
-last_built: 2026-09-23T22:01Z
+last_built: 2026-09-24T18:01Z
 urls:
   reference: https://openfheorg.github.io/openfhe.R/reference
   article: https://openfheorg.github.io/openfhe.R/articles
