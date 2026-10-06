@@ -11,10 +11,21 @@ library developed by [OpenFHE](https://openfhe.org).
 
 The companion package
 [homomorpheR](https://cran.r-project.org/package=homomorpheR)
-(version >= 1.0, soon to be on CRAN) imports this package and includes
+(version >= 1.0) imports this package and includes
 a number of illustrative vignettes. Specifically, the examples
 demonstrate how to use existing R functions and optimizers to
 implement a homomorphic-encryption protocol across multiple sites.
+
+## Citing
+
+Both packages are described in
+
+> Narasimhan, B. (2026). Fully Homomorphic Encryption for Statistical
+> Modeling. arXiv:2610.04163 [stat.CO].
+> <https://arxiv.org/abs/2610.04163>
+
+`citation("openfhe.R")` gives the BibTeX entries for the paper, the
+package, and the underlying OpenFHE library.
 
 ## Schemes
 

@@ -1,9 +1,21 @@
 ## Citation for the openfhe.R package.
-## citation("openfhe.R") returns the package itself plus the underlying
-## OpenFHE library (Al Badawi et al., 2022).
+## citation("openfhe.R") returns the paper describing the package
+## (Narasimhan, 2026), the package itself, and the underlying OpenFHE
+## library (Al Badawi et al., 2022).
 
 citHeader(
-  "If you use openfhe.R, please cite both this R package and the original paper:"
+  "If you use openfhe.R, please cite the paper, this R package, and the OpenFHE library:"
+)
+
+bibentry(
+  bibtype       = "Misc",
+  key           = "narasimhan2026fhe",
+  title         = "Fully Homomorphic Encryption for Statistical Modeling",
+  author        = person("Balasubramanian", "Narasimhan",
+                         comment = c(ORCID = "0000-0001-5852-7639")),
+  year          = "2026",
+  howpublished  = "arXiv:2610.04163 [stat.CO]",
+  doi           = "10.48550/arXiv.2610.04163"
 )
 
 bibentry(
