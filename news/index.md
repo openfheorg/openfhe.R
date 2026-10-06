@@ -2,6 +2,8 @@
 
 ## openfhe.R 1.5.1.2
 
+CRAN release: 2026-09-25
+
 - Under `R CMD check` the package caps OpenFHE at two threads.
 
 - [`set_num_threads()`](https://openfheorg.github.io/openfhe.R/reference/set_num_threads.md)
