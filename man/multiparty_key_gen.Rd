@@ -9,7 +9,8 @@ multiparty_key_gen(cc, lead_pk, make_sparse = FALSE, fresh = FALSE)
 \arguments{
 \item{cc}{A CryptoContext (must have MULTIPARTY feature enabled)}
 
-\item{lead_pk}{The lead party's PublicKey}
+\item{lead_pk}{The lead party's PublicKey, or a list of
+\code{PrivateKey} objects for the form that combines secret keys.}
 
 \item{make_sparse}{Logical; if \code{TRUE}, produce an LWE-sparse
 secret. Default \code{FALSE} to match the C++ header default.
@@ -20,9 +21,16 @@ than deriving one from the existing key material. Default
 \code{FALSE}.}
 }
 \value{
-A KeyPair for this party
+A KeyPair for this party, or, for a list of secret keys,
+the key pair of the combined secret.
 }
 \description{
 The lead party uses \code{\link[=key_gen]{key_gen()}} to generate the initial keypair.
 Subsequent parties call this with the lead's public key.
+}
+\details{
+OpenFHE declares a second form that takes the secret keys of
+all parties and returns the key pair of their sum. Pass a list of
+\code{PrivateKey} objects as \code{lead_pk} to call it; \code{make_sparse} and
+\code{fresh} do not apply to that form.
 }

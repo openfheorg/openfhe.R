@@ -4,7 +4,7 @@
 \alias{eval_floor}
 \title{Evaluate a floor (rounding) function on an LWE ciphertext}
 \usage{
-eval_floor(ctx, ct, roundbits)
+eval_floor(ctx, ct, roundbits = 0L)
 }
 \arguments{
 \item{ctx}{A BinFHEContext}
@@ -12,7 +12,7 @@ eval_floor(ctx, ct, roundbits)
 \item{ct}{An LWECiphertext}
 
 \item{roundbits}{Integer; the number of low-order bits to
-round off.}
+round off. Default \code{0L}, the C++ header default.}
 }
 \value{
 A new LWECiphertext holding the rounded value.

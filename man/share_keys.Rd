@@ -25,7 +25,7 @@ or \code{"shamir"}.}
 }
 \value{
 A \code{SecretShareMap} suitable for passing to
-\code{\link[=recover_shared_key]{recover_shared_key()}}.
+\code{\link[=recover_shared_key]{recover_shared_key()}}. \code{length()} of it is the number of shares.
 }
 \description{
 Produces the set of shares that party \code{index} would

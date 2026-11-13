@@ -48,14 +48,43 @@ expect_error(eval_fast_rotation(ct, 1L, precomp = ct),
 expect_error(eval_automorphism(ct, 3L, kp@public),
              wrong("EvalKeyMap", "PublicKey"), fixed = TRUE)
 
+## ---- a ciphertext where precomputed powers belong ----------------------
+expect_error(eval_poly_with_precomp(ct, c(1, 2)),
+             wrong("SeriesPowers", "Ciphertext"), fixed = TRUE)
+
+## ---- a ciphertext where an RLWE ciphertext belongs ---------------------
+expect_error(schemelet_mod_switch(ct, 2^40, 2^50),
+             wrong("PolyVector", "Ciphertext"), fixed = TRUE)
+
+## ---- BinFHE handles: a PKE public key is not an LWE public key, and a
+## ---- ciphertext is not a bootstrapping key ----------------------------
+bctx <- bin_fhe_context(BinFHEParamSet$TOY)
+expect_error(bin_encrypt(bctx, kp@public, 1L), "LWEPrivateKey")
+expect_error(bin_bt_key_load(bctx, ct), wrong("RingGSWBTKey", "Ciphertext"),
+             fixed = TRUE)
+expect_error(switch_ct_to_qn(bctx, ct, ct),
+             wrong("LWESwitchingKey", "Ciphertext"), fixed = TRUE)
+
+## ---- CCParams where scheme-switching parameters belong ----------------
+expect_error(eval_scheme_switching_setup(cc, CKKSParams()),
+             wrong("SchSwchParams", "CKKSParams"), fixed = TRUE)
+
 ## ---- C15: a public key planted in the eval-mult registry (was SIGBUS later)
 expect_error(insert_eval_mult_key(list(kp@public), "evil"),
              wrong("EvalKey", "PublicKey"), fixed = TRUE)
 
-## ---- C01 / C12: mutable and no-relin paths given a plaintext ---------
-expect_error(eval_add_mutable(ct, pt),   wrong("Ciphertext", "Plaintext"), fixed = TRUE)
-expect_error(eval_sub_mutable(ct, pt),   wrong("Ciphertext", "Plaintext"), fixed = TRUE)
-expect_error(eval_mult_mutable(ct, pt),  wrong("Ciphertext", "Plaintext"), fixed = TRUE)
+## ---- C01 / C12: mutable and no-relin paths given the wrong handle -----
+## (ct, pt) is a declared overload of the Mutable family since the
+## OpenFHE 1.6.1 surface was bound, so the probe is a public key: the R
+## layer refuses it before any pointer is read.
+expect_error(eval_add_mutable(ct, kp@public),  "must be two ciphertexts")
+expect_error(eval_sub_mutable(ct, kp@public),  "must be two ciphertexts")
+expect_error(eval_mult_mutable(ct, kp@public), "must be two ciphertexts")
+## Below the R layer the tag check still holds.
+expect_error(openfhe.R:::EvalArithMutable__pt(0L, ct@ptr, kp@public@ptr, FALSE),
+             wrong("Plaintext", "PublicKey"), fixed = TRUE)
+expect_error(openfhe.R:::EvalArithMutable__pt(0L, pt@ptr, pt@ptr, TRUE),
+             wrong("Ciphertext", "Plaintext"), fixed = TRUE)
 expect_error(eval_mult_no_relin(ct, pt), wrong("Ciphertext", "Plaintext"), fixed = TRUE)
 
 ## ---- C04: level_reduce given a public key (was silently accepted) ----

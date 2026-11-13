@@ -4,7 +4,12 @@
 \alias{bin_bt_key_gen}
 \title{Generate BinFHE bootstrapping keys}
 \usage{
-bin_bt_key_gen(ctx, sk, keygen_mode = KeygenMode$SYM_ENCRYPT)
+bin_bt_key_gen(
+  ctx,
+  sk,
+  keygen_mode = KeygenMode$SYM_ENCRYPT,
+  internal32 = TRUE
+)
 }
 \arguments{
 \item{ctx}{A BinFHE context}
@@ -17,8 +22,14 @@ symmetric-key encryption (\code{KeygenMode$SYM_ENCRYPT}, the
 default and the C++ default per
 \code{binfhe-constants.h} line 133) or public-key encryption
 (\code{KeygenMode$PUB_ENCRYPT}), matching the
-\code{BTKeyGen(sk, keyGenMode)} overload at
-\code{binfhecontext.h} line 273.}
+\code{BTKeyGen(sk, keygenMode, internal32)} method in
+\code{binfhecontext.h}.}
+
+\item{internal32}{Logical. If \code{TRUE} (the default, and the C++
+default), keys whose moduli fit are generated directly in the
+library's 32-bit internal form; a key that does not qualify is
+generated in the 64-bit form. If \code{FALSE}, all keys are generated
+in the 64-bit form.}
 }
 \value{
 Invisibly, the \code{ctx} BinFHE context that was passed in. Called for

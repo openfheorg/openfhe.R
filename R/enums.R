@@ -138,63 +138,140 @@ SecretKeyDist <- list(
 #' Mirrors the C++ enum `BINFHE_PARAMSET` in `binfhe/binfhe-constants.h`,
 #' whose enumerators are numbered sequentially from 0.
 #'
-#' @return A named `list` of 44 integer scalars, each the value of the
+#' The integer values belong to the vendored OpenFHE release. OpenFHE
+#' 1.6 reordered the list, so an integer saved from an earlier version
+#' of this package names a different parameter set; always refer to an
+#' element by name.
+#'
+#' @return A named `list` of 112 integer scalars, each the value of the
 #'   OpenFHE C++ enumerator of the same name. An element names a
 #'   pre-tabulated set of lattice parameters for the boolean-circuit
 #'   (BinFHE) schemes: `TOY` and `MEDIUM` are insecure sizes for
 #'   experimentation, and the `STD128`, `STD192` and `STD256` families
-#'   give the corresponding bits of security, with the `Q` suffix
-#'   denoting a larger ciphertext modulus, the `_3` and `_4` suffixes
-#'   3- and 4-input gates, `LMKCDEY` the Lee-Micciancio-Kim-Choi-Deryabin-Eom-Yoo
-#'   bootstrapping method and `LPF` a low-probability-of-failure
-#'   variant. Pass an element as the `paramset` argument of
-#'   [bin_fhe_context()].
+#'   target the corresponding bits of security against classical
+#'   attacks, with the `Q` suffix targeting quantum attacks and the
+#'   `_3` and `_4` suffixes 3- and 4-input gates. The `LPF` prefix marks
+#'   a variant with a lower probability of failure. Sets without a
+#'   method suffix are tuned for the GINX bootstrapping method and may
+#'   be used with any method; the `_LMKCDEY` suffix marks a set for
+#'   the Lee-Micciancio-Kim-Choi-Deryabin-Eom-Yoo method only, and the
+#'   `_AP` suffix a set for the AP method only.
+#'   `SIGNED_MOD_TEST` and `TOY_MULTI_BASE` are test sets. Pass an
+#'   element as the `paramset` argument of [bin_fhe_context()].
 #' @export
 BinFHEParamSet <- list(
-  TOY                = 0L,
-  MEDIUM             = 1L,
-  STD128_AP          = 2L,
-  STD128             = 3L,
-  STD128_3           = 4L,
-  STD128_4           = 5L,
-  STD128Q            = 6L,
-  STD128Q_3          = 7L,
-  STD128Q_4          = 8L,
-  STD192             = 9L,
-  STD192_3           = 10L,
-  STD192_4           = 11L,
-  STD192Q            = 12L,
-  STD192Q_3          = 13L,
-  STD192Q_4          = 14L,
-  STD256             = 15L,
-  STD256_3           = 16L,
-  STD256_4           = 17L,
-  STD256Q            = 18L,
-  STD256Q_3          = 19L,
-  STD256Q_4          = 20L,
-  STD128_LMKCDEY     = 21L,
-  STD128_3_LMKCDEY   = 22L,
-  STD128_4_LMKCDEY   = 23L,
-  STD128Q_LMKCDEY    = 24L,
-  STD128Q_3_LMKCDEY  = 25L,
-  STD128Q_4_LMKCDEY  = 26L,
-  STD192_LMKCDEY     = 27L,
-  STD192_3_LMKCDEY   = 28L,
-  STD192_4_LMKCDEY   = 29L,
-  STD192Q_LMKCDEY    = 30L,
-  STD192Q_3_LMKCDEY  = 31L,
-  STD192Q_4_LMKCDEY  = 32L,
-  STD256_LMKCDEY     = 33L,
-  STD256_3_LMKCDEY   = 34L,
-  STD256_4_LMKCDEY   = 35L,
-  STD256Q_LMKCDEY    = 36L,
-  STD256Q_3_LMKCDEY  = 37L,
-  STD256Q_4_LMKCDEY  = 38L,
-  LPF_STD128         = 39L,
-  LPF_STD128Q        = 40L,
-  LPF_STD128_LMKCDEY  = 41L,
-  LPF_STD128Q_LMKCDEY = 42L,
-  SIGNED_MOD_TEST    = 43L
+  TOY                          = 0L,
+  MEDIUM                       = 1L,
+  STD128                       = 2L,
+  STD128_3                     = 3L,
+  STD128_4                     = 4L,
+  STD128Q                      = 5L,
+  STD128Q_3                    = 6L,
+  STD128Q_4                    = 7L,
+  STD192                       = 8L,
+  STD192_3                     = 9L,
+  STD192_4                     = 10L,
+  STD192Q                      = 11L,
+  STD192Q_3                    = 12L,
+  STD192Q_4                    = 13L,
+  STD256                       = 14L,
+  STD256_3                     = 15L,
+  STD256_4                     = 16L,
+  STD256Q                      = 17L,
+  STD256Q_3                    = 18L,
+  STD256Q_4                    = 19L,
+  LPF_STD128                   = 20L,
+  LPF_STD128_3                 = 21L,
+  LPF_STD128_4                 = 22L,
+  LPF_STD128Q                  = 23L,
+  LPF_STD128Q_3                = 24L,
+  LPF_STD128Q_4                = 25L,
+  LPF_STD192                   = 26L,
+  LPF_STD192_3                 = 27L,
+  LPF_STD192_4                 = 28L,
+  LPF_STD192Q                  = 29L,
+  LPF_STD192Q_3                = 30L,
+  LPF_STD192Q_4                = 31L,
+  LPF_STD256                   = 32L,
+  LPF_STD256_3                 = 33L,
+  LPF_STD256_4                 = 34L,
+  LPF_STD256Q                  = 35L,
+  LPF_STD256Q_3                = 36L,
+  LPF_STD256Q_4                = 37L,
+  STD128_LMKCDEY               = 38L,
+  STD128_3_LMKCDEY             = 39L,
+  STD128_4_LMKCDEY             = 40L,
+  STD128Q_LMKCDEY              = 41L,
+  STD128Q_3_LMKCDEY            = 42L,
+  STD128Q_4_LMKCDEY            = 43L,
+  STD192_LMKCDEY               = 44L,
+  STD192_3_LMKCDEY             = 45L,
+  STD192_4_LMKCDEY             = 46L,
+  STD192Q_LMKCDEY              = 47L,
+  STD192Q_3_LMKCDEY            = 48L,
+  STD192Q_4_LMKCDEY            = 49L,
+  STD256_LMKCDEY               = 50L,
+  STD256_3_LMKCDEY             = 51L,
+  STD256_4_LMKCDEY             = 52L,
+  STD256Q_LMKCDEY              = 53L,
+  STD256Q_3_LMKCDEY            = 54L,
+  STD256Q_4_LMKCDEY            = 55L,
+  LPF_STD128_LMKCDEY           = 56L,
+  LPF_STD128_3_LMKCDEY         = 57L,
+  LPF_STD128_4_LMKCDEY         = 58L,
+  LPF_STD128Q_LMKCDEY          = 59L,
+  LPF_STD128Q_3_LMKCDEY        = 60L,
+  LPF_STD128Q_4_LMKCDEY        = 61L,
+  LPF_STD192_LMKCDEY           = 62L,
+  LPF_STD192_3_LMKCDEY         = 63L,
+  LPF_STD192_4_LMKCDEY         = 64L,
+  LPF_STD192Q_LMKCDEY          = 65L,
+  LPF_STD192Q_3_LMKCDEY        = 66L,
+  LPF_STD192Q_4_LMKCDEY        = 67L,
+  LPF_STD256_LMKCDEY           = 68L,
+  LPF_STD256_3_LMKCDEY         = 69L,
+  LPF_STD256_4_LMKCDEY         = 70L,
+  LPF_STD256Q_LMKCDEY          = 71L,
+  LPF_STD256Q_3_LMKCDEY        = 72L,
+  LPF_STD256Q_4_LMKCDEY        = 73L,
+  STD128_AP                    = 74L,
+  STD128_3_AP                  = 75L,
+  STD128_4_AP                  = 76L,
+  STD128Q_AP                   = 77L,
+  STD128Q_3_AP                 = 78L,
+  STD128Q_4_AP                 = 79L,
+  STD192_AP                    = 80L,
+  STD192_3_AP                  = 81L,
+  STD192_4_AP                  = 82L,
+  STD192Q_AP                   = 83L,
+  STD192Q_3_AP                 = 84L,
+  STD192Q_4_AP                 = 85L,
+  STD256_AP                    = 86L,
+  STD256_3_AP                  = 87L,
+  STD256_4_AP                  = 88L,
+  STD256Q_AP                   = 89L,
+  STD256Q_3_AP                 = 90L,
+  STD256Q_4_AP                 = 91L,
+  LPF_STD128_AP                = 92L,
+  LPF_STD128_3_AP              = 93L,
+  LPF_STD128_4_AP              = 94L,
+  LPF_STD128Q_AP               = 95L,
+  LPF_STD128Q_3_AP             = 96L,
+  LPF_STD128Q_4_AP             = 97L,
+  LPF_STD192_AP                = 98L,
+  LPF_STD192_3_AP              = 99L,
+  LPF_STD192_4_AP              = 100L,
+  LPF_STD192Q_AP               = 101L,
+  LPF_STD192Q_3_AP             = 102L,
+  LPF_STD192Q_4_AP             = 103L,
+  LPF_STD256_AP                = 104L,
+  LPF_STD256_3_AP              = 105L,
+  LPF_STD256_4_AP              = 106L,
+  LPF_STD256Q_AP               = 107L,
+  LPF_STD256Q_3_AP             = 108L,
+  LPF_STD256Q_4_AP             = 109L,
+  SIGNED_MOD_TEST              = 110L,
+  TOY_MULTI_BASE               = 111L
 )
 
 #' Binary FHE Methods
@@ -442,6 +519,20 @@ EncryptionTechnique <- list(
 CKKSDataType <- list(
   REAL    = 0L,
   COMPLEX = 1L
+)
+
+#' Polynomial representation
+#'
+#' Mirrors the C++ enum `Format` in `core/utils/inttypes.h`: whether a
+#' ring element is held in `EVALUATION` (number-theoretic transform)
+#' or `COEFFICIENT` representation. Used by [set_format()].
+#'
+#' @return A named `list` of 2 integer scalars, each the value of the
+#'   OpenFHE C++ enumerator of the same name.
+#' @export
+Format <- list(
+  EVALUATION  = 0L,
+  COEFFICIENT = 1L
 )
 
 #' Compression Level (interactive multi-party bootstrap)

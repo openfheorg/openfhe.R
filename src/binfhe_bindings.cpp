@@ -2,6 +2,7 @@
 // Phase 6: Binary FHE — Boolean gates and functional bootstrapping
 #include "openfhe_cpp11.h"
 #include "binfhecontext.h"
+#include "wide_integers.h"
 
 using namespace cpp11;
 
@@ -62,10 +63,13 @@ SEXP BinFHEContext__KeyGen(SEXP ctx_xp) {
 // Backward-compatible at the R layer because the R wrapper's
 // default is KeygenMode$SYM_ENCRYPT.
 [[cpp11::register]]
-void BinFHEContext__BTKeyGen(SEXP ctx_xp, SEXP sk_xp, int keygen_mode) {
+void BinFHEContext__BTKeyGen(SEXP ctx_xp, SEXP sk_xp, int keygen_mode,
+                             bool internal32) {
   xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
   xptr<LWEPrivateKey> sk(sk_xp);
-  (*ctx)->BTKeyGen(*sk, static_cast<KEYGEN_MODE>(keygen_mode));
+  // internal32 (OpenFHE 1.6): generate the keys directly in their
+  // 32-bit internal form where they qualify; header default true.
+  (*ctx)->BTKeyGen(*sk, static_cast<KEYGEN_MODE>(keygen_mode), internal32);
 }
 
 // ── Encrypt / Decrypt ───────────────────────────────────
@@ -82,18 +86,20 @@ SEXP BinFHEContext__Encrypt(SEXP ctx_xp, SEXP sk_xp, int message,
 
 // Variant exposing the BINFHE_OUTPUT, p, and mod parameters for the
 // arbitrary-function bootstrapping path (eval-sign.py uses LARGE_DIM + Q).
-// mod is passed as a double; uint64_t round-trips exactly through R doubles
-// up to 2^53, which covers all realistic logQ values.
+// p (LWEPlaintextModulus, uint64_t) and mod (NativeInteger) arrive as
+// decimal strings, so neither passes through a double (wide_integers.h).
+// message is an LWEPlaintext (int64_t); cpp11 refuses a non-integral or
+// out-of-range double for it.
 [[cpp11::register]]
-SEXP BinFHEContext__EncryptWithMod(SEXP ctx_xp, SEXP sk_xp, double message,
-                                   int output, double p, double mod) {
+SEXP BinFHEContext__EncryptWithMod(SEXP ctx_xp, SEXP sk_xp, int64_t message,
+                                   int output, std::string p, std::string mod) {
   xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
   xptr<LWEPrivateKey> sk(sk_xp);
   auto ct = (*ctx)->Encrypt(*sk,
-    static_cast<LWEPlaintext>(static_cast<int64_t>(message)),
+    static_cast<LWEPlaintext>(message),
     static_cast<BINFHE_OUTPUT>(output),
-    static_cast<LWEPlaintextModulus>(static_cast<uint64_t>(p)),
-    NativeInteger(static_cast<uint64_t>(mod)));
+    static_cast<LWEPlaintextModulus>(openfhe_r::uint64_from_r(p, "p")),
+    openfhe_r::wide_from_r<NativeInteger>(mod, "mod"));
   return xptr<LWECiphertext>(new LWECiphertext(ct));
 }
 
@@ -110,11 +116,14 @@ int BinFHEContext__Decrypt(SEXP ctx_xp, SEXP sk_xp, SEXP ct_xp, int p) {
 // ── Boolean Gates ───────────────────────────────────────
 
 [[cpp11::register]]
-SEXP BinFHEContext__EvalBinGate(SEXP ctx_xp, int gate, SEXP ct1_xp, SEXP ct2_xp) {
+SEXP BinFHEContext__EvalBinGate(SEXP ctx_xp, int gate, SEXP ct1_xp, SEXP ct2_xp,
+                                bool extended) {
   xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
   xptr<LWECiphertext> ct1(ct1_xp);
   xptr<LWECiphertext> ct2(ct2_xp);
-  auto result = (*ctx)->EvalBinGate(static_cast<BINGATE>(gate), *ct1, *ct2);
+  // extended: binfhecontext.h, default false.
+  auto result = (*ctx)->EvalBinGate(static_cast<BINGATE>(gate), *ct1, *ct2,
+                                    extended);
   return xptr<LWECiphertext>(new LWECiphertext(result));
 }
 
@@ -126,7 +135,7 @@ SEXP BinFHEContext__EvalBinGate(SEXP ctx_xp, int gate, SEXP ct1_xp, SEXP ct2_xp)
 // through catch_openfhe as the scheme's own error.
 [[cpp11::register]]
 SEXP BinFHEContext__EvalBinGate__vec(SEXP ctx_xp, int gate,
-                                     cpp11::list ct_list) {
+                                     cpp11::list ct_list, bool extended) {
   xptr<std::shared_ptr<BinFHEContext>> ctx(ctx_xp);
   std::vector<LWECiphertext> ct_vec;
   ct_vec.reserve(ct_list.size());
@@ -135,7 +144,8 @@ SEXP BinFHEContext__EvalBinGate__vec(SEXP ctx_xp, int gate,
     xptr<LWECiphertext> ct(ct_xp);
     ct_vec.push_back(*ct);
   }
-  auto result = (*ctx)->EvalBinGate(static_cast<BINGATE>(gate), ct_vec);
+  auto result = (*ctx)->EvalBinGate(static_cast<BINGATE>(gate), ct_vec,
+                                    extended);
   return xptr<LWECiphertext>(new LWECiphertext(result));
 }
 
@@ -145,6 +155,16 @@ SEXP BinFHEContext__EvalNOT(SEXP ctx_xp, SEXP ct_xp) {
   xptr<LWECiphertext> ct(ct_xp);
   auto result = (*ctx)->EvalNOT(*ct);
   return xptr<LWECiphertext>(new LWECiphertext(result));
+}
+
+// ── LWE ciphertext accessors ────────────────────────────
+
+// Dimension of the ciphertext's `a` vector: n, or N for a result left
+// in the extended ring (EvalBinGate with extended = true).
+[[cpp11::register]]
+int LWECiphertext__GetLength(SEXP ct_xp) {
+  xptr<LWECiphertext> ct(ct_xp);
+  return static_cast<int>((*ct)->GetLength());
 }
 
 // ── Functional bootstrapping ────────────────────────────

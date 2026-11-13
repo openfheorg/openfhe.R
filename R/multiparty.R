@@ -13,24 +13,49 @@
 #' The lead party uses [key_gen()] to generate the initial keypair.
 #' Subsequent parties call this with the lead's public key.
 #'
+#' OpenFHE declares a second form that takes the secret keys of
+#' all parties and returns the key pair of their sum. Pass a list of
+#' `PrivateKey` objects as `lead_pk` to call it; `make_sparse` and
+#' `fresh` do not apply to that form.
+#'
 #' @param cc A CryptoContext (must have MULTIPARTY feature enabled)
-#' @param lead_pk The lead party's PublicKey
+#' @param lead_pk The lead party's PublicKey, or a list of
+#'   `PrivateKey` objects for the form that combines secret keys.
 #' @param make_sparse Logical; if `TRUE`, produce an LWE-sparse
 #'   secret. Default `FALSE` to match the C++ header default.
 #'   RLWE-only semantics; BFV/BGV/CKKS accept both values.
 #' @param fresh Logical; if `TRUE`, sample a fresh secret rather
 #'   than deriving one from the existing key material. Default
 #'   `FALSE`.
-#' @return A KeyPair for this party
+#' @return A KeyPair for this party, or, for a list of secret keys,
+#'   the key pair of the combined secret.
 #' @export
 multiparty_key_gen <- function(cc, lead_pk,
                                make_sparse = FALSE, fresh = FALSE) {
-  kp_list <- MultipartyKeyGen(get_ptr(cc), get_ptr(lead_pk),
-                              as.logical(make_sparse),
-                              as.logical(fresh))
+  if (is.list(lead_pk)) {
+    is_sk <- vapply(lead_pk, function(k) S7::S7_inherits(k, PrivateKey),
+                    logical(1))
+    if (!all(is_sk)) {
+      cli_abort("A list passed as {.arg lead_pk} must contain only {.cls PrivateKey} objects.")
+    }
+    if (!missing(make_sparse) || !missing(fresh)) {
+      cli_abort("{.arg make_sparse} and {.arg fresh} do not apply when {.arg lead_pk} is a list of secret keys.")
+    }
+    kp_list <- MultipartyKeyGen__sk_vec(get_ptr(cc), lapply(lead_pk, get_ptr))
+  } else {
+    kp_list <- MultipartyKeyGen(get_ptr(cc), get_ptr(lead_pk),
+                                as.logical(make_sparse),
+                                as.logical(fresh))
+  }
   KeyPair(
-    public = PublicKey(ptr = kp_list$public),
-    secret = PrivateKey(ptr = kp_list$secret)
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## public = PublicKey(ptr = kp_list$public),
+    ## <<< S7-FAST-NEW
+    public = .fast_new(PublicKey, kp_list$public),
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## secret = PrivateKey(ptr = kp_list$secret)
+    ## <<< S7-FAST-NEW
+    secret = .fast_new(PrivateKey, kp_list$secret)
   )
 }
 
@@ -44,8 +69,12 @@ multiparty_key_gen <- function(cc, lead_pk,
 #' @return A combined PublicKey
 #' @export
 multi_add_pub_keys <- function(cc, pk1, pk2, key_tag = "") {
-  PublicKey(ptr = MultiAddPubKeys(get_ptr(cc), get_ptr(pk1), get_ptr(pk2),
-                                  as.character(key_tag)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## PublicKey(ptr = MultiAddPubKeys(get_ptr(cc), get_ptr(pk1), get_ptr(pk2),
+  ##                                 as.character(key_tag)))
+  ## <<< S7-FAST-NEW
+  .fast_new(PublicKey, MultiAddPubKeys(get_ptr(cc), get_ptr(pk1), get_ptr(pk2),
+                                       as.character(key_tag)))
 }
 
 #' Combine evaluation keys from multiple parties
@@ -62,8 +91,12 @@ multi_add_pub_keys <- function(cc, pk1, pk2, key_tag = "") {
 #' @return A combined EvalKey
 #' @export
 multi_add_eval_keys <- function(cc, ek1, ek2, key_tag = "") {
-  EvalKey(ptr = MultiAddEvalKeys(get_ptr(cc), get_ptr(ek1), get_ptr(ek2),
-                                 as.character(key_tag)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## EvalKey(ptr = MultiAddEvalKeys(get_ptr(cc), get_ptr(ek1), get_ptr(ek2),
+  ##                                as.character(key_tag)))
+  ## <<< S7-FAST-NEW
+  .fast_new(EvalKey, MultiAddEvalKeys(get_ptr(cc), get_ptr(ek1), get_ptr(ek2),
+                                      as.character(key_tag)))
 }
 
 #' Combine partial eval-mult keys from multiple parties
@@ -82,9 +115,14 @@ multi_add_eval_keys <- function(cc, ek1, ek2, key_tag = "") {
 #' @return A combined EvalKey
 #' @export
 multi_add_eval_mult_keys <- function(cc, ek1, ek2, key_tag = "") {
-  EvalKey(ptr = MultiAddEvalMultKeys(get_ptr(cc),
-                                     get_ptr(ek1), get_ptr(ek2),
-                                     as.character(key_tag)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## EvalKey(ptr = MultiAddEvalMultKeys(get_ptr(cc),
+  ##                                    get_ptr(ek1), get_ptr(ek2),
+  ##                                    as.character(key_tag)))
+  ## <<< S7-FAST-NEW
+  .fast_new(EvalKey, MultiAddEvalMultKeys(get_ptr(cc),
+                                          get_ptr(ek1), get_ptr(ek2),
+                                          as.character(key_tag)))
 }
 
 #' Multi-party key-switch eval-key generation
@@ -104,10 +142,16 @@ multi_add_eval_mult_keys <- function(cc, ek1, ek2, key_tag = "") {
 #'   key-switch shares
 #' @export
 multi_key_switch_gen <- function(cc, sk_orig, sk_new, eval_key) {
-  EvalKey(ptr = MultiKeySwitchGen(get_ptr(cc),
-                                  get_ptr(sk_orig),
-                                  get_ptr(sk_new),
-                                  get_ptr(eval_key)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## EvalKey(ptr = MultiKeySwitchGen(get_ptr(cc),
+  ##                                 get_ptr(sk_orig),
+  ##                                 get_ptr(sk_new),
+  ##                                 get_ptr(eval_key)))
+  ## <<< S7-FAST-NEW
+  .fast_new(EvalKey, MultiKeySwitchGen(get_ptr(cc),
+                                       get_ptr(sk_orig),
+                                       get_ptr(sk_new),
+                                       get_ptr(eval_key)))
 }
 
 #' Lead party's partial decryption
@@ -135,9 +179,15 @@ multiparty_decrypt_lead <- function(cc, sk, ct) {
     ct_ptrs <- lapply(ct, get_ptr)
     result_ptrs <- MultipartyDecryptLead__ct_vec(
       get_ptr(cc), get_ptr(sk), ct_ptrs)
-    return(lapply(result_ptrs, function(p) Ciphertext(ptr = p)))
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## return(lapply(result_ptrs, function(p) Ciphertext(ptr = p)))
+    ## <<< S7-FAST-NEW
+    return(lapply(result_ptrs, function(p) .fast_new(Ciphertext, p)))
   }
-  Ciphertext(ptr = MultipartyDecryptLead(get_ptr(cc), get_ptr(sk), get_ptr(ct)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = MultipartyDecryptLead(get_ptr(cc), get_ptr(sk), get_ptr(ct)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, MultipartyDecryptLead(get_ptr(cc), get_ptr(sk), get_ptr(ct)))
 }
 
 #' Non-lead party's partial decryption
@@ -157,9 +207,15 @@ multiparty_decrypt_main <- function(cc, sk, ct) {
     ct_ptrs <- lapply(ct, get_ptr)
     result_ptrs <- MultipartyDecryptMain__ct_vec(
       get_ptr(cc), get_ptr(sk), ct_ptrs)
-    return(lapply(result_ptrs, function(p) Ciphertext(ptr = p)))
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## return(lapply(result_ptrs, function(p) Ciphertext(ptr = p)))
+    ## <<< S7-FAST-NEW
+    return(lapply(result_ptrs, function(p) .fast_new(Ciphertext, p)))
   }
-  Ciphertext(ptr = MultipartyDecryptMain(get_ptr(cc), get_ptr(sk), get_ptr(ct)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = MultipartyDecryptMain(get_ptr(cc), get_ptr(sk), get_ptr(ct)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, MultipartyDecryptMain(get_ptr(cc), get_ptr(sk), get_ptr(ct)))
 }
 
 #' Fuse partial decryptions into final plaintext
@@ -182,7 +238,10 @@ multiparty_decrypt_fusion <- function(cc, ...) {
        decryptions; got {length(partials)}.")
   }
   partial_ptrs <- lapply(partials, get_ptr)
-  Plaintext(ptr = MultipartyDecryptFusion(get_ptr(cc), partial_ptrs))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Plaintext(ptr = MultipartyDecryptFusion(get_ptr(cc), partial_ptrs))
+  ## <<< S7-FAST-NEW
+  .fast_new(Plaintext, MultipartyDecryptFusion(get_ptr(cc), partial_ptrs))
 }
 
 #' Threshold decryption convenience: lead + main + fusion in one call

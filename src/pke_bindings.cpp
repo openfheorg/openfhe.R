@@ -1,6 +1,7 @@
 // OPENFHE PYTHON SOURCE: src/lib/bindings.cpp
 // Phase 1: BFV params, context, keygen, encrypt, decrypt
 #include "openfhe_cpp11.h"
+#include "wide_integers.h"
 
 using namespace cpp11;
 
@@ -44,9 +45,12 @@ SEXP BFVParams__new() {
 }
 
 [[cpp11::register]]
-void BFVParams__SetPlaintextModulus(SEXP params_xp, int64_t value) {
+void BFVParams__SetPlaintextModulus(SEXP params_xp, std::string value) {
   xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
-  p->SetPlaintextModulus(static_cast<PlaintextModulus>(value));
+  // PlaintextModulus is uint64_t; exact through a decimal string
+  // (wide_integers.h).
+  p->SetPlaintextModulus(static_cast<PlaintextModulus>(
+      openfhe_r::uint64_from_r(value, "plaintext_modulus")));
 }
 
 [[cpp11::register]]
@@ -446,9 +450,10 @@ SEXP BGVParams__new() {
 }
 
 [[cpp11::register]]
-void BGVParams__SetPlaintextModulus(SEXP params_xp, int64_t value) {
+void BGVParams__SetPlaintextModulus(SEXP params_xp, std::string value) {
   xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
-  p->SetPlaintextModulus(static_cast<PlaintextModulus>(value));
+  p->SetPlaintextModulus(static_cast<PlaintextModulus>(
+      openfhe_r::uint64_from_r(value, "plaintext_modulus")));
 }
 
 [[cpp11::register]]
@@ -603,31 +608,8 @@ doubles Plaintext__GetRealPackedValue(SEXP pt_xp) {
 
 // ── CKKS Polynomial / Chebyshev evaluation ──────────────
 
-[[cpp11::register]]
-SEXP EvalPoly(SEXP ct_xp, doubles coefficients) {
-  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
-  auto cc = (*ct)->GetCryptoContext();
-  std::vector<double> coeffs;
-  coeffs.reserve(coefficients.size());
-  for (R_xlen_t i = 0; i < coefficients.size(); i++)
-    coeffs.push_back(coefficients[i]);
-  auto result = cc->EvalPoly(*ct, coeffs);
-  return xptr<Ciphertext<DCRTPoly>>(
-    new Ciphertext<DCRTPoly>(result));
-}
-
-[[cpp11::register]]
-SEXP EvalChebyshevSeries(SEXP ct_xp, doubles coefficients, double a, double b) {
-  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
-  auto cc = (*ct)->GetCryptoContext();
-  std::vector<double> coeffs;
-  coeffs.reserve(coefficients.size());
-  for (R_xlen_t i = 0; i < coefficients.size(); i++)
-    coeffs.push_back(coefficients[i]);
-  auto result = cc->EvalChebyshevSeries(*ct, coeffs, a, b);
-  return xptr<Ciphertext<DCRTPoly>>(
-    new Ciphertext<DCRTPoly>(result));
-}
+// EvalPoly, EvalChebyshevSeries and their Linear and PS forms are in
+// pke_ckks_eval_poly.cpp.
 
 // ── CKKS Transcendental functions ───────────────────────
 
@@ -713,6 +695,21 @@ int FHECKKSRNS__GetBootstrapDepth(integers level_budget, int secret_key_dist) {
     lb.push_back(static_cast<uint32_t>(level_budget[i]));
   return static_cast<int>(
     FHECKKSRNS::GetBootstrapDepth(lb, static_cast<SecretKeyDist>(secret_key_dist)));
+}
+
+// Three-argument form (ckksrns-fhe.h), kept upstream for backward
+// compatibility: the caller supplies the approximate-modular-reduction
+// depth instead of having it derived from the key distribution.
+[[cpp11::register]]
+int FHECKKSRNS__GetBootstrapDepth__approx(int approx_mod_depth,
+                                          integers level_budget,
+                                          int secret_key_dist) {
+  std::vector<uint32_t> lb;
+  for (R_xlen_t i = 0; i < level_budget.size(); i++)
+    lb.push_back(static_cast<uint32_t>(level_budget[i]));
+  return static_cast<int>(FHECKKSRNS::GetBootstrapDepth(
+      static_cast<uint32_t>(approx_mod_depth), lb,
+      static_cast<SecretKeyDist>(secret_key_dist)));
 }
 
 // ── EvalSumKeyGen ───────────────────────────────────────

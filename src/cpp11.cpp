@@ -43,10 +43,10 @@ extern "C" SEXP _openfhe_R_BinFHEContext__KeyGen(SEXP ctx_xp) {
   END_CPP11
 }
 // binfhe_bindings.cpp
-void BinFHEContext__BTKeyGen(SEXP ctx_xp, SEXP sk_xp, int keygen_mode);
-extern "C" SEXP _openfhe_R_BinFHEContext__BTKeyGen(SEXP ctx_xp, SEXP sk_xp, SEXP keygen_mode) {
+void BinFHEContext__BTKeyGen(SEXP ctx_xp, SEXP sk_xp, int keygen_mode, bool internal32);
+extern "C" SEXP _openfhe_R_BinFHEContext__BTKeyGen(SEXP ctx_xp, SEXP sk_xp, SEXP keygen_mode, SEXP internal32) {
   BEGIN_CPP11
-    BinFHEContext__BTKeyGen(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp), cpp11::as_cpp<cpp11::decay_t<int>>(keygen_mode));
+    BinFHEContext__BTKeyGen(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp), cpp11::as_cpp<cpp11::decay_t<int>>(keygen_mode), cpp11::as_cpp<cpp11::decay_t<bool>>(internal32));
     return R_NilValue;
   END_CPP11
 }
@@ -58,10 +58,10 @@ extern "C" SEXP _openfhe_R_BinFHEContext__Encrypt(SEXP ctx_xp, SEXP sk_xp, SEXP 
   END_CPP11
 }
 // binfhe_bindings.cpp
-SEXP BinFHEContext__EncryptWithMod(SEXP ctx_xp, SEXP sk_xp, double message, int output, double p, double mod);
+SEXP BinFHEContext__EncryptWithMod(SEXP ctx_xp, SEXP sk_xp, int64_t message, int output, std::string p, std::string mod);
 extern "C" SEXP _openfhe_R_BinFHEContext__EncryptWithMod(SEXP ctx_xp, SEXP sk_xp, SEXP message, SEXP output, SEXP p, SEXP mod) {
   BEGIN_CPP11
-    return cpp11::as_sexp(BinFHEContext__EncryptWithMod(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp), cpp11::as_cpp<cpp11::decay_t<double>>(message), cpp11::as_cpp<cpp11::decay_t<int>>(output), cpp11::as_cpp<cpp11::decay_t<double>>(p), cpp11::as_cpp<cpp11::decay_t<double>>(mod)));
+    return cpp11::as_sexp(BinFHEContext__EncryptWithMod(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp), cpp11::as_cpp<cpp11::decay_t<int64_t>>(message), cpp11::as_cpp<cpp11::decay_t<int>>(output), cpp11::as_cpp<cpp11::decay_t<std::string>>(p), cpp11::as_cpp<cpp11::decay_t<std::string>>(mod)));
   END_CPP11
 }
 // binfhe_bindings.cpp
@@ -72,17 +72,17 @@ extern "C" SEXP _openfhe_R_BinFHEContext__Decrypt(SEXP ctx_xp, SEXP sk_xp, SEXP 
   END_CPP11
 }
 // binfhe_bindings.cpp
-SEXP BinFHEContext__EvalBinGate(SEXP ctx_xp, int gate, SEXP ct1_xp, SEXP ct2_xp);
-extern "C" SEXP _openfhe_R_BinFHEContext__EvalBinGate(SEXP ctx_xp, SEXP gate, SEXP ct1_xp, SEXP ct2_xp) {
+SEXP BinFHEContext__EvalBinGate(SEXP ctx_xp, int gate, SEXP ct1_xp, SEXP ct2_xp, bool extended);
+extern "C" SEXP _openfhe_R_BinFHEContext__EvalBinGate(SEXP ctx_xp, SEXP gate, SEXP ct1_xp, SEXP ct2_xp, SEXP extended) {
   BEGIN_CPP11
-    return cpp11::as_sexp(BinFHEContext__EvalBinGate(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<int>>(gate), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct1_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct2_xp)));
+    return cpp11::as_sexp(BinFHEContext__EvalBinGate(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<int>>(gate), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct1_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct2_xp), cpp11::as_cpp<cpp11::decay_t<bool>>(extended)));
   END_CPP11
 }
 // binfhe_bindings.cpp
-SEXP BinFHEContext__EvalBinGate__vec(SEXP ctx_xp, int gate, cpp11::list ct_list);
-extern "C" SEXP _openfhe_R_BinFHEContext__EvalBinGate__vec(SEXP ctx_xp, SEXP gate, SEXP ct_list) {
+SEXP BinFHEContext__EvalBinGate__vec(SEXP ctx_xp, int gate, cpp11::list ct_list, bool extended);
+extern "C" SEXP _openfhe_R_BinFHEContext__EvalBinGate__vec(SEXP ctx_xp, SEXP gate, SEXP ct_list, SEXP extended) {
   BEGIN_CPP11
-    return cpp11::as_sexp(BinFHEContext__EvalBinGate__vec(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<int>>(gate), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(ct_list)));
+    return cpp11::as_sexp(BinFHEContext__EvalBinGate__vec(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<int>>(gate), cpp11::as_cpp<cpp11::decay_t<cpp11::list>>(ct_list), cpp11::as_cpp<cpp11::decay_t<bool>>(extended)));
   END_CPP11
 }
 // binfhe_bindings.cpp
@@ -90,6 +90,13 @@ SEXP BinFHEContext__EvalNOT(SEXP ctx_xp, SEXP ct_xp);
 extern "C" SEXP _openfhe_R_BinFHEContext__EvalNOT(SEXP ctx_xp, SEXP ct_xp) {
   BEGIN_CPP11
     return cpp11::as_sexp(BinFHEContext__EvalNOT(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp)));
+  END_CPP11
+}
+// binfhe_bindings.cpp
+int LWECiphertext__GetLength(SEXP ct_xp);
+extern "C" SEXP _openfhe_R_LWECiphertext__GetLength(SEXP ct_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(LWECiphertext__GetLength(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp)));
   END_CPP11
 }
 // binfhe_bindings.cpp
@@ -111,6 +118,214 @@ SEXP BinFHEContext__EvalFunc(SEXP ctx_xp, SEXP ct_xp, doubles plaintext_lut);
 extern "C" SEXP _openfhe_R_BinFHEContext__EvalFunc(SEXP ctx_xp, SEXP ct_xp, SEXP plaintext_lut) {
   BEGIN_CPP11
     return cpp11::as_sexp(BinFHEContext__EvalFunc(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<doubles>>(plaintext_lut)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+SEXP BinFHEContext__KeyGenN(SEXP ctx_xp);
+extern "C" SEXP _openfhe_R_BinFHEContext__KeyGenN(SEXP ctx_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__KeyGenN(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+list BinFHEContext__KeyGenPair(SEXP ctx_xp);
+extern "C" SEXP _openfhe_R_BinFHEContext__KeyGenPair(SEXP ctx_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__KeyGenPair(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+SEXP BinFHEContext__PubKeyGen(SEXP ctx_xp, SEXP sk_xp);
+extern "C" SEXP _openfhe_R_BinFHEContext__PubKeyGen(SEXP ctx_xp, SEXP sk_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__PubKeyGen(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+SEXP BinFHEContext__KeySwitchGen(SEXP ctx_xp, SEXP sk_xp, SEXP skn_xp);
+extern "C" SEXP _openfhe_R_BinFHEContext__KeySwitchGen(SEXP ctx_xp, SEXP sk_xp, SEXP skn_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__KeySwitchGen(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(skn_xp)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+SEXP BinFHEContext__EncryptPK(SEXP ctx_xp, SEXP pk_xp, double message, int output, std::string p, std::string mod);
+extern "C" SEXP _openfhe_R_BinFHEContext__EncryptPK(SEXP ctx_xp, SEXP pk_xp, SEXP message, SEXP output, SEXP p, SEXP mod) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__EncryptPK(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(pk_xp), cpp11::as_cpp<cpp11::decay_t<double>>(message), cpp11::as_cpp<cpp11::decay_t<int>>(output), cpp11::as_cpp<cpp11::decay_t<std::string>>(p), cpp11::as_cpp<cpp11::decay_t<std::string>>(mod)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+SEXP BinFHEContext__SwitchCTtoqn(SEXP ctx_xp, SEXP ksk_xp, SEXP ct_xp);
+extern "C" SEXP _openfhe_R_BinFHEContext__SwitchCTtoqn(SEXP ctx_xp, SEXP ksk_xp, SEXP ct_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__SwitchCTtoqn(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ksk_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+SEXP BinFHEContext__Bootstrap(SEXP ctx_xp, SEXP ct_xp, bool extended);
+extern "C" SEXP _openfhe_R_BinFHEContext__Bootstrap(SEXP ctx_xp, SEXP ct_xp, SEXP extended) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__Bootstrap(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<bool>>(extended)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+SEXP BinFHEContext__EvalConstant(SEXP ctx_xp, bool value);
+extern "C" SEXP _openfhe_R_BinFHEContext__EvalConstant(SEXP ctx_xp, SEXP value) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__EvalConstant(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<bool>>(value)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+list BinFHEContext__EvalDecomp(SEXP ctx_xp, SEXP ct_xp);
+extern "C" SEXP _openfhe_R_BinFHEContext__EvalDecomp(SEXP ctx_xp, SEXP ct_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__EvalDecomp(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+SEXP BinFHEContext__GetBTKey(SEXP ctx_xp);
+extern "C" SEXP _openfhe_R_BinFHEContext__GetBTKey(SEXP ctx_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__GetBTKey(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+list BinFHEContext__GetBTKeyMap(SEXP ctx_xp);
+extern "C" SEXP _openfhe_R_BinFHEContext__GetBTKeyMap(SEXP ctx_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__GetBTKeyMap(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+SEXP BinFHEContext__GetSwitchKey(SEXP ctx_xp);
+extern "C" SEXP _openfhe_R_BinFHEContext__GetSwitchKey(SEXP ctx_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__GetSwitchKey(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+SEXP BinFHEContext__GetPublicKey(SEXP ctx_xp);
+extern "C" SEXP _openfhe_R_BinFHEContext__GetPublicKey(SEXP ctx_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__GetPublicKey(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+void BinFHEContext__BTKeyLoad(SEXP ctx_xp, SEXP key_xp, bool internal32);
+extern "C" SEXP _openfhe_R_BinFHEContext__BTKeyLoad(SEXP ctx_xp, SEXP key_xp, SEXP internal32) {
+  BEGIN_CPP11
+    BinFHEContext__BTKeyLoad(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(key_xp), cpp11::as_cpp<cpp11::decay_t<bool>>(internal32));
+    return R_NilValue;
+  END_CPP11
+}
+// binfhe_keys.cpp
+void BinFHEContext__BTKeyMapLoadSingleElement(SEXP ctx_xp, int base_g, SEXP key_xp);
+extern "C" SEXP _openfhe_R_BinFHEContext__BTKeyMapLoadSingleElement(SEXP ctx_xp, SEXP base_g, SEXP key_xp) {
+  BEGIN_CPP11
+    BinFHEContext__BTKeyMapLoadSingleElement(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<int>>(base_g), cpp11::as_cpp<cpp11::decay_t<SEXP>>(key_xp));
+    return R_NilValue;
+  END_CPP11
+}
+// binfhe_keys.cpp
+void BinFHEContext__ClearBTKeys(SEXP ctx_xp);
+extern "C" SEXP _openfhe_R_BinFHEContext__ClearBTKeys(SEXP ctx_xp) {
+  BEGIN_CPP11
+    BinFHEContext__ClearBTKeys(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp));
+    return R_NilValue;
+  END_CPP11
+}
+// binfhe_keys.cpp
+bool BinFHEContext__HasInternal32Key(SEXP ctx_xp, bool refresh);
+extern "C" SEXP _openfhe_R_BinFHEContext__HasInternal32Key(SEXP ctx_xp, SEXP refresh) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__HasInternal32Key(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<bool>>(refresh)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+SEXP BinFHEContext__GetParam(SEXP ctx_xp, int which);
+extern "C" SEXP _openfhe_R_BinFHEContext__GetParam(SEXP ctx_xp, SEXP which) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__GetParam(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp), cpp11::as_cpp<cpp11::decay_t<int>>(which)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+std::string BinFHEContext__SerializedObjectName(SEXP ctx_xp);
+extern "C" SEXP _openfhe_R_BinFHEContext__SerializedObjectName(SEXP ctx_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__SerializedObjectName(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ctx_xp)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+int BinFHEContext__SerializedVersion();
+extern "C" SEXP _openfhe_R_BinFHEContext__SerializedVersion() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHEContext__SerializedVersion());
+  END_CPP11
+}
+// binfhe_keys.cpp
+int LWE__GetLength(SEXP xp, int kind);
+extern "C" SEXP _openfhe_R_LWE__GetLength(SEXP xp, SEXP kind) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(LWE__GetLength(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp), cpp11::as_cpp<cpp11::decay_t<int>>(kind)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+std::string LWE__GetModulus(SEXP xp, int kind);
+extern "C" SEXP _openfhe_R_LWE__GetModulus(SEXP xp, SEXP kind) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(LWE__GetModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp), cpp11::as_cpp<cpp11::decay_t<int>>(kind)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+bool LWE__equal(SEXP a_xp, SEXP b_xp, int kind);
+extern "C" SEXP _openfhe_R_LWE__equal(SEXP a_xp, SEXP b_xp, SEXP kind) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(LWE__equal(cpp11::as_cpp<cpp11::decay_t<SEXP>>(a_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(b_xp), cpp11::as_cpp<cpp11::decay_t<int>>(kind)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+SEXP LWECiphertext__GetptModulus(SEXP ct_xp);
+extern "C" SEXP _openfhe_R_LWECiphertext__GetptModulus(SEXP ct_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(LWECiphertext__GetptModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+void LWECiphertext__SetModulus(SEXP ct_xp, std::string modulus);
+extern "C" SEXP _openfhe_R_LWECiphertext__SetModulus(SEXP ct_xp, SEXP modulus) {
+  BEGIN_CPP11
+    LWECiphertext__SetModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(modulus));
+    return R_NilValue;
+  END_CPP11
+}
+// binfhe_keys.cpp
+void LWECiphertext__SetptModulus(SEXP ct_xp, std::string plaintext_modulus);
+extern "C" SEXP _openfhe_R_LWECiphertext__SetptModulus(SEXP ct_xp, SEXP plaintext_modulus) {
+  BEGIN_CPP11
+    LWECiphertext__SetptModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(plaintext_modulus));
+    return R_NilValue;
+  END_CPP11
+}
+// binfhe_keys.cpp
+bool BinFHE__SerializeToFile(SEXP xp, int kind, std::string filename, bool binary);
+extern "C" SEXP _openfhe_R_BinFHE__SerializeToFile(SEXP xp, SEXP kind, SEXP filename, SEXP binary) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHE__SerializeToFile(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp), cpp11::as_cpp<cpp11::decay_t<int>>(kind), cpp11::as_cpp<cpp11::decay_t<std::string>>(filename), cpp11::as_cpp<cpp11::decay_t<bool>>(binary)));
+  END_CPP11
+}
+// binfhe_keys.cpp
+SEXP BinFHE__DeserializeFromFile(std::string filename, int kind, bool binary);
+extern "C" SEXP _openfhe_R_BinFHE__DeserializeFromFile(SEXP filename, SEXP kind, SEXP binary) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(BinFHE__DeserializeFromFile(cpp11::as_cpp<cpp11::decay_t<std::string>>(filename), cpp11::as_cpp<cpp11::decay_t<int>>(kind), cpp11::as_cpp<cpp11::decay_t<bool>>(binary)));
+  END_CPP11
+}
+// enum_values.cpp
+cpp11::writable::list openfhe_enum_values();
+extern "C" SEXP _openfhe_R_openfhe_enum_values() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(openfhe_enum_values());
   END_CPP11
 }
 // init.cpp
@@ -149,10 +364,10 @@ extern "C" SEXP _openfhe_R_BFVParams__new() {
   END_CPP11
 }
 // pke_bindings.cpp
-void BFVParams__SetPlaintextModulus(SEXP params_xp, int64_t value);
+void BFVParams__SetPlaintextModulus(SEXP params_xp, std::string value);
 extern "C" SEXP _openfhe_R_BFVParams__SetPlaintextModulus(SEXP params_xp, SEXP value) {
   BEGIN_CPP11
-    BFVParams__SetPlaintextModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(params_xp), cpp11::as_cpp<cpp11::decay_t<int64_t>>(value));
+    BFVParams__SetPlaintextModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(params_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(value));
     return R_NilValue;
   END_CPP11
 }
@@ -432,10 +647,10 @@ extern "C" SEXP _openfhe_R_BGVParams__new() {
   END_CPP11
 }
 // pke_bindings.cpp
-void BGVParams__SetPlaintextModulus(SEXP params_xp, int64_t value);
+void BGVParams__SetPlaintextModulus(SEXP params_xp, std::string value);
 extern "C" SEXP _openfhe_R_BGVParams__SetPlaintextModulus(SEXP params_xp, SEXP value) {
   BEGIN_CPP11
-    BGVParams__SetPlaintextModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(params_xp), cpp11::as_cpp<cpp11::decay_t<int64_t>>(value));
+    BGVParams__SetPlaintextModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(params_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(value));
     return R_NilValue;
   END_CPP11
 }
@@ -570,20 +785,6 @@ extern "C" SEXP _openfhe_R_Plaintext__GetRealPackedValue(SEXP pt_xp) {
   END_CPP11
 }
 // pke_bindings.cpp
-SEXP EvalPoly(SEXP ct_xp, doubles coefficients);
-extern "C" SEXP _openfhe_R_EvalPoly(SEXP ct_xp, SEXP coefficients) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(EvalPoly(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<doubles>>(coefficients)));
-  END_CPP11
-}
-// pke_bindings.cpp
-SEXP EvalChebyshevSeries(SEXP ct_xp, doubles coefficients, double a, double b);
-extern "C" SEXP _openfhe_R_EvalChebyshevSeries(SEXP ct_xp, SEXP coefficients, SEXP a, SEXP b) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(EvalChebyshevSeries(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<doubles>>(coefficients), cpp11::as_cpp<cpp11::decay_t<double>>(a), cpp11::as_cpp<cpp11::decay_t<double>>(b)));
-  END_CPP11
-}
-// pke_bindings.cpp
 SEXP EvalSin_(SEXP ct_xp, double a, double b, int degree);
 extern "C" SEXP _openfhe_R_EvalSin_(SEXP ct_xp, SEXP a, SEXP b, SEXP degree) {
   BEGIN_CPP11
@@ -642,6 +843,13 @@ extern "C" SEXP _openfhe_R_FHECKKSRNS__GetBootstrapDepth(SEXP level_budget, SEXP
   END_CPP11
 }
 // pke_bindings.cpp
+int FHECKKSRNS__GetBootstrapDepth__approx(int approx_mod_depth, integers level_budget, int secret_key_dist);
+extern "C" SEXP _openfhe_R_FHECKKSRNS__GetBootstrapDepth__approx(SEXP approx_mod_depth, SEXP level_budget, SEXP secret_key_dist) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(FHECKKSRNS__GetBootstrapDepth__approx(cpp11::as_cpp<cpp11::decay_t<int>>(approx_mod_depth), cpp11::as_cpp<cpp11::decay_t<integers>>(level_budget), cpp11::as_cpp<cpp11::decay_t<int>>(secret_key_dist)));
+  END_CPP11
+}
+// pke_bindings.cpp
 void CryptoContext__EvalSumKeyGen(SEXP cc_xp, SEXP sk_xp);
 extern "C" SEXP _openfhe_R_CryptoContext__EvalSumKeyGen(SEXP cc_xp, SEXP sk_xp) {
   BEGIN_CPP11
@@ -657,7 +865,7 @@ extern "C" SEXP _openfhe_R_BFVParams__GetScheme(SEXP params_xp) {
   END_CPP11
 }
 // pke_ccparams_getters.cpp
-int64_t BFVParams__GetPlaintextModulus(SEXP params_xp);
+SEXP BFVParams__GetPlaintextModulus(SEXP params_xp);
 extern "C" SEXP _openfhe_R_BFVParams__GetPlaintextModulus(SEXP params_xp) {
   BEGIN_CPP11
     return cpp11::as_sexp(BFVParams__GetPlaintextModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(params_xp)));
@@ -888,7 +1096,7 @@ extern "C" SEXP _openfhe_R_BGVParams__GetScheme(SEXP params_xp) {
   END_CPP11
 }
 // pke_ccparams_getters.cpp
-int64_t BGVParams__GetPlaintextModulus(SEXP params_xp);
+SEXP BGVParams__GetPlaintextModulus(SEXP params_xp);
 extern "C" SEXP _openfhe_R_BGVParams__GetPlaintextModulus(SEXP params_xp) {
   BEGIN_CPP11
     return cpp11::as_sexp(BGVParams__GetPlaintextModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(params_xp)));
@@ -1119,7 +1327,7 @@ extern "C" SEXP _openfhe_R_CKKSParams__GetScheme(SEXP params_xp) {
   END_CPP11
 }
 // pke_ccparams_getters.cpp
-int64_t CKKSParams__GetPlaintextModulus(SEXP params_xp);
+SEXP CKKSParams__GetPlaintextModulus(SEXP params_xp);
 extern "C" SEXP _openfhe_R_CKKSParams__GetPlaintextModulus(SEXP params_xp) {
   BEGIN_CPP11
     return cpp11::as_sexp(CKKSParams__GetPlaintextModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(params_xp)));
@@ -1340,6 +1548,21 @@ int CKKSParams__GetCKKSDataType(SEXP params_xp);
 extern "C" SEXP _openfhe_R_CKKSParams__GetCKKSDataType(SEXP params_xp) {
   BEGIN_CPP11
     return cpp11::as_sexp(CKKSParams__GetCKKSDataType(cpp11::as_cpp<cpp11::decay_t<SEXP>>(params_xp)));
+  END_CPP11
+}
+// pke_ccparams_set.cpp
+void CCParams__Set(SEXP params_xp, int field, SEXP value);
+extern "C" SEXP _openfhe_R_CCParams__Set(SEXP params_xp, SEXP field, SEXP value) {
+  BEGIN_CPP11
+    CCParams__Set(cpp11::as_cpp<cpp11::decay_t<SEXP>>(params_xp), cpp11::as_cpp<cpp11::decay_t<int>>(field), cpp11::as_cpp<cpp11::decay_t<SEXP>>(value));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_ccparams_set.cpp
+std::string CCParams__ToString(SEXP params_xp);
+extern "C" SEXP _openfhe_R_CCParams__ToString(SEXP params_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(CCParams__ToString(cpp11::as_cpp<cpp11::decay_t<SEXP>>(params_xp)));
   END_CPP11
 }
 // pke_ccparams_setters.cpp
@@ -1787,17 +2010,17 @@ extern "C" SEXP _openfhe_R_Ciphertext__SetScalingFactor(SEXP ct_xp, SEXP sf) {
   END_CPP11
 }
 // pke_ciphertext_accessors.cpp
-double Ciphertext__GetScalingFactorInt(SEXP ct_xp);
+std::string Ciphertext__GetScalingFactorInt(SEXP ct_xp);
 extern "C" SEXP _openfhe_R_Ciphertext__GetScalingFactorInt(SEXP ct_xp) {
   BEGIN_CPP11
     return cpp11::as_sexp(Ciphertext__GetScalingFactorInt(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp)));
   END_CPP11
 }
 // pke_ciphertext_accessors.cpp
-void Ciphertext__SetScalingFactorInt(SEXP ct_xp, int64_t sf);
+void Ciphertext__SetScalingFactorInt(SEXP ct_xp, std::string sf);
 extern "C" SEXP _openfhe_R_Ciphertext__SetScalingFactorInt(SEXP ct_xp, SEXP sf) {
   BEGIN_CPP11
-    Ciphertext__SetScalingFactorInt(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<int64_t>>(sf));
+    Ciphertext__SetScalingFactorInt(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(sf));
     return R_NilValue;
   END_CPP11
 }
@@ -1831,10 +2054,10 @@ extern "C" SEXP _openfhe_R_CryptoContext__GetScalingFactorReal(SEXP cc_xp, SEXP 
   END_CPP11
 }
 // pke_ckks_complex.cpp
-SEXP MakeCKKSPackedPlaintext__complex(SEXP cc_xp, SEXP values_complex, int noise_scale_deg, int level, int slots);
-extern "C" SEXP _openfhe_R_MakeCKKSPackedPlaintext__complex(SEXP cc_xp, SEXP values_complex, SEXP noise_scale_deg, SEXP level, SEXP slots) {
+SEXP MakeCKKSPackedPlaintext__complex(SEXP cc_xp, SEXP values_complex, int noise_scale_deg, int level, SEXP params_xp, int slots);
+extern "C" SEXP _openfhe_R_MakeCKKSPackedPlaintext__complex(SEXP cc_xp, SEXP values_complex, SEXP noise_scale_deg, SEXP level, SEXP params_xp, SEXP slots) {
   BEGIN_CPP11
-    return cpp11::as_sexp(MakeCKKSPackedPlaintext__complex(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(values_complex), cpp11::as_cpp<cpp11::decay_t<int>>(noise_scale_deg), cpp11::as_cpp<cpp11::decay_t<int>>(level), cpp11::as_cpp<cpp11::decay_t<int>>(slots)));
+    return cpp11::as_sexp(MakeCKKSPackedPlaintext__complex(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(values_complex), cpp11::as_cpp<cpp11::decay_t<int>>(noise_scale_deg), cpp11::as_cpp<cpp11::decay_t<int>>(level), cpp11::as_cpp<cpp11::decay_t<SEXP>>(params_xp), cpp11::as_cpp<cpp11::decay_t<int>>(slots)));
   END_CPP11
 }
 // pke_ckks_complex.cpp
@@ -1873,31 +2096,46 @@ extern "C" SEXP _openfhe_R_EvalAutomorphism__(SEXP ct_xp, SEXP idx, SEXP map_xp)
   END_CPP11
 }
 // pke_ckks_eval_poly.cpp
-SEXP EvalPolyLinear__(SEXP ct_xp, doubles coefficients);
-extern "C" SEXP _openfhe_R_EvalPolyLinear__(SEXP ct_xp, SEXP coefficients) {
+SEXP EvalSeriesPowers__(SEXP ct_xp, bool chebyshev, SEXP coefficients, double a, double b);
+extern "C" SEXP _openfhe_R_EvalSeriesPowers__(SEXP ct_xp, SEXP chebyshev, SEXP coefficients, SEXP a, SEXP b) {
   BEGIN_CPP11
-    return cpp11::as_sexp(EvalPolyLinear__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<doubles>>(coefficients)));
+    return cpp11::as_sexp(EvalSeriesPowers__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<bool>>(chebyshev), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coefficients), cpp11::as_cpp<cpp11::decay_t<double>>(a), cpp11::as_cpp<cpp11::decay_t<double>>(b)));
   END_CPP11
 }
 // pke_ckks_eval_poly.cpp
-SEXP EvalPolyPS__(SEXP ct_xp, doubles coefficients);
-extern "C" SEXP _openfhe_R_EvalPolyPS__(SEXP ct_xp, SEXP coefficients) {
+SEXP EvalSeriesWithPrecomp__(SEXP powers_xp, bool chebyshev, SEXP coefficients);
+extern "C" SEXP _openfhe_R_EvalSeriesWithPrecomp__(SEXP powers_xp, SEXP chebyshev, SEXP coefficients) {
   BEGIN_CPP11
-    return cpp11::as_sexp(EvalPolyPS__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<doubles>>(coefficients)));
+    return cpp11::as_sexp(EvalSeriesWithPrecomp__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(powers_xp), cpp11::as_cpp<cpp11::decay_t<bool>>(chebyshev), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coefficients)));
   END_CPP11
 }
 // pke_ckks_eval_poly.cpp
-SEXP EvalChebyshevSeriesLinear__(SEXP ct_xp, doubles coefficients, double a, double b);
-extern "C" SEXP _openfhe_R_EvalChebyshevSeriesLinear__(SEXP ct_xp, SEXP coefficients, SEXP a, SEXP b) {
+integers SeriesPowers__info(SEXP powers_xp);
+extern "C" SEXP _openfhe_R_SeriesPowers__info(SEXP powers_xp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(EvalChebyshevSeriesLinear__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<doubles>>(coefficients), cpp11::as_cpp<cpp11::decay_t<double>>(a), cpp11::as_cpp<cpp11::decay_t<double>>(b)));
+    return cpp11::as_sexp(SeriesPowers__info(cpp11::as_cpp<cpp11::decay_t<SEXP>>(powers_xp)));
   END_CPP11
 }
 // pke_ckks_eval_poly.cpp
-SEXP EvalChebyshevSeriesPS__(SEXP ct_xp, doubles coefficients, double a, double b);
-extern "C" SEXP _openfhe_R_EvalChebyshevSeriesPS__(SEXP ct_xp, SEXP coefficients, SEXP a, SEXP b) {
+void EvalBootstrapPrecompute__(SEXP cc_xp, int slots);
+extern "C" SEXP _openfhe_R_EvalBootstrapPrecompute__(SEXP cc_xp, SEXP slots) {
   BEGIN_CPP11
-    return cpp11::as_sexp(EvalChebyshevSeriesPS__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<doubles>>(coefficients), cpp11::as_cpp<cpp11::decay_t<double>>(a), cpp11::as_cpp<cpp11::decay_t<double>>(b)));
+    EvalBootstrapPrecompute__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<int>>(slots));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_ckks_eval_poly.cpp
+SEXP EvalBootstrapStCFirst__(SEXP ct_xp, int num_iterations, int precision);
+extern "C" SEXP _openfhe_R_EvalBootstrapStCFirst__(SEXP ct_xp, SEXP num_iterations, SEXP precision) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalBootstrapStCFirst__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<int>>(num_iterations), cpp11::as_cpp<cpp11::decay_t<int>>(precision)));
+  END_CPP11
+}
+// pke_ckks_eval_poly.cpp
+SEXP EvalSeries__(SEXP ct_xp, int which, SEXP coefficients, double a, double b);
+extern "C" SEXP _openfhe_R_EvalSeries__(SEXP ct_xp, SEXP which, SEXP coefficients, SEXP a, SEXP b) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalSeries__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<int>>(which), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coefficients), cpp11::as_cpp<cpp11::decay_t<double>>(a), cpp11::as_cpp<cpp11::decay_t<double>>(b)));
   END_CPP11
 }
 // pke_ckks_fast_rotation.cpp
@@ -2117,7 +2355,7 @@ extern "C" SEXP _openfhe_R_CryptoContext__GetCKKSDataType(SEXP cc_xp) {
   END_CPP11
 }
 // pke_cryptocontext_getters.cpp
-int64_t CryptoContext__GetPlaintextModulus(SEXP cc_xp);
+SEXP CryptoContext__GetPlaintextModulus(SEXP cc_xp);
 extern "C" SEXP _openfhe_R_CryptoContext__GetPlaintextModulus(SEXP cc_xp) {
   BEGIN_CPP11
     return cpp11::as_sexp(CryptoContext__GetPlaintextModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp)));
@@ -2217,14 +2455,6 @@ extern "C" SEXP _openfhe_R_EvalAddInPlace__ct_pt(SEXP ct_xp, SEXP pt_xp) {
   END_CPP11
 }
 // pke_eval.cpp
-void EvalAddInPlace__ct_scalar(SEXP ct_xp, double scalar);
-extern "C" SEXP _openfhe_R_EvalAddInPlace__ct_scalar(SEXP ct_xp, SEXP scalar) {
-  BEGIN_CPP11
-    EvalAddInPlace__ct_scalar(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<double>>(scalar));
-    return R_NilValue;
-  END_CPP11
-}
-// pke_eval.cpp
 void EvalSubInPlace__ct_ct(SEXP ct1_xp, SEXP ct2_xp);
 extern "C" SEXP _openfhe_R_EvalSubInPlace__ct_ct(SEXP ct1_xp, SEXP ct2_xp) {
   BEGIN_CPP11
@@ -2237,22 +2467,6 @@ void EvalSubInPlace__ct_pt(SEXP ct_xp, SEXP pt_xp);
 extern "C" SEXP _openfhe_R_EvalSubInPlace__ct_pt(SEXP ct_xp, SEXP pt_xp) {
   BEGIN_CPP11
     EvalSubInPlace__ct_pt(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(pt_xp));
-    return R_NilValue;
-  END_CPP11
-}
-// pke_eval.cpp
-void EvalSubInPlace__ct_scalar(SEXP ct_xp, double scalar);
-extern "C" SEXP _openfhe_R_EvalSubInPlace__ct_scalar(SEXP ct_xp, SEXP scalar) {
-  BEGIN_CPP11
-    EvalSubInPlace__ct_scalar(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<double>>(scalar));
-    return R_NilValue;
-  END_CPP11
-}
-// pke_eval.cpp
-void EvalMultInPlace__ct_scalar(SEXP ct_xp, double scalar);
-extern "C" SEXP _openfhe_R_EvalMultInPlace__ct_scalar(SEXP ct_xp, SEXP scalar) {
-  BEGIN_CPP11
-    EvalMultInPlace__ct_scalar(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<double>>(scalar));
     return R_NilValue;
   END_CPP11
 }
@@ -2350,6 +2564,330 @@ extern "C" SEXP _openfhe_R_Compress__ct(SEXP ct_xp, SEXP towers_left, SEXP noise
     return cpp11::as_sexp(Compress__ct(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<int>>(towers_left), cpp11::as_cpp<cpp11::decay_t<int>>(noise_scale_deg)));
   END_CPP11
 }
+// pke_eval_arith.cpp
+SEXP EvalArith__real(int op, SEXP ct_xp, double scalar, bool scalar_first);
+extern "C" SEXP _openfhe_R_EvalArith__real(SEXP op, SEXP ct_xp, SEXP scalar, SEXP scalar_first) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalArith__real(cpp11::as_cpp<cpp11::decay_t<int>>(op), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<double>>(scalar), cpp11::as_cpp<cpp11::decay_t<bool>>(scalar_first)));
+  END_CPP11
+}
+// pke_eval_arith.cpp
+SEXP EvalArith__complex(int op, SEXP ct_xp, double re, double im, bool scalar_first);
+extern "C" SEXP _openfhe_R_EvalArith__complex(SEXP op, SEXP ct_xp, SEXP re, SEXP im, SEXP scalar_first) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalArith__complex(cpp11::as_cpp<cpp11::decay_t<int>>(op), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<double>>(re), cpp11::as_cpp<cpp11::decay_t<double>>(im), cpp11::as_cpp<cpp11::decay_t<bool>>(scalar_first)));
+  END_CPP11
+}
+// pke_eval_arith.cpp
+void EvalArithInPlace__real(int op, SEXP ct_xp, double scalar, bool scalar_first);
+extern "C" SEXP _openfhe_R_EvalArithInPlace__real(SEXP op, SEXP ct_xp, SEXP scalar, SEXP scalar_first) {
+  BEGIN_CPP11
+    EvalArithInPlace__real(cpp11::as_cpp<cpp11::decay_t<int>>(op), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<double>>(scalar), cpp11::as_cpp<cpp11::decay_t<bool>>(scalar_first));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_eval_arith.cpp
+void EvalArithInPlace__complex(int op, SEXP ct_xp, double re, double im, bool scalar_first);
+extern "C" SEXP _openfhe_R_EvalArithInPlace__complex(SEXP op, SEXP ct_xp, SEXP re, SEXP im, SEXP scalar_first) {
+  BEGIN_CPP11
+    EvalArithInPlace__complex(cpp11::as_cpp<cpp11::decay_t<int>>(op), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<double>>(re), cpp11::as_cpp<cpp11::decay_t<double>>(im), cpp11::as_cpp<cpp11::decay_t<bool>>(scalar_first));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_eval_arith.cpp
+SEXP EvalArith__pt_ct(int op, SEXP pt_xp, SEXP ct_xp);
+extern "C" SEXP _openfhe_R_EvalArith__pt_ct(SEXP op, SEXP pt_xp, SEXP ct_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalArith__pt_ct(cpp11::as_cpp<cpp11::decay_t<int>>(op), cpp11::as_cpp<cpp11::decay_t<SEXP>>(pt_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp)));
+  END_CPP11
+}
+// pke_eval_arith.cpp
+void EvalArithInPlace__pt_ct(int op, SEXP pt_xp, SEXP ct_xp);
+extern "C" SEXP _openfhe_R_EvalArithInPlace__pt_ct(SEXP op, SEXP pt_xp, SEXP ct_xp) {
+  BEGIN_CPP11
+    EvalArithInPlace__pt_ct(cpp11::as_cpp<cpp11::decay_t<int>>(op), cpp11::as_cpp<cpp11::decay_t<SEXP>>(pt_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_eval_arith.cpp
+SEXP EvalArithMutable__pt(int op, SEXP ct_xp, SEXP pt_xp, bool pt_first);
+extern "C" SEXP _openfhe_R_EvalArithMutable__pt(SEXP op, SEXP ct_xp, SEXP pt_xp, SEXP pt_first) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalArithMutable__pt(cpp11::as_cpp<cpp11::decay_t<int>>(op), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(pt_xp), cpp11::as_cpp<cpp11::decay_t<bool>>(pt_first)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP EvalAddMany__(list cts);
+extern "C" SEXP _openfhe_R_EvalAddMany__(SEXP cts) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalAddMany__(cpp11::as_cpp<cpp11::decay_t<list>>(cts)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP EvalAddManyInPlace__(list cts);
+extern "C" SEXP _openfhe_R_EvalAddManyInPlace__(SEXP cts) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalAddManyInPlace__(cpp11::as_cpp<cpp11::decay_t<list>>(cts)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP EvalMultMany__(list cts);
+extern "C" SEXP _openfhe_R_EvalMultMany__(SEXP cts) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalMultMany__(cpp11::as_cpp<cpp11::decay_t<list>>(cts)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP EvalMerge__(list cts);
+extern "C" SEXP _openfhe_R_EvalMerge__(SEXP cts) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalMerge__(cpp11::as_cpp<cpp11::decay_t<list>>(cts)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP EvalLinearWSum__(list cts, SEXP constants);
+extern "C" SEXP _openfhe_R_EvalLinearWSum__(SEXP cts, SEXP constants) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalLinearWSum__(cpp11::as_cpp<cpp11::decay_t<list>>(cts), cpp11::as_cpp<cpp11::decay_t<SEXP>>(constants)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP EvalLinearWSumMutable__(SEXP constants, list cts);
+extern "C" SEXP _openfhe_R_EvalLinearWSumMutable__(SEXP constants, SEXP cts) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalLinearWSumMutable__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(constants), cpp11::as_cpp<cpp11::decay_t<list>>(cts)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP EvalInnerProduct__ct_ct(SEXP ct1_xp, SEXP ct2_xp, int batch_size);
+extern "C" SEXP _openfhe_R_EvalInnerProduct__ct_ct(SEXP ct1_xp, SEXP ct2_xp, SEXP batch_size) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalInnerProduct__ct_ct(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct1_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct2_xp), cpp11::as_cpp<cpp11::decay_t<int>>(batch_size)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP EvalInnerProduct__ct_pt(SEXP ct_xp, SEXP pt_xp, int batch_size);
+extern "C" SEXP _openfhe_R_EvalInnerProduct__ct_pt(SEXP ct_xp, SEXP pt_xp, SEXP batch_size) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalInnerProduct__ct_pt(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(pt_xp), cpp11::as_cpp<cpp11::decay_t<int>>(batch_size)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP EvalSumRowsKeyGen__(SEXP cc_xp, SEXP sk_xp, SEXP pk_xp, int row_size, int subring_dim);
+extern "C" SEXP _openfhe_R_EvalSumRowsKeyGen__(SEXP cc_xp, SEXP sk_xp, SEXP pk_xp, SEXP row_size, SEXP subring_dim) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalSumRowsKeyGen__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(pk_xp), cpp11::as_cpp<cpp11::decay_t<int>>(row_size), cpp11::as_cpp<cpp11::decay_t<int>>(subring_dim)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP EvalSumColsKeyGen__(SEXP cc_xp, SEXP sk_xp);
+extern "C" SEXP _openfhe_R_EvalSumColsKeyGen__(SEXP cc_xp, SEXP sk_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalSumColsKeyGen__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP EvalSumRows__(SEXP ct_xp, int num_rows, SEXP map_xp, int subring_dim);
+extern "C" SEXP _openfhe_R_EvalSumRows__(SEXP ct_xp, SEXP num_rows, SEXP map_xp, SEXP subring_dim) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalSumRows__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<int>>(num_rows), cpp11::as_cpp<cpp11::decay_t<SEXP>>(map_xp), cpp11::as_cpp<cpp11::decay_t<int>>(subring_dim)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP EvalSumCols__(SEXP ct_xp, int num_cols, SEXP map_xp);
+extern "C" SEXP _openfhe_R_EvalSumCols__(SEXP ct_xp, SEXP num_cols, SEXP map_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalSumCols__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<int>>(num_cols), cpp11::as_cpp<cpp11::decay_t<SEXP>>(map_xp)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP EvalAtIndex__(SEXP ct_xp, int index);
+extern "C" SEXP _openfhe_R_EvalAtIndex__(SEXP ct_xp, SEXP index) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalAtIndex__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<int>>(index)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP ReKeyGen__(SEXP cc_xp, SEXP old_sk_xp, SEXP new_pk_xp);
+extern "C" SEXP _openfhe_R_ReKeyGen__(SEXP cc_xp, SEXP old_sk_xp, SEXP new_pk_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(ReKeyGen__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(old_sk_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(new_pk_xp)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP ReEncrypt__(SEXP ct_xp, SEXP ek_xp, SEXP pk_xp);
+extern "C" SEXP _openfhe_R_ReEncrypt__(SEXP ct_xp, SEXP ek_xp, SEXP pk_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(ReEncrypt__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ek_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(pk_xp)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP MakeStringPlaintext__(SEXP cc_xp, std::string str);
+extern "C" SEXP _openfhe_R_MakeStringPlaintext__(SEXP cc_xp, SEXP str) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(MakeStringPlaintext__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(str)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+void EvalUnaryInPlace__(SEXP ct_xp, int which);
+extern "C" SEXP _openfhe_R_EvalUnaryInPlace__(SEXP ct_xp, SEXP which) {
+  BEGIN_CPP11
+    EvalUnaryInPlace__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<int>>(which));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+void EvalMutableInPlace__(int op, SEXP ct1_xp, SEXP ct2_xp);
+extern "C" SEXP _openfhe_R_EvalMutableInPlace__(SEXP op, SEXP ct1_xp, SEXP ct2_xp) {
+  BEGIN_CPP11
+    EvalMutableInPlace__(cpp11::as_cpp<cpp11::decay_t<int>>(op), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct1_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct2_xp));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+void EvalAddInPlaceNoCheck__(SEXP ct1_xp, SEXP ct2_xp);
+extern "C" SEXP _openfhe_R_EvalAddInPlaceNoCheck__(SEXP ct1_xp, SEXP ct2_xp) {
+  BEGIN_CPP11
+    EvalAddInPlaceNoCheck__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct1_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct2_xp));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP EvalMultNoCheck__(SEXP ct_xp, std::string scalar);
+extern "C" SEXP _openfhe_R_EvalMultNoCheck__(SEXP ct_xp, SEXP scalar) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalMultNoCheck__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(scalar)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP EvalMultNoRelinNoCheck__(SEXP ct1_xp, SEXP ct2_xp);
+extern "C" SEXP _openfhe_R_EvalMultNoRelinNoCheck__(SEXP ct1_xp, SEXP ct2_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalMultNoRelinNoCheck__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct1_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct2_xp)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+SEXP ComposedEvalMult__(SEXP ct1_xp, SEXP ct2_xp);
+extern "C" SEXP _openfhe_R_ComposedEvalMult__(SEXP ct1_xp, SEXP ct2_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(ComposedEvalMult__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct1_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct2_xp)));
+  END_CPP11
+}
+// pke_eval_backlog.cpp
+void EvalMultKeysGen__(SEXP cc_xp, SEXP sk_xp);
+extern "C" SEXP _openfhe_R_EvalMultKeysGen__(SEXP cc_xp, SEXP sk_xp) {
+  BEGIN_CPP11
+    EvalMultKeysGen__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_fbt.cpp
+int GetFBTDepth__(integers level_budget, SEXP coefficients, std::string p_input, int order, int skd, int first_mod_size);
+extern "C" SEXP _openfhe_R_GetFBTDepth__(SEXP level_budget, SEXP coefficients, SEXP p_input, SEXP order, SEXP skd, SEXP first_mod_size) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(GetFBTDepth__(cpp11::as_cpp<cpp11::decay_t<integers>>(level_budget), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coefficients), cpp11::as_cpp<cpp11::decay_t<std::string>>(p_input), cpp11::as_cpp<cpp11::decay_t<int>>(order), cpp11::as_cpp<cpp11::decay_t<int>>(skd), cpp11::as_cpp<cpp11::decay_t<int>>(first_mod_size)));
+  END_CPP11
+}
+// pke_fbt.cpp
+int GetFEFBTDepth__(integers level_budget, SEXP coefficients, int skd, int first_mod_size);
+extern "C" SEXP _openfhe_R_GetFEFBTDepth__(SEXP level_budget, SEXP coefficients, SEXP skd, SEXP first_mod_size) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(GetFEFBTDepth__(cpp11::as_cpp<cpp11::decay_t<integers>>(level_budget), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coefficients), cpp11::as_cpp<cpp11::decay_t<int>>(skd), cpp11::as_cpp<cpp11::decay_t<int>>(first_mod_size)));
+  END_CPP11
+}
+// pke_fbt.cpp
+void EvalFBTSetup__(SEXP cc_xp, SEXP coeffs, int num_slots, std::string p_in, std::string p_out, std::string big_q, SEXP pk_xp, integers dim1, integers level_budget, int lvls_after_boot, int depth_leveled_computation, int order);
+extern "C" SEXP _openfhe_R_EvalFBTSetup__(SEXP cc_xp, SEXP coeffs, SEXP num_slots, SEXP p_in, SEXP p_out, SEXP big_q, SEXP pk_xp, SEXP dim1, SEXP level_budget, SEXP lvls_after_boot, SEXP depth_leveled_computation, SEXP order) {
+  BEGIN_CPP11
+    EvalFBTSetup__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coeffs), cpp11::as_cpp<cpp11::decay_t<int>>(num_slots), cpp11::as_cpp<cpp11::decay_t<std::string>>(p_in), cpp11::as_cpp<cpp11::decay_t<std::string>>(p_out), cpp11::as_cpp<cpp11::decay_t<std::string>>(big_q), cpp11::as_cpp<cpp11::decay_t<SEXP>>(pk_xp), cpp11::as_cpp<cpp11::decay_t<integers>>(dim1), cpp11::as_cpp<cpp11::decay_t<integers>>(level_budget), cpp11::as_cpp<cpp11::decay_t<int>>(lvls_after_boot), cpp11::as_cpp<cpp11::decay_t<int>>(depth_leveled_computation), cpp11::as_cpp<cpp11::decay_t<int>>(order));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_fbt.cpp
+SEXP EvalFBT__(SEXP ct_xp, SEXP coeffs, int digit_bit_size, std::string initial_scaling, std::string post_scaling, int level_to_reduce, int order);
+extern "C" SEXP _openfhe_R_EvalFBT__(SEXP ct_xp, SEXP coeffs, SEXP digit_bit_size, SEXP initial_scaling, SEXP post_scaling, SEXP level_to_reduce, SEXP order) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalFBT__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coeffs), cpp11::as_cpp<cpp11::decay_t<int>>(digit_bit_size), cpp11::as_cpp<cpp11::decay_t<std::string>>(initial_scaling), cpp11::as_cpp<cpp11::decay_t<std::string>>(post_scaling), cpp11::as_cpp<cpp11::decay_t<int>>(level_to_reduce), cpp11::as_cpp<cpp11::decay_t<int>>(order)));
+  END_CPP11
+}
+// pke_fbt.cpp
+SEXP EvalFBTNoDecoding__(SEXP ct_xp, SEXP coeffs, int digit_bit_size, std::string initial_scaling, int order);
+extern "C" SEXP _openfhe_R_EvalFBTNoDecoding__(SEXP ct_xp, SEXP coeffs, SEXP digit_bit_size, SEXP initial_scaling, SEXP order) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalFBTNoDecoding__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coeffs), cpp11::as_cpp<cpp11::decay_t<int>>(digit_bit_size), cpp11::as_cpp<cpp11::decay_t<std::string>>(initial_scaling), cpp11::as_cpp<cpp11::decay_t<int>>(order)));
+  END_CPP11
+}
+// pke_fbt.cpp
+SEXP EvalHomDecoding__(SEXP ct_xp, std::string post_scaling, int level_to_reduce);
+extern "C" SEXP _openfhe_R_EvalHomDecoding__(SEXP ct_xp, SEXP post_scaling, SEXP level_to_reduce) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalHomDecoding__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(post_scaling), cpp11::as_cpp<cpp11::decay_t<int>>(level_to_reduce)));
+  END_CPP11
+}
+// pke_fbt.cpp
+SEXP EvalMVBPrecompute__(SEXP ct_xp, SEXP coeffs, int digit_bit_size, std::string initial_scaling, int order);
+extern "C" SEXP _openfhe_R_EvalMVBPrecompute__(SEXP ct_xp, SEXP coeffs, SEXP digit_bit_size, SEXP initial_scaling, SEXP order) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalMVBPrecompute__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coeffs), cpp11::as_cpp<cpp11::decay_t<int>>(digit_bit_size), cpp11::as_cpp<cpp11::decay_t<std::string>>(initial_scaling), cpp11::as_cpp<cpp11::decay_t<int>>(order)));
+  END_CPP11
+}
+// pke_fbt.cpp
+SEXP EvalMVB__(SEXP powers_xp, SEXP coeffs, int digit_bit_size, std::string post_scaling, int level_to_reduce, int order);
+extern "C" SEXP _openfhe_R_EvalMVB__(SEXP powers_xp, SEXP coeffs, SEXP digit_bit_size, SEXP post_scaling, SEXP level_to_reduce, SEXP order) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalMVB__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(powers_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coeffs), cpp11::as_cpp<cpp11::decay_t<int>>(digit_bit_size), cpp11::as_cpp<cpp11::decay_t<std::string>>(post_scaling), cpp11::as_cpp<cpp11::decay_t<int>>(level_to_reduce), cpp11::as_cpp<cpp11::decay_t<int>>(order)));
+  END_CPP11
+}
+// pke_fbt.cpp
+SEXP EvalMVBNoDecoding__(SEXP powers_xp, SEXP coeffs, int digit_bit_size, int order);
+extern "C" SEXP _openfhe_R_EvalMVBNoDecoding__(SEXP powers_xp, SEXP coeffs, SEXP digit_bit_size, SEXP order) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalMVBNoDecoding__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(powers_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coeffs), cpp11::as_cpp<cpp11::decay_t<int>>(digit_bit_size), cpp11::as_cpp<cpp11::decay_t<int>>(order)));
+  END_CPP11
+}
+// pke_fbt.cpp
+SEXP EvalHermiteTrigSeries__(SEXP ct_xp, SEXP coefficients_cheb, double a, double b, SEXP coefficients_herm, int precomp);
+extern "C" SEXP _openfhe_R_EvalHermiteTrigSeries__(SEXP ct_xp, SEXP coefficients_cheb, SEXP a, SEXP b, SEXP coefficients_herm, SEXP precomp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalHermiteTrigSeries__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coefficients_cheb), cpp11::as_cpp<cpp11::decay_t<double>>(a), cpp11::as_cpp<cpp11::decay_t<double>>(b), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coefficients_herm), cpp11::as_cpp<cpp11::decay_t<int>>(precomp)));
+  END_CPP11
+}
+// pke_fbt.cpp
+void EvalFEFuncBootstrapSetup__(SEXP cc_xp, integers level_budget, integers dim1, int slots);
+extern "C" SEXP _openfhe_R_EvalFEFuncBootstrapSetup__(SEXP cc_xp, SEXP level_budget, SEXP dim1, SEXP slots) {
+  BEGIN_CPP11
+    EvalFEFuncBootstrapSetup__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<integers>>(level_budget), cpp11::as_cpp<cpp11::decay_t<integers>>(dim1), cpp11::as_cpp<cpp11::decay_t<int>>(slots));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_fbt.cpp
+SEXP EvalFEFuncBootstrap__(SEXP ct_xp, SEXP coefficients);
+extern "C" SEXP _openfhe_R_EvalFEFuncBootstrap__(SEXP ct_xp, SEXP coefficients) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalFEFuncBootstrap__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coefficients)));
+  END_CPP11
+}
+// pke_fbt.cpp
+SEXP EvalFEFuncBootstrapPrecompute__(SEXP ct_xp, SEXP coefficients);
+extern "C" SEXP _openfhe_R_EvalFEFuncBootstrapPrecompute__(SEXP ct_xp, SEXP coefficients) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalFEFuncBootstrapPrecompute__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coefficients)));
+  END_CPP11
+}
+// pke_fbt.cpp
+SEXP EvalFEFuncBootstrapWithPrecomp__(SEXP powers_xp, SEXP coefficients);
+extern "C" SEXP _openfhe_R_EvalFEFuncBootstrapWithPrecomp__(SEXP powers_xp, SEXP coefficients) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalFEFuncBootstrapWithPrecomp__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(powers_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coefficients)));
+  END_CPP11
+}
+// pke_fbt.cpp
+SEXP GetHermiteTrigCoefficients__(cpp11::function func, int p, int order, double scale);
+extern "C" SEXP _openfhe_R_GetHermiteTrigCoefficients__(SEXP func, SEXP p, SEXP order, SEXP scale) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(GetHermiteTrigCoefficients__(cpp11::as_cpp<cpp11::decay_t<cpp11::function>>(func), cpp11::as_cpp<cpp11::decay_t<int>>(p), cpp11::as_cpp<cpp11::decay_t<int>>(order), cpp11::as_cpp<cpp11::decay_t<double>>(scale)));
+  END_CPP11
+}
 // pke_key_management_getters.cpp
 list CryptoContext__GetAllEvalMultKeys();
 extern "C" SEXP _openfhe_R_CryptoContext__GetAllEvalMultKeys() {
@@ -2400,6 +2938,108 @@ extern "C" SEXP _openfhe_R_CryptoContext__ClearEvalAutomorphismKeys__tag(SEXP ke
   BEGIN_CPP11
     CryptoContext__ClearEvalAutomorphismKeys__tag(cpp11::as_cpp<cpp11::decay_t<std::string>>(key_tag));
     return R_NilValue;
+  END_CPP11
+}
+// pke_keyswitch.cpp
+SEXP KeySwitchGen__(SEXP cc_xp, SEXP old_sk_xp, SEXP new_sk_xp);
+extern "C" SEXP _openfhe_R_KeySwitchGen__(SEXP cc_xp, SEXP old_sk_xp, SEXP new_sk_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(KeySwitchGen__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(old_sk_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(new_sk_xp)));
+  END_CPP11
+}
+// pke_keyswitch.cpp
+SEXP KeySwitch__(SEXP ct_xp, SEXP ek_xp);
+extern "C" SEXP _openfhe_R_KeySwitch__(SEXP ct_xp, SEXP ek_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(KeySwitch__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ek_xp)));
+  END_CPP11
+}
+// pke_keyswitch.cpp
+void KeySwitchInPlace__(SEXP ct_xp, SEXP ek_xp);
+extern "C" SEXP _openfhe_R_KeySwitchInPlace__(SEXP ct_xp, SEXP ek_xp) {
+  BEGIN_CPP11
+    KeySwitchInPlace__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ek_xp));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_keyswitch.cpp
+SEXP KeySwitchExt__(SEXP ct_xp, bool add_first);
+extern "C" SEXP _openfhe_R_KeySwitchExt__(SEXP ct_xp, SEXP add_first) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(KeySwitchExt__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<bool>>(add_first)));
+  END_CPP11
+}
+// pke_keyswitch.cpp
+SEXP KeySwitchDownFirstElement__(SEXP ct_xp);
+extern "C" SEXP _openfhe_R_KeySwitchDownFirstElement__(SEXP ct_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(KeySwitchDownFirstElement__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp)));
+  END_CPP11
+}
+// pke_keyswitch.cpp
+list SparseKeyGen__(SEXP cc_xp);
+extern "C" SEXP _openfhe_R_SparseKeyGen__(SEXP cc_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(SparseKeyGen__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp)));
+  END_CPP11
+}
+// pke_keyswitch.cpp
+SEXP MultiMultEvalKey__(SEXP cc_xp, SEXP sk_xp, SEXP ek_xp, std::string key_tag);
+extern "C" SEXP _openfhe_R_MultiMultEvalKey__(SEXP cc_xp, SEXP sk_xp, SEXP ek_xp, SEXP key_tag) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(MultiMultEvalKey__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ek_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(key_tag)));
+  END_CPP11
+}
+// pke_keyswitch.cpp
+void ClearEvalSumKeys__();
+extern "C" SEXP _openfhe_R_ClearEvalSumKeys__() {
+  BEGIN_CPP11
+    ClearEvalSumKeys__();
+    return R_NilValue;
+  END_CPP11
+}
+// pke_keyswitch.cpp
+void ClearEvalSumKeys__tag(std::string key_tag);
+extern "C" SEXP _openfhe_R_ClearEvalSumKeys__tag(SEXP key_tag) {
+  BEGIN_CPP11
+    ClearEvalSumKeys__tag(cpp11::as_cpp<cpp11::decay_t<std::string>>(key_tag));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_keyswitch.cpp
+list GetAllContexts__();
+extern "C" SEXP _openfhe_R_GetAllContexts__() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(GetAllContexts__());
+  END_CPP11
+}
+// pke_keyswitch.cpp
+void PrecomputeCRTTablesAfterDeserializaton__set(bool enable);
+extern "C" SEXP _openfhe_R_PrecomputeCRTTablesAfterDeserializaton__set(SEXP enable) {
+  BEGIN_CPP11
+    PrecomputeCRTTablesAfterDeserializaton__set(cpp11::as_cpp<cpp11::decay_t<bool>>(enable));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_keyswitch.cpp
+bool PrecomputeCRTTablesAfterDeserializaton__get();
+extern "C" SEXP _openfhe_R_PrecomputeCRTTablesAfterDeserializaton__get() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(PrecomputeCRTTablesAfterDeserializaton__get());
+  END_CPP11
+}
+// pke_keyswitch.cpp
+cpp11::doubles EvalChebyshevFunctionPtxt__(cpp11::function func, cpp11::doubles ptxt, double a, double b, int degree);
+extern "C" SEXP _openfhe_R_EvalChebyshevFunctionPtxt__(SEXP func, SEXP ptxt, SEXP a, SEXP b, SEXP degree) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalChebyshevFunctionPtxt__(cpp11::as_cpp<cpp11::decay_t<cpp11::function>>(func), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ptxt), cpp11::as_cpp<cpp11::decay_t<double>>(a), cpp11::as_cpp<cpp11::decay_t<double>>(b), cpp11::as_cpp<cpp11::decay_t<int>>(degree)));
+  END_CPP11
+}
+// pke_keyswitch.cpp
+int GetMultiplicativeDepthByCoeffVector__(int n_coefficients, bool is_normalized);
+extern "C" SEXP _openfhe_R_GetMultiplicativeDepthByCoeffVector__(SEXP n_coefficients, SEXP is_normalized) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(GetMultiplicativeDepthByCoeffVector__(cpp11::as_cpp<cpp11::decay_t<int>>(n_coefficients), cpp11::as_cpp<cpp11::decay_t<bool>>(is_normalized)));
   END_CPP11
 }
 // pke_multi_eval_keys.cpp
@@ -2475,6 +3115,13 @@ extern "C" SEXP _openfhe_R_MultipartyKeyGen(SEXP cc_xp, SEXP pk_xp, SEXP make_sp
   END_CPP11
 }
 // pke_multiparty.cpp
+list MultipartyKeyGen__sk_vec(SEXP cc_xp, list sk_list);
+extern "C" SEXP _openfhe_R_MultipartyKeyGen__sk_vec(SEXP cc_xp, SEXP sk_list) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(MultipartyKeyGen__sk_vec(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<list>>(sk_list)));
+  END_CPP11
+}
+// pke_multiparty.cpp
 SEXP MultiAddPubKeys(SEXP cc_xp, SEXP pk1_xp, SEXP pk2_xp, std::string key_tag);
 extern "C" SEXP _openfhe_R_MultiAddPubKeys(SEXP cc_xp, SEXP pk1_xp, SEXP pk2_xp, SEXP key_tag) {
   BEGIN_CPP11
@@ -2523,6 +3170,274 @@ extern "C" SEXP _openfhe_R_MultipartyDecryptFusion(SEXP cc_xp, SEXP partials_lis
     return cpp11::as_sexp(MultipartyDecryptFusion(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<list>>(partials_list)));
   END_CPP11
 }
+// pke_object_accessors.cpp
+int ElementParams__GetCyclotomicOrder(SEXP ep_xp);
+extern "C" SEXP _openfhe_R_ElementParams__GetCyclotomicOrder(SEXP ep_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(ElementParams__GetCyclotomicOrder(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ep_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+int ElementParams__GetRingDimension(SEXP ep_xp);
+extern "C" SEXP _openfhe_R_ElementParams__GetRingDimension(SEXP ep_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(ElementParams__GetRingDimension(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ep_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+std::string ElementParams__GetModulus(SEXP ep_xp);
+extern "C" SEXP _openfhe_R_ElementParams__GetModulus(SEXP ep_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(ElementParams__GetModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ep_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+int EncodingParams__GetBatchSize(SEXP ep_xp);
+extern "C" SEXP _openfhe_R_EncodingParams__GetBatchSize(SEXP ep_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EncodingParams__GetBatchSize(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ep_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+SEXP EncodingParams__GetPlaintextModulus(SEXP ep_xp);
+extern "C" SEXP _openfhe_R_EncodingParams__GetPlaintextModulus(SEXP ep_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EncodingParams__GetPlaintextModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ep_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+SEXP EncodingParams__GetPlaintextGenerator(SEXP ep_xp);
+extern "C" SEXP _openfhe_R_EncodingParams__GetPlaintextGenerator(SEXP ep_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EncodingParams__GetPlaintextGenerator(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ep_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+std::string CryptoContext__GetModulus(SEXP cc_xp);
+extern "C" SEXP _openfhe_R_CryptoContext__GetModulus(SEXP cc_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(CryptoContext__GetModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+std::string CryptoContext__GetModulusCKKS(SEXP cc_xp);
+extern "C" SEXP _openfhe_R_CryptoContext__GetModulusCKKS(SEXP cc_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(CryptoContext__GetModulusCKKS(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+std::string CryptoContext__GetRootOfUnity(SEXP cc_xp);
+extern "C" SEXP _openfhe_R_CryptoContext__GetRootOfUnity(SEXP cc_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(CryptoContext__GetRootOfUnity(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+SEXP CryptoContext__GetScheme(SEXP cc_xp);
+extern "C" SEXP _openfhe_R_CryptoContext__GetScheme(SEXP cc_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(CryptoContext__GetScheme(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+void CryptoContext__setSchemeId(SEXP cc_xp, int scheme_tag);
+extern "C" SEXP _openfhe_R_CryptoContext__setSchemeId(SEXP cc_xp, SEXP scheme_tag) {
+  BEGIN_CPP11
+    CryptoContext__setSchemeId(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<int>>(scheme_tag));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_object_accessors.cpp
+std::string CryptoContext__SerializedObjectName(SEXP cc_xp);
+extern "C" SEXP _openfhe_R_CryptoContext__SerializedObjectName(SEXP cc_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(CryptoContext__SerializedObjectName(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+int CryptoContext__SerializedVersion();
+extern "C" SEXP _openfhe_R_CryptoContext__SerializedVersion() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(CryptoContext__SerializedVersion());
+  END_CPP11
+}
+// pke_object_accessors.cpp
+void CryptoContext__ClearCaches(SEXP cc_xp, int which);
+extern "C" SEXP _openfhe_R_CryptoContext__ClearCaches(SEXP cc_xp, SEXP which) {
+  BEGIN_CPP11
+    CryptoContext__ClearCaches(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<int>>(which));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_object_accessors.cpp
+void CryptoContext__SetRNS(SEXP cc_xp, int field, double value);
+extern "C" SEXP _openfhe_R_CryptoContext__SetRNS(SEXP cc_xp, SEXP field, SEXP value) {
+  BEGIN_CPP11
+    CryptoContext__SetRNS(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<int>>(field), cpp11::as_cpp<cpp11::decay_t<double>>(value));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_object_accessors.cpp
+SEXP CryptoContext__GetPlaintextForDecrypt(int encoding_type, SEXP ep_xp, SEXP encp_xp, int ckks_data_type);
+extern "C" SEXP _openfhe_R_CryptoContext__GetPlaintextForDecrypt(SEXP encoding_type, SEXP ep_xp, SEXP encp_xp, SEXP ckks_data_type) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(CryptoContext__GetPlaintextForDecrypt(cpp11::as_cpp<cpp11::decay_t<int>>(encoding_type), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ep_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(encp_xp), cpp11::as_cpp<cpp11::decay_t<int>>(ckks_data_type)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+integers CryptoContext__GetUniqueValues(integers old_values, integers new_values);
+extern "C" SEXP _openfhe_R_CryptoContext__GetUniqueValues(SEXP old_values, SEXP new_values) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(CryptoContext__GetUniqueValues(cpp11::as_cpp<cpp11::decay_t<integers>>(old_values), cpp11::as_cpp<cpp11::decay_t<integers>>(new_values)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+integers CryptoContext__GetExistingEvalAutomorphismKeyIndices(std::string key_tag);
+extern "C" SEXP _openfhe_R_CryptoContext__GetExistingEvalAutomorphismKeyIndices(SEXP key_tag) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(CryptoContext__GetExistingEvalAutomorphismKeyIndices(cpp11::as_cpp<cpp11::decay_t<std::string>>(key_tag)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+integers CryptoContext__GetEvalAutomorphismNoKeyIndices(std::string key_tag, integers indices);
+extern "C" SEXP _openfhe_R_CryptoContext__GetEvalAutomorphismNoKeyIndices(SEXP key_tag, SEXP indices) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(CryptoContext__GetEvalAutomorphismNoKeyIndices(cpp11::as_cpp<cpp11::decay_t<std::string>>(key_tag), cpp11::as_cpp<cpp11::decay_t<integers>>(indices)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+std::string EvalKey__GetKeyTag(SEXP ek_xp);
+extern "C" SEXP _openfhe_R_EvalKey__GetKeyTag(SEXP ek_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalKey__GetKeyTag(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ek_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+void EvalKey__SetKeyTag(SEXP ek_xp, std::string tag);
+extern "C" SEXP _openfhe_R_EvalKey__SetKeyTag(SEXP ek_xp, SEXP tag) {
+  BEGIN_CPP11
+    EvalKey__SetKeyTag(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ek_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(tag));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_object_accessors.cpp
+SEXP PublicKey__GetCryptoContext(SEXP pk_xp);
+extern "C" SEXP _openfhe_R_PublicKey__GetCryptoContext(SEXP pk_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(PublicKey__GetCryptoContext(cpp11::as_cpp<cpp11::decay_t<SEXP>>(pk_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+SEXP PrivateKey__GetCryptoContext(SEXP sk_xp);
+extern "C" SEXP _openfhe_R_PrivateKey__GetCryptoContext(SEXP sk_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(PrivateKey__GetCryptoContext(cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+SEXP Ciphertext__Clone(SEXP ct_xp, bool empty);
+extern "C" SEXP _openfhe_R_Ciphertext__Clone(SEXP ct_xp, SEXP empty) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Ciphertext__Clone(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<bool>>(empty)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+int Ciphertext__NumberCiphertextElements(SEXP ct_xp);
+extern "C" SEXP _openfhe_R_Ciphertext__NumberCiphertextElements(SEXP ct_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Ciphertext__NumberCiphertextElements(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+void Ciphertext__RemoveElement(SEXP ct_xp, int index);
+extern "C" SEXP _openfhe_R_Ciphertext__RemoveElement(SEXP ct_xp, SEXP index) {
+  BEGIN_CPP11
+    Ciphertext__RemoveElement(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<int>>(index));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_object_accessors.cpp
+int Ciphertext__GetHopLevel(SEXP ct_xp);
+extern "C" SEXP _openfhe_R_Ciphertext__GetHopLevel(SEXP ct_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Ciphertext__GetHopLevel(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+void Ciphertext__SetHopLevel(SEXP ct_xp, int hop_level);
+extern "C" SEXP _openfhe_R_Ciphertext__SetHopLevel(SEXP ct_xp, SEXP hop_level) {
+  BEGIN_CPP11
+    Ciphertext__SetHopLevel(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<int>>(hop_level));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_object_accessors.cpp
+void Ciphertext__SetEncodingType(SEXP ct_xp, int encoding_type);
+extern "C" SEXP _openfhe_R_Ciphertext__SetEncodingType(SEXP ct_xp, SEXP encoding_type) {
+  BEGIN_CPP11
+    Ciphertext__SetEncodingType(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<int>>(encoding_type));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_object_accessors.cpp
+list Ciphertext__GetElements(SEXP ct_xp);
+extern "C" SEXP _openfhe_R_Ciphertext__GetElements(SEXP ct_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Ciphertext__GetElements(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+void Ciphertext__SetElements(SEXP ct_xp, list elements);
+extern "C" SEXP _openfhe_R_Ciphertext__SetElements(SEXP ct_xp, SEXP elements) {
+  BEGIN_CPP11
+    Ciphertext__SetElements(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<list>>(elements));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_object_accessors.cpp
+bool Plaintext__Encode(SEXP pt_xp);
+extern "C" SEXP _openfhe_R_Plaintext__Encode(SEXP pt_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Plaintext__Encode(cpp11::as_cpp<cpp11::decay_t<SEXP>>(pt_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+bool Plaintext__Decode(SEXP pt_xp);
+extern "C" SEXP _openfhe_R_Plaintext__Decode(SEXP pt_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Plaintext__Decode(cpp11::as_cpp<cpp11::decay_t<SEXP>>(pt_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+bool Plaintext__Decode__ckks(SEXP pt_xp, int depth, double scaling_factor, int scal_tech, int execution_mode);
+extern "C" SEXP _openfhe_R_Plaintext__Decode__ckks(SEXP pt_xp, SEXP depth, SEXP scaling_factor, SEXP scal_tech, SEXP execution_mode) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Plaintext__Decode__ckks(cpp11::as_cpp<cpp11::decay_t<SEXP>>(pt_xp), cpp11::as_cpp<cpp11::decay_t<int>>(depth), cpp11::as_cpp<cpp11::decay_t<double>>(scaling_factor), cpp11::as_cpp<cpp11::decay_t<int>>(scal_tech), cpp11::as_cpp<cpp11::decay_t<int>>(execution_mode)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+std::string Plaintext__GetElementModulus(SEXP pt_xp);
+extern "C" SEXP _openfhe_R_Plaintext__GetElementModulus(SEXP pt_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Plaintext__GetElementModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(pt_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+SEXP Plaintext__GetEncodingParams(SEXP pt_xp);
+extern "C" SEXP _openfhe_R_Plaintext__GetEncodingParams(SEXP pt_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Plaintext__GetEncodingParams(cpp11::as_cpp<cpp11::decay_t<SEXP>>(pt_xp)));
+  END_CPP11
+}
+// pke_object_accessors.cpp
+void Plaintext__SetFormat(SEXP pt_xp, int format);
+extern "C" SEXP _openfhe_R_Plaintext__SetFormat(SEXP pt_xp, SEXP format) {
+  BEGIN_CPP11
+    Plaintext__SetFormat(cpp11::as_cpp<cpp11::decay_t<SEXP>>(pt_xp), cpp11::as_cpp<cpp11::decay_t<int>>(format));
+    return R_NilValue;
+  END_CPP11
+}
 // pke_plaintext_accessors.cpp
 int Plaintext__GetEncodingType(SEXP pt_xp);
 extern "C" SEXP _openfhe_R_Plaintext__GetEncodingType(SEXP pt_xp) {
@@ -2538,7 +3453,7 @@ extern "C" SEXP _openfhe_R_Plaintext__GetScalingFactor(SEXP pt_xp) {
   END_CPP11
 }
 // pke_plaintext_accessors.cpp
-double Plaintext__GetScalingFactorInt(SEXP pt_xp);
+std::string Plaintext__GetScalingFactorInt(SEXP pt_xp);
 extern "C" SEXP _openfhe_R_Plaintext__GetScalingFactorInt(SEXP pt_xp) {
   BEGIN_CPP11
     return cpp11::as_sexp(Plaintext__GetScalingFactorInt(cpp11::as_cpp<cpp11::decay_t<SEXP>>(pt_xp)));
@@ -2658,10 +3573,10 @@ extern "C" SEXP _openfhe_R_Plaintext__SetScalingFactor(SEXP pt_xp, SEXP sf) {
   END_CPP11
 }
 // pke_plaintext_accessors.cpp
-void Plaintext__SetScalingFactorInt(SEXP pt_xp, int64_t sf);
+void Plaintext__SetScalingFactorInt(SEXP pt_xp, std::string sf);
 extern "C" SEXP _openfhe_R_Plaintext__SetScalingFactorInt(SEXP pt_xp, SEXP sf) {
   BEGIN_CPP11
-    Plaintext__SetScalingFactorInt(cpp11::as_cpp<cpp11::decay_t<SEXP>>(pt_xp), cpp11::as_cpp<cpp11::decay_t<int64_t>>(sf));
+    Plaintext__SetScalingFactorInt(cpp11::as_cpp<cpp11::decay_t<SEXP>>(pt_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(sf));
     return R_NilValue;
   END_CPP11
 }
@@ -2713,6 +3628,318 @@ extern "C" SEXP _openfhe_R_Plaintext__SetIntVectorValue(SEXP pt_xp, SEXP value) 
     return R_NilValue;
   END_CPP11
 }
+// pke_scheme_switching.cpp
+SEXP SchSwchParams__new();
+extern "C" SEXP _openfhe_R_SchSwchParams__new() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(SchSwchParams__new());
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+void SchSwchParams__Set(SEXP xp, int field, int value);
+extern "C" SEXP _openfhe_R_SchSwchParams__Set(SEXP xp, SEXP field, SEXP value) {
+  BEGIN_CPP11
+    SchSwchParams__Set(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp), cpp11::as_cpp<cpp11::decay_t<int>>(field), cpp11::as_cpp<cpp11::decay_t<int>>(value));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+int SchSwchParams__Get(SEXP xp, int field);
+extern "C" SEXP _openfhe_R_SchSwchParams__Get(SEXP xp, SEXP field) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(SchSwchParams__Get(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp), cpp11::as_cpp<cpp11::decay_t<int>>(field)));
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+void SchSwchParams__SetInitialCKKSModulus(SEXP xp, std::string modulus);
+extern "C" SEXP _openfhe_R_SchSwchParams__SetInitialCKKSModulus(SEXP xp, SEXP modulus) {
+  BEGIN_CPP11
+    SchSwchParams__SetInitialCKKSModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(modulus));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+std::string SchSwchParams__GetInitialCKKSModulus(SEXP xp);
+extern "C" SEXP _openfhe_R_SchSwchParams__GetInitialCKKSModulus(SEXP xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(SchSwchParams__GetInitialCKKSModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp)));
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+void SchSwchParams__SetParamsFromCKKSCryptocontextCalled(SEXP xp);
+extern "C" SEXP _openfhe_R_SchSwchParams__SetParamsFromCKKSCryptocontextCalled(SEXP xp) {
+  BEGIN_CPP11
+    SchSwchParams__SetParamsFromCKKSCryptocontextCalled(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+std::string SchSwchParams__str(SEXP xp);
+extern "C" SEXP _openfhe_R_SchSwchParams__str(SEXP xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(SchSwchParams__str(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp)));
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+void SetParamsFromCKKSCryptocontext__(SEXP cc_xp, SEXP params_xp);
+extern "C" SEXP _openfhe_R_SetParamsFromCKKSCryptocontext__(SEXP cc_xp, SEXP params_xp) {
+  BEGIN_CPP11
+    SetParamsFromCKKSCryptocontext__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(params_xp));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+SEXP GetBinCCForSchemeSwitch__(SEXP cc_xp);
+extern "C" SEXP _openfhe_R_GetBinCCForSchemeSwitch__(SEXP cc_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(GetBinCCForSchemeSwitch__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp)));
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+void SetBinCCForSchemeSwitch__(SEXP cc_xp, SEXP bin_xp);
+extern "C" SEXP _openfhe_R_SetBinCCForSchemeSwitch__(SEXP cc_xp, SEXP bin_xp) {
+  BEGIN_CPP11
+    SetBinCCForSchemeSwitch__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(bin_xp));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+SEXP GetSwkFC__(SEXP cc_xp);
+extern "C" SEXP _openfhe_R_GetSwkFC__(SEXP cc_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(GetSwkFC__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp)));
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+void SetSwkFC__(SEXP cc_xp, SEXP ct_xp);
+extern "C" SEXP _openfhe_R_SetSwkFC__(SEXP cc_xp, SEXP ct_xp) {
+  BEGIN_CPP11
+    SetSwkFC__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+SEXP SchemeSwitchSetup__(SEXP cc_xp, SEXP params_xp, bool both);
+extern "C" SEXP _openfhe_R_SchemeSwitchSetup__(SEXP cc_xp, SEXP params_xp, SEXP both) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(SchemeSwitchSetup__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(params_xp), cpp11::as_cpp<cpp11::decay_t<bool>>(both)));
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+void EvalCkksToFhewKeyGen__(SEXP cc_xp, SEXP pk_xp, SEXP sk_xp, SEXP lwesk_xp);
+extern "C" SEXP _openfhe_R_EvalCkksToFhewKeyGen__(SEXP cc_xp, SEXP pk_xp, SEXP sk_xp, SEXP lwesk_xp) {
+  BEGIN_CPP11
+    EvalCkksToFhewKeyGen__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(pk_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(lwesk_xp));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+void EvalSchemeSwitchingKeyGen__(SEXP cc_xp, SEXP pk_xp, SEXP sk_xp, SEXP lwesk_xp);
+extern "C" SEXP _openfhe_R_EvalSchemeSwitchingKeyGen__(SEXP cc_xp, SEXP pk_xp, SEXP sk_xp, SEXP lwesk_xp) {
+  BEGIN_CPP11
+    EvalSchemeSwitchingKeyGen__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(pk_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(lwesk_xp));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+void EvalCKKStoFHEWPrecompute__(SEXP cc_xp, double scale);
+extern "C" SEXP _openfhe_R_EvalCKKStoFHEWPrecompute__(SEXP cc_xp, SEXP scale) {
+  BEGIN_CPP11
+    EvalCKKStoFHEWPrecompute__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<double>>(scale));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+list EvalCKKStoFHEW__(SEXP ct_xp, int num_ctxts);
+extern "C" SEXP _openfhe_R_EvalCKKStoFHEW__(SEXP ct_xp, SEXP num_ctxts) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalCKKStoFHEW__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<int>>(num_ctxts)));
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+void EvalFHEWtoCKKSSetup__(SEXP cc_xp, SEXP bin_xp, int num_slots_ckks, int log_q);
+extern "C" SEXP _openfhe_R_EvalFHEWtoCKKSSetup__(SEXP cc_xp, SEXP bin_xp, SEXP num_slots_ckks, SEXP log_q) {
+  BEGIN_CPP11
+    EvalFHEWtoCKKSSetup__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(bin_xp), cpp11::as_cpp<cpp11::decay_t<int>>(num_slots_ckks), cpp11::as_cpp<cpp11::decay_t<int>>(log_q));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+void EvalFhewToCkksKeyGen__(SEXP cc_xp, SEXP pk_xp, SEXP sk_xp, SEXP lwesk_xp, int num_slots, int num_ctxts, int dim1, int l);
+extern "C" SEXP _openfhe_R_EvalFhewToCkksKeyGen__(SEXP cc_xp, SEXP pk_xp, SEXP sk_xp, SEXP lwesk_xp, SEXP num_slots, SEXP num_ctxts, SEXP dim1, SEXP l) {
+  BEGIN_CPP11
+    EvalFhewToCkksKeyGen__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(pk_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(lwesk_xp), cpp11::as_cpp<cpp11::decay_t<int>>(num_slots), cpp11::as_cpp<cpp11::decay_t<int>>(num_ctxts), cpp11::as_cpp<cpp11::decay_t<int>>(dim1), cpp11::as_cpp<cpp11::decay_t<int>>(l));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+SEXP EvalFHEWtoCKKS__(SEXP cc_xp, list lwe_ciphertexts, int num_ctxts, int num_slots, int p, double pmin, double pmax, int dim1);
+extern "C" SEXP _openfhe_R_EvalFHEWtoCKKS__(SEXP cc_xp, SEXP lwe_ciphertexts, SEXP num_ctxts, SEXP num_slots, SEXP p, SEXP pmin, SEXP pmax, SEXP dim1) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalFHEWtoCKKS__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<list>>(lwe_ciphertexts), cpp11::as_cpp<cpp11::decay_t<int>>(num_ctxts), cpp11::as_cpp<cpp11::decay_t<int>>(num_slots), cpp11::as_cpp<cpp11::decay_t<int>>(p), cpp11::as_cpp<cpp11::decay_t<double>>(pmin), cpp11::as_cpp<cpp11::decay_t<double>>(pmax), cpp11::as_cpp<cpp11::decay_t<int>>(dim1)));
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+void EvalCompareSwitchPrecompute__(SEXP cc_xp, int p_lwe, double scale_sign, bool unit);
+extern "C" SEXP _openfhe_R_EvalCompareSwitchPrecompute__(SEXP cc_xp, SEXP p_lwe, SEXP scale_sign, SEXP unit) {
+  BEGIN_CPP11
+    EvalCompareSwitchPrecompute__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<int>>(p_lwe), cpp11::as_cpp<cpp11::decay_t<double>>(scale_sign), cpp11::as_cpp<cpp11::decay_t<bool>>(unit));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+SEXP EvalCompareSchemeSwitching__(SEXP ct1_xp, SEXP ct2_xp, int num_ctxts, int num_slots, int p_lwe, double scale_sign, bool unit);
+extern "C" SEXP _openfhe_R_EvalCompareSchemeSwitching__(SEXP ct1_xp, SEXP ct2_xp, SEXP num_ctxts, SEXP num_slots, SEXP p_lwe, SEXP scale_sign, SEXP unit) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalCompareSchemeSwitching__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct1_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct2_xp), cpp11::as_cpp<cpp11::decay_t<int>>(num_ctxts), cpp11::as_cpp<cpp11::decay_t<int>>(num_slots), cpp11::as_cpp<cpp11::decay_t<int>>(p_lwe), cpp11::as_cpp<cpp11::decay_t<double>>(scale_sign), cpp11::as_cpp<cpp11::decay_t<bool>>(unit)));
+  END_CPP11
+}
+// pke_scheme_switching.cpp
+list EvalMinMaxSchemeSwitching__(SEXP ct_xp, SEXP pk_xp, int which, int num_values, int num_slots, int p_lwe, double scale_sign);
+extern "C" SEXP _openfhe_R_EvalMinMaxSchemeSwitching__(SEXP ct_xp, SEXP pk_xp, SEXP which, SEXP num_values, SEXP num_slots, SEXP p_lwe, SEXP scale_sign) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(EvalMinMaxSchemeSwitching__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(pk_xp), cpp11::as_cpp<cpp11::decay_t<int>>(which), cpp11::as_cpp<cpp11::decay_t<int>>(num_values), cpp11::as_cpp<cpp11::decay_t<int>>(num_slots), cpp11::as_cpp<cpp11::decay_t<int>>(p_lwe), cpp11::as_cpp<cpp11::decay_t<double>>(scale_sign)));
+  END_CPP11
+}
+// pke_schemelet.cpp
+SEXP PolyVector__new();
+extern "C" SEXP _openfhe_R_PolyVector__new() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(PolyVector__new());
+  END_CPP11
+}
+// pke_schemelet.cpp
+int PolyVector__length(SEXP xp);
+extern "C" SEXP _openfhe_R_PolyVector__length(SEXP xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(PolyVector__length(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp)));
+  END_CPP11
+}
+// pke_schemelet.cpp
+SEXP PolyVector__clone(SEXP xp);
+extern "C" SEXP _openfhe_R_PolyVector__clone(SEXP xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(PolyVector__clone(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp)));
+  END_CPP11
+}
+// pke_schemelet.cpp
+void PolyVector__SwitchModulus(SEXP xp, std::string modulus);
+extern "C" SEXP _openfhe_R_PolyVector__SwitchModulus(SEXP xp, SEXP modulus) {
+  BEGIN_CPP11
+    PolyVector__SwitchModulus(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(modulus));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_schemelet.cpp
+SEXP PolyVector__sub(SEXP a_xp, SEXP b_xp);
+extern "C" SEXP _openfhe_R_PolyVector__sub(SEXP a_xp, SEXP b_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(PolyVector__sub(cpp11::as_cpp<cpp11::decay_t<SEXP>>(a_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(b_xp)));
+  END_CPP11
+}
+// pke_schemelet.cpp
+SEXP Schemelet__GetElementParams(SEXP sk_xp, int level);
+extern "C" SEXP _openfhe_R_Schemelet__GetElementParams(SEXP sk_xp, SEXP level) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Schemelet__GetElementParams(cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp), cpp11::as_cpp<cpp11::decay_t<int>>(level)));
+  END_CPP11
+}
+// pke_schemelet.cpp
+SEXP Schemelet__EncryptCoeff(doubles input, std::string q, std::string p, SEXP sk_xp, SEXP ep_xp, bool bit_reverse);
+extern "C" SEXP _openfhe_R_Schemelet__EncryptCoeff(SEXP input, SEXP q, SEXP p, SEXP sk_xp, SEXP ep_xp, SEXP bit_reverse) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Schemelet__EncryptCoeff(cpp11::as_cpp<cpp11::decay_t<doubles>>(input), cpp11::as_cpp<cpp11::decay_t<std::string>>(q), cpp11::as_cpp<cpp11::decay_t<std::string>>(p), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ep_xp), cpp11::as_cpp<cpp11::decay_t<bool>>(bit_reverse)));
+  END_CPP11
+}
+// pke_schemelet.cpp
+doubles Schemelet__DecryptCoeff(SEXP input_xp, std::string q, std::string p, SEXP sk_xp, SEXP ep_xp, int num_slots, int length, bool bit_reverse);
+extern "C" SEXP _openfhe_R_Schemelet__DecryptCoeff(SEXP input_xp, SEXP q, SEXP p, SEXP sk_xp, SEXP ep_xp, SEXP num_slots, SEXP length, SEXP bit_reverse) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Schemelet__DecryptCoeff(cpp11::as_cpp<cpp11::decay_t<SEXP>>(input_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(q), cpp11::as_cpp<cpp11::decay_t<std::string>>(p), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ep_xp), cpp11::as_cpp<cpp11::decay_t<int>>(num_slots), cpp11::as_cpp<cpp11::decay_t<int>>(length), cpp11::as_cpp<cpp11::decay_t<bool>>(bit_reverse)));
+  END_CPP11
+}
+// pke_schemelet.cpp
+void Schemelet__ModSwitch(SEXP input_xp, std::string q1, std::string q2);
+extern "C" SEXP _openfhe_R_Schemelet__ModSwitch(SEXP input_xp, SEXP q1, SEXP q2) {
+  BEGIN_CPP11
+    Schemelet__ModSwitch(cpp11::as_cpp<cpp11::decay_t<SEXP>>(input_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(q1), cpp11::as_cpp<cpp11::decay_t<std::string>>(q2));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_schemelet.cpp
+SEXP Schemelet__ConvertRLWEToCKKS(SEXP cc_xp, SEXP coeffs_xp, SEXP pk_xp, std::string big_q, int slots, int level);
+extern "C" SEXP _openfhe_R_Schemelet__ConvertRLWEToCKKS(SEXP cc_xp, SEXP coeffs_xp, SEXP pk_xp, SEXP big_q, SEXP slots, SEXP level) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Schemelet__ConvertRLWEToCKKS(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(coeffs_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(pk_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(big_q), cpp11::as_cpp<cpp11::decay_t<int>>(slots), cpp11::as_cpp<cpp11::decay_t<int>>(level)));
+  END_CPP11
+}
+// pke_schemelet.cpp
+SEXP Schemelet__ConvertCKKSToRLWE(SEXP ct_xp, std::string q);
+extern "C" SEXP _openfhe_R_Schemelet__ConvertCKKSToRLWE(SEXP ct_xp, SEXP q) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Schemelet__ConvertCKKSToRLWE(cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(q)));
+  END_CPP11
+}
+// pke_schemelet.cpp
+std::string Schemelet__GetQPrime(SEXP pk_xp, int lvls);
+extern "C" SEXP _openfhe_R_Schemelet__GetQPrime(SEXP pk_xp, SEXP lvls) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Schemelet__GetQPrime(cpp11::as_cpp<cpp11::decay_t<SEXP>>(pk_xp), cpp11::as_cpp<cpp11::decay_t<int>>(lvls)));
+  END_CPP11
+}
+// pke_schswch_serializer.cpp
+SEXP SchSwchSerializer__new(SEXP cc_xp, SEXP pk_xp, SEXP ct_xp);
+extern "C" SEXP _openfhe_R_SchSwchSerializer__new(SEXP cc_xp, SEXP pk_xp, SEXP ct_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(SchSwchSerializer__new(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(pk_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ct_xp)));
+  END_CPP11
+}
+// pke_schswch_serializer.cpp
+SEXP SchSwchDeserializer__new();
+extern "C" SEXP _openfhe_R_SchSwchDeserializer__new() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(SchSwchDeserializer__new());
+  END_CPP11
+}
+// pke_schswch_serializer.cpp
+void SchSwchSerializer__SetDataDirectory(SEXP xp, std::string dir);
+extern "C" SEXP _openfhe_R_SchSwchSerializer__SetDataDirectory(SEXP xp, SEXP dir) {
+  BEGIN_CPP11
+    SchSwchSerializer__SetDataDirectory(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(dir));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_schswch_serializer.cpp
+void SchSwchDeserializer__SetDataDirectory(SEXP xp, std::string dir);
+extern "C" SEXP _openfhe_R_SchSwchDeserializer__SetDataDirectory(SEXP xp, SEXP dir) {
+  BEGIN_CPP11
+    SchSwchDeserializer__SetDataDirectory(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(dir));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_schswch_serializer.cpp
+void SchSwchSerializer__Serialize(SEXP xp);
+extern "C" SEXP _openfhe_R_SchSwchSerializer__Serialize(SEXP xp) {
+  BEGIN_CPP11
+    SchSwchSerializer__Serialize(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_schswch_serializer.cpp
+void SchSwchDeserializer__Deserialize(SEXP xp);
+extern "C" SEXP _openfhe_R_SchSwchDeserializer__Deserialize(SEXP xp) {
+  BEGIN_CPP11
+    SchSwchDeserializer__Deserialize(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp));
+    return R_NilValue;
+  END_CPP11
+}
+// pke_schswch_serializer.cpp
+SEXP SchSwchDeserializer__get(SEXP xp, int which);
+extern "C" SEXP _openfhe_R_SchSwchDeserializer__get(SEXP xp, SEXP which) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(SchSwchDeserializer__get(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp), cpp11::as_cpp<cpp11::decay_t<int>>(which)));
+  END_CPP11
+}
 // pke_secret_sharing.cpp
 SEXP MultipartyDecryptLead__ct_vec(SEXP cc_xp, SEXP sk_xp, list ct_list);
 extern "C" SEXP _openfhe_R_MultipartyDecryptLead__ct_vec(SEXP cc_xp, SEXP sk_xp, SEXP ct_list) {
@@ -2732,6 +3959,13 @@ SEXP CryptoContext__ShareKeys(SEXP cc_xp, SEXP sk_xp, int n_parties, int thresho
 extern "C" SEXP _openfhe_R_CryptoContext__ShareKeys(SEXP cc_xp, SEXP sk_xp, SEXP n_parties, SEXP threshold, SEXP index, SEXP sharing_scheme) {
   BEGIN_CPP11
     return cpp11::as_sexp(CryptoContext__ShareKeys(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sk_xp), cpp11::as_cpp<cpp11::decay_t<int>>(n_parties), cpp11::as_cpp<cpp11::decay_t<int>>(threshold), cpp11::as_cpp<cpp11::decay_t<int>>(index), cpp11::as_cpp<cpp11::decay_t<std::string>>(sharing_scheme)));
+  END_CPP11
+}
+// pke_secret_sharing.cpp
+int SecretShareMap__length(SEXP share_map_xp);
+extern "C" SEXP _openfhe_R_SecretShareMap__length(SEXP share_map_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(SecretShareMap__length(cpp11::as_cpp<cpp11::decay_t<SEXP>>(share_map_xp)));
   END_CPP11
 }
 // pke_secret_sharing.cpp
@@ -2849,6 +4083,69 @@ extern "C" SEXP _openfhe_R_ReleaseAllContexts() {
     return R_NilValue;
   END_CPP11
 }
+// pke_serialization_memory.cpp
+SEXP SerializeMem__(SEXP xp, int kind, bool binary);
+extern "C" SEXP _openfhe_R_SerializeMem__(SEXP xp, SEXP kind, SEXP binary) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(SerializeMem__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp), cpp11::as_cpp<cpp11::decay_t<int>>(kind), cpp11::as_cpp<cpp11::decay_t<bool>>(binary)));
+  END_CPP11
+}
+// pke_serialization_memory.cpp
+SEXP SerializeMem__EvalKeyVector(list eks, bool binary);
+extern "C" SEXP _openfhe_R_SerializeMem__EvalKeyVector(SEXP eks, SEXP binary) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(SerializeMem__EvalKeyVector(cpp11::as_cpp<cpp11::decay_t<list>>(eks), cpp11::as_cpp<cpp11::decay_t<bool>>(binary)));
+  END_CPP11
+}
+// pke_serialization_memory.cpp
+SEXP DeserializeMem__(SEXP data, int kind, bool binary);
+extern "C" SEXP _openfhe_R_DeserializeMem__(SEXP data, SEXP kind, SEXP binary) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(DeserializeMem__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(data), cpp11::as_cpp<cpp11::decay_t<int>>(kind), cpp11::as_cpp<cpp11::decay_t<bool>>(binary)));
+  END_CPP11
+}
+// pke_serialization_memory.cpp
+bool SerializeFile__(SEXP xp, int kind, std::string filename, bool binary);
+extern "C" SEXP _openfhe_R_SerializeFile__(SEXP xp, SEXP kind, SEXP filename, SEXP binary) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(SerializeFile__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(xp), cpp11::as_cpp<cpp11::decay_t<int>>(kind), cpp11::as_cpp<cpp11::decay_t<std::string>>(filename), cpp11::as_cpp<cpp11::decay_t<bool>>(binary)));
+  END_CPP11
+}
+// pke_serialization_memory.cpp
+SEXP DeserializeFile__(std::string filename, int kind, bool binary);
+extern "C" SEXP _openfhe_R_DeserializeFile__(SEXP filename, SEXP kind, SEXP binary) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(DeserializeFile__(cpp11::as_cpp<cpp11::decay_t<std::string>>(filename), cpp11::as_cpp<cpp11::decay_t<int>>(kind), cpp11::as_cpp<cpp11::decay_t<bool>>(binary)));
+  END_CPP11
+}
+// pke_serialization_memory.cpp
+SEXP SerializeEvalKeys__(int which, SEXP filename, bool binary, std::string key_tag, SEXP cc_xp);
+extern "C" SEXP _openfhe_R_SerializeEvalKeys__(SEXP which, SEXP filename, SEXP binary, SEXP key_tag, SEXP cc_xp) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(SerializeEvalKeys__(cpp11::as_cpp<cpp11::decay_t<int>>(which), cpp11::as_cpp<cpp11::decay_t<SEXP>>(filename), cpp11::as_cpp<cpp11::decay_t<bool>>(binary), cpp11::as_cpp<cpp11::decay_t<std::string>>(key_tag), cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp)));
+  END_CPP11
+}
+// pke_serialization_memory.cpp
+bool DeserializeEvalKeysMem__(SEXP data, int which, bool binary);
+extern "C" SEXP _openfhe_R_DeserializeEvalKeysMem__(SEXP data, SEXP which, SEXP binary) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(DeserializeEvalKeysMem__(cpp11::as_cpp<cpp11::decay_t<SEXP>>(data), cpp11::as_cpp<cpp11::decay_t<int>>(which), cpp11::as_cpp<cpp11::decay_t<bool>>(binary)));
+  END_CPP11
+}
+// pke_serialization_memory.cpp
+bool SerializeEvalBootstrapKey__(std::string filename, bool binary, SEXP cc_xp, std::string key_tag, int slots);
+extern "C" SEXP _openfhe_R_SerializeEvalBootstrapKey__(SEXP filename, SEXP binary, SEXP cc_xp, SEXP key_tag, SEXP slots) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(SerializeEvalBootstrapKey__(cpp11::as_cpp<cpp11::decay_t<std::string>>(filename), cpp11::as_cpp<cpp11::decay_t<bool>>(binary), cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(key_tag), cpp11::as_cpp<cpp11::decay_t<int>>(slots)));
+  END_CPP11
+}
+// pke_serialization_memory.cpp
+bool DeserializeEvalBootstrapKey__(std::string filename, bool binary, SEXP cc_xp, std::string key_tag, int slots, integers index_list);
+extern "C" SEXP _openfhe_R_DeserializeEvalBootstrapKey__(SEXP filename, SEXP binary, SEXP cc_xp, SEXP key_tag, SEXP slots, SEXP index_list) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(DeserializeEvalBootstrapKey__(cpp11::as_cpp<cpp11::decay_t<std::string>>(filename), cpp11::as_cpp<cpp11::decay_t<bool>>(binary), cpp11::as_cpp<cpp11::decay_t<SEXP>>(cc_xp), cpp11::as_cpp<cpp11::decay_t<std::string>>(key_tag), cpp11::as_cpp<cpp11::decay_t<int>>(slots), cpp11::as_cpp<cpp11::decay_t<integers>>(index_list)));
+  END_CPP11
+}
 // pke_sum_key_serial.cpp
 bool Serialize__EvalSumKey(std::string filename, bool binary, std::string key_tag);
 extern "C" SEXP _openfhe_R_Serialize__EvalSumKey(SEXP filename, SEXP binary, SEXP key_tag) {
@@ -2873,399 +4170,578 @@ extern "C" SEXP _openfhe_R_xptr_type(SEXP xp) {
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
-    {"_openfhe_R_BFVParams__GetBatchSize",                        (DL_FUNC) &_openfhe_R_BFVParams__GetBatchSize,                        1},
-    {"_openfhe_R_BFVParams__GetCKKSDataType",                     (DL_FUNC) &_openfhe_R_BFVParams__GetCKKSDataType,                     1},
-    {"_openfhe_R_BFVParams__GetCompositeDegree",                  (DL_FUNC) &_openfhe_R_BFVParams__GetCompositeDegree,                  1},
-    {"_openfhe_R_BFVParams__GetDecryptionNoiseMode",              (DL_FUNC) &_openfhe_R_BFVParams__GetDecryptionNoiseMode,              1},
-    {"_openfhe_R_BFVParams__GetDesiredPrecision",                 (DL_FUNC) &_openfhe_R_BFVParams__GetDesiredPrecision,                 1},
-    {"_openfhe_R_BFVParams__GetDigitSize",                        (DL_FUNC) &_openfhe_R_BFVParams__GetDigitSize,                        1},
-    {"_openfhe_R_BFVParams__GetEncryptionTechnique",              (DL_FUNC) &_openfhe_R_BFVParams__GetEncryptionTechnique,              1},
-    {"_openfhe_R_BFVParams__GetEvalAddCount",                     (DL_FUNC) &_openfhe_R_BFVParams__GetEvalAddCount,                     1},
-    {"_openfhe_R_BFVParams__GetExecutionMode",                    (DL_FUNC) &_openfhe_R_BFVParams__GetExecutionMode,                    1},
-    {"_openfhe_R_BFVParams__GetFirstModSize",                     (DL_FUNC) &_openfhe_R_BFVParams__GetFirstModSize,                     1},
-    {"_openfhe_R_BFVParams__GetInteractiveBootCompressionLevel",  (DL_FUNC) &_openfhe_R_BFVParams__GetInteractiveBootCompressionLevel,  1},
-    {"_openfhe_R_BFVParams__GetKeySwitchCount",                   (DL_FUNC) &_openfhe_R_BFVParams__GetKeySwitchCount,                   1},
-    {"_openfhe_R_BFVParams__GetKeySwitchTechnique",               (DL_FUNC) &_openfhe_R_BFVParams__GetKeySwitchTechnique,               1},
-    {"_openfhe_R_BFVParams__GetMaxRelinSkDeg",                    (DL_FUNC) &_openfhe_R_BFVParams__GetMaxRelinSkDeg,                    1},
-    {"_openfhe_R_BFVParams__GetMultipartyMode",                   (DL_FUNC) &_openfhe_R_BFVParams__GetMultipartyMode,                   1},
-    {"_openfhe_R_BFVParams__GetMultiplicationTechnique",          (DL_FUNC) &_openfhe_R_BFVParams__GetMultiplicationTechnique,          1},
-    {"_openfhe_R_BFVParams__GetMultiplicativeDepth",              (DL_FUNC) &_openfhe_R_BFVParams__GetMultiplicativeDepth,              1},
-    {"_openfhe_R_BFVParams__GetNoiseEstimate",                    (DL_FUNC) &_openfhe_R_BFVParams__GetNoiseEstimate,                    1},
-    {"_openfhe_R_BFVParams__GetNumAdversarialQueries",            (DL_FUNC) &_openfhe_R_BFVParams__GetNumAdversarialQueries,            1},
-    {"_openfhe_R_BFVParams__GetNumLargeDigits",                   (DL_FUNC) &_openfhe_R_BFVParams__GetNumLargeDigits,                   1},
-    {"_openfhe_R_BFVParams__GetPREMode",                          (DL_FUNC) &_openfhe_R_BFVParams__GetPREMode,                          1},
-    {"_openfhe_R_BFVParams__GetPRENumHops",                       (DL_FUNC) &_openfhe_R_BFVParams__GetPRENumHops,                       1},
-    {"_openfhe_R_BFVParams__GetPlaintextModulus",                 (DL_FUNC) &_openfhe_R_BFVParams__GetPlaintextModulus,                 1},
-    {"_openfhe_R_BFVParams__GetRegisterWordSize",                 (DL_FUNC) &_openfhe_R_BFVParams__GetRegisterWordSize,                 1},
-    {"_openfhe_R_BFVParams__GetRingDim",                          (DL_FUNC) &_openfhe_R_BFVParams__GetRingDim,                          1},
-    {"_openfhe_R_BFVParams__GetScalingModSize",                   (DL_FUNC) &_openfhe_R_BFVParams__GetScalingModSize,                   1},
-    {"_openfhe_R_BFVParams__GetScalingTechnique",                 (DL_FUNC) &_openfhe_R_BFVParams__GetScalingTechnique,                 1},
-    {"_openfhe_R_BFVParams__GetScheme",                           (DL_FUNC) &_openfhe_R_BFVParams__GetScheme,                           1},
-    {"_openfhe_R_BFVParams__GetSecretKeyDist",                    (DL_FUNC) &_openfhe_R_BFVParams__GetSecretKeyDist,                    1},
-    {"_openfhe_R_BFVParams__GetSecurityLevel",                    (DL_FUNC) &_openfhe_R_BFVParams__GetSecurityLevel,                    1},
-    {"_openfhe_R_BFVParams__GetStandardDeviation",                (DL_FUNC) &_openfhe_R_BFVParams__GetStandardDeviation,                1},
-    {"_openfhe_R_BFVParams__GetStatisticalSecurity",              (DL_FUNC) &_openfhe_R_BFVParams__GetStatisticalSecurity,              1},
-    {"_openfhe_R_BFVParams__GetThresholdNumOfParties",            (DL_FUNC) &_openfhe_R_BFVParams__GetThresholdNumOfParties,            1},
-    {"_openfhe_R_BFVParams__SetBatchSize",                        (DL_FUNC) &_openfhe_R_BFVParams__SetBatchSize,                        2},
-    {"_openfhe_R_BFVParams__SetDigitSize",                        (DL_FUNC) &_openfhe_R_BFVParams__SetDigitSize,                        2},
-    {"_openfhe_R_BFVParams__SetEncryptionTechnique",              (DL_FUNC) &_openfhe_R_BFVParams__SetEncryptionTechnique,              2},
-    {"_openfhe_R_BFVParams__SetEvalAddCount",                     (DL_FUNC) &_openfhe_R_BFVParams__SetEvalAddCount,                     2},
-    {"_openfhe_R_BFVParams__SetKeySwitchCount",                   (DL_FUNC) &_openfhe_R_BFVParams__SetKeySwitchCount,                   2},
-    {"_openfhe_R_BFVParams__SetKeySwitchTechnique",               (DL_FUNC) &_openfhe_R_BFVParams__SetKeySwitchTechnique,               2},
-    {"_openfhe_R_BFVParams__SetMaxRelinSkDeg",                    (DL_FUNC) &_openfhe_R_BFVParams__SetMaxRelinSkDeg,                    2},
-    {"_openfhe_R_BFVParams__SetMultipartyMode",                   (DL_FUNC) &_openfhe_R_BFVParams__SetMultipartyMode,                   2},
-    {"_openfhe_R_BFVParams__SetMultiplicationTechnique",          (DL_FUNC) &_openfhe_R_BFVParams__SetMultiplicationTechnique,          2},
-    {"_openfhe_R_BFVParams__SetMultiplicativeDepth",              (DL_FUNC) &_openfhe_R_BFVParams__SetMultiplicativeDepth,              2},
-    {"_openfhe_R_BFVParams__SetNumLargeDigits",                   (DL_FUNC) &_openfhe_R_BFVParams__SetNumLargeDigits,                   2},
-    {"_openfhe_R_BFVParams__SetPREMode",                          (DL_FUNC) &_openfhe_R_BFVParams__SetPREMode,                          2},
-    {"_openfhe_R_BFVParams__SetPlaintextModulus",                 (DL_FUNC) &_openfhe_R_BFVParams__SetPlaintextModulus,                 2},
-    {"_openfhe_R_BFVParams__SetRingDim",                          (DL_FUNC) &_openfhe_R_BFVParams__SetRingDim,                          2},
-    {"_openfhe_R_BFVParams__SetScalingModSize",                   (DL_FUNC) &_openfhe_R_BFVParams__SetScalingModSize,                   2},
-    {"_openfhe_R_BFVParams__SetSecretKeyDist",                    (DL_FUNC) &_openfhe_R_BFVParams__SetSecretKeyDist,                    2},
-    {"_openfhe_R_BFVParams__SetSecurityLevel",                    (DL_FUNC) &_openfhe_R_BFVParams__SetSecurityLevel,                    2},
-    {"_openfhe_R_BFVParams__SetStandardDeviation",                (DL_FUNC) &_openfhe_R_BFVParams__SetStandardDeviation,                2},
-    {"_openfhe_R_BFVParams__SetThresholdNumOfParties",            (DL_FUNC) &_openfhe_R_BFVParams__SetThresholdNumOfParties,            2},
-    {"_openfhe_R_BFVParams__new",                                 (DL_FUNC) &_openfhe_R_BFVParams__new,                                 0},
-    {"_openfhe_R_BGVParams__GetBatchSize",                        (DL_FUNC) &_openfhe_R_BGVParams__GetBatchSize,                        1},
-    {"_openfhe_R_BGVParams__GetCKKSDataType",                     (DL_FUNC) &_openfhe_R_BGVParams__GetCKKSDataType,                     1},
-    {"_openfhe_R_BGVParams__GetCompositeDegree",                  (DL_FUNC) &_openfhe_R_BGVParams__GetCompositeDegree,                  1},
-    {"_openfhe_R_BGVParams__GetDecryptionNoiseMode",              (DL_FUNC) &_openfhe_R_BGVParams__GetDecryptionNoiseMode,              1},
-    {"_openfhe_R_BGVParams__GetDesiredPrecision",                 (DL_FUNC) &_openfhe_R_BGVParams__GetDesiredPrecision,                 1},
-    {"_openfhe_R_BGVParams__GetDigitSize",                        (DL_FUNC) &_openfhe_R_BGVParams__GetDigitSize,                        1},
-    {"_openfhe_R_BGVParams__GetEncryptionTechnique",              (DL_FUNC) &_openfhe_R_BGVParams__GetEncryptionTechnique,              1},
-    {"_openfhe_R_BGVParams__GetEvalAddCount",                     (DL_FUNC) &_openfhe_R_BGVParams__GetEvalAddCount,                     1},
-    {"_openfhe_R_BGVParams__GetExecutionMode",                    (DL_FUNC) &_openfhe_R_BGVParams__GetExecutionMode,                    1},
-    {"_openfhe_R_BGVParams__GetFirstModSize",                     (DL_FUNC) &_openfhe_R_BGVParams__GetFirstModSize,                     1},
-    {"_openfhe_R_BGVParams__GetInteractiveBootCompressionLevel",  (DL_FUNC) &_openfhe_R_BGVParams__GetInteractiveBootCompressionLevel,  1},
-    {"_openfhe_R_BGVParams__GetKeySwitchCount",                   (DL_FUNC) &_openfhe_R_BGVParams__GetKeySwitchCount,                   1},
-    {"_openfhe_R_BGVParams__GetKeySwitchTechnique",               (DL_FUNC) &_openfhe_R_BGVParams__GetKeySwitchTechnique,               1},
-    {"_openfhe_R_BGVParams__GetMaxRelinSkDeg",                    (DL_FUNC) &_openfhe_R_BGVParams__GetMaxRelinSkDeg,                    1},
-    {"_openfhe_R_BGVParams__GetMultipartyMode",                   (DL_FUNC) &_openfhe_R_BGVParams__GetMultipartyMode,                   1},
-    {"_openfhe_R_BGVParams__GetMultiplicationTechnique",          (DL_FUNC) &_openfhe_R_BGVParams__GetMultiplicationTechnique,          1},
-    {"_openfhe_R_BGVParams__GetMultiplicativeDepth",              (DL_FUNC) &_openfhe_R_BGVParams__GetMultiplicativeDepth,              1},
-    {"_openfhe_R_BGVParams__GetNoiseEstimate",                    (DL_FUNC) &_openfhe_R_BGVParams__GetNoiseEstimate,                    1},
-    {"_openfhe_R_BGVParams__GetNumAdversarialQueries",            (DL_FUNC) &_openfhe_R_BGVParams__GetNumAdversarialQueries,            1},
-    {"_openfhe_R_BGVParams__GetNumLargeDigits",                   (DL_FUNC) &_openfhe_R_BGVParams__GetNumLargeDigits,                   1},
-    {"_openfhe_R_BGVParams__GetPREMode",                          (DL_FUNC) &_openfhe_R_BGVParams__GetPREMode,                          1},
-    {"_openfhe_R_BGVParams__GetPRENumHops",                       (DL_FUNC) &_openfhe_R_BGVParams__GetPRENumHops,                       1},
-    {"_openfhe_R_BGVParams__GetPlaintextModulus",                 (DL_FUNC) &_openfhe_R_BGVParams__GetPlaintextModulus,                 1},
-    {"_openfhe_R_BGVParams__GetRegisterWordSize",                 (DL_FUNC) &_openfhe_R_BGVParams__GetRegisterWordSize,                 1},
-    {"_openfhe_R_BGVParams__GetRingDim",                          (DL_FUNC) &_openfhe_R_BGVParams__GetRingDim,                          1},
-    {"_openfhe_R_BGVParams__GetScalingModSize",                   (DL_FUNC) &_openfhe_R_BGVParams__GetScalingModSize,                   1},
-    {"_openfhe_R_BGVParams__GetScalingTechnique",                 (DL_FUNC) &_openfhe_R_BGVParams__GetScalingTechnique,                 1},
-    {"_openfhe_R_BGVParams__GetScheme",                           (DL_FUNC) &_openfhe_R_BGVParams__GetScheme,                           1},
-    {"_openfhe_R_BGVParams__GetSecretKeyDist",                    (DL_FUNC) &_openfhe_R_BGVParams__GetSecretKeyDist,                    1},
-    {"_openfhe_R_BGVParams__GetSecurityLevel",                    (DL_FUNC) &_openfhe_R_BGVParams__GetSecurityLevel,                    1},
-    {"_openfhe_R_BGVParams__GetStandardDeviation",                (DL_FUNC) &_openfhe_R_BGVParams__GetStandardDeviation,                1},
-    {"_openfhe_R_BGVParams__GetStatisticalSecurity",              (DL_FUNC) &_openfhe_R_BGVParams__GetStatisticalSecurity,              1},
-    {"_openfhe_R_BGVParams__GetThresholdNumOfParties",            (DL_FUNC) &_openfhe_R_BGVParams__GetThresholdNumOfParties,            1},
-    {"_openfhe_R_BGVParams__SetBatchSize",                        (DL_FUNC) &_openfhe_R_BGVParams__SetBatchSize,                        2},
-    {"_openfhe_R_BGVParams__SetDigitSize",                        (DL_FUNC) &_openfhe_R_BGVParams__SetDigitSize,                        2},
-    {"_openfhe_R_BGVParams__SetEvalAddCount",                     (DL_FUNC) &_openfhe_R_BGVParams__SetEvalAddCount,                     2},
-    {"_openfhe_R_BGVParams__SetFirstModSize",                     (DL_FUNC) &_openfhe_R_BGVParams__SetFirstModSize,                     2},
-    {"_openfhe_R_BGVParams__SetKeySwitchCount",                   (DL_FUNC) &_openfhe_R_BGVParams__SetKeySwitchCount,                   2},
-    {"_openfhe_R_BGVParams__SetKeySwitchTechnique",               (DL_FUNC) &_openfhe_R_BGVParams__SetKeySwitchTechnique,               2},
-    {"_openfhe_R_BGVParams__SetMaxRelinSkDeg",                    (DL_FUNC) &_openfhe_R_BGVParams__SetMaxRelinSkDeg,                    2},
-    {"_openfhe_R_BGVParams__SetMultipartyMode",                   (DL_FUNC) &_openfhe_R_BGVParams__SetMultipartyMode,                   2},
-    {"_openfhe_R_BGVParams__SetMultiplicativeDepth",              (DL_FUNC) &_openfhe_R_BGVParams__SetMultiplicativeDepth,              2},
-    {"_openfhe_R_BGVParams__SetNumAdversarialQueries",            (DL_FUNC) &_openfhe_R_BGVParams__SetNumAdversarialQueries,            2},
-    {"_openfhe_R_BGVParams__SetNumLargeDigits",                   (DL_FUNC) &_openfhe_R_BGVParams__SetNumLargeDigits,                   2},
-    {"_openfhe_R_BGVParams__SetPREMode",                          (DL_FUNC) &_openfhe_R_BGVParams__SetPREMode,                          2},
-    {"_openfhe_R_BGVParams__SetPRENumHops",                       (DL_FUNC) &_openfhe_R_BGVParams__SetPRENumHops,                       2},
-    {"_openfhe_R_BGVParams__SetPlaintextModulus",                 (DL_FUNC) &_openfhe_R_BGVParams__SetPlaintextModulus,                 2},
-    {"_openfhe_R_BGVParams__SetRingDim",                          (DL_FUNC) &_openfhe_R_BGVParams__SetRingDim,                          2},
-    {"_openfhe_R_BGVParams__SetScalingModSize",                   (DL_FUNC) &_openfhe_R_BGVParams__SetScalingModSize,                   2},
-    {"_openfhe_R_BGVParams__SetScalingTechnique",                 (DL_FUNC) &_openfhe_R_BGVParams__SetScalingTechnique,                 2},
-    {"_openfhe_R_BGVParams__SetSecretKeyDist",                    (DL_FUNC) &_openfhe_R_BGVParams__SetSecretKeyDist,                    2},
-    {"_openfhe_R_BGVParams__SetSecurityLevel",                    (DL_FUNC) &_openfhe_R_BGVParams__SetSecurityLevel,                    2},
-    {"_openfhe_R_BGVParams__SetStandardDeviation",                (DL_FUNC) &_openfhe_R_BGVParams__SetStandardDeviation,                2},
-    {"_openfhe_R_BGVParams__SetStatisticalSecurity",              (DL_FUNC) &_openfhe_R_BGVParams__SetStatisticalSecurity,              2},
-    {"_openfhe_R_BGVParams__SetThresholdNumOfParties",            (DL_FUNC) &_openfhe_R_BGVParams__SetThresholdNumOfParties,            2},
-    {"_openfhe_R_BGVParams__new",                                 (DL_FUNC) &_openfhe_R_BGVParams__new,                                 0},
-    {"_openfhe_R_BinFHEContext__BTKeyGen",                        (DL_FUNC) &_openfhe_R_BinFHEContext__BTKeyGen,                        3},
-    {"_openfhe_R_BinFHEContext__Decrypt",                         (DL_FUNC) &_openfhe_R_BinFHEContext__Decrypt,                         4},
-    {"_openfhe_R_BinFHEContext__Encrypt",                         (DL_FUNC) &_openfhe_R_BinFHEContext__Encrypt,                         5},
-    {"_openfhe_R_BinFHEContext__EncryptWithMod",                  (DL_FUNC) &_openfhe_R_BinFHEContext__EncryptWithMod,                  6},
-    {"_openfhe_R_BinFHEContext__EvalBinGate",                     (DL_FUNC) &_openfhe_R_BinFHEContext__EvalBinGate,                     4},
-    {"_openfhe_R_BinFHEContext__EvalBinGate__vec",                (DL_FUNC) &_openfhe_R_BinFHEContext__EvalBinGate__vec,                3},
-    {"_openfhe_R_BinFHEContext__EvalFloor",                       (DL_FUNC) &_openfhe_R_BinFHEContext__EvalFloor,                       3},
-    {"_openfhe_R_BinFHEContext__EvalFunc",                        (DL_FUNC) &_openfhe_R_BinFHEContext__EvalFunc,                        3},
-    {"_openfhe_R_BinFHEContext__EvalNOT",                         (DL_FUNC) &_openfhe_R_BinFHEContext__EvalNOT,                         2},
-    {"_openfhe_R_BinFHEContext__EvalSign",                        (DL_FUNC) &_openfhe_R_BinFHEContext__EvalSign,                        3},
-    {"_openfhe_R_BinFHEContext__GenerateBinFHEContext",           (DL_FUNC) &_openfhe_R_BinFHEContext__GenerateBinFHEContext,           3},
-    {"_openfhe_R_BinFHEContext__GenerateBinFHEContextArbFunc",    (DL_FUNC) &_openfhe_R_BinFHEContext__GenerateBinFHEContextArbFunc,    7},
-    {"_openfhe_R_BinFHEContext__GetMaxPlaintextSpace",            (DL_FUNC) &_openfhe_R_BinFHEContext__GetMaxPlaintextSpace,            1},
-    {"_openfhe_R_BinFHEContext__KeyGen",                          (DL_FUNC) &_openfhe_R_BinFHEContext__KeyGen,                          1},
-    {"_openfhe_R_BinFHEContext__new",                             (DL_FUNC) &_openfhe_R_BinFHEContext__new,                             0},
-    {"_openfhe_R_CKKSParams__GetBatchSize",                       (DL_FUNC) &_openfhe_R_CKKSParams__GetBatchSize,                       1},
-    {"_openfhe_R_CKKSParams__GetCKKSDataType",                    (DL_FUNC) &_openfhe_R_CKKSParams__GetCKKSDataType,                    1},
-    {"_openfhe_R_CKKSParams__GetCompositeDegree",                 (DL_FUNC) &_openfhe_R_CKKSParams__GetCompositeDegree,                 1},
-    {"_openfhe_R_CKKSParams__GetDecryptionNoiseMode",             (DL_FUNC) &_openfhe_R_CKKSParams__GetDecryptionNoiseMode,             1},
-    {"_openfhe_R_CKKSParams__GetDesiredPrecision",                (DL_FUNC) &_openfhe_R_CKKSParams__GetDesiredPrecision,                1},
-    {"_openfhe_R_CKKSParams__GetDigitSize",                       (DL_FUNC) &_openfhe_R_CKKSParams__GetDigitSize,                       1},
-    {"_openfhe_R_CKKSParams__GetEncryptionTechnique",             (DL_FUNC) &_openfhe_R_CKKSParams__GetEncryptionTechnique,             1},
-    {"_openfhe_R_CKKSParams__GetEvalAddCount",                    (DL_FUNC) &_openfhe_R_CKKSParams__GetEvalAddCount,                    1},
-    {"_openfhe_R_CKKSParams__GetExecutionMode",                   (DL_FUNC) &_openfhe_R_CKKSParams__GetExecutionMode,                   1},
-    {"_openfhe_R_CKKSParams__GetFirstModSize",                    (DL_FUNC) &_openfhe_R_CKKSParams__GetFirstModSize,                    1},
-    {"_openfhe_R_CKKSParams__GetInteractiveBootCompressionLevel", (DL_FUNC) &_openfhe_R_CKKSParams__GetInteractiveBootCompressionLevel, 1},
-    {"_openfhe_R_CKKSParams__GetKeySwitchCount",                  (DL_FUNC) &_openfhe_R_CKKSParams__GetKeySwitchCount,                  1},
-    {"_openfhe_R_CKKSParams__GetKeySwitchTechnique",              (DL_FUNC) &_openfhe_R_CKKSParams__GetKeySwitchTechnique,              1},
-    {"_openfhe_R_CKKSParams__GetMaxRelinSkDeg",                   (DL_FUNC) &_openfhe_R_CKKSParams__GetMaxRelinSkDeg,                   1},
-    {"_openfhe_R_CKKSParams__GetMultipartyMode",                  (DL_FUNC) &_openfhe_R_CKKSParams__GetMultipartyMode,                  1},
-    {"_openfhe_R_CKKSParams__GetMultiplicationTechnique",         (DL_FUNC) &_openfhe_R_CKKSParams__GetMultiplicationTechnique,         1},
-    {"_openfhe_R_CKKSParams__GetMultiplicativeDepth",             (DL_FUNC) &_openfhe_R_CKKSParams__GetMultiplicativeDepth,             1},
-    {"_openfhe_R_CKKSParams__GetNoiseEstimate",                   (DL_FUNC) &_openfhe_R_CKKSParams__GetNoiseEstimate,                   1},
-    {"_openfhe_R_CKKSParams__GetNumAdversarialQueries",           (DL_FUNC) &_openfhe_R_CKKSParams__GetNumAdversarialQueries,           1},
-    {"_openfhe_R_CKKSParams__GetNumLargeDigits",                  (DL_FUNC) &_openfhe_R_CKKSParams__GetNumLargeDigits,                  1},
-    {"_openfhe_R_CKKSParams__GetPREMode",                         (DL_FUNC) &_openfhe_R_CKKSParams__GetPREMode,                         1},
-    {"_openfhe_R_CKKSParams__GetPRENumHops",                      (DL_FUNC) &_openfhe_R_CKKSParams__GetPRENumHops,                      1},
-    {"_openfhe_R_CKKSParams__GetPlaintextModulus",                (DL_FUNC) &_openfhe_R_CKKSParams__GetPlaintextModulus,                1},
-    {"_openfhe_R_CKKSParams__GetRegisterWordSize",                (DL_FUNC) &_openfhe_R_CKKSParams__GetRegisterWordSize,                1},
-    {"_openfhe_R_CKKSParams__GetRingDim",                         (DL_FUNC) &_openfhe_R_CKKSParams__GetRingDim,                         1},
-    {"_openfhe_R_CKKSParams__GetScalingModSize",                  (DL_FUNC) &_openfhe_R_CKKSParams__GetScalingModSize,                  1},
-    {"_openfhe_R_CKKSParams__GetScalingTechnique",                (DL_FUNC) &_openfhe_R_CKKSParams__GetScalingTechnique,                1},
-    {"_openfhe_R_CKKSParams__GetScheme",                          (DL_FUNC) &_openfhe_R_CKKSParams__GetScheme,                          1},
-    {"_openfhe_R_CKKSParams__GetSecretKeyDist",                   (DL_FUNC) &_openfhe_R_CKKSParams__GetSecretKeyDist,                   1},
-    {"_openfhe_R_CKKSParams__GetSecurityLevel",                   (DL_FUNC) &_openfhe_R_CKKSParams__GetSecurityLevel,                   1},
-    {"_openfhe_R_CKKSParams__GetStandardDeviation",               (DL_FUNC) &_openfhe_R_CKKSParams__GetStandardDeviation,               1},
-    {"_openfhe_R_CKKSParams__GetStatisticalSecurity",             (DL_FUNC) &_openfhe_R_CKKSParams__GetStatisticalSecurity,             1},
-    {"_openfhe_R_CKKSParams__GetThresholdNumOfParties",           (DL_FUNC) &_openfhe_R_CKKSParams__GetThresholdNumOfParties,           1},
-    {"_openfhe_R_CKKSParams__SetBatchSize",                       (DL_FUNC) &_openfhe_R_CKKSParams__SetBatchSize,                       2},
-    {"_openfhe_R_CKKSParams__SetCKKSDataType",                    (DL_FUNC) &_openfhe_R_CKKSParams__SetCKKSDataType,                    2},
-    {"_openfhe_R_CKKSParams__SetCompositeDegree",                 (DL_FUNC) &_openfhe_R_CKKSParams__SetCompositeDegree,                 2},
-    {"_openfhe_R_CKKSParams__SetDecryptionNoiseMode",             (DL_FUNC) &_openfhe_R_CKKSParams__SetDecryptionNoiseMode,             2},
-    {"_openfhe_R_CKKSParams__SetDesiredPrecision",                (DL_FUNC) &_openfhe_R_CKKSParams__SetDesiredPrecision,                2},
-    {"_openfhe_R_CKKSParams__SetDigitSize",                       (DL_FUNC) &_openfhe_R_CKKSParams__SetDigitSize,                       2},
-    {"_openfhe_R_CKKSParams__SetExecutionMode",                   (DL_FUNC) &_openfhe_R_CKKSParams__SetExecutionMode,                   2},
-    {"_openfhe_R_CKKSParams__SetFirstModSize",                    (DL_FUNC) &_openfhe_R_CKKSParams__SetFirstModSize,                    2},
-    {"_openfhe_R_CKKSParams__SetInteractiveBootCompressionLevel", (DL_FUNC) &_openfhe_R_CKKSParams__SetInteractiveBootCompressionLevel, 2},
-    {"_openfhe_R_CKKSParams__SetKeySwitchTechnique",              (DL_FUNC) &_openfhe_R_CKKSParams__SetKeySwitchTechnique,              2},
-    {"_openfhe_R_CKKSParams__SetMaxRelinSkDeg",                   (DL_FUNC) &_openfhe_R_CKKSParams__SetMaxRelinSkDeg,                   2},
-    {"_openfhe_R_CKKSParams__SetMultiplicativeDepth",             (DL_FUNC) &_openfhe_R_CKKSParams__SetMultiplicativeDepth,             2},
-    {"_openfhe_R_CKKSParams__SetNoiseEstimate",                   (DL_FUNC) &_openfhe_R_CKKSParams__SetNoiseEstimate,                   2},
-    {"_openfhe_R_CKKSParams__SetNumAdversarialQueries",           (DL_FUNC) &_openfhe_R_CKKSParams__SetNumAdversarialQueries,           2},
-    {"_openfhe_R_CKKSParams__SetNumLargeDigits",                  (DL_FUNC) &_openfhe_R_CKKSParams__SetNumLargeDigits,                  2},
-    {"_openfhe_R_CKKSParams__SetPREMode",                         (DL_FUNC) &_openfhe_R_CKKSParams__SetPREMode,                         2},
-    {"_openfhe_R_CKKSParams__SetRegisterWordSize",                (DL_FUNC) &_openfhe_R_CKKSParams__SetRegisterWordSize,                2},
-    {"_openfhe_R_CKKSParams__SetRingDim",                         (DL_FUNC) &_openfhe_R_CKKSParams__SetRingDim,                         2},
-    {"_openfhe_R_CKKSParams__SetScalingModSize",                  (DL_FUNC) &_openfhe_R_CKKSParams__SetScalingModSize,                  2},
-    {"_openfhe_R_CKKSParams__SetScalingTechnique",                (DL_FUNC) &_openfhe_R_CKKSParams__SetScalingTechnique,                2},
-    {"_openfhe_R_CKKSParams__SetSecretKeyDist",                   (DL_FUNC) &_openfhe_R_CKKSParams__SetSecretKeyDist,                   2},
-    {"_openfhe_R_CKKSParams__SetSecurityLevel",                   (DL_FUNC) &_openfhe_R_CKKSParams__SetSecurityLevel,                   2},
-    {"_openfhe_R_CKKSParams__SetStandardDeviation",               (DL_FUNC) &_openfhe_R_CKKSParams__SetStandardDeviation,               2},
-    {"_openfhe_R_CKKSParams__SetStatisticalSecurity",             (DL_FUNC) &_openfhe_R_CKKSParams__SetStatisticalSecurity,             2},
-    {"_openfhe_R_CKKSParams__new",                                (DL_FUNC) &_openfhe_R_CKKSParams__new,                                0},
-    {"_openfhe_R_Ciphertext__GetCryptoContext",                   (DL_FUNC) &_openfhe_R_Ciphertext__GetCryptoContext,                   1},
-    {"_openfhe_R_Ciphertext__GetEncodingType",                    (DL_FUNC) &_openfhe_R_Ciphertext__GetEncodingType,                    1},
-    {"_openfhe_R_Ciphertext__GetKeyTag",                          (DL_FUNC) &_openfhe_R_Ciphertext__GetKeyTag,                          1},
-    {"_openfhe_R_Ciphertext__GetLevel",                           (DL_FUNC) &_openfhe_R_Ciphertext__GetLevel,                           1},
-    {"_openfhe_R_Ciphertext__GetNoiseScaleDeg",                   (DL_FUNC) &_openfhe_R_Ciphertext__GetNoiseScaleDeg,                   1},
-    {"_openfhe_R_Ciphertext__GetScalingFactor",                   (DL_FUNC) &_openfhe_R_Ciphertext__GetScalingFactor,                   1},
-    {"_openfhe_R_Ciphertext__GetScalingFactorInt",                (DL_FUNC) &_openfhe_R_Ciphertext__GetScalingFactorInt,                1},
-    {"_openfhe_R_Ciphertext__GetSlots",                           (DL_FUNC) &_openfhe_R_Ciphertext__GetSlots,                           1},
-    {"_openfhe_R_Ciphertext__SetKeyTag",                          (DL_FUNC) &_openfhe_R_Ciphertext__SetKeyTag,                          2},
-    {"_openfhe_R_Ciphertext__SetLevel",                           (DL_FUNC) &_openfhe_R_Ciphertext__SetLevel,                           2},
-    {"_openfhe_R_Ciphertext__SetNoiseScaleDeg",                   (DL_FUNC) &_openfhe_R_Ciphertext__SetNoiseScaleDeg,                   2},
-    {"_openfhe_R_Ciphertext__SetScalingFactor",                   (DL_FUNC) &_openfhe_R_Ciphertext__SetScalingFactor,                   2},
-    {"_openfhe_R_Ciphertext__SetScalingFactorInt",                (DL_FUNC) &_openfhe_R_Ciphertext__SetScalingFactorInt,                2},
-    {"_openfhe_R_Ciphertext__SetSlots",                           (DL_FUNC) &_openfhe_R_Ciphertext__SetSlots,                           2},
-    {"_openfhe_R_ClearEvalAutomorphismKeys",                      (DL_FUNC) &_openfhe_R_ClearEvalAutomorphismKeys,                      0},
-    {"_openfhe_R_ClearEvalMultKeys",                              (DL_FUNC) &_openfhe_R_ClearEvalMultKeys,                              0},
-    {"_openfhe_R_Compress__ct",                                   (DL_FUNC) &_openfhe_R_Compress__ct,                                   3},
-    {"_openfhe_R_CryptoContext__ClearEvalAutomorphismKeys__tag",  (DL_FUNC) &_openfhe_R_CryptoContext__ClearEvalAutomorphismKeys__tag,  1},
-    {"_openfhe_R_CryptoContext__ClearEvalMultKeys__tag",          (DL_FUNC) &_openfhe_R_CryptoContext__ClearEvalMultKeys__tag,          1},
-    {"_openfhe_R_CryptoContext__ClearStaticMapsAndVectors",       (DL_FUNC) &_openfhe_R_CryptoContext__ClearStaticMapsAndVectors,       0},
-    {"_openfhe_R_CryptoContext__Decrypt",                         (DL_FUNC) &_openfhe_R_CryptoContext__Decrypt,                         3},
-    {"_openfhe_R_CryptoContext__Enable",                          (DL_FUNC) &_openfhe_R_CryptoContext__Enable,                          2},
-    {"_openfhe_R_CryptoContext__Enable_Mask",                     (DL_FUNC) &_openfhe_R_CryptoContext__Enable_Mask,                     2},
-    {"_openfhe_R_CryptoContext__Encrypt_PrivateKey",              (DL_FUNC) &_openfhe_R_CryptoContext__Encrypt_PrivateKey,              3},
-    {"_openfhe_R_CryptoContext__Encrypt_PublicKey",               (DL_FUNC) &_openfhe_R_CryptoContext__Encrypt_PublicKey,               3},
-    {"_openfhe_R_CryptoContext__EvalAtIndexKeyGen",               (DL_FUNC) &_openfhe_R_CryptoContext__EvalAtIndexKeyGen,               3},
-    {"_openfhe_R_CryptoContext__EvalAutomorphismKeyGen",          (DL_FUNC) &_openfhe_R_CryptoContext__EvalAutomorphismKeyGen,          3},
-    {"_openfhe_R_CryptoContext__EvalBootstrap",                   (DL_FUNC) &_openfhe_R_CryptoContext__EvalBootstrap,                   3},
-    {"_openfhe_R_CryptoContext__EvalBootstrapKeyGen",             (DL_FUNC) &_openfhe_R_CryptoContext__EvalBootstrapKeyGen,             3},
-    {"_openfhe_R_CryptoContext__EvalBootstrapSetup",              (DL_FUNC) &_openfhe_R_CryptoContext__EvalBootstrapSetup,              7},
-    {"_openfhe_R_CryptoContext__EvalMultKeyGen",                  (DL_FUNC) &_openfhe_R_CryptoContext__EvalMultKeyGen,                  2},
-    {"_openfhe_R_CryptoContext__EvalRotateKeyGen",                (DL_FUNC) &_openfhe_R_CryptoContext__EvalRotateKeyGen,                3},
-    {"_openfhe_R_CryptoContext__EvalSumKeyGen",                   (DL_FUNC) &_openfhe_R_CryptoContext__EvalSumKeyGen,                   2},
-    {"_openfhe_R_CryptoContext__FindAutomorphismIndex",           (DL_FUNC) &_openfhe_R_CryptoContext__FindAutomorphismIndex,           2},
-    {"_openfhe_R_CryptoContext__FindAutomorphismIndices",         (DL_FUNC) &_openfhe_R_CryptoContext__FindAutomorphismIndices,         2},
-    {"_openfhe_R_CryptoContext__GetAllEvalAutomorphismKeys",      (DL_FUNC) &_openfhe_R_CryptoContext__GetAllEvalAutomorphismKeys,      0},
-    {"_openfhe_R_CryptoContext__GetAllEvalMultKeys",              (DL_FUNC) &_openfhe_R_CryptoContext__GetAllEvalMultKeys,              0},
-    {"_openfhe_R_CryptoContext__GetAllEvalSumKeys",               (DL_FUNC) &_openfhe_R_CryptoContext__GetAllEvalSumKeys,               0},
-    {"_openfhe_R_CryptoContext__GetBatchSize",                    (DL_FUNC) &_openfhe_R_CryptoContext__GetBatchSize,                    1},
-    {"_openfhe_R_CryptoContext__GetCKKSBootCorrectionFactor",     (DL_FUNC) &_openfhe_R_CryptoContext__GetCKKSBootCorrectionFactor,     1},
-    {"_openfhe_R_CryptoContext__GetCKKSDataType",                 (DL_FUNC) &_openfhe_R_CryptoContext__GetCKKSDataType,                 1},
-    {"_openfhe_R_CryptoContext__GetCompositeDegree",              (DL_FUNC) &_openfhe_R_CryptoContext__GetCompositeDegree,              1},
-    {"_openfhe_R_CryptoContext__GetCryptoParameters",             (DL_FUNC) &_openfhe_R_CryptoContext__GetCryptoParameters,             1},
-    {"_openfhe_R_CryptoContext__GetCyclotomicOrder",              (DL_FUNC) &_openfhe_R_CryptoContext__GetCyclotomicOrder,              1},
-    {"_openfhe_R_CryptoContext__GetDigitSize",                    (DL_FUNC) &_openfhe_R_CryptoContext__GetDigitSize,                    1},
-    {"_openfhe_R_CryptoContext__GetElementParams",                (DL_FUNC) &_openfhe_R_CryptoContext__GetElementParams,                1},
-    {"_openfhe_R_CryptoContext__GetEncodingParams",               (DL_FUNC) &_openfhe_R_CryptoContext__GetEncodingParams,               1},
-    {"_openfhe_R_CryptoContext__GetEvalAddCount",                 (DL_FUNC) &_openfhe_R_CryptoContext__GetEvalAddCount,                 1},
-    {"_openfhe_R_CryptoContext__GetEvalAutomorphismKeyMapPtr",    (DL_FUNC) &_openfhe_R_CryptoContext__GetEvalAutomorphismKeyMapPtr,    1},
-    {"_openfhe_R_CryptoContext__GetEvalMultKeyVector",            (DL_FUNC) &_openfhe_R_CryptoContext__GetEvalMultKeyVector,            1},
-    {"_openfhe_R_CryptoContext__GetEvalSumKeyMap",                (DL_FUNC) &_openfhe_R_CryptoContext__GetEvalSumKeyMap,                1},
-    {"_openfhe_R_CryptoContext__GetKeyGenLevel",                  (DL_FUNC) &_openfhe_R_CryptoContext__GetKeyGenLevel,                  1},
-    {"_openfhe_R_CryptoContext__GetKeySwitchCount",               (DL_FUNC) &_openfhe_R_CryptoContext__GetKeySwitchCount,               1},
-    {"_openfhe_R_CryptoContext__GetKeySwitchTechnique",           (DL_FUNC) &_openfhe_R_CryptoContext__GetKeySwitchTechnique,           1},
-    {"_openfhe_R_CryptoContext__GetMultiplicativeDepth",          (DL_FUNC) &_openfhe_R_CryptoContext__GetMultiplicativeDepth,          1},
-    {"_openfhe_R_CryptoContext__GetNoiseEstimate",                (DL_FUNC) &_openfhe_R_CryptoContext__GetNoiseEstimate,                1},
-    {"_openfhe_R_CryptoContext__GetPRENumHops",                   (DL_FUNC) &_openfhe_R_CryptoContext__GetPRENumHops,                   1},
-    {"_openfhe_R_CryptoContext__GetPlaintextModulus",             (DL_FUNC) &_openfhe_R_CryptoContext__GetPlaintextModulus,             1},
-    {"_openfhe_R_CryptoContext__GetRegisterWordSize",             (DL_FUNC) &_openfhe_R_CryptoContext__GetRegisterWordSize,             1},
-    {"_openfhe_R_CryptoContext__GetRingDimension",                (DL_FUNC) &_openfhe_R_CryptoContext__GetRingDimension,                1},
-    {"_openfhe_R_CryptoContext__GetScalingFactorReal",            (DL_FUNC) &_openfhe_R_CryptoContext__GetScalingFactorReal,            2},
-    {"_openfhe_R_CryptoContext__GetScalingTechnique",             (DL_FUNC) &_openfhe_R_CryptoContext__GetScalingTechnique,             1},
-    {"_openfhe_R_CryptoContext__GetSchemeId",                     (DL_FUNC) &_openfhe_R_CryptoContext__GetSchemeId,                     1},
-    {"_openfhe_R_CryptoContext__InsertEvalAutomorphismKey",       (DL_FUNC) &_openfhe_R_CryptoContext__InsertEvalAutomorphismKey,       2},
-    {"_openfhe_R_CryptoContext__InsertEvalMultKey",               (DL_FUNC) &_openfhe_R_CryptoContext__InsertEvalMultKey,               2},
-    {"_openfhe_R_CryptoContext__InsertEvalSumKey",                (DL_FUNC) &_openfhe_R_CryptoContext__InsertEvalSumKey,                2},
-    {"_openfhe_R_CryptoContext__KeyGen",                          (DL_FUNC) &_openfhe_R_CryptoContext__KeyGen,                          1},
-    {"_openfhe_R_CryptoContext__MakeCKKSPackedPlaintext",         (DL_FUNC) &_openfhe_R_CryptoContext__MakeCKKSPackedPlaintext,         6},
-    {"_openfhe_R_CryptoContext__MakeCoefPackedPlaintext",         (DL_FUNC) &_openfhe_R_CryptoContext__MakeCoefPackedPlaintext,         4},
-    {"_openfhe_R_CryptoContext__MakePackedPlaintext",             (DL_FUNC) &_openfhe_R_CryptoContext__MakePackedPlaintext,             4},
-    {"_openfhe_R_CryptoContext__RecoverSharedKey",                (DL_FUNC) &_openfhe_R_CryptoContext__RecoverSharedKey,                5},
-    {"_openfhe_R_CryptoContext__SetCKKSBootCorrectionFactor",     (DL_FUNC) &_openfhe_R_CryptoContext__SetCKKSBootCorrectionFactor,     2},
-    {"_openfhe_R_CryptoContext__SetKeyGenLevel",                  (DL_FUNC) &_openfhe_R_CryptoContext__SetKeyGenLevel,                  2},
-    {"_openfhe_R_CryptoContext__ShareKeys",                       (DL_FUNC) &_openfhe_R_CryptoContext__ShareKeys,                       6},
-    {"_openfhe_R_Deserialize__Ciphertext",                        (DL_FUNC) &_openfhe_R_Deserialize__Ciphertext,                        2},
-    {"_openfhe_R_Deserialize__CryptoContext",                     (DL_FUNC) &_openfhe_R_Deserialize__CryptoContext,                     2},
-    {"_openfhe_R_Deserialize__EvalAutomorphismKey",               (DL_FUNC) &_openfhe_R_Deserialize__EvalAutomorphismKey,               2},
-    {"_openfhe_R_Deserialize__EvalMultKey",                       (DL_FUNC) &_openfhe_R_Deserialize__EvalMultKey,                       2},
-    {"_openfhe_R_Deserialize__EvalSumKey",                        (DL_FUNC) &_openfhe_R_Deserialize__EvalSumKey,                        2},
-    {"_openfhe_R_Deserialize__PrivateKey",                        (DL_FUNC) &_openfhe_R_Deserialize__PrivateKey,                        2},
-    {"_openfhe_R_Deserialize__PublicKey",                         (DL_FUNC) &_openfhe_R_Deserialize__PublicKey,                         2},
-    {"_openfhe_R_EvalAddInPlace__ct_ct",                          (DL_FUNC) &_openfhe_R_EvalAddInPlace__ct_ct,                          2},
-    {"_openfhe_R_EvalAddInPlace__ct_pt",                          (DL_FUNC) &_openfhe_R_EvalAddInPlace__ct_pt,                          2},
-    {"_openfhe_R_EvalAddInPlace__ct_scalar",                      (DL_FUNC) &_openfhe_R_EvalAddInPlace__ct_scalar,                      2},
-    {"_openfhe_R_EvalAddMutable__ct_ct",                          (DL_FUNC) &_openfhe_R_EvalAddMutable__ct_ct,                          2},
-    {"_openfhe_R_EvalAdd__ct_ct",                                 (DL_FUNC) &_openfhe_R_EvalAdd__ct_ct,                                 2},
-    {"_openfhe_R_EvalAdd__ct_int",                                (DL_FUNC) &_openfhe_R_EvalAdd__ct_int,                                2},
-    {"_openfhe_R_EvalAdd__ct_pt",                                 (DL_FUNC) &_openfhe_R_EvalAdd__ct_pt,                                 2},
-    {"_openfhe_R_EvalAdd__ct_scalar",                             (DL_FUNC) &_openfhe_R_EvalAdd__ct_scalar,                             2},
-    {"_openfhe_R_EvalAutomorphism__",                             (DL_FUNC) &_openfhe_R_EvalAutomorphism__,                             3},
-    {"_openfhe_R_EvalChebyshevSeries",                            (DL_FUNC) &_openfhe_R_EvalChebyshevSeries,                            4},
-    {"_openfhe_R_EvalChebyshevSeriesLinear__",                    (DL_FUNC) &_openfhe_R_EvalChebyshevSeriesLinear__,                    4},
-    {"_openfhe_R_EvalChebyshevSeriesPS__",                        (DL_FUNC) &_openfhe_R_EvalChebyshevSeriesPS__,                        4},
-    {"_openfhe_R_EvalCos_",                                       (DL_FUNC) &_openfhe_R_EvalCos_,                                       4},
-    {"_openfhe_R_EvalDivide_",                                    (DL_FUNC) &_openfhe_R_EvalDivide_,                                    4},
-    {"_openfhe_R_EvalFastRotation",                               (DL_FUNC) &_openfhe_R_EvalFastRotation,                               4},
-    {"_openfhe_R_EvalFastRotationExt__",                          (DL_FUNC) &_openfhe_R_EvalFastRotationExt__,                          4},
-    {"_openfhe_R_EvalFastRotationPrecompute",                     (DL_FUNC) &_openfhe_R_EvalFastRotationPrecompute,                     1},
-    {"_openfhe_R_EvalFastRotation__3arg",                         (DL_FUNC) &_openfhe_R_EvalFastRotation__3arg,                         3},
-    {"_openfhe_R_EvalLogistic_",                                  (DL_FUNC) &_openfhe_R_EvalLogistic_,                                  4},
-    {"_openfhe_R_EvalMultAndRelinearize__ct_ct",                  (DL_FUNC) &_openfhe_R_EvalMultAndRelinearize__ct_ct,                  2},
-    {"_openfhe_R_EvalMultInPlace__ct_scalar",                     (DL_FUNC) &_openfhe_R_EvalMultInPlace__ct_scalar,                     2},
-    {"_openfhe_R_EvalMultMutable__ct_ct",                         (DL_FUNC) &_openfhe_R_EvalMultMutable__ct_ct,                         2},
-    {"_openfhe_R_EvalMultNoRelin__ct_ct",                         (DL_FUNC) &_openfhe_R_EvalMultNoRelin__ct_ct,                         2},
-    {"_openfhe_R_EvalMult__ct_ct",                                (DL_FUNC) &_openfhe_R_EvalMult__ct_ct,                                2},
-    {"_openfhe_R_EvalMult__ct_int",                               (DL_FUNC) &_openfhe_R_EvalMult__ct_int,                               2},
-    {"_openfhe_R_EvalMult__ct_pt",                                (DL_FUNC) &_openfhe_R_EvalMult__ct_pt,                                2},
-    {"_openfhe_R_EvalMult__ct_scalar",                            (DL_FUNC) &_openfhe_R_EvalMult__ct_scalar,                            2},
-    {"_openfhe_R_EvalNegate",                                     (DL_FUNC) &_openfhe_R_EvalNegate,                                     1},
-    {"_openfhe_R_EvalNegateInPlace__ct",                          (DL_FUNC) &_openfhe_R_EvalNegateInPlace__ct,                          1},
-    {"_openfhe_R_EvalPoly",                                       (DL_FUNC) &_openfhe_R_EvalPoly,                                       2},
-    {"_openfhe_R_EvalPolyLinear__",                               (DL_FUNC) &_openfhe_R_EvalPolyLinear__,                               2},
-    {"_openfhe_R_EvalPolyPS__",                                   (DL_FUNC) &_openfhe_R_EvalPolyPS__,                                   2},
-    {"_openfhe_R_EvalRotate",                                     (DL_FUNC) &_openfhe_R_EvalRotate,                                     2},
-    {"_openfhe_R_EvalSin_",                                       (DL_FUNC) &_openfhe_R_EvalSin_,                                       4},
-    {"_openfhe_R_EvalSquare",                                     (DL_FUNC) &_openfhe_R_EvalSquare,                                     1},
-    {"_openfhe_R_EvalSquareMutable__ct",                          (DL_FUNC) &_openfhe_R_EvalSquareMutable__ct,                          1},
-    {"_openfhe_R_EvalSubInPlace__ct_ct",                          (DL_FUNC) &_openfhe_R_EvalSubInPlace__ct_ct,                          2},
-    {"_openfhe_R_EvalSubInPlace__ct_pt",                          (DL_FUNC) &_openfhe_R_EvalSubInPlace__ct_pt,                          2},
-    {"_openfhe_R_EvalSubInPlace__ct_scalar",                      (DL_FUNC) &_openfhe_R_EvalSubInPlace__ct_scalar,                      2},
-    {"_openfhe_R_EvalSubMutable__ct_ct",                          (DL_FUNC) &_openfhe_R_EvalSubMutable__ct_ct,                          2},
-    {"_openfhe_R_EvalSub__ct_ct",                                 (DL_FUNC) &_openfhe_R_EvalSub__ct_ct,                                 2},
-    {"_openfhe_R_EvalSub__ct_int",                                (DL_FUNC) &_openfhe_R_EvalSub__ct_int,                                2},
-    {"_openfhe_R_EvalSub__ct_pt",                                 (DL_FUNC) &_openfhe_R_EvalSub__ct_pt,                                 2},
-    {"_openfhe_R_EvalSub__ct_scalar",                             (DL_FUNC) &_openfhe_R_EvalSub__ct_scalar,                             2},
-    {"_openfhe_R_EvalSum",                                        (DL_FUNC) &_openfhe_R_EvalSum,                                        2},
-    {"_openfhe_R_FHECKKSRNS__GetBootstrapDepth",                  (DL_FUNC) &_openfhe_R_FHECKKSRNS__GetBootstrapDepth,                  2},
-    {"_openfhe_R_GenCryptoContext__BFV",                          (DL_FUNC) &_openfhe_R_GenCryptoContext__BFV,                          1},
-    {"_openfhe_R_GenCryptoContext__BGV",                          (DL_FUNC) &_openfhe_R_GenCryptoContext__BGV,                          1},
-    {"_openfhe_R_GenCryptoContext__CKKS",                         (DL_FUNC) &_openfhe_R_GenCryptoContext__CKKS,                         1},
-    {"_openfhe_R_IntBootAdd__",                                   (DL_FUNC) &_openfhe_R_IntBootAdd__,                                   2},
-    {"_openfhe_R_IntBootAdjustScale__",                           (DL_FUNC) &_openfhe_R_IntBootAdjustScale__,                           1},
-    {"_openfhe_R_IntBootDecrypt__",                               (DL_FUNC) &_openfhe_R_IntBootDecrypt__,                               2},
-    {"_openfhe_R_IntBootEncrypt__",                               (DL_FUNC) &_openfhe_R_IntBootEncrypt__,                               2},
-    {"_openfhe_R_IntMPBootAdd__",                                 (DL_FUNC) &_openfhe_R_IntMPBootAdd__,                                 2},
-    {"_openfhe_R_IntMPBootAdjustScale__",                         (DL_FUNC) &_openfhe_R_IntMPBootAdjustScale__,                         1},
-    {"_openfhe_R_IntMPBootDecrypt__",                             (DL_FUNC) &_openfhe_R_IntMPBootDecrypt__,                             3},
-    {"_openfhe_R_IntMPBootEncrypt__",                             (DL_FUNC) &_openfhe_R_IntMPBootEncrypt__,                             4},
-    {"_openfhe_R_IntMPBootRandomElementGen__ct",                  (DL_FUNC) &_openfhe_R_IntMPBootRandomElementGen__ct,                  1},
-    {"_openfhe_R_IntMPBootRandomElementGen__pk",                  (DL_FUNC) &_openfhe_R_IntMPBootRandomElementGen__pk,                  2},
-    {"_openfhe_R_KeySwitchDown__",                                (DL_FUNC) &_openfhe_R_KeySwitchDown__,                                1},
-    {"_openfhe_R_LevelReduceInPlace__ct",                         (DL_FUNC) &_openfhe_R_LevelReduceInPlace__ct,                         3},
-    {"_openfhe_R_LevelReduce__ct",                                (DL_FUNC) &_openfhe_R_LevelReduce__ct,                                3},
-    {"_openfhe_R_MakeCKKSPackedPlaintext__complex",               (DL_FUNC) &_openfhe_R_MakeCKKSPackedPlaintext__complex,               5},
-    {"_openfhe_R_ModReduceInPlace__ct",                           (DL_FUNC) &_openfhe_R_ModReduceInPlace__ct,                           1},
-    {"_openfhe_R_ModReduce__ct",                                  (DL_FUNC) &_openfhe_R_ModReduce__ct,                                  1},
-    {"_openfhe_R_MultiAddEvalAutomorphismKeys__",                 (DL_FUNC) &_openfhe_R_MultiAddEvalAutomorphismKeys__,                 4},
-    {"_openfhe_R_MultiAddEvalKeys",                               (DL_FUNC) &_openfhe_R_MultiAddEvalKeys,                               4},
-    {"_openfhe_R_MultiAddEvalMultKeys",                           (DL_FUNC) &_openfhe_R_MultiAddEvalMultKeys,                           4},
-    {"_openfhe_R_MultiAddEvalSumKeys__",                          (DL_FUNC) &_openfhe_R_MultiAddEvalSumKeys__,                          4},
-    {"_openfhe_R_MultiAddPubKeys",                                (DL_FUNC) &_openfhe_R_MultiAddPubKeys,                                4},
-    {"_openfhe_R_MultiEvalAtIndexKeyGen__",                       (DL_FUNC) &_openfhe_R_MultiEvalAtIndexKeyGen__,                       5},
-    {"_openfhe_R_MultiEvalAutomorphismKeyGen__",                  (DL_FUNC) &_openfhe_R_MultiEvalAutomorphismKeyGen__,                  5},
-    {"_openfhe_R_MultiEvalSumKeyGen__",                           (DL_FUNC) &_openfhe_R_MultiEvalSumKeyGen__,                           4},
-    {"_openfhe_R_MultiKeySwitchGen",                              (DL_FUNC) &_openfhe_R_MultiKeySwitchGen,                              4},
-    {"_openfhe_R_MultipartyDecryptFusion",                        (DL_FUNC) &_openfhe_R_MultipartyDecryptFusion,                        2},
-    {"_openfhe_R_MultipartyDecryptLead",                          (DL_FUNC) &_openfhe_R_MultipartyDecryptLead,                          3},
-    {"_openfhe_R_MultipartyDecryptLead__ct_vec",                  (DL_FUNC) &_openfhe_R_MultipartyDecryptLead__ct_vec,                  3},
-    {"_openfhe_R_MultipartyDecryptMain",                          (DL_FUNC) &_openfhe_R_MultipartyDecryptMain,                          3},
-    {"_openfhe_R_MultipartyDecryptMain__ct_vec",                  (DL_FUNC) &_openfhe_R_MultipartyDecryptMain__ct_vec,                  3},
-    {"_openfhe_R_MultipartyKeyGen",                               (DL_FUNC) &_openfhe_R_MultipartyKeyGen,                               4},
-    {"_openfhe_R_Plaintext__GetCKKSDataType",                     (DL_FUNC) &_openfhe_R_Plaintext__GetCKKSDataType,                     1},
-    {"_openfhe_R_Plaintext__GetCKKSPackedValue",                  (DL_FUNC) &_openfhe_R_Plaintext__GetCKKSPackedValue,                  1},
-    {"_openfhe_R_Plaintext__GetCoefPackedValue",                  (DL_FUNC) &_openfhe_R_Plaintext__GetCoefPackedValue,                  1},
-    {"_openfhe_R_Plaintext__GetElementRingDimension",             (DL_FUNC) &_openfhe_R_Plaintext__GetElementRingDimension,             1},
-    {"_openfhe_R_Plaintext__GetEncodingType",                     (DL_FUNC) &_openfhe_R_Plaintext__GetEncodingType,                     1},
-    {"_openfhe_R_Plaintext__GetFormattedValues",                  (DL_FUNC) &_openfhe_R_Plaintext__GetFormattedValues,                  2},
-    {"_openfhe_R_Plaintext__GetLength",                           (DL_FUNC) &_openfhe_R_Plaintext__GetLength,                           1},
-    {"_openfhe_R_Plaintext__GetLevel",                            (DL_FUNC) &_openfhe_R_Plaintext__GetLevel,                            1},
-    {"_openfhe_R_Plaintext__GetLogError",                         (DL_FUNC) &_openfhe_R_Plaintext__GetLogError,                         1},
-    {"_openfhe_R_Plaintext__GetLogPrecision",                     (DL_FUNC) &_openfhe_R_Plaintext__GetLogPrecision,                     1},
-    {"_openfhe_R_Plaintext__GetNoiseScaleDeg",                    (DL_FUNC) &_openfhe_R_Plaintext__GetNoiseScaleDeg,                    1},
-    {"_openfhe_R_Plaintext__GetPackedValue",                      (DL_FUNC) &_openfhe_R_Plaintext__GetPackedValue,                      1},
-    {"_openfhe_R_Plaintext__GetRealPackedValue",                  (DL_FUNC) &_openfhe_R_Plaintext__GetRealPackedValue,                  1},
-    {"_openfhe_R_Plaintext__GetScalingFactor",                    (DL_FUNC) &_openfhe_R_Plaintext__GetScalingFactor,                    1},
-    {"_openfhe_R_Plaintext__GetScalingFactorInt",                 (DL_FUNC) &_openfhe_R_Plaintext__GetScalingFactorInt,                 1},
-    {"_openfhe_R_Plaintext__GetSchemeID",                         (DL_FUNC) &_openfhe_R_Plaintext__GetSchemeID,                         1},
-    {"_openfhe_R_Plaintext__GetSlots",                            (DL_FUNC) &_openfhe_R_Plaintext__GetSlots,                            1},
-    {"_openfhe_R_Plaintext__GetStringValue",                      (DL_FUNC) &_openfhe_R_Plaintext__GetStringValue,                      1},
-    {"_openfhe_R_Plaintext__HighBound",                           (DL_FUNC) &_openfhe_R_Plaintext__HighBound,                           1},
-    {"_openfhe_R_Plaintext__IsEncoded",                           (DL_FUNC) &_openfhe_R_Plaintext__IsEncoded,                           1},
-    {"_openfhe_R_Plaintext__LowBound",                            (DL_FUNC) &_openfhe_R_Plaintext__LowBound,                            1},
-    {"_openfhe_R_Plaintext__SetCKKSDataType",                     (DL_FUNC) &_openfhe_R_Plaintext__SetCKKSDataType,                     2},
-    {"_openfhe_R_Plaintext__SetIntVectorValue",                   (DL_FUNC) &_openfhe_R_Plaintext__SetIntVectorValue,                   2},
-    {"_openfhe_R_Plaintext__SetLength",                           (DL_FUNC) &_openfhe_R_Plaintext__SetLength,                           2},
-    {"_openfhe_R_Plaintext__SetLevel",                            (DL_FUNC) &_openfhe_R_Plaintext__SetLevel,                            2},
-    {"_openfhe_R_Plaintext__SetNoiseScaleDeg",                    (DL_FUNC) &_openfhe_R_Plaintext__SetNoiseScaleDeg,                    2},
-    {"_openfhe_R_Plaintext__SetScalingFactor",                    (DL_FUNC) &_openfhe_R_Plaintext__SetScalingFactor,                    2},
-    {"_openfhe_R_Plaintext__SetScalingFactorInt",                 (DL_FUNC) &_openfhe_R_Plaintext__SetScalingFactorInt,                 2},
-    {"_openfhe_R_Plaintext__SetSlots",                            (DL_FUNC) &_openfhe_R_Plaintext__SetSlots,                            2},
-    {"_openfhe_R_Plaintext__SetStringValue",                      (DL_FUNC) &_openfhe_R_Plaintext__SetStringValue,                      2},
-    {"_openfhe_R_Plaintext__ToString",                            (DL_FUNC) &_openfhe_R_Plaintext__ToString,                            1},
-    {"_openfhe_R_PrivateKey__GetKeyTag",                          (DL_FUNC) &_openfhe_R_PrivateKey__GetKeyTag,                          1},
-    {"_openfhe_R_PrivateKey__SetKeyTag",                          (DL_FUNC) &_openfhe_R_PrivateKey__SetKeyTag,                          2},
-    {"_openfhe_R_PublicKey__GetKeyTag",                           (DL_FUNC) &_openfhe_R_PublicKey__GetKeyTag,                           1},
-    {"_openfhe_R_PublicKey__SetKeyTag",                           (DL_FUNC) &_openfhe_R_PublicKey__SetKeyTag,                           2},
-    {"_openfhe_R_ReleaseAllContexts",                             (DL_FUNC) &_openfhe_R_ReleaseAllContexts,                             0},
-    {"_openfhe_R_Relinearize__ct",                                (DL_FUNC) &_openfhe_R_Relinearize__ct,                                1},
-    {"_openfhe_R_Rescale",                                        (DL_FUNC) &_openfhe_R_Rescale,                                        1},
-    {"_openfhe_R_Serialize__Ciphertext",                          (DL_FUNC) &_openfhe_R_Serialize__Ciphertext,                          3},
-    {"_openfhe_R_Serialize__CryptoContext",                       (DL_FUNC) &_openfhe_R_Serialize__CryptoContext,                       3},
-    {"_openfhe_R_Serialize__EvalAutomorphismKey",                 (DL_FUNC) &_openfhe_R_Serialize__EvalAutomorphismKey,                 3},
-    {"_openfhe_R_Serialize__EvalMultKey",                         (DL_FUNC) &_openfhe_R_Serialize__EvalMultKey,                         3},
-    {"_openfhe_R_Serialize__EvalSumKey",                          (DL_FUNC) &_openfhe_R_Serialize__EvalSumKey,                          3},
-    {"_openfhe_R_Serialize__PrivateKey",                          (DL_FUNC) &_openfhe_R_Serialize__PrivateKey,                          3},
-    {"_openfhe_R_Serialize__PublicKey",                           (DL_FUNC) &_openfhe_R_Serialize__PublicKey,                           3},
-    {"_openfhe_R_openfhe_get_num_threads",                        (DL_FUNC) &_openfhe_R_openfhe_get_num_threads,                        0},
-    {"_openfhe_R_openfhe_native_int",                             (DL_FUNC) &_openfhe_R_openfhe_native_int,                             0},
-    {"_openfhe_R_openfhe_set_num_threads",                        (DL_FUNC) &_openfhe_R_openfhe_set_num_threads,                        1},
-    {"_openfhe_R_selftest_bfv",                                   (DL_FUNC) &_openfhe_R_selftest_bfv,                                   0},
-    {"_openfhe_R_xptr_type",                                      (DL_FUNC) &_openfhe_R_xptr_type,                                      1},
+    {"_openfhe_R_BFVParams__GetBatchSize",                              (DL_FUNC) &_openfhe_R_BFVParams__GetBatchSize,                               1},
+    {"_openfhe_R_BFVParams__GetCKKSDataType",                           (DL_FUNC) &_openfhe_R_BFVParams__GetCKKSDataType,                            1},
+    {"_openfhe_R_BFVParams__GetCompositeDegree",                        (DL_FUNC) &_openfhe_R_BFVParams__GetCompositeDegree,                         1},
+    {"_openfhe_R_BFVParams__GetDecryptionNoiseMode",                    (DL_FUNC) &_openfhe_R_BFVParams__GetDecryptionNoiseMode,                     1},
+    {"_openfhe_R_BFVParams__GetDesiredPrecision",                       (DL_FUNC) &_openfhe_R_BFVParams__GetDesiredPrecision,                        1},
+    {"_openfhe_R_BFVParams__GetDigitSize",                              (DL_FUNC) &_openfhe_R_BFVParams__GetDigitSize,                               1},
+    {"_openfhe_R_BFVParams__GetEncryptionTechnique",                    (DL_FUNC) &_openfhe_R_BFVParams__GetEncryptionTechnique,                     1},
+    {"_openfhe_R_BFVParams__GetEvalAddCount",                           (DL_FUNC) &_openfhe_R_BFVParams__GetEvalAddCount,                            1},
+    {"_openfhe_R_BFVParams__GetExecutionMode",                          (DL_FUNC) &_openfhe_R_BFVParams__GetExecutionMode,                           1},
+    {"_openfhe_R_BFVParams__GetFirstModSize",                           (DL_FUNC) &_openfhe_R_BFVParams__GetFirstModSize,                            1},
+    {"_openfhe_R_BFVParams__GetInteractiveBootCompressionLevel",        (DL_FUNC) &_openfhe_R_BFVParams__GetInteractiveBootCompressionLevel,         1},
+    {"_openfhe_R_BFVParams__GetKeySwitchCount",                         (DL_FUNC) &_openfhe_R_BFVParams__GetKeySwitchCount,                          1},
+    {"_openfhe_R_BFVParams__GetKeySwitchTechnique",                     (DL_FUNC) &_openfhe_R_BFVParams__GetKeySwitchTechnique,                      1},
+    {"_openfhe_R_BFVParams__GetMaxRelinSkDeg",                          (DL_FUNC) &_openfhe_R_BFVParams__GetMaxRelinSkDeg,                           1},
+    {"_openfhe_R_BFVParams__GetMultipartyMode",                         (DL_FUNC) &_openfhe_R_BFVParams__GetMultipartyMode,                          1},
+    {"_openfhe_R_BFVParams__GetMultiplicationTechnique",                (DL_FUNC) &_openfhe_R_BFVParams__GetMultiplicationTechnique,                 1},
+    {"_openfhe_R_BFVParams__GetMultiplicativeDepth",                    (DL_FUNC) &_openfhe_R_BFVParams__GetMultiplicativeDepth,                     1},
+    {"_openfhe_R_BFVParams__GetNoiseEstimate",                          (DL_FUNC) &_openfhe_R_BFVParams__GetNoiseEstimate,                           1},
+    {"_openfhe_R_BFVParams__GetNumAdversarialQueries",                  (DL_FUNC) &_openfhe_R_BFVParams__GetNumAdversarialQueries,                   1},
+    {"_openfhe_R_BFVParams__GetNumLargeDigits",                         (DL_FUNC) &_openfhe_R_BFVParams__GetNumLargeDigits,                          1},
+    {"_openfhe_R_BFVParams__GetPREMode",                                (DL_FUNC) &_openfhe_R_BFVParams__GetPREMode,                                 1},
+    {"_openfhe_R_BFVParams__GetPRENumHops",                             (DL_FUNC) &_openfhe_R_BFVParams__GetPRENumHops,                              1},
+    {"_openfhe_R_BFVParams__GetPlaintextModulus",                       (DL_FUNC) &_openfhe_R_BFVParams__GetPlaintextModulus,                        1},
+    {"_openfhe_R_BFVParams__GetRegisterWordSize",                       (DL_FUNC) &_openfhe_R_BFVParams__GetRegisterWordSize,                        1},
+    {"_openfhe_R_BFVParams__GetRingDim",                                (DL_FUNC) &_openfhe_R_BFVParams__GetRingDim,                                 1},
+    {"_openfhe_R_BFVParams__GetScalingModSize",                         (DL_FUNC) &_openfhe_R_BFVParams__GetScalingModSize,                          1},
+    {"_openfhe_R_BFVParams__GetScalingTechnique",                       (DL_FUNC) &_openfhe_R_BFVParams__GetScalingTechnique,                        1},
+    {"_openfhe_R_BFVParams__GetScheme",                                 (DL_FUNC) &_openfhe_R_BFVParams__GetScheme,                                  1},
+    {"_openfhe_R_BFVParams__GetSecretKeyDist",                          (DL_FUNC) &_openfhe_R_BFVParams__GetSecretKeyDist,                           1},
+    {"_openfhe_R_BFVParams__GetSecurityLevel",                          (DL_FUNC) &_openfhe_R_BFVParams__GetSecurityLevel,                           1},
+    {"_openfhe_R_BFVParams__GetStandardDeviation",                      (DL_FUNC) &_openfhe_R_BFVParams__GetStandardDeviation,                       1},
+    {"_openfhe_R_BFVParams__GetStatisticalSecurity",                    (DL_FUNC) &_openfhe_R_BFVParams__GetStatisticalSecurity,                     1},
+    {"_openfhe_R_BFVParams__GetThresholdNumOfParties",                  (DL_FUNC) &_openfhe_R_BFVParams__GetThresholdNumOfParties,                   1},
+    {"_openfhe_R_BFVParams__SetBatchSize",                              (DL_FUNC) &_openfhe_R_BFVParams__SetBatchSize,                               2},
+    {"_openfhe_R_BFVParams__SetDigitSize",                              (DL_FUNC) &_openfhe_R_BFVParams__SetDigitSize,                               2},
+    {"_openfhe_R_BFVParams__SetEncryptionTechnique",                    (DL_FUNC) &_openfhe_R_BFVParams__SetEncryptionTechnique,                     2},
+    {"_openfhe_R_BFVParams__SetEvalAddCount",                           (DL_FUNC) &_openfhe_R_BFVParams__SetEvalAddCount,                            2},
+    {"_openfhe_R_BFVParams__SetKeySwitchCount",                         (DL_FUNC) &_openfhe_R_BFVParams__SetKeySwitchCount,                          2},
+    {"_openfhe_R_BFVParams__SetKeySwitchTechnique",                     (DL_FUNC) &_openfhe_R_BFVParams__SetKeySwitchTechnique,                      2},
+    {"_openfhe_R_BFVParams__SetMaxRelinSkDeg",                          (DL_FUNC) &_openfhe_R_BFVParams__SetMaxRelinSkDeg,                           2},
+    {"_openfhe_R_BFVParams__SetMultipartyMode",                         (DL_FUNC) &_openfhe_R_BFVParams__SetMultipartyMode,                          2},
+    {"_openfhe_R_BFVParams__SetMultiplicationTechnique",                (DL_FUNC) &_openfhe_R_BFVParams__SetMultiplicationTechnique,                 2},
+    {"_openfhe_R_BFVParams__SetMultiplicativeDepth",                    (DL_FUNC) &_openfhe_R_BFVParams__SetMultiplicativeDepth,                     2},
+    {"_openfhe_R_BFVParams__SetNumLargeDigits",                         (DL_FUNC) &_openfhe_R_BFVParams__SetNumLargeDigits,                          2},
+    {"_openfhe_R_BFVParams__SetPREMode",                                (DL_FUNC) &_openfhe_R_BFVParams__SetPREMode,                                 2},
+    {"_openfhe_R_BFVParams__SetPlaintextModulus",                       (DL_FUNC) &_openfhe_R_BFVParams__SetPlaintextModulus,                        2},
+    {"_openfhe_R_BFVParams__SetRingDim",                                (DL_FUNC) &_openfhe_R_BFVParams__SetRingDim,                                 2},
+    {"_openfhe_R_BFVParams__SetScalingModSize",                         (DL_FUNC) &_openfhe_R_BFVParams__SetScalingModSize,                          2},
+    {"_openfhe_R_BFVParams__SetSecretKeyDist",                          (DL_FUNC) &_openfhe_R_BFVParams__SetSecretKeyDist,                           2},
+    {"_openfhe_R_BFVParams__SetSecurityLevel",                          (DL_FUNC) &_openfhe_R_BFVParams__SetSecurityLevel,                           2},
+    {"_openfhe_R_BFVParams__SetStandardDeviation",                      (DL_FUNC) &_openfhe_R_BFVParams__SetStandardDeviation,                       2},
+    {"_openfhe_R_BFVParams__SetThresholdNumOfParties",                  (DL_FUNC) &_openfhe_R_BFVParams__SetThresholdNumOfParties,                   2},
+    {"_openfhe_R_BFVParams__new",                                       (DL_FUNC) &_openfhe_R_BFVParams__new,                                        0},
+    {"_openfhe_R_BGVParams__GetBatchSize",                              (DL_FUNC) &_openfhe_R_BGVParams__GetBatchSize,                               1},
+    {"_openfhe_R_BGVParams__GetCKKSDataType",                           (DL_FUNC) &_openfhe_R_BGVParams__GetCKKSDataType,                            1},
+    {"_openfhe_R_BGVParams__GetCompositeDegree",                        (DL_FUNC) &_openfhe_R_BGVParams__GetCompositeDegree,                         1},
+    {"_openfhe_R_BGVParams__GetDecryptionNoiseMode",                    (DL_FUNC) &_openfhe_R_BGVParams__GetDecryptionNoiseMode,                     1},
+    {"_openfhe_R_BGVParams__GetDesiredPrecision",                       (DL_FUNC) &_openfhe_R_BGVParams__GetDesiredPrecision,                        1},
+    {"_openfhe_R_BGVParams__GetDigitSize",                              (DL_FUNC) &_openfhe_R_BGVParams__GetDigitSize,                               1},
+    {"_openfhe_R_BGVParams__GetEncryptionTechnique",                    (DL_FUNC) &_openfhe_R_BGVParams__GetEncryptionTechnique,                     1},
+    {"_openfhe_R_BGVParams__GetEvalAddCount",                           (DL_FUNC) &_openfhe_R_BGVParams__GetEvalAddCount,                            1},
+    {"_openfhe_R_BGVParams__GetExecutionMode",                          (DL_FUNC) &_openfhe_R_BGVParams__GetExecutionMode,                           1},
+    {"_openfhe_R_BGVParams__GetFirstModSize",                           (DL_FUNC) &_openfhe_R_BGVParams__GetFirstModSize,                            1},
+    {"_openfhe_R_BGVParams__GetInteractiveBootCompressionLevel",        (DL_FUNC) &_openfhe_R_BGVParams__GetInteractiveBootCompressionLevel,         1},
+    {"_openfhe_R_BGVParams__GetKeySwitchCount",                         (DL_FUNC) &_openfhe_R_BGVParams__GetKeySwitchCount,                          1},
+    {"_openfhe_R_BGVParams__GetKeySwitchTechnique",                     (DL_FUNC) &_openfhe_R_BGVParams__GetKeySwitchTechnique,                      1},
+    {"_openfhe_R_BGVParams__GetMaxRelinSkDeg",                          (DL_FUNC) &_openfhe_R_BGVParams__GetMaxRelinSkDeg,                           1},
+    {"_openfhe_R_BGVParams__GetMultipartyMode",                         (DL_FUNC) &_openfhe_R_BGVParams__GetMultipartyMode,                          1},
+    {"_openfhe_R_BGVParams__GetMultiplicationTechnique",                (DL_FUNC) &_openfhe_R_BGVParams__GetMultiplicationTechnique,                 1},
+    {"_openfhe_R_BGVParams__GetMultiplicativeDepth",                    (DL_FUNC) &_openfhe_R_BGVParams__GetMultiplicativeDepth,                     1},
+    {"_openfhe_R_BGVParams__GetNoiseEstimate",                          (DL_FUNC) &_openfhe_R_BGVParams__GetNoiseEstimate,                           1},
+    {"_openfhe_R_BGVParams__GetNumAdversarialQueries",                  (DL_FUNC) &_openfhe_R_BGVParams__GetNumAdversarialQueries,                   1},
+    {"_openfhe_R_BGVParams__GetNumLargeDigits",                         (DL_FUNC) &_openfhe_R_BGVParams__GetNumLargeDigits,                          1},
+    {"_openfhe_R_BGVParams__GetPREMode",                                (DL_FUNC) &_openfhe_R_BGVParams__GetPREMode,                                 1},
+    {"_openfhe_R_BGVParams__GetPRENumHops",                             (DL_FUNC) &_openfhe_R_BGVParams__GetPRENumHops,                              1},
+    {"_openfhe_R_BGVParams__GetPlaintextModulus",                       (DL_FUNC) &_openfhe_R_BGVParams__GetPlaintextModulus,                        1},
+    {"_openfhe_R_BGVParams__GetRegisterWordSize",                       (DL_FUNC) &_openfhe_R_BGVParams__GetRegisterWordSize,                        1},
+    {"_openfhe_R_BGVParams__GetRingDim",                                (DL_FUNC) &_openfhe_R_BGVParams__GetRingDim,                                 1},
+    {"_openfhe_R_BGVParams__GetScalingModSize",                         (DL_FUNC) &_openfhe_R_BGVParams__GetScalingModSize,                          1},
+    {"_openfhe_R_BGVParams__GetScalingTechnique",                       (DL_FUNC) &_openfhe_R_BGVParams__GetScalingTechnique,                        1},
+    {"_openfhe_R_BGVParams__GetScheme",                                 (DL_FUNC) &_openfhe_R_BGVParams__GetScheme,                                  1},
+    {"_openfhe_R_BGVParams__GetSecretKeyDist",                          (DL_FUNC) &_openfhe_R_BGVParams__GetSecretKeyDist,                           1},
+    {"_openfhe_R_BGVParams__GetSecurityLevel",                          (DL_FUNC) &_openfhe_R_BGVParams__GetSecurityLevel,                           1},
+    {"_openfhe_R_BGVParams__GetStandardDeviation",                      (DL_FUNC) &_openfhe_R_BGVParams__GetStandardDeviation,                       1},
+    {"_openfhe_R_BGVParams__GetStatisticalSecurity",                    (DL_FUNC) &_openfhe_R_BGVParams__GetStatisticalSecurity,                     1},
+    {"_openfhe_R_BGVParams__GetThresholdNumOfParties",                  (DL_FUNC) &_openfhe_R_BGVParams__GetThresholdNumOfParties,                   1},
+    {"_openfhe_R_BGVParams__SetBatchSize",                              (DL_FUNC) &_openfhe_R_BGVParams__SetBatchSize,                               2},
+    {"_openfhe_R_BGVParams__SetDigitSize",                              (DL_FUNC) &_openfhe_R_BGVParams__SetDigitSize,                               2},
+    {"_openfhe_R_BGVParams__SetEvalAddCount",                           (DL_FUNC) &_openfhe_R_BGVParams__SetEvalAddCount,                            2},
+    {"_openfhe_R_BGVParams__SetFirstModSize",                           (DL_FUNC) &_openfhe_R_BGVParams__SetFirstModSize,                            2},
+    {"_openfhe_R_BGVParams__SetKeySwitchCount",                         (DL_FUNC) &_openfhe_R_BGVParams__SetKeySwitchCount,                          2},
+    {"_openfhe_R_BGVParams__SetKeySwitchTechnique",                     (DL_FUNC) &_openfhe_R_BGVParams__SetKeySwitchTechnique,                      2},
+    {"_openfhe_R_BGVParams__SetMaxRelinSkDeg",                          (DL_FUNC) &_openfhe_R_BGVParams__SetMaxRelinSkDeg,                           2},
+    {"_openfhe_R_BGVParams__SetMultipartyMode",                         (DL_FUNC) &_openfhe_R_BGVParams__SetMultipartyMode,                          2},
+    {"_openfhe_R_BGVParams__SetMultiplicativeDepth",                    (DL_FUNC) &_openfhe_R_BGVParams__SetMultiplicativeDepth,                     2},
+    {"_openfhe_R_BGVParams__SetNumAdversarialQueries",                  (DL_FUNC) &_openfhe_R_BGVParams__SetNumAdversarialQueries,                   2},
+    {"_openfhe_R_BGVParams__SetNumLargeDigits",                         (DL_FUNC) &_openfhe_R_BGVParams__SetNumLargeDigits,                          2},
+    {"_openfhe_R_BGVParams__SetPREMode",                                (DL_FUNC) &_openfhe_R_BGVParams__SetPREMode,                                 2},
+    {"_openfhe_R_BGVParams__SetPRENumHops",                             (DL_FUNC) &_openfhe_R_BGVParams__SetPRENumHops,                              2},
+    {"_openfhe_R_BGVParams__SetPlaintextModulus",                       (DL_FUNC) &_openfhe_R_BGVParams__SetPlaintextModulus,                        2},
+    {"_openfhe_R_BGVParams__SetRingDim",                                (DL_FUNC) &_openfhe_R_BGVParams__SetRingDim,                                 2},
+    {"_openfhe_R_BGVParams__SetScalingModSize",                         (DL_FUNC) &_openfhe_R_BGVParams__SetScalingModSize,                          2},
+    {"_openfhe_R_BGVParams__SetScalingTechnique",                       (DL_FUNC) &_openfhe_R_BGVParams__SetScalingTechnique,                        2},
+    {"_openfhe_R_BGVParams__SetSecretKeyDist",                          (DL_FUNC) &_openfhe_R_BGVParams__SetSecretKeyDist,                           2},
+    {"_openfhe_R_BGVParams__SetSecurityLevel",                          (DL_FUNC) &_openfhe_R_BGVParams__SetSecurityLevel,                           2},
+    {"_openfhe_R_BGVParams__SetStandardDeviation",                      (DL_FUNC) &_openfhe_R_BGVParams__SetStandardDeviation,                       2},
+    {"_openfhe_R_BGVParams__SetStatisticalSecurity",                    (DL_FUNC) &_openfhe_R_BGVParams__SetStatisticalSecurity,                     2},
+    {"_openfhe_R_BGVParams__SetThresholdNumOfParties",                  (DL_FUNC) &_openfhe_R_BGVParams__SetThresholdNumOfParties,                   2},
+    {"_openfhe_R_BGVParams__new",                                       (DL_FUNC) &_openfhe_R_BGVParams__new,                                        0},
+    {"_openfhe_R_BinFHEContext__BTKeyGen",                              (DL_FUNC) &_openfhe_R_BinFHEContext__BTKeyGen,                               4},
+    {"_openfhe_R_BinFHEContext__BTKeyLoad",                             (DL_FUNC) &_openfhe_R_BinFHEContext__BTKeyLoad,                              3},
+    {"_openfhe_R_BinFHEContext__BTKeyMapLoadSingleElement",             (DL_FUNC) &_openfhe_R_BinFHEContext__BTKeyMapLoadSingleElement,              3},
+    {"_openfhe_R_BinFHEContext__Bootstrap",                             (DL_FUNC) &_openfhe_R_BinFHEContext__Bootstrap,                              3},
+    {"_openfhe_R_BinFHEContext__ClearBTKeys",                           (DL_FUNC) &_openfhe_R_BinFHEContext__ClearBTKeys,                            1},
+    {"_openfhe_R_BinFHEContext__Decrypt",                               (DL_FUNC) &_openfhe_R_BinFHEContext__Decrypt,                                4},
+    {"_openfhe_R_BinFHEContext__Encrypt",                               (DL_FUNC) &_openfhe_R_BinFHEContext__Encrypt,                                5},
+    {"_openfhe_R_BinFHEContext__EncryptPK",                             (DL_FUNC) &_openfhe_R_BinFHEContext__EncryptPK,                              6},
+    {"_openfhe_R_BinFHEContext__EncryptWithMod",                        (DL_FUNC) &_openfhe_R_BinFHEContext__EncryptWithMod,                         6},
+    {"_openfhe_R_BinFHEContext__EvalBinGate",                           (DL_FUNC) &_openfhe_R_BinFHEContext__EvalBinGate,                            5},
+    {"_openfhe_R_BinFHEContext__EvalBinGate__vec",                      (DL_FUNC) &_openfhe_R_BinFHEContext__EvalBinGate__vec,                       4},
+    {"_openfhe_R_BinFHEContext__EvalConstant",                          (DL_FUNC) &_openfhe_R_BinFHEContext__EvalConstant,                           2},
+    {"_openfhe_R_BinFHEContext__EvalDecomp",                            (DL_FUNC) &_openfhe_R_BinFHEContext__EvalDecomp,                             2},
+    {"_openfhe_R_BinFHEContext__EvalFloor",                             (DL_FUNC) &_openfhe_R_BinFHEContext__EvalFloor,                              3},
+    {"_openfhe_R_BinFHEContext__EvalFunc",                              (DL_FUNC) &_openfhe_R_BinFHEContext__EvalFunc,                               3},
+    {"_openfhe_R_BinFHEContext__EvalNOT",                               (DL_FUNC) &_openfhe_R_BinFHEContext__EvalNOT,                                2},
+    {"_openfhe_R_BinFHEContext__EvalSign",                              (DL_FUNC) &_openfhe_R_BinFHEContext__EvalSign,                               3},
+    {"_openfhe_R_BinFHEContext__GenerateBinFHEContext",                 (DL_FUNC) &_openfhe_R_BinFHEContext__GenerateBinFHEContext,                  3},
+    {"_openfhe_R_BinFHEContext__GenerateBinFHEContextArbFunc",          (DL_FUNC) &_openfhe_R_BinFHEContext__GenerateBinFHEContextArbFunc,           7},
+    {"_openfhe_R_BinFHEContext__GetBTKey",                              (DL_FUNC) &_openfhe_R_BinFHEContext__GetBTKey,                               1},
+    {"_openfhe_R_BinFHEContext__GetBTKeyMap",                           (DL_FUNC) &_openfhe_R_BinFHEContext__GetBTKeyMap,                            1},
+    {"_openfhe_R_BinFHEContext__GetMaxPlaintextSpace",                  (DL_FUNC) &_openfhe_R_BinFHEContext__GetMaxPlaintextSpace,                   1},
+    {"_openfhe_R_BinFHEContext__GetParam",                              (DL_FUNC) &_openfhe_R_BinFHEContext__GetParam,                               2},
+    {"_openfhe_R_BinFHEContext__GetPublicKey",                          (DL_FUNC) &_openfhe_R_BinFHEContext__GetPublicKey,                           1},
+    {"_openfhe_R_BinFHEContext__GetSwitchKey",                          (DL_FUNC) &_openfhe_R_BinFHEContext__GetSwitchKey,                           1},
+    {"_openfhe_R_BinFHEContext__HasInternal32Key",                      (DL_FUNC) &_openfhe_R_BinFHEContext__HasInternal32Key,                       2},
+    {"_openfhe_R_BinFHEContext__KeyGen",                                (DL_FUNC) &_openfhe_R_BinFHEContext__KeyGen,                                 1},
+    {"_openfhe_R_BinFHEContext__KeyGenN",                               (DL_FUNC) &_openfhe_R_BinFHEContext__KeyGenN,                                1},
+    {"_openfhe_R_BinFHEContext__KeyGenPair",                            (DL_FUNC) &_openfhe_R_BinFHEContext__KeyGenPair,                             1},
+    {"_openfhe_R_BinFHEContext__KeySwitchGen",                          (DL_FUNC) &_openfhe_R_BinFHEContext__KeySwitchGen,                           3},
+    {"_openfhe_R_BinFHEContext__PubKeyGen",                             (DL_FUNC) &_openfhe_R_BinFHEContext__PubKeyGen,                              2},
+    {"_openfhe_R_BinFHEContext__SerializedObjectName",                  (DL_FUNC) &_openfhe_R_BinFHEContext__SerializedObjectName,                   1},
+    {"_openfhe_R_BinFHEContext__SerializedVersion",                     (DL_FUNC) &_openfhe_R_BinFHEContext__SerializedVersion,                      0},
+    {"_openfhe_R_BinFHEContext__SwitchCTtoqn",                          (DL_FUNC) &_openfhe_R_BinFHEContext__SwitchCTtoqn,                           3},
+    {"_openfhe_R_BinFHEContext__new",                                   (DL_FUNC) &_openfhe_R_BinFHEContext__new,                                    0},
+    {"_openfhe_R_BinFHE__DeserializeFromFile",                          (DL_FUNC) &_openfhe_R_BinFHE__DeserializeFromFile,                           3},
+    {"_openfhe_R_BinFHE__SerializeToFile",                              (DL_FUNC) &_openfhe_R_BinFHE__SerializeToFile,                               4},
+    {"_openfhe_R_CCParams__Set",                                        (DL_FUNC) &_openfhe_R_CCParams__Set,                                         3},
+    {"_openfhe_R_CCParams__ToString",                                   (DL_FUNC) &_openfhe_R_CCParams__ToString,                                    1},
+    {"_openfhe_R_CKKSParams__GetBatchSize",                             (DL_FUNC) &_openfhe_R_CKKSParams__GetBatchSize,                              1},
+    {"_openfhe_R_CKKSParams__GetCKKSDataType",                          (DL_FUNC) &_openfhe_R_CKKSParams__GetCKKSDataType,                           1},
+    {"_openfhe_R_CKKSParams__GetCompositeDegree",                       (DL_FUNC) &_openfhe_R_CKKSParams__GetCompositeDegree,                        1},
+    {"_openfhe_R_CKKSParams__GetDecryptionNoiseMode",                   (DL_FUNC) &_openfhe_R_CKKSParams__GetDecryptionNoiseMode,                    1},
+    {"_openfhe_R_CKKSParams__GetDesiredPrecision",                      (DL_FUNC) &_openfhe_R_CKKSParams__GetDesiredPrecision,                       1},
+    {"_openfhe_R_CKKSParams__GetDigitSize",                             (DL_FUNC) &_openfhe_R_CKKSParams__GetDigitSize,                              1},
+    {"_openfhe_R_CKKSParams__GetEncryptionTechnique",                   (DL_FUNC) &_openfhe_R_CKKSParams__GetEncryptionTechnique,                    1},
+    {"_openfhe_R_CKKSParams__GetEvalAddCount",                          (DL_FUNC) &_openfhe_R_CKKSParams__GetEvalAddCount,                           1},
+    {"_openfhe_R_CKKSParams__GetExecutionMode",                         (DL_FUNC) &_openfhe_R_CKKSParams__GetExecutionMode,                          1},
+    {"_openfhe_R_CKKSParams__GetFirstModSize",                          (DL_FUNC) &_openfhe_R_CKKSParams__GetFirstModSize,                           1},
+    {"_openfhe_R_CKKSParams__GetInteractiveBootCompressionLevel",       (DL_FUNC) &_openfhe_R_CKKSParams__GetInteractiveBootCompressionLevel,        1},
+    {"_openfhe_R_CKKSParams__GetKeySwitchCount",                        (DL_FUNC) &_openfhe_R_CKKSParams__GetKeySwitchCount,                         1},
+    {"_openfhe_R_CKKSParams__GetKeySwitchTechnique",                    (DL_FUNC) &_openfhe_R_CKKSParams__GetKeySwitchTechnique,                     1},
+    {"_openfhe_R_CKKSParams__GetMaxRelinSkDeg",                         (DL_FUNC) &_openfhe_R_CKKSParams__GetMaxRelinSkDeg,                          1},
+    {"_openfhe_R_CKKSParams__GetMultipartyMode",                        (DL_FUNC) &_openfhe_R_CKKSParams__GetMultipartyMode,                         1},
+    {"_openfhe_R_CKKSParams__GetMultiplicationTechnique",               (DL_FUNC) &_openfhe_R_CKKSParams__GetMultiplicationTechnique,                1},
+    {"_openfhe_R_CKKSParams__GetMultiplicativeDepth",                   (DL_FUNC) &_openfhe_R_CKKSParams__GetMultiplicativeDepth,                    1},
+    {"_openfhe_R_CKKSParams__GetNoiseEstimate",                         (DL_FUNC) &_openfhe_R_CKKSParams__GetNoiseEstimate,                          1},
+    {"_openfhe_R_CKKSParams__GetNumAdversarialQueries",                 (DL_FUNC) &_openfhe_R_CKKSParams__GetNumAdversarialQueries,                  1},
+    {"_openfhe_R_CKKSParams__GetNumLargeDigits",                        (DL_FUNC) &_openfhe_R_CKKSParams__GetNumLargeDigits,                         1},
+    {"_openfhe_R_CKKSParams__GetPREMode",                               (DL_FUNC) &_openfhe_R_CKKSParams__GetPREMode,                                1},
+    {"_openfhe_R_CKKSParams__GetPRENumHops",                            (DL_FUNC) &_openfhe_R_CKKSParams__GetPRENumHops,                             1},
+    {"_openfhe_R_CKKSParams__GetPlaintextModulus",                      (DL_FUNC) &_openfhe_R_CKKSParams__GetPlaintextModulus,                       1},
+    {"_openfhe_R_CKKSParams__GetRegisterWordSize",                      (DL_FUNC) &_openfhe_R_CKKSParams__GetRegisterWordSize,                       1},
+    {"_openfhe_R_CKKSParams__GetRingDim",                               (DL_FUNC) &_openfhe_R_CKKSParams__GetRingDim,                                1},
+    {"_openfhe_R_CKKSParams__GetScalingModSize",                        (DL_FUNC) &_openfhe_R_CKKSParams__GetScalingModSize,                         1},
+    {"_openfhe_R_CKKSParams__GetScalingTechnique",                      (DL_FUNC) &_openfhe_R_CKKSParams__GetScalingTechnique,                       1},
+    {"_openfhe_R_CKKSParams__GetScheme",                                (DL_FUNC) &_openfhe_R_CKKSParams__GetScheme,                                 1},
+    {"_openfhe_R_CKKSParams__GetSecretKeyDist",                         (DL_FUNC) &_openfhe_R_CKKSParams__GetSecretKeyDist,                          1},
+    {"_openfhe_R_CKKSParams__GetSecurityLevel",                         (DL_FUNC) &_openfhe_R_CKKSParams__GetSecurityLevel,                          1},
+    {"_openfhe_R_CKKSParams__GetStandardDeviation",                     (DL_FUNC) &_openfhe_R_CKKSParams__GetStandardDeviation,                      1},
+    {"_openfhe_R_CKKSParams__GetStatisticalSecurity",                   (DL_FUNC) &_openfhe_R_CKKSParams__GetStatisticalSecurity,                    1},
+    {"_openfhe_R_CKKSParams__GetThresholdNumOfParties",                 (DL_FUNC) &_openfhe_R_CKKSParams__GetThresholdNumOfParties,                  1},
+    {"_openfhe_R_CKKSParams__SetBatchSize",                             (DL_FUNC) &_openfhe_R_CKKSParams__SetBatchSize,                              2},
+    {"_openfhe_R_CKKSParams__SetCKKSDataType",                          (DL_FUNC) &_openfhe_R_CKKSParams__SetCKKSDataType,                           2},
+    {"_openfhe_R_CKKSParams__SetCompositeDegree",                       (DL_FUNC) &_openfhe_R_CKKSParams__SetCompositeDegree,                        2},
+    {"_openfhe_R_CKKSParams__SetDecryptionNoiseMode",                   (DL_FUNC) &_openfhe_R_CKKSParams__SetDecryptionNoiseMode,                    2},
+    {"_openfhe_R_CKKSParams__SetDesiredPrecision",                      (DL_FUNC) &_openfhe_R_CKKSParams__SetDesiredPrecision,                       2},
+    {"_openfhe_R_CKKSParams__SetDigitSize",                             (DL_FUNC) &_openfhe_R_CKKSParams__SetDigitSize,                              2},
+    {"_openfhe_R_CKKSParams__SetExecutionMode",                         (DL_FUNC) &_openfhe_R_CKKSParams__SetExecutionMode,                          2},
+    {"_openfhe_R_CKKSParams__SetFirstModSize",                          (DL_FUNC) &_openfhe_R_CKKSParams__SetFirstModSize,                           2},
+    {"_openfhe_R_CKKSParams__SetInteractiveBootCompressionLevel",       (DL_FUNC) &_openfhe_R_CKKSParams__SetInteractiveBootCompressionLevel,        2},
+    {"_openfhe_R_CKKSParams__SetKeySwitchTechnique",                    (DL_FUNC) &_openfhe_R_CKKSParams__SetKeySwitchTechnique,                     2},
+    {"_openfhe_R_CKKSParams__SetMaxRelinSkDeg",                         (DL_FUNC) &_openfhe_R_CKKSParams__SetMaxRelinSkDeg,                          2},
+    {"_openfhe_R_CKKSParams__SetMultiplicativeDepth",                   (DL_FUNC) &_openfhe_R_CKKSParams__SetMultiplicativeDepth,                    2},
+    {"_openfhe_R_CKKSParams__SetNoiseEstimate",                         (DL_FUNC) &_openfhe_R_CKKSParams__SetNoiseEstimate,                          2},
+    {"_openfhe_R_CKKSParams__SetNumAdversarialQueries",                 (DL_FUNC) &_openfhe_R_CKKSParams__SetNumAdversarialQueries,                  2},
+    {"_openfhe_R_CKKSParams__SetNumLargeDigits",                        (DL_FUNC) &_openfhe_R_CKKSParams__SetNumLargeDigits,                         2},
+    {"_openfhe_R_CKKSParams__SetPREMode",                               (DL_FUNC) &_openfhe_R_CKKSParams__SetPREMode,                                2},
+    {"_openfhe_R_CKKSParams__SetRegisterWordSize",                      (DL_FUNC) &_openfhe_R_CKKSParams__SetRegisterWordSize,                       2},
+    {"_openfhe_R_CKKSParams__SetRingDim",                               (DL_FUNC) &_openfhe_R_CKKSParams__SetRingDim,                                2},
+    {"_openfhe_R_CKKSParams__SetScalingModSize",                        (DL_FUNC) &_openfhe_R_CKKSParams__SetScalingModSize,                         2},
+    {"_openfhe_R_CKKSParams__SetScalingTechnique",                      (DL_FUNC) &_openfhe_R_CKKSParams__SetScalingTechnique,                       2},
+    {"_openfhe_R_CKKSParams__SetSecretKeyDist",                         (DL_FUNC) &_openfhe_R_CKKSParams__SetSecretKeyDist,                          2},
+    {"_openfhe_R_CKKSParams__SetSecurityLevel",                         (DL_FUNC) &_openfhe_R_CKKSParams__SetSecurityLevel,                          2},
+    {"_openfhe_R_CKKSParams__SetStandardDeviation",                     (DL_FUNC) &_openfhe_R_CKKSParams__SetStandardDeviation,                      2},
+    {"_openfhe_R_CKKSParams__SetStatisticalSecurity",                   (DL_FUNC) &_openfhe_R_CKKSParams__SetStatisticalSecurity,                    2},
+    {"_openfhe_R_CKKSParams__new",                                      (DL_FUNC) &_openfhe_R_CKKSParams__new,                                       0},
+    {"_openfhe_R_Ciphertext__Clone",                                    (DL_FUNC) &_openfhe_R_Ciphertext__Clone,                                     2},
+    {"_openfhe_R_Ciphertext__GetCryptoContext",                         (DL_FUNC) &_openfhe_R_Ciphertext__GetCryptoContext,                          1},
+    {"_openfhe_R_Ciphertext__GetElements",                              (DL_FUNC) &_openfhe_R_Ciphertext__GetElements,                               1},
+    {"_openfhe_R_Ciphertext__GetEncodingType",                          (DL_FUNC) &_openfhe_R_Ciphertext__GetEncodingType,                           1},
+    {"_openfhe_R_Ciphertext__GetHopLevel",                              (DL_FUNC) &_openfhe_R_Ciphertext__GetHopLevel,                               1},
+    {"_openfhe_R_Ciphertext__GetKeyTag",                                (DL_FUNC) &_openfhe_R_Ciphertext__GetKeyTag,                                 1},
+    {"_openfhe_R_Ciphertext__GetLevel",                                 (DL_FUNC) &_openfhe_R_Ciphertext__GetLevel,                                  1},
+    {"_openfhe_R_Ciphertext__GetNoiseScaleDeg",                         (DL_FUNC) &_openfhe_R_Ciphertext__GetNoiseScaleDeg,                          1},
+    {"_openfhe_R_Ciphertext__GetScalingFactor",                         (DL_FUNC) &_openfhe_R_Ciphertext__GetScalingFactor,                          1},
+    {"_openfhe_R_Ciphertext__GetScalingFactorInt",                      (DL_FUNC) &_openfhe_R_Ciphertext__GetScalingFactorInt,                       1},
+    {"_openfhe_R_Ciphertext__GetSlots",                                 (DL_FUNC) &_openfhe_R_Ciphertext__GetSlots,                                  1},
+    {"_openfhe_R_Ciphertext__NumberCiphertextElements",                 (DL_FUNC) &_openfhe_R_Ciphertext__NumberCiphertextElements,                  1},
+    {"_openfhe_R_Ciphertext__RemoveElement",                            (DL_FUNC) &_openfhe_R_Ciphertext__RemoveElement,                             2},
+    {"_openfhe_R_Ciphertext__SetElements",                              (DL_FUNC) &_openfhe_R_Ciphertext__SetElements,                               2},
+    {"_openfhe_R_Ciphertext__SetEncodingType",                          (DL_FUNC) &_openfhe_R_Ciphertext__SetEncodingType,                           2},
+    {"_openfhe_R_Ciphertext__SetHopLevel",                              (DL_FUNC) &_openfhe_R_Ciphertext__SetHopLevel,                               2},
+    {"_openfhe_R_Ciphertext__SetKeyTag",                                (DL_FUNC) &_openfhe_R_Ciphertext__SetKeyTag,                                 2},
+    {"_openfhe_R_Ciphertext__SetLevel",                                 (DL_FUNC) &_openfhe_R_Ciphertext__SetLevel,                                  2},
+    {"_openfhe_R_Ciphertext__SetNoiseScaleDeg",                         (DL_FUNC) &_openfhe_R_Ciphertext__SetNoiseScaleDeg,                          2},
+    {"_openfhe_R_Ciphertext__SetScalingFactor",                         (DL_FUNC) &_openfhe_R_Ciphertext__SetScalingFactor,                          2},
+    {"_openfhe_R_Ciphertext__SetScalingFactorInt",                      (DL_FUNC) &_openfhe_R_Ciphertext__SetScalingFactorInt,                       2},
+    {"_openfhe_R_Ciphertext__SetSlots",                                 (DL_FUNC) &_openfhe_R_Ciphertext__SetSlots,                                  2},
+    {"_openfhe_R_ClearEvalAutomorphismKeys",                            (DL_FUNC) &_openfhe_R_ClearEvalAutomorphismKeys,                             0},
+    {"_openfhe_R_ClearEvalMultKeys",                                    (DL_FUNC) &_openfhe_R_ClearEvalMultKeys,                                     0},
+    {"_openfhe_R_ClearEvalSumKeys__",                                   (DL_FUNC) &_openfhe_R_ClearEvalSumKeys__,                                    0},
+    {"_openfhe_R_ClearEvalSumKeys__tag",                                (DL_FUNC) &_openfhe_R_ClearEvalSumKeys__tag,                                 1},
+    {"_openfhe_R_ComposedEvalMult__",                                   (DL_FUNC) &_openfhe_R_ComposedEvalMult__,                                    2},
+    {"_openfhe_R_Compress__ct",                                         (DL_FUNC) &_openfhe_R_Compress__ct,                                          3},
+    {"_openfhe_R_CryptoContext__ClearCaches",                           (DL_FUNC) &_openfhe_R_CryptoContext__ClearCaches,                            2},
+    {"_openfhe_R_CryptoContext__ClearEvalAutomorphismKeys__tag",        (DL_FUNC) &_openfhe_R_CryptoContext__ClearEvalAutomorphismKeys__tag,         1},
+    {"_openfhe_R_CryptoContext__ClearEvalMultKeys__tag",                (DL_FUNC) &_openfhe_R_CryptoContext__ClearEvalMultKeys__tag,                 1},
+    {"_openfhe_R_CryptoContext__ClearStaticMapsAndVectors",             (DL_FUNC) &_openfhe_R_CryptoContext__ClearStaticMapsAndVectors,              0},
+    {"_openfhe_R_CryptoContext__Decrypt",                               (DL_FUNC) &_openfhe_R_CryptoContext__Decrypt,                                3},
+    {"_openfhe_R_CryptoContext__Enable",                                (DL_FUNC) &_openfhe_R_CryptoContext__Enable,                                 2},
+    {"_openfhe_R_CryptoContext__Enable_Mask",                           (DL_FUNC) &_openfhe_R_CryptoContext__Enable_Mask,                            2},
+    {"_openfhe_R_CryptoContext__Encrypt_PrivateKey",                    (DL_FUNC) &_openfhe_R_CryptoContext__Encrypt_PrivateKey,                     3},
+    {"_openfhe_R_CryptoContext__Encrypt_PublicKey",                     (DL_FUNC) &_openfhe_R_CryptoContext__Encrypt_PublicKey,                      3},
+    {"_openfhe_R_CryptoContext__EvalAtIndexKeyGen",                     (DL_FUNC) &_openfhe_R_CryptoContext__EvalAtIndexKeyGen,                      3},
+    {"_openfhe_R_CryptoContext__EvalAutomorphismKeyGen",                (DL_FUNC) &_openfhe_R_CryptoContext__EvalAutomorphismKeyGen,                 3},
+    {"_openfhe_R_CryptoContext__EvalBootstrap",                         (DL_FUNC) &_openfhe_R_CryptoContext__EvalBootstrap,                          3},
+    {"_openfhe_R_CryptoContext__EvalBootstrapKeyGen",                   (DL_FUNC) &_openfhe_R_CryptoContext__EvalBootstrapKeyGen,                    3},
+    {"_openfhe_R_CryptoContext__EvalBootstrapSetup",                    (DL_FUNC) &_openfhe_R_CryptoContext__EvalBootstrapSetup,                     7},
+    {"_openfhe_R_CryptoContext__EvalMultKeyGen",                        (DL_FUNC) &_openfhe_R_CryptoContext__EvalMultKeyGen,                         2},
+    {"_openfhe_R_CryptoContext__EvalRotateKeyGen",                      (DL_FUNC) &_openfhe_R_CryptoContext__EvalRotateKeyGen,                       3},
+    {"_openfhe_R_CryptoContext__EvalSumKeyGen",                         (DL_FUNC) &_openfhe_R_CryptoContext__EvalSumKeyGen,                          2},
+    {"_openfhe_R_CryptoContext__FindAutomorphismIndex",                 (DL_FUNC) &_openfhe_R_CryptoContext__FindAutomorphismIndex,                  2},
+    {"_openfhe_R_CryptoContext__FindAutomorphismIndices",               (DL_FUNC) &_openfhe_R_CryptoContext__FindAutomorphismIndices,                2},
+    {"_openfhe_R_CryptoContext__GetAllEvalAutomorphismKeys",            (DL_FUNC) &_openfhe_R_CryptoContext__GetAllEvalAutomorphismKeys,             0},
+    {"_openfhe_R_CryptoContext__GetAllEvalMultKeys",                    (DL_FUNC) &_openfhe_R_CryptoContext__GetAllEvalMultKeys,                     0},
+    {"_openfhe_R_CryptoContext__GetAllEvalSumKeys",                     (DL_FUNC) &_openfhe_R_CryptoContext__GetAllEvalSumKeys,                      0},
+    {"_openfhe_R_CryptoContext__GetBatchSize",                          (DL_FUNC) &_openfhe_R_CryptoContext__GetBatchSize,                           1},
+    {"_openfhe_R_CryptoContext__GetCKKSBootCorrectionFactor",           (DL_FUNC) &_openfhe_R_CryptoContext__GetCKKSBootCorrectionFactor,            1},
+    {"_openfhe_R_CryptoContext__GetCKKSDataType",                       (DL_FUNC) &_openfhe_R_CryptoContext__GetCKKSDataType,                        1},
+    {"_openfhe_R_CryptoContext__GetCompositeDegree",                    (DL_FUNC) &_openfhe_R_CryptoContext__GetCompositeDegree,                     1},
+    {"_openfhe_R_CryptoContext__GetCryptoParameters",                   (DL_FUNC) &_openfhe_R_CryptoContext__GetCryptoParameters,                    1},
+    {"_openfhe_R_CryptoContext__GetCyclotomicOrder",                    (DL_FUNC) &_openfhe_R_CryptoContext__GetCyclotomicOrder,                     1},
+    {"_openfhe_R_CryptoContext__GetDigitSize",                          (DL_FUNC) &_openfhe_R_CryptoContext__GetDigitSize,                           1},
+    {"_openfhe_R_CryptoContext__GetElementParams",                      (DL_FUNC) &_openfhe_R_CryptoContext__GetElementParams,                       1},
+    {"_openfhe_R_CryptoContext__GetEncodingParams",                     (DL_FUNC) &_openfhe_R_CryptoContext__GetEncodingParams,                      1},
+    {"_openfhe_R_CryptoContext__GetEvalAddCount",                       (DL_FUNC) &_openfhe_R_CryptoContext__GetEvalAddCount,                        1},
+    {"_openfhe_R_CryptoContext__GetEvalAutomorphismKeyMapPtr",          (DL_FUNC) &_openfhe_R_CryptoContext__GetEvalAutomorphismKeyMapPtr,           1},
+    {"_openfhe_R_CryptoContext__GetEvalAutomorphismNoKeyIndices",       (DL_FUNC) &_openfhe_R_CryptoContext__GetEvalAutomorphismNoKeyIndices,        2},
+    {"_openfhe_R_CryptoContext__GetEvalMultKeyVector",                  (DL_FUNC) &_openfhe_R_CryptoContext__GetEvalMultKeyVector,                   1},
+    {"_openfhe_R_CryptoContext__GetEvalSumKeyMap",                      (DL_FUNC) &_openfhe_R_CryptoContext__GetEvalSumKeyMap,                       1},
+    {"_openfhe_R_CryptoContext__GetExistingEvalAutomorphismKeyIndices", (DL_FUNC) &_openfhe_R_CryptoContext__GetExistingEvalAutomorphismKeyIndices,  1},
+    {"_openfhe_R_CryptoContext__GetKeyGenLevel",                        (DL_FUNC) &_openfhe_R_CryptoContext__GetKeyGenLevel,                         1},
+    {"_openfhe_R_CryptoContext__GetKeySwitchCount",                     (DL_FUNC) &_openfhe_R_CryptoContext__GetKeySwitchCount,                      1},
+    {"_openfhe_R_CryptoContext__GetKeySwitchTechnique",                 (DL_FUNC) &_openfhe_R_CryptoContext__GetKeySwitchTechnique,                  1},
+    {"_openfhe_R_CryptoContext__GetModulus",                            (DL_FUNC) &_openfhe_R_CryptoContext__GetModulus,                             1},
+    {"_openfhe_R_CryptoContext__GetModulusCKKS",                        (DL_FUNC) &_openfhe_R_CryptoContext__GetModulusCKKS,                         1},
+    {"_openfhe_R_CryptoContext__GetMultiplicativeDepth",                (DL_FUNC) &_openfhe_R_CryptoContext__GetMultiplicativeDepth,                 1},
+    {"_openfhe_R_CryptoContext__GetNoiseEstimate",                      (DL_FUNC) &_openfhe_R_CryptoContext__GetNoiseEstimate,                       1},
+    {"_openfhe_R_CryptoContext__GetPRENumHops",                         (DL_FUNC) &_openfhe_R_CryptoContext__GetPRENumHops,                          1},
+    {"_openfhe_R_CryptoContext__GetPlaintextForDecrypt",                (DL_FUNC) &_openfhe_R_CryptoContext__GetPlaintextForDecrypt,                 4},
+    {"_openfhe_R_CryptoContext__GetPlaintextModulus",                   (DL_FUNC) &_openfhe_R_CryptoContext__GetPlaintextModulus,                    1},
+    {"_openfhe_R_CryptoContext__GetRegisterWordSize",                   (DL_FUNC) &_openfhe_R_CryptoContext__GetRegisterWordSize,                    1},
+    {"_openfhe_R_CryptoContext__GetRingDimension",                      (DL_FUNC) &_openfhe_R_CryptoContext__GetRingDimension,                       1},
+    {"_openfhe_R_CryptoContext__GetRootOfUnity",                        (DL_FUNC) &_openfhe_R_CryptoContext__GetRootOfUnity,                         1},
+    {"_openfhe_R_CryptoContext__GetScalingFactorReal",                  (DL_FUNC) &_openfhe_R_CryptoContext__GetScalingFactorReal,                   2},
+    {"_openfhe_R_CryptoContext__GetScalingTechnique",                   (DL_FUNC) &_openfhe_R_CryptoContext__GetScalingTechnique,                    1},
+    {"_openfhe_R_CryptoContext__GetScheme",                             (DL_FUNC) &_openfhe_R_CryptoContext__GetScheme,                              1},
+    {"_openfhe_R_CryptoContext__GetSchemeId",                           (DL_FUNC) &_openfhe_R_CryptoContext__GetSchemeId,                            1},
+    {"_openfhe_R_CryptoContext__GetUniqueValues",                       (DL_FUNC) &_openfhe_R_CryptoContext__GetUniqueValues,                        2},
+    {"_openfhe_R_CryptoContext__InsertEvalAutomorphismKey",             (DL_FUNC) &_openfhe_R_CryptoContext__InsertEvalAutomorphismKey,              2},
+    {"_openfhe_R_CryptoContext__InsertEvalMultKey",                     (DL_FUNC) &_openfhe_R_CryptoContext__InsertEvalMultKey,                      2},
+    {"_openfhe_R_CryptoContext__InsertEvalSumKey",                      (DL_FUNC) &_openfhe_R_CryptoContext__InsertEvalSumKey,                       2},
+    {"_openfhe_R_CryptoContext__KeyGen",                                (DL_FUNC) &_openfhe_R_CryptoContext__KeyGen,                                 1},
+    {"_openfhe_R_CryptoContext__MakeCKKSPackedPlaintext",               (DL_FUNC) &_openfhe_R_CryptoContext__MakeCKKSPackedPlaintext,                6},
+    {"_openfhe_R_CryptoContext__MakeCoefPackedPlaintext",               (DL_FUNC) &_openfhe_R_CryptoContext__MakeCoefPackedPlaintext,                4},
+    {"_openfhe_R_CryptoContext__MakePackedPlaintext",                   (DL_FUNC) &_openfhe_R_CryptoContext__MakePackedPlaintext,                    4},
+    {"_openfhe_R_CryptoContext__RecoverSharedKey",                      (DL_FUNC) &_openfhe_R_CryptoContext__RecoverSharedKey,                       5},
+    {"_openfhe_R_CryptoContext__SerializedObjectName",                  (DL_FUNC) &_openfhe_R_CryptoContext__SerializedObjectName,                   1},
+    {"_openfhe_R_CryptoContext__SerializedVersion",                     (DL_FUNC) &_openfhe_R_CryptoContext__SerializedVersion,                      0},
+    {"_openfhe_R_CryptoContext__SetCKKSBootCorrectionFactor",           (DL_FUNC) &_openfhe_R_CryptoContext__SetCKKSBootCorrectionFactor,            2},
+    {"_openfhe_R_CryptoContext__SetKeyGenLevel",                        (DL_FUNC) &_openfhe_R_CryptoContext__SetKeyGenLevel,                         2},
+    {"_openfhe_R_CryptoContext__SetRNS",                                (DL_FUNC) &_openfhe_R_CryptoContext__SetRNS,                                 3},
+    {"_openfhe_R_CryptoContext__ShareKeys",                             (DL_FUNC) &_openfhe_R_CryptoContext__ShareKeys,                              6},
+    {"_openfhe_R_CryptoContext__setSchemeId",                           (DL_FUNC) &_openfhe_R_CryptoContext__setSchemeId,                            2},
+    {"_openfhe_R_DeserializeEvalBootstrapKey__",                        (DL_FUNC) &_openfhe_R_DeserializeEvalBootstrapKey__,                         6},
+    {"_openfhe_R_DeserializeEvalKeysMem__",                             (DL_FUNC) &_openfhe_R_DeserializeEvalKeysMem__,                              3},
+    {"_openfhe_R_DeserializeFile__",                                    (DL_FUNC) &_openfhe_R_DeserializeFile__,                                     3},
+    {"_openfhe_R_DeserializeMem__",                                     (DL_FUNC) &_openfhe_R_DeserializeMem__,                                      3},
+    {"_openfhe_R_Deserialize__Ciphertext",                              (DL_FUNC) &_openfhe_R_Deserialize__Ciphertext,                               2},
+    {"_openfhe_R_Deserialize__CryptoContext",                           (DL_FUNC) &_openfhe_R_Deserialize__CryptoContext,                            2},
+    {"_openfhe_R_Deserialize__EvalAutomorphismKey",                     (DL_FUNC) &_openfhe_R_Deserialize__EvalAutomorphismKey,                      2},
+    {"_openfhe_R_Deserialize__EvalMultKey",                             (DL_FUNC) &_openfhe_R_Deserialize__EvalMultKey,                              2},
+    {"_openfhe_R_Deserialize__EvalSumKey",                              (DL_FUNC) &_openfhe_R_Deserialize__EvalSumKey,                               2},
+    {"_openfhe_R_Deserialize__PrivateKey",                              (DL_FUNC) &_openfhe_R_Deserialize__PrivateKey,                               2},
+    {"_openfhe_R_Deserialize__PublicKey",                               (DL_FUNC) &_openfhe_R_Deserialize__PublicKey,                                2},
+    {"_openfhe_R_ElementParams__GetCyclotomicOrder",                    (DL_FUNC) &_openfhe_R_ElementParams__GetCyclotomicOrder,                     1},
+    {"_openfhe_R_ElementParams__GetModulus",                            (DL_FUNC) &_openfhe_R_ElementParams__GetModulus,                             1},
+    {"_openfhe_R_ElementParams__GetRingDimension",                      (DL_FUNC) &_openfhe_R_ElementParams__GetRingDimension,                       1},
+    {"_openfhe_R_EncodingParams__GetBatchSize",                         (DL_FUNC) &_openfhe_R_EncodingParams__GetBatchSize,                          1},
+    {"_openfhe_R_EncodingParams__GetPlaintextGenerator",                (DL_FUNC) &_openfhe_R_EncodingParams__GetPlaintextGenerator,                 1},
+    {"_openfhe_R_EncodingParams__GetPlaintextModulus",                  (DL_FUNC) &_openfhe_R_EncodingParams__GetPlaintextModulus,                   1},
+    {"_openfhe_R_EvalAddInPlaceNoCheck__",                              (DL_FUNC) &_openfhe_R_EvalAddInPlaceNoCheck__,                               2},
+    {"_openfhe_R_EvalAddInPlace__ct_ct",                                (DL_FUNC) &_openfhe_R_EvalAddInPlace__ct_ct,                                 2},
+    {"_openfhe_R_EvalAddInPlace__ct_pt",                                (DL_FUNC) &_openfhe_R_EvalAddInPlace__ct_pt,                                 2},
+    {"_openfhe_R_EvalAddManyInPlace__",                                 (DL_FUNC) &_openfhe_R_EvalAddManyInPlace__,                                  1},
+    {"_openfhe_R_EvalAddMany__",                                        (DL_FUNC) &_openfhe_R_EvalAddMany__,                                         1},
+    {"_openfhe_R_EvalAddMutable__ct_ct",                                (DL_FUNC) &_openfhe_R_EvalAddMutable__ct_ct,                                 2},
+    {"_openfhe_R_EvalAdd__ct_ct",                                       (DL_FUNC) &_openfhe_R_EvalAdd__ct_ct,                                        2},
+    {"_openfhe_R_EvalAdd__ct_int",                                      (DL_FUNC) &_openfhe_R_EvalAdd__ct_int,                                       2},
+    {"_openfhe_R_EvalAdd__ct_pt",                                       (DL_FUNC) &_openfhe_R_EvalAdd__ct_pt,                                        2},
+    {"_openfhe_R_EvalAdd__ct_scalar",                                   (DL_FUNC) &_openfhe_R_EvalAdd__ct_scalar,                                    2},
+    {"_openfhe_R_EvalArithInPlace__complex",                            (DL_FUNC) &_openfhe_R_EvalArithInPlace__complex,                             5},
+    {"_openfhe_R_EvalArithInPlace__pt_ct",                              (DL_FUNC) &_openfhe_R_EvalArithInPlace__pt_ct,                               3},
+    {"_openfhe_R_EvalArithInPlace__real",                               (DL_FUNC) &_openfhe_R_EvalArithInPlace__real,                                4},
+    {"_openfhe_R_EvalArithMutable__pt",                                 (DL_FUNC) &_openfhe_R_EvalArithMutable__pt,                                  4},
+    {"_openfhe_R_EvalArith__complex",                                   (DL_FUNC) &_openfhe_R_EvalArith__complex,                                    5},
+    {"_openfhe_R_EvalArith__pt_ct",                                     (DL_FUNC) &_openfhe_R_EvalArith__pt_ct,                                      3},
+    {"_openfhe_R_EvalArith__real",                                      (DL_FUNC) &_openfhe_R_EvalArith__real,                                       4},
+    {"_openfhe_R_EvalAtIndex__",                                        (DL_FUNC) &_openfhe_R_EvalAtIndex__,                                         2},
+    {"_openfhe_R_EvalAutomorphism__",                                   (DL_FUNC) &_openfhe_R_EvalAutomorphism__,                                    3},
+    {"_openfhe_R_EvalBootstrapPrecompute__",                            (DL_FUNC) &_openfhe_R_EvalBootstrapPrecompute__,                             2},
+    {"_openfhe_R_EvalBootstrapStCFirst__",                              (DL_FUNC) &_openfhe_R_EvalBootstrapStCFirst__,                               3},
+    {"_openfhe_R_EvalCKKStoFHEWPrecompute__",                           (DL_FUNC) &_openfhe_R_EvalCKKStoFHEWPrecompute__,                            2},
+    {"_openfhe_R_EvalCKKStoFHEW__",                                     (DL_FUNC) &_openfhe_R_EvalCKKStoFHEW__,                                      2},
+    {"_openfhe_R_EvalChebyshevFunctionPtxt__",                          (DL_FUNC) &_openfhe_R_EvalChebyshevFunctionPtxt__,                           5},
+    {"_openfhe_R_EvalCkksToFhewKeyGen__",                               (DL_FUNC) &_openfhe_R_EvalCkksToFhewKeyGen__,                                4},
+    {"_openfhe_R_EvalCompareSchemeSwitching__",                         (DL_FUNC) &_openfhe_R_EvalCompareSchemeSwitching__,                          7},
+    {"_openfhe_R_EvalCompareSwitchPrecompute__",                        (DL_FUNC) &_openfhe_R_EvalCompareSwitchPrecompute__,                         4},
+    {"_openfhe_R_EvalCos_",                                             (DL_FUNC) &_openfhe_R_EvalCos_,                                              4},
+    {"_openfhe_R_EvalDivide_",                                          (DL_FUNC) &_openfhe_R_EvalDivide_,                                           4},
+    {"_openfhe_R_EvalFBTNoDecoding__",                                  (DL_FUNC) &_openfhe_R_EvalFBTNoDecoding__,                                   5},
+    {"_openfhe_R_EvalFBTSetup__",                                       (DL_FUNC) &_openfhe_R_EvalFBTSetup__,                                       12},
+    {"_openfhe_R_EvalFBT__",                                            (DL_FUNC) &_openfhe_R_EvalFBT__,                                             7},
+    {"_openfhe_R_EvalFEFuncBootstrapPrecompute__",                      (DL_FUNC) &_openfhe_R_EvalFEFuncBootstrapPrecompute__,                       2},
+    {"_openfhe_R_EvalFEFuncBootstrapSetup__",                           (DL_FUNC) &_openfhe_R_EvalFEFuncBootstrapSetup__,                            4},
+    {"_openfhe_R_EvalFEFuncBootstrapWithPrecomp__",                     (DL_FUNC) &_openfhe_R_EvalFEFuncBootstrapWithPrecomp__,                      2},
+    {"_openfhe_R_EvalFEFuncBootstrap__",                                (DL_FUNC) &_openfhe_R_EvalFEFuncBootstrap__,                                 2},
+    {"_openfhe_R_EvalFHEWtoCKKSSetup__",                                (DL_FUNC) &_openfhe_R_EvalFHEWtoCKKSSetup__,                                 4},
+    {"_openfhe_R_EvalFHEWtoCKKS__",                                     (DL_FUNC) &_openfhe_R_EvalFHEWtoCKKS__,                                      8},
+    {"_openfhe_R_EvalFastRotation",                                     (DL_FUNC) &_openfhe_R_EvalFastRotation,                                      4},
+    {"_openfhe_R_EvalFastRotationExt__",                                (DL_FUNC) &_openfhe_R_EvalFastRotationExt__,                                 4},
+    {"_openfhe_R_EvalFastRotationPrecompute",                           (DL_FUNC) &_openfhe_R_EvalFastRotationPrecompute,                            1},
+    {"_openfhe_R_EvalFastRotation__3arg",                               (DL_FUNC) &_openfhe_R_EvalFastRotation__3arg,                                3},
+    {"_openfhe_R_EvalFhewToCkksKeyGen__",                               (DL_FUNC) &_openfhe_R_EvalFhewToCkksKeyGen__,                                8},
+    {"_openfhe_R_EvalHermiteTrigSeries__",                              (DL_FUNC) &_openfhe_R_EvalHermiteTrigSeries__,                               6},
+    {"_openfhe_R_EvalHomDecoding__",                                    (DL_FUNC) &_openfhe_R_EvalHomDecoding__,                                     3},
+    {"_openfhe_R_EvalInnerProduct__ct_ct",                              (DL_FUNC) &_openfhe_R_EvalInnerProduct__ct_ct,                               3},
+    {"_openfhe_R_EvalInnerProduct__ct_pt",                              (DL_FUNC) &_openfhe_R_EvalInnerProduct__ct_pt,                               3},
+    {"_openfhe_R_EvalKey__GetKeyTag",                                   (DL_FUNC) &_openfhe_R_EvalKey__GetKeyTag,                                    1},
+    {"_openfhe_R_EvalKey__SetKeyTag",                                   (DL_FUNC) &_openfhe_R_EvalKey__SetKeyTag,                                    2},
+    {"_openfhe_R_EvalLinearWSumMutable__",                              (DL_FUNC) &_openfhe_R_EvalLinearWSumMutable__,                               2},
+    {"_openfhe_R_EvalLinearWSum__",                                     (DL_FUNC) &_openfhe_R_EvalLinearWSum__,                                      2},
+    {"_openfhe_R_EvalLogistic_",                                        (DL_FUNC) &_openfhe_R_EvalLogistic_,                                         4},
+    {"_openfhe_R_EvalMVBNoDecoding__",                                  (DL_FUNC) &_openfhe_R_EvalMVBNoDecoding__,                                   4},
+    {"_openfhe_R_EvalMVBPrecompute__",                                  (DL_FUNC) &_openfhe_R_EvalMVBPrecompute__,                                   5},
+    {"_openfhe_R_EvalMVB__",                                            (DL_FUNC) &_openfhe_R_EvalMVB__,                                             6},
+    {"_openfhe_R_EvalMerge__",                                          (DL_FUNC) &_openfhe_R_EvalMerge__,                                           1},
+    {"_openfhe_R_EvalMinMaxSchemeSwitching__",                          (DL_FUNC) &_openfhe_R_EvalMinMaxSchemeSwitching__,                           7},
+    {"_openfhe_R_EvalMultAndRelinearize__ct_ct",                        (DL_FUNC) &_openfhe_R_EvalMultAndRelinearize__ct_ct,                         2},
+    {"_openfhe_R_EvalMultKeysGen__",                                    (DL_FUNC) &_openfhe_R_EvalMultKeysGen__,                                     2},
+    {"_openfhe_R_EvalMultMany__",                                       (DL_FUNC) &_openfhe_R_EvalMultMany__,                                        1},
+    {"_openfhe_R_EvalMultMutable__ct_ct",                               (DL_FUNC) &_openfhe_R_EvalMultMutable__ct_ct,                                2},
+    {"_openfhe_R_EvalMultNoCheck__",                                    (DL_FUNC) &_openfhe_R_EvalMultNoCheck__,                                     2},
+    {"_openfhe_R_EvalMultNoRelinNoCheck__",                             (DL_FUNC) &_openfhe_R_EvalMultNoRelinNoCheck__,                              2},
+    {"_openfhe_R_EvalMultNoRelin__ct_ct",                               (DL_FUNC) &_openfhe_R_EvalMultNoRelin__ct_ct,                                2},
+    {"_openfhe_R_EvalMult__ct_ct",                                      (DL_FUNC) &_openfhe_R_EvalMult__ct_ct,                                       2},
+    {"_openfhe_R_EvalMult__ct_int",                                     (DL_FUNC) &_openfhe_R_EvalMult__ct_int,                                      2},
+    {"_openfhe_R_EvalMult__ct_pt",                                      (DL_FUNC) &_openfhe_R_EvalMult__ct_pt,                                       2},
+    {"_openfhe_R_EvalMult__ct_scalar",                                  (DL_FUNC) &_openfhe_R_EvalMult__ct_scalar,                                   2},
+    {"_openfhe_R_EvalMutableInPlace__",                                 (DL_FUNC) &_openfhe_R_EvalMutableInPlace__,                                  3},
+    {"_openfhe_R_EvalNegate",                                           (DL_FUNC) &_openfhe_R_EvalNegate,                                            1},
+    {"_openfhe_R_EvalNegateInPlace__ct",                                (DL_FUNC) &_openfhe_R_EvalNegateInPlace__ct,                                 1},
+    {"_openfhe_R_EvalRotate",                                           (DL_FUNC) &_openfhe_R_EvalRotate,                                            2},
+    {"_openfhe_R_EvalSchemeSwitchingKeyGen__",                          (DL_FUNC) &_openfhe_R_EvalSchemeSwitchingKeyGen__,                           4},
+    {"_openfhe_R_EvalSeriesPowers__",                                   (DL_FUNC) &_openfhe_R_EvalSeriesPowers__,                                    5},
+    {"_openfhe_R_EvalSeriesWithPrecomp__",                              (DL_FUNC) &_openfhe_R_EvalSeriesWithPrecomp__,                               3},
+    {"_openfhe_R_EvalSeries__",                                         (DL_FUNC) &_openfhe_R_EvalSeries__,                                          5},
+    {"_openfhe_R_EvalSin_",                                             (DL_FUNC) &_openfhe_R_EvalSin_,                                              4},
+    {"_openfhe_R_EvalSquare",                                           (DL_FUNC) &_openfhe_R_EvalSquare,                                            1},
+    {"_openfhe_R_EvalSquareMutable__ct",                                (DL_FUNC) &_openfhe_R_EvalSquareMutable__ct,                                 1},
+    {"_openfhe_R_EvalSubInPlace__ct_ct",                                (DL_FUNC) &_openfhe_R_EvalSubInPlace__ct_ct,                                 2},
+    {"_openfhe_R_EvalSubInPlace__ct_pt",                                (DL_FUNC) &_openfhe_R_EvalSubInPlace__ct_pt,                                 2},
+    {"_openfhe_R_EvalSubMutable__ct_ct",                                (DL_FUNC) &_openfhe_R_EvalSubMutable__ct_ct,                                 2},
+    {"_openfhe_R_EvalSub__ct_ct",                                       (DL_FUNC) &_openfhe_R_EvalSub__ct_ct,                                        2},
+    {"_openfhe_R_EvalSub__ct_int",                                      (DL_FUNC) &_openfhe_R_EvalSub__ct_int,                                       2},
+    {"_openfhe_R_EvalSub__ct_pt",                                       (DL_FUNC) &_openfhe_R_EvalSub__ct_pt,                                        2},
+    {"_openfhe_R_EvalSub__ct_scalar",                                   (DL_FUNC) &_openfhe_R_EvalSub__ct_scalar,                                    2},
+    {"_openfhe_R_EvalSum",                                              (DL_FUNC) &_openfhe_R_EvalSum,                                               2},
+    {"_openfhe_R_EvalSumColsKeyGen__",                                  (DL_FUNC) &_openfhe_R_EvalSumColsKeyGen__,                                   2},
+    {"_openfhe_R_EvalSumCols__",                                        (DL_FUNC) &_openfhe_R_EvalSumCols__,                                         3},
+    {"_openfhe_R_EvalSumRowsKeyGen__",                                  (DL_FUNC) &_openfhe_R_EvalSumRowsKeyGen__,                                   5},
+    {"_openfhe_R_EvalSumRows__",                                        (DL_FUNC) &_openfhe_R_EvalSumRows__,                                         4},
+    {"_openfhe_R_EvalUnaryInPlace__",                                   (DL_FUNC) &_openfhe_R_EvalUnaryInPlace__,                                    2},
+    {"_openfhe_R_FHECKKSRNS__GetBootstrapDepth",                        (DL_FUNC) &_openfhe_R_FHECKKSRNS__GetBootstrapDepth,                         2},
+    {"_openfhe_R_FHECKKSRNS__GetBootstrapDepth__approx",                (DL_FUNC) &_openfhe_R_FHECKKSRNS__GetBootstrapDepth__approx,                 3},
+    {"_openfhe_R_GenCryptoContext__BFV",                                (DL_FUNC) &_openfhe_R_GenCryptoContext__BFV,                                 1},
+    {"_openfhe_R_GenCryptoContext__BGV",                                (DL_FUNC) &_openfhe_R_GenCryptoContext__BGV,                                 1},
+    {"_openfhe_R_GenCryptoContext__CKKS",                               (DL_FUNC) &_openfhe_R_GenCryptoContext__CKKS,                                1},
+    {"_openfhe_R_GetAllContexts__",                                     (DL_FUNC) &_openfhe_R_GetAllContexts__,                                      0},
+    {"_openfhe_R_GetBinCCForSchemeSwitch__",                            (DL_FUNC) &_openfhe_R_GetBinCCForSchemeSwitch__,                             1},
+    {"_openfhe_R_GetFBTDepth__",                                        (DL_FUNC) &_openfhe_R_GetFBTDepth__,                                         6},
+    {"_openfhe_R_GetFEFBTDepth__",                                      (DL_FUNC) &_openfhe_R_GetFEFBTDepth__,                                       4},
+    {"_openfhe_R_GetHermiteTrigCoefficients__",                         (DL_FUNC) &_openfhe_R_GetHermiteTrigCoefficients__,                          4},
+    {"_openfhe_R_GetMultiplicativeDepthByCoeffVector__",                (DL_FUNC) &_openfhe_R_GetMultiplicativeDepthByCoeffVector__,                 2},
+    {"_openfhe_R_GetSwkFC__",                                           (DL_FUNC) &_openfhe_R_GetSwkFC__,                                            1},
+    {"_openfhe_R_IntBootAdd__",                                         (DL_FUNC) &_openfhe_R_IntBootAdd__,                                          2},
+    {"_openfhe_R_IntBootAdjustScale__",                                 (DL_FUNC) &_openfhe_R_IntBootAdjustScale__,                                  1},
+    {"_openfhe_R_IntBootDecrypt__",                                     (DL_FUNC) &_openfhe_R_IntBootDecrypt__,                                      2},
+    {"_openfhe_R_IntBootEncrypt__",                                     (DL_FUNC) &_openfhe_R_IntBootEncrypt__,                                      2},
+    {"_openfhe_R_IntMPBootAdd__",                                       (DL_FUNC) &_openfhe_R_IntMPBootAdd__,                                        2},
+    {"_openfhe_R_IntMPBootAdjustScale__",                               (DL_FUNC) &_openfhe_R_IntMPBootAdjustScale__,                                1},
+    {"_openfhe_R_IntMPBootDecrypt__",                                   (DL_FUNC) &_openfhe_R_IntMPBootDecrypt__,                                    3},
+    {"_openfhe_R_IntMPBootEncrypt__",                                   (DL_FUNC) &_openfhe_R_IntMPBootEncrypt__,                                    4},
+    {"_openfhe_R_IntMPBootRandomElementGen__ct",                        (DL_FUNC) &_openfhe_R_IntMPBootRandomElementGen__ct,                         1},
+    {"_openfhe_R_IntMPBootRandomElementGen__pk",                        (DL_FUNC) &_openfhe_R_IntMPBootRandomElementGen__pk,                         2},
+    {"_openfhe_R_KeySwitchDownFirstElement__",                          (DL_FUNC) &_openfhe_R_KeySwitchDownFirstElement__,                           1},
+    {"_openfhe_R_KeySwitchDown__",                                      (DL_FUNC) &_openfhe_R_KeySwitchDown__,                                       1},
+    {"_openfhe_R_KeySwitchExt__",                                       (DL_FUNC) &_openfhe_R_KeySwitchExt__,                                        2},
+    {"_openfhe_R_KeySwitchGen__",                                       (DL_FUNC) &_openfhe_R_KeySwitchGen__,                                        3},
+    {"_openfhe_R_KeySwitchInPlace__",                                   (DL_FUNC) &_openfhe_R_KeySwitchInPlace__,                                    2},
+    {"_openfhe_R_KeySwitch__",                                          (DL_FUNC) &_openfhe_R_KeySwitch__,                                           2},
+    {"_openfhe_R_LWECiphertext__GetLength",                             (DL_FUNC) &_openfhe_R_LWECiphertext__GetLength,                              1},
+    {"_openfhe_R_LWECiphertext__GetptModulus",                          (DL_FUNC) &_openfhe_R_LWECiphertext__GetptModulus,                           1},
+    {"_openfhe_R_LWECiphertext__SetModulus",                            (DL_FUNC) &_openfhe_R_LWECiphertext__SetModulus,                             2},
+    {"_openfhe_R_LWECiphertext__SetptModulus",                          (DL_FUNC) &_openfhe_R_LWECiphertext__SetptModulus,                           2},
+    {"_openfhe_R_LWE__GetLength",                                       (DL_FUNC) &_openfhe_R_LWE__GetLength,                                        2},
+    {"_openfhe_R_LWE__GetModulus",                                      (DL_FUNC) &_openfhe_R_LWE__GetModulus,                                       2},
+    {"_openfhe_R_LWE__equal",                                           (DL_FUNC) &_openfhe_R_LWE__equal,                                            3},
+    {"_openfhe_R_LevelReduceInPlace__ct",                               (DL_FUNC) &_openfhe_R_LevelReduceInPlace__ct,                                3},
+    {"_openfhe_R_LevelReduce__ct",                                      (DL_FUNC) &_openfhe_R_LevelReduce__ct,                                       3},
+    {"_openfhe_R_MakeCKKSPackedPlaintext__complex",                     (DL_FUNC) &_openfhe_R_MakeCKKSPackedPlaintext__complex,                      6},
+    {"_openfhe_R_MakeStringPlaintext__",                                (DL_FUNC) &_openfhe_R_MakeStringPlaintext__,                                 2},
+    {"_openfhe_R_ModReduceInPlace__ct",                                 (DL_FUNC) &_openfhe_R_ModReduceInPlace__ct,                                  1},
+    {"_openfhe_R_ModReduce__ct",                                        (DL_FUNC) &_openfhe_R_ModReduce__ct,                                         1},
+    {"_openfhe_R_MultiAddEvalAutomorphismKeys__",                       (DL_FUNC) &_openfhe_R_MultiAddEvalAutomorphismKeys__,                        4},
+    {"_openfhe_R_MultiAddEvalKeys",                                     (DL_FUNC) &_openfhe_R_MultiAddEvalKeys,                                      4},
+    {"_openfhe_R_MultiAddEvalMultKeys",                                 (DL_FUNC) &_openfhe_R_MultiAddEvalMultKeys,                                  4},
+    {"_openfhe_R_MultiAddEvalSumKeys__",                                (DL_FUNC) &_openfhe_R_MultiAddEvalSumKeys__,                                 4},
+    {"_openfhe_R_MultiAddPubKeys",                                      (DL_FUNC) &_openfhe_R_MultiAddPubKeys,                                       4},
+    {"_openfhe_R_MultiEvalAtIndexKeyGen__",                             (DL_FUNC) &_openfhe_R_MultiEvalAtIndexKeyGen__,                              5},
+    {"_openfhe_R_MultiEvalAutomorphismKeyGen__",                        (DL_FUNC) &_openfhe_R_MultiEvalAutomorphismKeyGen__,                         5},
+    {"_openfhe_R_MultiEvalSumKeyGen__",                                 (DL_FUNC) &_openfhe_R_MultiEvalSumKeyGen__,                                  4},
+    {"_openfhe_R_MultiKeySwitchGen",                                    (DL_FUNC) &_openfhe_R_MultiKeySwitchGen,                                     4},
+    {"_openfhe_R_MultiMultEvalKey__",                                   (DL_FUNC) &_openfhe_R_MultiMultEvalKey__,                                    4},
+    {"_openfhe_R_MultipartyDecryptFusion",                              (DL_FUNC) &_openfhe_R_MultipartyDecryptFusion,                               2},
+    {"_openfhe_R_MultipartyDecryptLead",                                (DL_FUNC) &_openfhe_R_MultipartyDecryptLead,                                 3},
+    {"_openfhe_R_MultipartyDecryptLead__ct_vec",                        (DL_FUNC) &_openfhe_R_MultipartyDecryptLead__ct_vec,                         3},
+    {"_openfhe_R_MultipartyDecryptMain",                                (DL_FUNC) &_openfhe_R_MultipartyDecryptMain,                                 3},
+    {"_openfhe_R_MultipartyDecryptMain__ct_vec",                        (DL_FUNC) &_openfhe_R_MultipartyDecryptMain__ct_vec,                         3},
+    {"_openfhe_R_MultipartyKeyGen",                                     (DL_FUNC) &_openfhe_R_MultipartyKeyGen,                                      4},
+    {"_openfhe_R_MultipartyKeyGen__sk_vec",                             (DL_FUNC) &_openfhe_R_MultipartyKeyGen__sk_vec,                              2},
+    {"_openfhe_R_Plaintext__Decode",                                    (DL_FUNC) &_openfhe_R_Plaintext__Decode,                                     1},
+    {"_openfhe_R_Plaintext__Decode__ckks",                              (DL_FUNC) &_openfhe_R_Plaintext__Decode__ckks,                               5},
+    {"_openfhe_R_Plaintext__Encode",                                    (DL_FUNC) &_openfhe_R_Plaintext__Encode,                                     1},
+    {"_openfhe_R_Plaintext__GetCKKSDataType",                           (DL_FUNC) &_openfhe_R_Plaintext__GetCKKSDataType,                            1},
+    {"_openfhe_R_Plaintext__GetCKKSPackedValue",                        (DL_FUNC) &_openfhe_R_Plaintext__GetCKKSPackedValue,                         1},
+    {"_openfhe_R_Plaintext__GetCoefPackedValue",                        (DL_FUNC) &_openfhe_R_Plaintext__GetCoefPackedValue,                         1},
+    {"_openfhe_R_Plaintext__GetElementModulus",                         (DL_FUNC) &_openfhe_R_Plaintext__GetElementModulus,                          1},
+    {"_openfhe_R_Plaintext__GetElementRingDimension",                   (DL_FUNC) &_openfhe_R_Plaintext__GetElementRingDimension,                    1},
+    {"_openfhe_R_Plaintext__GetEncodingParams",                         (DL_FUNC) &_openfhe_R_Plaintext__GetEncodingParams,                          1},
+    {"_openfhe_R_Plaintext__GetEncodingType",                           (DL_FUNC) &_openfhe_R_Plaintext__GetEncodingType,                            1},
+    {"_openfhe_R_Plaintext__GetFormattedValues",                        (DL_FUNC) &_openfhe_R_Plaintext__GetFormattedValues,                         2},
+    {"_openfhe_R_Plaintext__GetLength",                                 (DL_FUNC) &_openfhe_R_Plaintext__GetLength,                                  1},
+    {"_openfhe_R_Plaintext__GetLevel",                                  (DL_FUNC) &_openfhe_R_Plaintext__GetLevel,                                   1},
+    {"_openfhe_R_Plaintext__GetLogError",                               (DL_FUNC) &_openfhe_R_Plaintext__GetLogError,                                1},
+    {"_openfhe_R_Plaintext__GetLogPrecision",                           (DL_FUNC) &_openfhe_R_Plaintext__GetLogPrecision,                            1},
+    {"_openfhe_R_Plaintext__GetNoiseScaleDeg",                          (DL_FUNC) &_openfhe_R_Plaintext__GetNoiseScaleDeg,                           1},
+    {"_openfhe_R_Plaintext__GetPackedValue",                            (DL_FUNC) &_openfhe_R_Plaintext__GetPackedValue,                             1},
+    {"_openfhe_R_Plaintext__GetRealPackedValue",                        (DL_FUNC) &_openfhe_R_Plaintext__GetRealPackedValue,                         1},
+    {"_openfhe_R_Plaintext__GetScalingFactor",                          (DL_FUNC) &_openfhe_R_Plaintext__GetScalingFactor,                           1},
+    {"_openfhe_R_Plaintext__GetScalingFactorInt",                       (DL_FUNC) &_openfhe_R_Plaintext__GetScalingFactorInt,                        1},
+    {"_openfhe_R_Plaintext__GetSchemeID",                               (DL_FUNC) &_openfhe_R_Plaintext__GetSchemeID,                                1},
+    {"_openfhe_R_Plaintext__GetSlots",                                  (DL_FUNC) &_openfhe_R_Plaintext__GetSlots,                                   1},
+    {"_openfhe_R_Plaintext__GetStringValue",                            (DL_FUNC) &_openfhe_R_Plaintext__GetStringValue,                             1},
+    {"_openfhe_R_Plaintext__HighBound",                                 (DL_FUNC) &_openfhe_R_Plaintext__HighBound,                                  1},
+    {"_openfhe_R_Plaintext__IsEncoded",                                 (DL_FUNC) &_openfhe_R_Plaintext__IsEncoded,                                  1},
+    {"_openfhe_R_Plaintext__LowBound",                                  (DL_FUNC) &_openfhe_R_Plaintext__LowBound,                                   1},
+    {"_openfhe_R_Plaintext__SetCKKSDataType",                           (DL_FUNC) &_openfhe_R_Plaintext__SetCKKSDataType,                            2},
+    {"_openfhe_R_Plaintext__SetFormat",                                 (DL_FUNC) &_openfhe_R_Plaintext__SetFormat,                                  2},
+    {"_openfhe_R_Plaintext__SetIntVectorValue",                         (DL_FUNC) &_openfhe_R_Plaintext__SetIntVectorValue,                          2},
+    {"_openfhe_R_Plaintext__SetLength",                                 (DL_FUNC) &_openfhe_R_Plaintext__SetLength,                                  2},
+    {"_openfhe_R_Plaintext__SetLevel",                                  (DL_FUNC) &_openfhe_R_Plaintext__SetLevel,                                   2},
+    {"_openfhe_R_Plaintext__SetNoiseScaleDeg",                          (DL_FUNC) &_openfhe_R_Plaintext__SetNoiseScaleDeg,                           2},
+    {"_openfhe_R_Plaintext__SetScalingFactor",                          (DL_FUNC) &_openfhe_R_Plaintext__SetScalingFactor,                           2},
+    {"_openfhe_R_Plaintext__SetScalingFactorInt",                       (DL_FUNC) &_openfhe_R_Plaintext__SetScalingFactorInt,                        2},
+    {"_openfhe_R_Plaintext__SetSlots",                                  (DL_FUNC) &_openfhe_R_Plaintext__SetSlots,                                   2},
+    {"_openfhe_R_Plaintext__SetStringValue",                            (DL_FUNC) &_openfhe_R_Plaintext__SetStringValue,                             2},
+    {"_openfhe_R_Plaintext__ToString",                                  (DL_FUNC) &_openfhe_R_Plaintext__ToString,                                   1},
+    {"_openfhe_R_PolyVector__SwitchModulus",                            (DL_FUNC) &_openfhe_R_PolyVector__SwitchModulus,                             2},
+    {"_openfhe_R_PolyVector__clone",                                    (DL_FUNC) &_openfhe_R_PolyVector__clone,                                     1},
+    {"_openfhe_R_PolyVector__length",                                   (DL_FUNC) &_openfhe_R_PolyVector__length,                                    1},
+    {"_openfhe_R_PolyVector__new",                                      (DL_FUNC) &_openfhe_R_PolyVector__new,                                       0},
+    {"_openfhe_R_PolyVector__sub",                                      (DL_FUNC) &_openfhe_R_PolyVector__sub,                                       2},
+    {"_openfhe_R_PrecomputeCRTTablesAfterDeserializaton__get",          (DL_FUNC) &_openfhe_R_PrecomputeCRTTablesAfterDeserializaton__get,           0},
+    {"_openfhe_R_PrecomputeCRTTablesAfterDeserializaton__set",          (DL_FUNC) &_openfhe_R_PrecomputeCRTTablesAfterDeserializaton__set,           1},
+    {"_openfhe_R_PrivateKey__GetCryptoContext",                         (DL_FUNC) &_openfhe_R_PrivateKey__GetCryptoContext,                          1},
+    {"_openfhe_R_PrivateKey__GetKeyTag",                                (DL_FUNC) &_openfhe_R_PrivateKey__GetKeyTag,                                 1},
+    {"_openfhe_R_PrivateKey__SetKeyTag",                                (DL_FUNC) &_openfhe_R_PrivateKey__SetKeyTag,                                 2},
+    {"_openfhe_R_PublicKey__GetCryptoContext",                          (DL_FUNC) &_openfhe_R_PublicKey__GetCryptoContext,                           1},
+    {"_openfhe_R_PublicKey__GetKeyTag",                                 (DL_FUNC) &_openfhe_R_PublicKey__GetKeyTag,                                  1},
+    {"_openfhe_R_PublicKey__SetKeyTag",                                 (DL_FUNC) &_openfhe_R_PublicKey__SetKeyTag,                                  2},
+    {"_openfhe_R_ReEncrypt__",                                          (DL_FUNC) &_openfhe_R_ReEncrypt__,                                           3},
+    {"_openfhe_R_ReKeyGen__",                                           (DL_FUNC) &_openfhe_R_ReKeyGen__,                                            3},
+    {"_openfhe_R_ReleaseAllContexts",                                   (DL_FUNC) &_openfhe_R_ReleaseAllContexts,                                    0},
+    {"_openfhe_R_Relinearize__ct",                                      (DL_FUNC) &_openfhe_R_Relinearize__ct,                                       1},
+    {"_openfhe_R_Rescale",                                              (DL_FUNC) &_openfhe_R_Rescale,                                               1},
+    {"_openfhe_R_SchSwchDeserializer__Deserialize",                     (DL_FUNC) &_openfhe_R_SchSwchDeserializer__Deserialize,                      1},
+    {"_openfhe_R_SchSwchDeserializer__SetDataDirectory",                (DL_FUNC) &_openfhe_R_SchSwchDeserializer__SetDataDirectory,                 2},
+    {"_openfhe_R_SchSwchDeserializer__get",                             (DL_FUNC) &_openfhe_R_SchSwchDeserializer__get,                              2},
+    {"_openfhe_R_SchSwchDeserializer__new",                             (DL_FUNC) &_openfhe_R_SchSwchDeserializer__new,                              0},
+    {"_openfhe_R_SchSwchParams__Get",                                   (DL_FUNC) &_openfhe_R_SchSwchParams__Get,                                    2},
+    {"_openfhe_R_SchSwchParams__GetInitialCKKSModulus",                 (DL_FUNC) &_openfhe_R_SchSwchParams__GetInitialCKKSModulus,                  1},
+    {"_openfhe_R_SchSwchParams__Set",                                   (DL_FUNC) &_openfhe_R_SchSwchParams__Set,                                    3},
+    {"_openfhe_R_SchSwchParams__SetInitialCKKSModulus",                 (DL_FUNC) &_openfhe_R_SchSwchParams__SetInitialCKKSModulus,                  2},
+    {"_openfhe_R_SchSwchParams__SetParamsFromCKKSCryptocontextCalled",  (DL_FUNC) &_openfhe_R_SchSwchParams__SetParamsFromCKKSCryptocontextCalled,   1},
+    {"_openfhe_R_SchSwchParams__new",                                   (DL_FUNC) &_openfhe_R_SchSwchParams__new,                                    0},
+    {"_openfhe_R_SchSwchParams__str",                                   (DL_FUNC) &_openfhe_R_SchSwchParams__str,                                    1},
+    {"_openfhe_R_SchSwchSerializer__Serialize",                         (DL_FUNC) &_openfhe_R_SchSwchSerializer__Serialize,                          1},
+    {"_openfhe_R_SchSwchSerializer__SetDataDirectory",                  (DL_FUNC) &_openfhe_R_SchSwchSerializer__SetDataDirectory,                   2},
+    {"_openfhe_R_SchSwchSerializer__new",                               (DL_FUNC) &_openfhe_R_SchSwchSerializer__new,                                3},
+    {"_openfhe_R_SchemeSwitchSetup__",                                  (DL_FUNC) &_openfhe_R_SchemeSwitchSetup__,                                   3},
+    {"_openfhe_R_Schemelet__ConvertCKKSToRLWE",                         (DL_FUNC) &_openfhe_R_Schemelet__ConvertCKKSToRLWE,                          2},
+    {"_openfhe_R_Schemelet__ConvertRLWEToCKKS",                         (DL_FUNC) &_openfhe_R_Schemelet__ConvertRLWEToCKKS,                          6},
+    {"_openfhe_R_Schemelet__DecryptCoeff",                              (DL_FUNC) &_openfhe_R_Schemelet__DecryptCoeff,                               8},
+    {"_openfhe_R_Schemelet__EncryptCoeff",                              (DL_FUNC) &_openfhe_R_Schemelet__EncryptCoeff,                               6},
+    {"_openfhe_R_Schemelet__GetElementParams",                          (DL_FUNC) &_openfhe_R_Schemelet__GetElementParams,                           2},
+    {"_openfhe_R_Schemelet__GetQPrime",                                 (DL_FUNC) &_openfhe_R_Schemelet__GetQPrime,                                  2},
+    {"_openfhe_R_Schemelet__ModSwitch",                                 (DL_FUNC) &_openfhe_R_Schemelet__ModSwitch,                                  3},
+    {"_openfhe_R_SecretShareMap__length",                               (DL_FUNC) &_openfhe_R_SecretShareMap__length,                                1},
+    {"_openfhe_R_SerializeEvalBootstrapKey__",                          (DL_FUNC) &_openfhe_R_SerializeEvalBootstrapKey__,                           5},
+    {"_openfhe_R_SerializeEvalKeys__",                                  (DL_FUNC) &_openfhe_R_SerializeEvalKeys__,                                   5},
+    {"_openfhe_R_SerializeFile__",                                      (DL_FUNC) &_openfhe_R_SerializeFile__,                                       4},
+    {"_openfhe_R_SerializeMem__",                                       (DL_FUNC) &_openfhe_R_SerializeMem__,                                        3},
+    {"_openfhe_R_SerializeMem__EvalKeyVector",                          (DL_FUNC) &_openfhe_R_SerializeMem__EvalKeyVector,                           2},
+    {"_openfhe_R_Serialize__Ciphertext",                                (DL_FUNC) &_openfhe_R_Serialize__Ciphertext,                                 3},
+    {"_openfhe_R_Serialize__CryptoContext",                             (DL_FUNC) &_openfhe_R_Serialize__CryptoContext,                              3},
+    {"_openfhe_R_Serialize__EvalAutomorphismKey",                       (DL_FUNC) &_openfhe_R_Serialize__EvalAutomorphismKey,                        3},
+    {"_openfhe_R_Serialize__EvalMultKey",                               (DL_FUNC) &_openfhe_R_Serialize__EvalMultKey,                                3},
+    {"_openfhe_R_Serialize__EvalSumKey",                                (DL_FUNC) &_openfhe_R_Serialize__EvalSumKey,                                 3},
+    {"_openfhe_R_Serialize__PrivateKey",                                (DL_FUNC) &_openfhe_R_Serialize__PrivateKey,                                 3},
+    {"_openfhe_R_Serialize__PublicKey",                                 (DL_FUNC) &_openfhe_R_Serialize__PublicKey,                                  3},
+    {"_openfhe_R_SeriesPowers__info",                                   (DL_FUNC) &_openfhe_R_SeriesPowers__info,                                    1},
+    {"_openfhe_R_SetBinCCForSchemeSwitch__",                            (DL_FUNC) &_openfhe_R_SetBinCCForSchemeSwitch__,                             2},
+    {"_openfhe_R_SetParamsFromCKKSCryptocontext__",                     (DL_FUNC) &_openfhe_R_SetParamsFromCKKSCryptocontext__,                      2},
+    {"_openfhe_R_SetSwkFC__",                                           (DL_FUNC) &_openfhe_R_SetSwkFC__,                                            2},
+    {"_openfhe_R_SparseKeyGen__",                                       (DL_FUNC) &_openfhe_R_SparseKeyGen__,                                        1},
+    {"_openfhe_R_openfhe_enum_values",                                  (DL_FUNC) &_openfhe_R_openfhe_enum_values,                                   0},
+    {"_openfhe_R_openfhe_get_num_threads",                              (DL_FUNC) &_openfhe_R_openfhe_get_num_threads,                               0},
+    {"_openfhe_R_openfhe_native_int",                                   (DL_FUNC) &_openfhe_R_openfhe_native_int,                                    0},
+    {"_openfhe_R_openfhe_set_num_threads",                              (DL_FUNC) &_openfhe_R_openfhe_set_num_threads,                               1},
+    {"_openfhe_R_selftest_bfv",                                         (DL_FUNC) &_openfhe_R_selftest_bfv,                                          0},
+    {"_openfhe_R_xptr_type",                                            (DL_FUNC) &_openfhe_R_xptr_type,                                             1},
     {NULL, NULL, 0}
 };
 }

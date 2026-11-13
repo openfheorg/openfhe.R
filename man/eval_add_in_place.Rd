@@ -7,17 +7,19 @@
 eval_add_in_place(x, ...)
 }
 \arguments{
-\item{x}{A \code{Ciphertext} (modified in place).}
+\item{x}{A \code{Ciphertext}, a \code{Plaintext}, or a single real or complex
+number.}
 
-\item{...}{Method-specific arguments: \code{y} — a \code{Ciphertext},
-\code{Plaintext}, or numeric scalar to add into \code{x}.}
+\item{...}{Method-specific arguments: \code{y}, the other operand.}
 }
 \value{
-\code{x} invisibly.
+The modified \code{Ciphertext}, invisibly.
 }
 \description{
-Modifies the first argument in place to hold the result of
-adding the second argument. Avoids allocating a new Ciphertext,
-which matters in tight loops or when ciphertext memory
-footprint is a concern.
+Stores the sum of the two operands in the ciphertext operand,
+without allocating a new \code{Ciphertext}. One operand is a
+\code{Ciphertext}; the other is a \code{Ciphertext}, a \code{Plaintext}, or a
+single real or complex number (CKKS). The operands may be given in
+either order, as in the C++ library. When both are ciphertexts
+the first one receives the result.
 }

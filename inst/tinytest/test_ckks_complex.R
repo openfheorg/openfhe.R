@@ -88,11 +88,17 @@ expect_true(is.complex(z_from_real))
 expect_equal(Re(z_from_real[1:8]), x_real, tolerance = tol)
 expect_equal(Im(z_from_real[1:8]), rep(0, 8), tolerance = tol)
 
-## Error path: complex values + non-NULL params aborts via
-## cli::cli_abort.
-expect_error(make_ckks_packed_plaintext(cc, c(1+2i, 3+4i),
-                                        params = list(dummy = 1)),
-             pattern = "complex path")
+## Complex values with explicit element parameters: the context's own
+## parameters give the same plaintext as the NULL default, and a
+## handle of another class is refused.
+pt_ep <- make_ckks_packed_plaintext(cc, z_in, params = get_element_params(cc))
+z_ep <- get_complex_packed_value(pt_ep)
+expect_equal(Re(z_ep[seq_along(z_in)]), Re(z_in), tolerance = tol)
+expect_equal(Im(z_ep[seq_along(z_in)]), Im(z_in), tolerance = tol)
+expect_identical(get_element_ring_dimension(pt_ep),
+                 get_element_ring_dimension(pt_complex))
+expect_error(make_ckks_packed_plaintext(cc, c(1+2i, 3+4i), params = kp@public),
+             "ElementParams")
 
 # ── FindAutomorphismIndex ───────────────────────────────
 

@@ -1,5 +1,5 @@
 ## Phase 3: Serialization round-trip tests
-## @openfhe-python: simple-integers-serial.py [FULL]
+## @openfhe-python: simple-integers-serial.py [PARTIAL: steps omitted: second and third ciphertexts, additions, multiplications and rotations after deserialization]
 library(openfhe.R)
 
 tmpdir <- tempdir()

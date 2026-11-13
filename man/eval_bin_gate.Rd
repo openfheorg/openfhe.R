@@ -4,7 +4,7 @@
 \alias{eval_bin_gate}
 \title{Evaluate a binary gate on encrypted values}
 \usage{
-eval_bin_gate(ctx, gate, ct1, ct2 = NULL)
+eval_bin_gate(ctx, gate, ct1, ct2 = NULL, extended = FALSE)
 }
 \arguments{
 \item{ctx}{A BinFHE context}
@@ -21,6 +21,10 @@ supplied, \code{ct2} must be left at its default (\code{NULL}).}
 \item{ct2}{An \code{LWECiphertext} for the 2-input form, or
 \code{NULL} (the default) when \code{ct1} is a list. The vector
 dispatch follows \code{binfhecontext.h} line 322.}
+
+\item{extended}{Logical; if \code{TRUE} the result is left in the
+extended ring dimension \code{N} rather than switched back to \code{n}.
+Default \code{FALSE}, the C++ header default.}
 }
 \value{
 An \code{LWECiphertext}

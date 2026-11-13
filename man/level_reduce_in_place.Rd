@@ -9,8 +9,8 @@ level_reduce_in_place(x, ...)
 \arguments{
 \item{x}{A \code{Ciphertext} (modified in place).}
 
-\item{...}{Method-specific arguments: \code{eval_key} (an \code{EvalKey}),
-\code{levels} (integer, default \code{1L}).}
+\item{...}{Method-specific arguments: \code{eval_key} (an \code{EvalKey}, or
+\code{NULL} for no key), \code{levels} (integer, default \code{1L}).}
 }
 \value{
 \code{x} invisibly.

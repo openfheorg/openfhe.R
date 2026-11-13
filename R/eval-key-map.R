@@ -169,7 +169,12 @@ eval_at_index_key_gen <- function(cc, sk, index_list) {
 #' @export
 multi_eval_automorphism_key_gen <- function(cc, sk, eval_key_map,
                                             index_list, key_tag = "") {
-  EvalKeyMap(ptr = MultiEvalAutomorphismKeyGen__(
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## EvalKeyMap(ptr = MultiEvalAutomorphismKeyGen__(
+  ##   get_ptr(cc), get_ptr(sk), get_ptr(eval_key_map),
+  ##   as.integer(index_list), as.character(key_tag)))
+  ## <<< S7-FAST-NEW
+  .fast_new(EvalKeyMap, MultiEvalAutomorphismKeyGen__(
     get_ptr(cc), get_ptr(sk), get_ptr(eval_key_map),
     as.integer(index_list), as.character(key_tag)))
 }
@@ -190,7 +195,12 @@ multi_eval_automorphism_key_gen <- function(cc, sk, eval_key_map,
 #' @export
 multi_eval_at_index_key_gen <- function(cc, sk, eval_key_map,
                                         index_list, key_tag = "") {
-  EvalKeyMap(ptr = MultiEvalAtIndexKeyGen__(
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## EvalKeyMap(ptr = MultiEvalAtIndexKeyGen__(
+  ##   get_ptr(cc), get_ptr(sk), get_ptr(eval_key_map),
+  ##   as.integer(index_list), as.character(key_tag)))
+  ## <<< S7-FAST-NEW
+  .fast_new(EvalKeyMap, MultiEvalAtIndexKeyGen__(
     get_ptr(cc), get_ptr(sk), get_ptr(eval_key_map),
     as.integer(index_list), as.character(key_tag)))
 }
@@ -207,7 +217,12 @@ multi_eval_at_index_key_gen <- function(cc, sk, eval_key_map,
 #' @return An `EvalKeyMap`.
 #' @export
 multi_eval_sum_key_gen <- function(cc, sk, eval_key_map, key_tag = "") {
-  EvalKeyMap(ptr = MultiEvalSumKeyGen__(
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## EvalKeyMap(ptr = MultiEvalSumKeyGen__(
+  ##   get_ptr(cc), get_ptr(sk), get_ptr(eval_key_map),
+  ##   as.character(key_tag)))
+  ## <<< S7-FAST-NEW
+  .fast_new(EvalKeyMap, MultiEvalSumKeyGen__(
     get_ptr(cc), get_ptr(sk), get_ptr(eval_key_map),
     as.character(key_tag)))
 }
@@ -225,7 +240,12 @@ multi_eval_sum_key_gen <- function(cc, sk, eval_key_map, key_tag = "") {
 #' @export
 multi_add_eval_sum_keys <- function(cc, eval_key_map1, eval_key_map2,
                                     key_tag = "") {
-  EvalKeyMap(ptr = MultiAddEvalSumKeys__(
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## EvalKeyMap(ptr = MultiAddEvalSumKeys__(
+  ##   get_ptr(cc), get_ptr(eval_key_map1), get_ptr(eval_key_map2),
+  ##   as.character(key_tag)))
+  ## <<< S7-FAST-NEW
+  .fast_new(EvalKeyMap, MultiAddEvalSumKeys__(
     get_ptr(cc), get_ptr(eval_key_map1), get_ptr(eval_key_map2),
     as.character(key_tag)))
 }
@@ -241,7 +261,12 @@ multi_add_eval_sum_keys <- function(cc, eval_key_map1, eval_key_map2,
 #' @export
 multi_add_eval_automorphism_keys <- function(cc, eval_key_map1,
                                              eval_key_map2, key_tag = "") {
-  EvalKeyMap(ptr = MultiAddEvalAutomorphismKeys__(
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## EvalKeyMap(ptr = MultiAddEvalAutomorphismKeys__(
+  ##   get_ptr(cc), get_ptr(eval_key_map1), get_ptr(eval_key_map2),
+  ##   as.character(key_tag)))
+  ## <<< S7-FAST-NEW
+  .fast_new(EvalKeyMap, MultiAddEvalAutomorphismKeys__(
     get_ptr(cc), get_ptr(eval_key_map1), get_ptr(eval_key_map2),
     as.character(key_tag)))
 }
@@ -267,7 +292,10 @@ multi_add_eval_automorphism_keys <- function(cc, eval_key_map1,
 #' @return An `EvalKeyMap`.
 #' @export
 get_eval_sum_key_map <- function(key_tag) {
-  EvalKeyMap(ptr = CryptoContext__GetEvalSumKeyMap(as.character(key_tag)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## EvalKeyMap(ptr = CryptoContext__GetEvalSumKeyMap(as.character(key_tag)))
+  ## <<< S7-FAST-NEW
+  .fast_new(EvalKeyMap, CryptoContext__GetEvalSumKeyMap(as.character(key_tag)))
 }
 
 #' Retrieve the automorphism-key map for a given key tag
@@ -282,7 +310,11 @@ get_eval_sum_key_map <- function(key_tag) {
 #' @return An `EvalKeyMap`.
 #' @export
 get_eval_automorphism_key_map <- function(key_tag) {
-  EvalKeyMap(ptr = CryptoContext__GetEvalAutomorphismKeyMapPtr(
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## EvalKeyMap(ptr = CryptoContext__GetEvalAutomorphismKeyMapPtr(
+  ##   as.character(key_tag)))
+  ## <<< S7-FAST-NEW
+  .fast_new(EvalKeyMap, CryptoContext__GetEvalAutomorphismKeyMapPtr(
     as.character(key_tag)))
 }
 
@@ -310,7 +342,20 @@ get_eval_automorphism_key_map <- function(key_tag) {
 #' @seealso [find_automorphism_indices()] for the vector form.
 #' @export
 find_automorphism_index <- function(cc, index) {
-  CryptoContext__FindAutomorphismIndex(get_ptr(cc), as.integer(index))
+  CryptoContext__FindAutomorphismIndex(get_ptr(cc), slot_offsets(index))
+}
+
+## Signed slot offsets as R integers. `as.integer()` turns a value
+## outside the 32-bit range into NA with a warning, and NA would reach
+## C++ as -2^31; this refuses it instead.
+slot_offsets <- function(x, arg = rlang::caller_arg(x),
+                         call = rlang::caller_env()) {
+  if (!is.numeric(x) || anyNA(x) || any(x != trunc(x)) ||
+      any(abs(x) > .Machine$integer.max)) {
+    cli_abort("{.arg {arg}} must hold whole numbers in the 32-bit signed range.",
+              call = call)
+  }
+  as.integer(x)
 }
 
 #' Compute the automorphism indices for a list of slot indices
@@ -326,7 +371,7 @@ find_automorphism_index <- function(cc, index) {
 #' @export
 find_automorphism_indices <- function(cc, indices) {
   CryptoContext__FindAutomorphismIndices(get_ptr(cc),
-                                         as.integer(indices))
+                                         slot_offsets(indices))
 }
 
 #' Generate automorphism evaluation keys for a set of indices
@@ -363,7 +408,11 @@ find_automorphism_indices <- function(cc, indices) {
 #'   [find_automorphism_indices()]
 #' @export
 eval_automorphism_key_gen <- function(cc, sk, indices) {
-  EvalKeyMap(ptr = CryptoContext__EvalAutomorphismKeyGen(
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## EvalKeyMap(ptr = CryptoContext__EvalAutomorphismKeyGen(
+  ##   get_ptr(cc), get_ptr(sk), as.integer(indices)))
+  ## <<< S7-FAST-NEW
+  .fast_new(EvalKeyMap, CryptoContext__EvalAutomorphismKeyGen(
     get_ptr(cc), get_ptr(sk), as.integer(indices)))
 }
 
@@ -387,9 +436,14 @@ eval_automorphism_key_gen <- function(cc, sk, indices) {
 #'   [eval_rotate()]
 #' @export
 eval_automorphism <- function(ct, index, eval_key_map) {
-  Ciphertext(ptr = EvalAutomorphism__(get_ptr(ct),
-                                      as.integer(index),
-                                      get_ptr(eval_key_map)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalAutomorphism__(get_ptr(ct),
+  ##                                     as.integer(index),
+  ##                                     get_ptr(eval_key_map)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalAutomorphism__(get_ptr(ct),
+                                           as.integer(index),
+                                           get_ptr(eval_key_map)))
 }
 
 # ── EvalKeyMap read-all getters ──────────
@@ -419,7 +473,10 @@ eval_automorphism <- function(ct, index, eval_key_map) {
 get_all_eval_mult_keys <- function() {
   raw <- CryptoContext__GetAllEvalMultKeys()
   lapply(raw, function(vec) {
-    lapply(vec, function(p) EvalKey(ptr = p))
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## lapply(vec, function(p) EvalKey(ptr = p))
+    ## <<< S7-FAST-NEW
+    lapply(vec, function(p) .fast_new(EvalKey, p))
   })
 }
 
@@ -436,7 +493,10 @@ get_all_eval_mult_keys <- function() {
 #' @export
 get_eval_mult_key_vector <- function(key_tag) {
   raw <- CryptoContext__GetEvalMultKeyVector(as.character(key_tag))
-  lapply(raw, function(p) EvalKey(ptr = p))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## lapply(raw, function(p) EvalKey(ptr = p))
+  ## <<< S7-FAST-NEW
+  lapply(raw, function(p) .fast_new(EvalKey, p))
 }
 
 #' Retrieve all registered EvalAutomorphism key maps
@@ -456,7 +516,10 @@ get_eval_mult_key_vector <- function(key_tag) {
 #' @export
 get_all_eval_automorphism_keys <- function() {
   raw <- CryptoContext__GetAllEvalAutomorphismKeys()
-  lapply(raw, function(p) EvalKeyMap(ptr = p))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## lapply(raw, function(p) EvalKeyMap(ptr = p))
+  ## <<< S7-FAST-NEW
+  lapply(raw, function(p) .fast_new(EvalKeyMap, p))
 }
 
 #' Retrieve all registered EvalSum key maps
@@ -474,7 +537,10 @@ get_all_eval_automorphism_keys <- function() {
 #' @export
 get_all_eval_sum_keys <- function() {
   raw <- CryptoContext__GetAllEvalSumKeys()
-  lapply(raw, function(p) EvalKeyMap(ptr = p))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## lapply(raw, function(p) EvalKeyMap(ptr = p))
+  ## <<< S7-FAST-NEW
+  lapply(raw, function(p) .fast_new(EvalKeyMap, p))
 }
 
 # ── EvalKeyMap insert helpers ───────────────────────────

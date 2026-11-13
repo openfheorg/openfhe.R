@@ -2,18 +2,36 @@
 % Please edit documentation in R/serialization.R
 \name{fhe_serialize}
 \alias{fhe_serialize}
-\title{Serialize an OpenFHE object to file}
+\title{Serialize an OpenFHE object}
 \usage{
 fhe_serialize(x, ...)
 }
 \arguments{
-\item{x}{An OpenFHE object (CryptoContext, PublicKey, PrivateKey, Ciphertext)}
+\item{x}{A \code{CryptoContext}, \code{PublicKey}, \code{PrivateKey}, \code{Ciphertext},
+\code{EvalKey} or \code{EvalKeyMap}, or a list of \code{EvalKey} objects (in
+memory only). For Binary FHE, a \code{BinFHEContext}, \code{LWECiphertext},
+\code{LWEPrivateKey}, \code{LWEPublicKey} or \code{RingGSWBTKey} (to a file
+only).}
 
-\item{...}{Method-specific arguments (filename, format)}
+\item{...}{Method arguments: \code{filename}, a path, or \code{NULL} (default)
+to serialize in memory; \code{format}, \code{"binary"} (default) or
+\code{"json"}.}
 }
 \value{
-TRUE on success (invisibly)
+With a file name, \code{TRUE} invisibly. Otherwise a raw vector
+(\code{format = "binary"}) or a character string (\code{format = "json"}).
 }
 \description{
-Serialize an OpenFHE object to file
+Writes an object to a file, or, with \code{filename = NULL}, returns its
+serialized form: a raw vector for the binary format and a character
+string for JSON.
+}
+\examples{
+cc <- fhe_context("BFV", plaintext_modulus = 65537, multiplicative_depth = 1)
+keys <- key_gen(cc)
+bytes <- fhe_serialize(keys@public)
+pk <- fhe_deserialize_string(bytes, "PublicKey")
+}
+\seealso{
+\code{\link[=fhe_deserialize]{fhe_deserialize()}}, \code{\link[=fhe_deserialize_string]{fhe_deserialize_string()}}
 }

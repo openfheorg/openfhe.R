@@ -55,7 +55,7 @@ expect_equal(decode(a), x + z, tolerance = tol)
 # eval_add_in_place: type error
 a <- make_ct(x)
 expect_error(eval_add_in_place(a, "nope"),
-             pattern = "Ciphertext, Plaintext, or numeric")
+             pattern = "a Ciphertext, a Plaintext, or a single real")
 
 # eval_sub_in_place: ct/ct
 a <- make_ct(x); b <- make_ct(y)
@@ -79,7 +79,8 @@ expect_equal(decode(a), x * z, tolerance = tol)
 
 # eval_mult_in_place: ct/ct must abort (not in header)
 a <- make_ct(x); b <- make_ct(y)
-expect_error(eval_mult_in_place(a, b), pattern = "numeric scalar")
+expect_error(eval_mult_in_place(a, b),
+             pattern = "must be a single real or complex number")
 
 # eval_negate_in_place
 a <- make_ct(x)

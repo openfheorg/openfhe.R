@@ -96,15 +96,24 @@ get_cyclotomic_order <- new_generic("get_cyclotomic_order", "cc")
 # ── Method registrations on the new generics ────────────
 
 method(get_crypto_parameters, CryptoContext) <- function(cc) {
-  CryptoParameters(ptr = CryptoContext__GetCryptoParameters(get_ptr(cc)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## CryptoParameters(ptr = CryptoContext__GetCryptoParameters(get_ptr(cc)))
+  ## <<< S7-FAST-NEW
+  .fast_new(CryptoParameters, CryptoContext__GetCryptoParameters(get_ptr(cc)))
 }
 
 method(get_element_params, CryptoContext) <- function(cc) {
-  ElementParams(ptr = CryptoContext__GetElementParams(get_ptr(cc)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## ElementParams(ptr = CryptoContext__GetElementParams(get_ptr(cc)))
+  ## <<< S7-FAST-NEW
+  .fast_new(ElementParams, CryptoContext__GetElementParams(get_ptr(cc)))
 }
 
 method(get_encoding_params, CryptoContext) <- function(cc) {
-  EncodingParams(ptr = CryptoContext__GetEncodingParams(get_ptr(cc)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## EncodingParams(ptr = CryptoContext__GetEncodingParams(get_ptr(cc)))
+  ## <<< S7-FAST-NEW
+  .fast_new(EncodingParams, CryptoContext__GetEncodingParams(get_ptr(cc)))
 }
 
 method(get_key_gen_level, CryptoContext) <- function(cc) {

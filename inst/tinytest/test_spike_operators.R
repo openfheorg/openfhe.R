@@ -7,6 +7,21 @@ library(openfhe.R)
 # ── Stub methods for the spike ─────────────────────────
 # These will be replaced by real C++ dispatched methods in Phase 1.
 # For now they just confirm dispatch reaches the right place.
+#
+# The stubs replace the package's methods for the whole R process, and
+# run_test_dir() runs every file in one process, so the real methods
+# are saved here and put back at the end of the file.
+dbl <- S7::class_double
+saved <- list(
+  add_cc  = S7::method(eval_add,  list(Ciphertext, Ciphertext)),
+  add_cd  = S7::method(eval_add,  list(Ciphertext, dbl)),
+  add_dc  = S7::method(eval_add,  list(dbl, Ciphertext)),
+  sub_cc  = S7::method(eval_sub,  list(Ciphertext, Ciphertext)),
+  mult_cc = S7::method(eval_mult, list(Ciphertext, Ciphertext)),
+  mult_cd = S7::method(eval_mult, list(Ciphertext, dbl)),
+  mult_dc = S7::method(eval_mult, list(dbl, Ciphertext)),
+  negate  = S7::method(eval_negate, Ciphertext)
+)
 
 S7::method(eval_add, list(Ciphertext, Ciphertext)) <- function(x, y) {
   "add_ct_ct"
@@ -68,3 +83,17 @@ expect_silent(print(ct1))
 # get_native_int returns 64 or 128
 ni <- get_native_int()
 expect_true(ni %in% c(64L, 128L))
+
+# ── Put the package's methods back ─────────────────────
+suppressMessages({
+  S7::method(eval_add,  list(Ciphertext, Ciphertext)) <- saved$add_cc
+  S7::method(eval_add,  list(Ciphertext, dbl)) <- saved$add_cd
+  S7::method(eval_add,  list(dbl, Ciphertext)) <- saved$add_dc
+  S7::method(eval_sub,  list(Ciphertext, Ciphertext)) <- saved$sub_cc
+  S7::method(eval_mult, list(Ciphertext, Ciphertext)) <- saved$mult_cc
+  S7::method(eval_mult, list(Ciphertext, dbl)) <- saved$mult_cd
+  S7::method(eval_mult, list(dbl, Ciphertext)) <- saved$mult_dc
+  S7::method(eval_negate, Ciphertext) <- saved$negate
+})
+## The real method refuses a null handle; the stub returned a string.
+expect_error(ct1 + ct2)

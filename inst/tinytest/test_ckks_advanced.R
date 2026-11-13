@@ -1,5 +1,5 @@
 ## Phase 5: CKKS advanced operations
-## @openfhe-python: simple-ckks-bootstrapping.py [FULL]
+## @openfhe-python: simple-ckks-bootstrapping.py [PARTIAL: level budget reduced [4,4] -> [3,3]]
 ## Note: function-evaluation.py is now covered by its own dedicated
 ## test file test_ckks_function_evaluation.R.
 library(openfhe.R)

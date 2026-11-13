@@ -7,15 +7,18 @@
 eval_sub_in_place(x, ...)
 }
 \arguments{
-\item{x}{A \code{Ciphertext} (modified in place).}
+\item{x}{A \code{Ciphertext}, a \code{Plaintext}, or a single real or complex
+number.}
 
-\item{...}{Method-specific arguments: \code{y} — a \code{Ciphertext},
-\code{Plaintext}, or numeric scalar to subtract from \code{x}.}
+\item{...}{Method-specific arguments: \code{y}, the other operand.}
 }
 \value{
-\code{x} invisibly.
+The modified \code{Ciphertext}, invisibly.
 }
 \description{
-Modifies the first argument in place to hold the result of
-subtracting the second argument.
+Stores \code{x - y} in the ciphertext operand. One operand is a
+\code{Ciphertext}; the other is a \code{Ciphertext}, a \code{Plaintext}, or a
+single real or complex number (CKKS). The operands may be given in
+either order, and the result is always \code{x - y}: with
+\code{eval_sub_in_place(2, ct)} the ciphertext becomes \code{2 - ct}.
 }

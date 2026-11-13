@@ -29,6 +29,7 @@
 // which the R wrapper catches and re-emits via cli::cli_abort.
 #include "openfhe_cpp11.h"
 #include "openfhe_helpers.h"
+#include "wide_integers.h"
 
 using namespace cpp11;
 
@@ -56,12 +57,12 @@ double Plaintext__GetScalingFactor(SEXP pt_xp) {
 }
 
 [[cpp11::register]]
-double Plaintext__GetScalingFactorInt(SEXP pt_xp) {
+std::string Plaintext__GetScalingFactorInt(SEXP pt_xp) {
   xptr<Plaintext> p(pt_xp);
-  return catch_openfhe("Plaintext::GetScalingFactorInt", [&]() -> double {
-    // NativeInteger -> double via ConvertToInt, matching the
-    // BinFHEContext__GetMaxPlaintextSpace pattern in pke_bindings.cpp.
-    return static_cast<double>((*p)->GetScalingFactorInt().ConvertToInt());
+  // NativeInteger, up to 64 bits: decimal string, never a double
+  // (wide_integers.h).
+  return catch_openfhe("Plaintext::GetScalingFactorInt", [&]() -> std::string {
+    return openfhe_r::wide_to_r((*p)->GetScalingFactorInt());
   });
 }
 
@@ -201,10 +202,11 @@ void Plaintext__SetScalingFactor(SEXP pt_xp, double sf) {
 }
 
 [[cpp11::register]]
-void Plaintext__SetScalingFactorInt(SEXP pt_xp, int64_t sf) {
+void Plaintext__SetScalingFactorInt(SEXP pt_xp, std::string sf) {
   xptr<Plaintext> p(pt_xp);
   catch_openfhe("Plaintext::SetScalingFactorInt", [&]() {
-    (*p)->SetScalingFactorInt(NativeInteger(static_cast<uint64_t>(sf)));
+    (*p)->SetScalingFactorInt(
+        openfhe_r::wide_from_r<NativeInteger>(sf, "value"));
   });
 }
 

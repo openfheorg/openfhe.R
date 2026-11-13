@@ -232,6 +232,22 @@ OPENFHE_LIBS=""
 # ── Strategy 1: OPENFHE_HOME (pre-installed, for local dev) ──
 if [ -n "${OPENFHE_HOME}" ] && check_openfhe_header "${OPENFHE_HOME}"; then
     echo "* Found pre-installed OpenFHE via OPENFHE_HOME: ${OPENFHE_HOME}"
+    # The wrapper is written against the OpenFHE version it vendors
+    # (enum values, signatures, the diagnostic sink). Refuse a prefix
+    # from another release line rather than compile against it.
+    OPENFHE_HOME_VERSION=`sed -n 's/^set(PACKAGE_VERSION "\(.*\)")$/\1/p' \
+        "${OPENFHE_HOME}/lib/OpenFHE/OpenFHEConfigVersion.cmake" 2>/dev/null`
+    case "${OPENFHE_HOME_VERSION}" in
+        1.6.*)
+            echo "* OPENFHE_HOME provides OpenFHE ${OPENFHE_HOME_VERSION}"
+            ;;
+        *)
+            echo "ERROR: OPENFHE_HOME (${OPENFHE_HOME}) provides OpenFHE '${OPENFHE_HOME_VERSION}'."
+            echo "This version of the package needs OpenFHE 1.6.x. Point OPENFHE_HOME"
+            echo "at a 1.6.x install, or unset it to build the vendored sources."
+            exit 1
+            ;;
+    esac
     USE_SYSTEM=yes
     OPENFHE_INCDIR="${OPENFHE_HOME}/include/openfhe"
     OPENFHE_LIBDIR="${OPENFHE_HOME}/lib"
@@ -269,7 +285,10 @@ if [ -z "${USE_SYSTEM}" ]; then
     # .Rinstignore is the correct layer -- it fires reliably on every
     # install path, retiring the previous fragile inst/doc-based rm guard.
 
-    OPENFHE_CFLAGS="-I${OPENFHE_INCDIR} -I${OPENFHE_INCDIR}/core -I${OPENFHE_INCDIR}/pke -I${OPENFHE_INCDIR}/binfhe -I${OPENFHE_INCDIR}/cereal"
+    # -DOPENFHE_R_VENDORED tells src/r_streams.cpp that the archives were
+    # built by inst/build_openfhe.sh, which must leave OpenFHE's built-in
+    # diagnostic sink out; the file fails the build if it is present.
+    OPENFHE_CFLAGS="-DOPENFHE_R_VENDORED -I${OPENFHE_INCDIR} -I${OPENFHE_INCDIR}/core -I${OPENFHE_INCDIR}/pke -I${OPENFHE_INCDIR}/binfhe -I${OPENFHE_INCDIR}/cereal"
     OPENFHE_LIBS="-L${OPENFHE_INSTALL_DIR}/lib -lOPENFHEpke -lOPENFHEbinfhe -lOPENFHEcore"
 
     # Platform-specific link flags. pthread/dl come from OpenFHE's own

@@ -9,7 +9,8 @@ eval_poly_ps(ct, coefficients)
 \arguments{
 \item{ct}{A Ciphertext}
 
-\item{coefficients}{Numeric vector of polynomial coefficients}
+\item{coefficients}{Integer, double or complex vector of polynomial
+coefficients, as for \code{\link[=eval_poly]{eval_poly()}}}
 }
 \value{
 A Ciphertext

@@ -1,5 +1,5 @@
 ## Phase 6: Binary FHE tests
-## @openfhe-python: boolean.py [FULL]
+## @openfhe-python: boolean.py [PARTIAL: steps omitted: the example's compound circuit (1 AND 1) OR (1 AND (NOT 1))]
 library(openfhe.R)
 
 # ── Setup ────────────────────────────────────────────────

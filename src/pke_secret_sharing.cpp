@@ -125,6 +125,13 @@ SEXP CryptoContext__ShareKeys(SEXP cc_xp, SEXP sk_xp,
   });
 }
 
+// Number of shares the map holds (Python: len() of the dict).
+[[cpp11::register]]
+int SecretShareMap__length(SEXP share_map_xp) {
+  xptr<ShareMapSP> share_map(share_map_xp);
+  return static_cast<int>((*share_map)->size());
+}
+
 // Reconstructs a PrivateKey from a SecretShareMap. The
 // C++ signature takes a mutable PrivateKey reference that must
 // be pre-allocated; R users never see that because the binding

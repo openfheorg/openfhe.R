@@ -1,93 +1,217 @@
 ## OPENFHE PYTHON SOURCE: src/lib/bindings.cpp (EvalAdd/Sub/Mult/Negate/Rotate/Sum)
 ## S7 method registrations for arithmetic generics
 
+## Operation codes shared with src/pke_eval_arith.cpp.
+.ARITH_ADD  <- 0L
+.ARITH_SUB  <- 1L
+.ARITH_MULT <- 2L
+
 # ── eval_add ─────────────────────────────────────────────
 method(eval_add, list(Ciphertext, Ciphertext)) <- function(x, y) {
-  Ciphertext(ptr = EvalAdd__ct_ct(x@ptr, y@ptr))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalAdd__ct_ct(x@ptr, y@ptr))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalAdd__ct_ct(x@ptr, y@ptr))
 }
 
 method(eval_add, list(Ciphertext, Plaintext)) <- function(x, y) {
-  Ciphertext(ptr = EvalAdd__ct_pt(x@ptr, y@ptr))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalAdd__ct_pt(x@ptr, y@ptr))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalAdd__ct_pt(x@ptr, y@ptr))
 }
 
 method(eval_add, list(Ciphertext, S7::class_double)) <- function(x, y) {
-  Ciphertext(ptr = EvalAdd__ct_scalar(x@ptr, y))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalAdd__ct_scalar(x@ptr, y))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalAdd__ct_scalar(x@ptr, y))
 }
 
 method(eval_add, list(S7::class_double, Ciphertext)) <- function(x, y) {
-  Ciphertext(ptr = EvalAdd__ct_scalar(y@ptr, x))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalArith__real(.ARITH_ADD, y@ptr, x, TRUE))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalArith__real(.ARITH_ADD, y@ptr, x, TRUE))
+}
+
+method(eval_add, list(Plaintext, Ciphertext)) <- function(x, y) {
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalArith__pt_ct(.ARITH_ADD, x@ptr, y@ptr))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalArith__pt_ct(.ARITH_ADD, x@ptr, y@ptr))
+}
+
+method(eval_add, list(Ciphertext, S7::class_complex)) <- function(x, y) {
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalArith__complex(.ARITH_ADD, x@ptr, Re(y), Im(y), FALSE))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalArith__complex(.ARITH_ADD, x@ptr, Re(y), Im(y), FALSE))
+}
+
+method(eval_add, list(S7::class_complex, Ciphertext)) <- function(x, y) {
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalArith__complex(.ARITH_ADD, y@ptr, Re(x), Im(x), TRUE))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalArith__complex(.ARITH_ADD, y@ptr, Re(x), Im(x), TRUE))
 }
 
 method(eval_add, list(Ciphertext, S7::class_integer)) <- function(x, y) {
-  Ciphertext(ptr = EvalAdd__ct_int(x@ptr, y))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalAdd__ct_int(x@ptr, y))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalAdd__ct_int(x@ptr, y))
 }
 
 method(eval_add, list(S7::class_integer, Ciphertext)) <- function(x, y) {
-  Ciphertext(ptr = EvalAdd__ct_int(y@ptr, x))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalAdd__ct_int(y@ptr, x))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalAdd__ct_int(y@ptr, x))
 }
 
 # ── eval_sub ─────────────────────────────────────────────
 method(eval_sub, list(Ciphertext, Ciphertext)) <- function(x, y) {
-  Ciphertext(ptr = EvalSub__ct_ct(x@ptr, y@ptr))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalSub__ct_ct(x@ptr, y@ptr))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalSub__ct_ct(x@ptr, y@ptr))
 }
 
 method(eval_sub, list(Ciphertext, Plaintext)) <- function(x, y) {
-  Ciphertext(ptr = EvalSub__ct_pt(x@ptr, y@ptr))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalSub__ct_pt(x@ptr, y@ptr))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalSub__ct_pt(x@ptr, y@ptr))
 }
 
 method(eval_sub, list(Ciphertext, S7::class_double)) <- function(x, y) {
-  Ciphertext(ptr = EvalSub__ct_scalar(x@ptr, y))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalSub__ct_scalar(x@ptr, y))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalSub__ct_scalar(x@ptr, y))
 }
 
 method(eval_sub, list(S7::class_double, Ciphertext)) <- function(x, y) {
-  Ciphertext(ptr = EvalNegate(EvalSub__ct_scalar(y@ptr, x)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalArith__real(.ARITH_SUB, y@ptr, x, TRUE))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalArith__real(.ARITH_SUB, y@ptr, x, TRUE))
+}
+
+method(eval_sub, list(Plaintext, Ciphertext)) <- function(x, y) {
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalArith__pt_ct(.ARITH_SUB, x@ptr, y@ptr))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalArith__pt_ct(.ARITH_SUB, x@ptr, y@ptr))
+}
+
+method(eval_sub, list(Ciphertext, S7::class_complex)) <- function(x, y) {
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalArith__complex(.ARITH_SUB, x@ptr, Re(y), Im(y), FALSE))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalArith__complex(.ARITH_SUB, x@ptr, Re(y), Im(y), FALSE))
+}
+
+method(eval_sub, list(S7::class_complex, Ciphertext)) <- function(x, y) {
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalArith__complex(.ARITH_SUB, y@ptr, Re(x), Im(x), TRUE))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalArith__complex(.ARITH_SUB, y@ptr, Re(x), Im(x), TRUE))
 }
 
 method(eval_sub, list(Ciphertext, S7::class_integer)) <- function(x, y) {
-  Ciphertext(ptr = EvalSub__ct_int(x@ptr, y))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalSub__ct_int(x@ptr, y))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalSub__ct_int(x@ptr, y))
 }
 
 method(eval_sub, list(S7::class_integer, Ciphertext)) <- function(x, y) {
-  Ciphertext(ptr = EvalNegate(EvalSub__ct_int(y@ptr, x)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalNegate(EvalSub__ct_int(y@ptr, x)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalNegate(EvalSub__ct_int(y@ptr, x)))
 }
 
 # ── eval_mult ────────────────────────────────────────────
 method(eval_mult, list(Ciphertext, Ciphertext)) <- function(x, y) {
-  Ciphertext(ptr = EvalMult__ct_ct(x@ptr, y@ptr))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalMult__ct_ct(x@ptr, y@ptr))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalMult__ct_ct(x@ptr, y@ptr))
 }
 
 method(eval_mult, list(Ciphertext, Plaintext)) <- function(x, y) {
-  Ciphertext(ptr = EvalMult__ct_pt(x@ptr, y@ptr))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalMult__ct_pt(x@ptr, y@ptr))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalMult__ct_pt(x@ptr, y@ptr))
 }
 
 method(eval_mult, list(Plaintext, Ciphertext)) <- function(x, y) {
-  Ciphertext(ptr = EvalMult__ct_pt(y@ptr, x@ptr))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalArith__pt_ct(.ARITH_MULT, x@ptr, y@ptr))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalArith__pt_ct(.ARITH_MULT, x@ptr, y@ptr))
 }
 
 method(eval_mult, list(Ciphertext, S7::class_double)) <- function(x, y) {
-  Ciphertext(ptr = EvalMult__ct_scalar(x@ptr, y))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalMult__ct_scalar(x@ptr, y))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalMult__ct_scalar(x@ptr, y))
 }
 
 method(eval_mult, list(S7::class_double, Ciphertext)) <- function(x, y) {
-  Ciphertext(ptr = EvalMult__ct_scalar(y@ptr, x))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalArith__real(.ARITH_MULT, y@ptr, x, TRUE))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalArith__real(.ARITH_MULT, y@ptr, x, TRUE))
+}
+
+method(eval_mult, list(Ciphertext, S7::class_complex)) <- function(x, y) {
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalArith__complex(.ARITH_MULT, x@ptr, Re(y), Im(y), FALSE))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalArith__complex(.ARITH_MULT, x@ptr, Re(y), Im(y), FALSE))
+}
+
+method(eval_mult, list(S7::class_complex, Ciphertext)) <- function(x, y) {
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalArith__complex(.ARITH_MULT, y@ptr, Re(x), Im(x), TRUE))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalArith__complex(.ARITH_MULT, y@ptr, Re(x), Im(x), TRUE))
 }
 
 method(eval_mult, list(Ciphertext, S7::class_integer)) <- function(x, y) {
-  Ciphertext(ptr = EvalMult__ct_int(x@ptr, y))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalMult__ct_int(x@ptr, y))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalMult__ct_int(x@ptr, y))
 }
 
 method(eval_mult, list(S7::class_integer, Ciphertext)) <- function(x, y) {
-  Ciphertext(ptr = EvalMult__ct_int(y@ptr, x))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalMult__ct_int(y@ptr, x))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalMult__ct_int(y@ptr, x))
 }
 
 # ── eval_negate ──────────────────────────────────────────
 method(eval_negate, Ciphertext) <- function(x) {
-  Ciphertext(ptr = EvalNegate(x@ptr))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalNegate(x@ptr))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalNegate(x@ptr))
 }
 
 # ── eval_square ──────────────────────────────────────────
 method(eval_square, Ciphertext) <- function(x) {
-  Ciphertext(ptr = EvalSquare(x@ptr))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalSquare(x@ptr))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalSquare(x@ptr))
 }
 
 #' Rotate ciphertext slots
@@ -98,7 +222,10 @@ method(eval_square, Ciphertext) <- function(x) {
 eval_rotate <- new_generic("eval_rotate", "ct")
 
 method(eval_rotate, Ciphertext) <- function(ct, index) {
-  Ciphertext(ptr = EvalRotate(ct@ptr, as.integer(index)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalRotate(ct@ptr, as.integer(index)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalRotate(ct@ptr, as.integer(index)))
 }
 
 #' Sum all slots in a ciphertext
@@ -109,7 +236,10 @@ method(eval_rotate, Ciphertext) <- function(ct, index) {
 eval_sum <- new_generic("eval_sum", "ct")
 
 method(eval_sum, Ciphertext) <- function(ct, batch_size) {
-  Ciphertext(ptr = EvalSum(ct@ptr, as.integer(batch_size)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalSum(ct@ptr, as.integer(batch_size)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalSum(ct@ptr, as.integer(batch_size)))
 }
 
 #' Rescale a CKKS ciphertext (alias for ModReduce)
@@ -125,7 +255,10 @@ method(eval_sum, Ciphertext) <- function(ct, batch_size) {
 rescale <- new_generic("rescale", "ct")
 
 method(rescale, Ciphertext) <- function(ct) {
-  Ciphertext(ptr = Rescale(ct@ptr))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = Rescale(ct@ptr))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, Rescale(ct@ptr))
 }
 
 #' Precomputed digit decomposition for hoisted rotations
@@ -167,7 +300,10 @@ method(print, FastRotationPrecomputation) <- function(x, ...) {
 eval_fast_rotation_precompute <- new_generic("eval_fast_rotation_precompute", "ct")
 
 method(eval_fast_rotation_precompute, Ciphertext) <- function(ct) {
-  FastRotationPrecomputation(ptr = EvalFastRotationPrecompute(ct@ptr))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## FastRotationPrecomputation(ptr = EvalFastRotationPrecompute(ct@ptr))
+  ## <<< S7-FAST-NEW
+  .fast_new(FastRotationPrecomputation, EvalFastRotationPrecompute(ct@ptr))
 }
 
 #' Hoisted slot rotation using precomputed digits
@@ -188,11 +324,19 @@ method(eval_fast_rotation, Ciphertext) <- function(ct, index, m = NULL, precomp)
   ## When supplied, route to the 4-arg form (header line 2362)
   ## that takes `m` explicitly.
   if (is.null(m)) {
-    Ciphertext(ptr = EvalFastRotation__3arg(ct@ptr, as.integer(index),
-                                            precomp@ptr))
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## Ciphertext(ptr = EvalFastRotation__3arg(ct@ptr, as.integer(index),
+    ##                                         precomp@ptr))
+    ## <<< S7-FAST-NEW
+    .fast_new(Ciphertext, EvalFastRotation__3arg(ct@ptr, as.integer(index),
+                                                 precomp@ptr))
   } else {
-    Ciphertext(ptr = EvalFastRotation(ct@ptr, as.integer(index),
-                                      as.numeric(m), precomp@ptr))
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## Ciphertext(ptr = EvalFastRotation(ct@ptr, as.integer(index),
+    ##                                   as.numeric(m), precomp@ptr))
+    ## <<< S7-FAST-NEW
+    .fast_new(Ciphertext, EvalFastRotation(ct@ptr, as.integer(index),
+                                           as.numeric(m), precomp@ptr))
   }
 }
 
@@ -224,9 +368,14 @@ eval_fast_rotation_ext <- new_generic("eval_fast_rotation_ext", "ct")
 
 method(eval_fast_rotation_ext, Ciphertext) <- function(ct, index, precomp,
                                                        add_first = FALSE) {
-  Ciphertext(ptr = EvalFastRotationExt__(ct@ptr, as.integer(index),
-                                         precomp@ptr,
-                                         as.logical(add_first)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalFastRotationExt__(ct@ptr, as.integer(index),
+  ##                                        precomp@ptr,
+  ##                                        as.logical(add_first)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalFastRotationExt__(ct@ptr, as.integer(index),
+                                              precomp@ptr,
+                                              as.logical(add_first)))
 }
 
 #' Get the CKKS bootstrap correction factor

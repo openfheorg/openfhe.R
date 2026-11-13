@@ -20,7 +20,10 @@
 #' @seealso [eval_fast_rotation_ext()]
 #' @export
 key_switch_down <- function(ct) {
-  Ciphertext(ptr = KeySwitchDown__(get_ptr(ct)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = KeySwitchDown__(get_ptr(ct)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, KeySwitchDown__(get_ptr(ct)))
 }
 
 # ── IntBoot* single-party interactive bootstrap ─────────
@@ -41,7 +44,10 @@ key_switch_down <- function(ct) {
 #'   [int_boot_adjust_scale()]
 #' @export
 int_boot_decrypt <- function(sk, ct) {
-  Ciphertext(ptr = IntBootDecrypt__(get_ptr(sk), get_ptr(ct)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = IntBootDecrypt__(get_ptr(sk), get_ptr(ct)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, IntBootDecrypt__(get_ptr(sk), get_ptr(ct)))
 }
 
 #' Client-side re-encryption for interactive bootstrap
@@ -57,7 +63,10 @@ int_boot_decrypt <- function(sk, ct) {
 #' @seealso [int_boot_decrypt()]
 #' @export
 int_boot_encrypt <- function(pk, ct) {
-  Ciphertext(ptr = IntBootEncrypt__(get_ptr(pk), get_ptr(ct)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = IntBootEncrypt__(get_ptr(pk), get_ptr(ct)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, IntBootEncrypt__(get_ptr(pk), get_ptr(ct)))
 }
 
 #' Combine encrypted and unencrypted masked decryptions
@@ -71,7 +80,10 @@ int_boot_encrypt <- function(pk, ct) {
 #' @return A refreshed `Ciphertext`.
 #' @export
 int_boot_add <- function(ct1, ct2) {
-  Ciphertext(ptr = IntBootAdd__(get_ptr(ct1), get_ptr(ct2)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = IntBootAdd__(get_ptr(ct1), get_ptr(ct2)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, IntBootAdd__(get_ptr(ct1), get_ptr(ct2)))
 }
 
 #' Prepare a ciphertext for interactive bootstrap
@@ -84,7 +96,10 @@ int_boot_add <- function(ct1, ct2) {
 #' @return A `Ciphertext` ready for [int_boot_decrypt()].
 #' @export
 int_boot_adjust_scale <- function(ct) {
-  Ciphertext(ptr = IntBootAdjustScale__(get_ptr(ct)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = IntBootAdjustScale__(get_ptr(ct)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, IntBootAdjustScale__(get_ptr(ct)))
 }
 
 # ── IntMPBoot* multi-party interactive bootstrap ────────
@@ -100,7 +115,10 @@ int_boot_adjust_scale <- function(ct) {
 #'   protocol.
 #' @export
 int_mp_boot_adjust_scale <- function(ct) {
-  Ciphertext(ptr = IntMPBootAdjustScale__(get_ptr(ct)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = IntMPBootAdjustScale__(get_ptr(ct)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, IntMPBootAdjustScale__(get_ptr(ct)))
 }
 
 #' Generate a common random element for multi-party bootstrap
@@ -123,10 +141,17 @@ int_mp_boot_adjust_scale <- function(ct) {
 #' @export
 int_mp_boot_random_element_gen <- function(cc, source) {
   if (S7::S7_inherits(source, PublicKey)) {
-    Ciphertext(ptr = IntMPBootRandomElementGen__pk(get_ptr(cc),
-                                                   get_ptr(source)))
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## Ciphertext(ptr = IntMPBootRandomElementGen__pk(get_ptr(cc),
+    ##                                                get_ptr(source)))
+    ## <<< S7-FAST-NEW
+    .fast_new(Ciphertext, IntMPBootRandomElementGen__pk(get_ptr(cc),
+                                                        get_ptr(source)))
   } else if (S7::S7_inherits(source, Ciphertext)) {
-    Ciphertext(ptr = IntMPBootRandomElementGen__ct(get_ptr(source)))
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## Ciphertext(ptr = IntMPBootRandomElementGen__ct(get_ptr(source)))
+    ## <<< S7-FAST-NEW
+    .fast_new(Ciphertext, IntMPBootRandomElementGen__ct(get_ptr(source)))
   } else {
     cli::cli_abort(
       "{.arg source} must be a {.cls PublicKey} or {.cls Ciphertext}.")
@@ -151,7 +176,10 @@ int_mp_boot_random_element_gen <- function(cc, source) {
 #' @export
 int_mp_boot_decrypt <- function(sk, ct, a) {
   result_ptrs <- IntMPBootDecrypt__(get_ptr(sk), get_ptr(ct), get_ptr(a))
-  lapply(result_ptrs, function(p) Ciphertext(ptr = p))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## lapply(result_ptrs, function(p) Ciphertext(ptr = p))
+  ## <<< S7-FAST-NEW
+  lapply(result_ptrs, function(p) .fast_new(Ciphertext, p))
 }
 
 #' Aggregate multi-party shares pairs
@@ -182,7 +210,10 @@ int_mp_boot_add <- function(cc, shares_pair_list) {
     lapply(inner, get_ptr)
   })
   result_ptrs <- IntMPBootAdd__(get_ptr(cc), inner_ptrs)
-  lapply(result_ptrs, function(p) Ciphertext(ptr = p))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## lapply(result_ptrs, function(p) Ciphertext(ptr = p))
+  ## <<< S7-FAST-NEW
+  lapply(result_ptrs, function(p) .fast_new(Ciphertext, p))
 }
 
 #' Final re-encryption for multi-party interactive bootstrap
@@ -206,6 +237,10 @@ int_mp_boot_encrypt <- function(pk, shares_pair, a, ct) {
     cli::cli_abort("{.arg shares_pair} must be a list of Ciphertexts.")
   }
   shares_ptrs <- lapply(shares_pair, get_ptr)
-  Ciphertext(ptr = IntMPBootEncrypt__(get_ptr(pk), shares_ptrs,
-                                      get_ptr(a), get_ptr(ct)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = IntMPBootEncrypt__(get_ptr(pk), shares_ptrs,
+  ##                                     get_ptr(a), get_ptr(ct)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, IntMPBootEncrypt__(get_ptr(pk), shares_ptrs,
+                                           get_ptr(a), get_ptr(ct)))
 }

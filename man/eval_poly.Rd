@@ -9,7 +9,11 @@ eval_poly(ct, coefficients)
 \arguments{
 \item{ct}{A Ciphertext}
 
-\item{coefficients}{Numeric vector of polynomial coefficients}
+\item{coefficients}{Vector of polynomial coefficients, constant
+term first. An integer, double or complex vector; OpenFHE
+evaluates each type with its own arithmetic (integer
+coefficients as exact 64-bit integers, complex coefficients for
+a context with \code{CKKSDataType$COMPLEX}).}
 }
 \value{
 A Ciphertext

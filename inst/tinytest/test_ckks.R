@@ -1,5 +1,5 @@
 ## Phase 4: CKKS real-number arithmetic tests
-## @openfhe-python: simple-real-numbers.py [FULL]
+## @openfhe-python: simple-real-numbers.py [PARTIAL: steps omitted: rotations by 1 and -2]
 library(openfhe.R)
 
 # ── Setup ────────────────────────────────────────────────

@@ -70,14 +70,7 @@ fi
 export CC=`"${R_HOME}/bin/R" CMD config CC`
 export CXX="${CXX17} ${CXX17STD}"
 export CFLAGS
-# -DOPENFHE_R_BUILD switches OpenFHE's logging path (see
-# src/core/include/utils/openfhe_log.h on the r_pkg branch) from
-# std::cerr / std::cout to REprintf / Rprintf. Required so the
-# compiled static archives contain NO stdout/stderr symbols,
-# per R CMD check's "checking compiled code" rule (Writing R
-# Extensions §1.1.3.1 step 16).
-R_INCLUDE=`"${R_HOME}/bin/R" CMD config --cppflags`
-export CXXFLAGS="${CXX17FLAGS} ${CXX17PICFLAGS} ${OPENFHE_OMP_CXXFLAGS} -DOPENFHE_R_BUILD ${R_INCLUDE}"
+export CXXFLAGS="${CXX17FLAGS} ${CXX17PICFLAGS} ${OPENFHE_OMP_CXXFLAGS}"
 export LDFLAGS
 
 R_OPENFHE_PKG_HOME=`pwd`
@@ -107,6 +100,18 @@ fi
 #
 # Common CMake options
 #
+# WITH_DEFAULT_DIAGNOSTIC_SINK=OFF leaves OpenFHE's built-in diagnostic
+# sink (the only library code that names std::cerr / std::cout) out of
+# the static archives; the package supplies the sink in
+# src/r_streams.cpp, routed to REprintf / Rprintf. Required so the
+# archives contain no stdout/stderr symbols, per R CMD check's
+# "checking compiled code" rule (Writing R Extensions §1.1.3.1).
+#
+# WITH_MALLOC_TUNING and WITH_NUMA_INTERLEAVE default to ON upstream.
+# They change glibc malloc settings and the NUMA memory policy for the
+# whole process at library load. The process here is the user's R
+# session, so both are OFF.
+#
 COMMON_CMAKE_OPTS="
     -DCMAKE_BUILD_TYPE=Release
     -DCMAKE_POSITION_INDEPENDENT_CODE:bool=ON
@@ -116,6 +121,9 @@ COMMON_CMAKE_OPTS="
     -DBUILD_EXAMPLES:bool=OFF
     -DBUILD_BENCHMARKS:bool=OFF
     -DGIT_SUBMOD_AUTO:bool=OFF
+    -DWITH_DEFAULT_DIAGNOSTIC_SINK:bool=OFF
+    -DWITH_MALLOC_TUNING:bool=OFF
+    -DWITH_NUMA_INTERLEAVE:bool=OFF
     -DCMAKE_INSTALL_PREFIX=${OPENFHE_INSTALL_DIR}
     ${CCACHE_OPTS}
 "

@@ -1,5 +1,5 @@
 ## Phase 2: BFV arithmetic tests
-## @openfhe-python: simple-integers.py [FULL]
+## @openfhe-python: simple-integers.py [PARTIAL: steps omitted: third input vector, three-way sum and product, rotation evaluation]
 library(openfhe.R)
 
 # ── Setup ────────────────────────────────────────────────

@@ -1,5 +1,5 @@
 ## Phase 8: BGV full arithmetic (matching BFV test coverage)
-## @openfhe-python: simple-integers-bgvrns.py [FULL]
+## @openfhe-python: simple-integers-bgvrns.py [PARTIAL: steps omitted: three of four rotations, three-way sum and product]
 library(openfhe.R)
 
 cc <- fhe_context("BGV", plaintext_modulus = 65537, multiplicative_depth = 2)

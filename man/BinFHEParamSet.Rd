@@ -7,19 +7,29 @@
 BinFHEParamSet
 }
 \value{
-A named \code{list} of 44 integer scalars, each the value of the
+A named \code{list} of 112 integer scalars, each the value of the
 OpenFHE C++ enumerator of the same name. An element names a
 pre-tabulated set of lattice parameters for the boolean-circuit
 (BinFHE) schemes: \code{TOY} and \code{MEDIUM} are insecure sizes for
 experimentation, and the \code{STD128}, \code{STD192} and \code{STD256} families
-give the corresponding bits of security, with the \code{Q} suffix
-denoting a larger ciphertext modulus, the \verb{_3} and \verb{_4} suffixes
-3- and 4-input gates, \code{LMKCDEY} the Lee-Micciancio-Kim-Choi-Deryabin-Eom-Yoo
-bootstrapping method and \code{LPF} a low-probability-of-failure
-variant. Pass an element as the \code{paramset} argument of
-\code{\link[=bin_fhe_context]{bin_fhe_context()}}.
+target the corresponding bits of security against classical
+attacks, with the \code{Q} suffix targeting quantum attacks and the
+\verb{_3} and \verb{_4} suffixes 3- and 4-input gates. The \code{LPF} prefix marks
+a variant with a lower probability of failure. Sets without a
+method suffix are tuned for the GINX bootstrapping method and may
+be used with any method; the \verb{_LMKCDEY} suffix marks a set for
+the Lee-Micciancio-Kim-Choi-Deryabin-Eom-Yoo method only, and the
+\verb{_AP} suffix a set for the AP method only.
+\code{SIGNED_MOD_TEST} and \code{TOY_MULTI_BASE} are test sets. Pass an
+element as the \code{paramset} argument of \code{\link[=bin_fhe_context]{bin_fhe_context()}}.
 }
 \description{
 Mirrors the C++ enum \code{BINFHE_PARAMSET} in \code{binfhe/binfhe-constants.h},
 whose enumerators are numbered sequentially from 0.
+}
+\details{
+The integer values belong to the vendored OpenFHE release. OpenFHE
+1.6 reordered the list, so an integer saved from an earlier version
+of this package names a different parameter set; always refer to an
+element by name.
 }

@@ -42,6 +42,30 @@ list MultipartyKeyGen(SEXP cc_xp, SEXP pk_xp,
   });
 }
 
+// The secret-key-vector overload (cryptocontext.h): the key pair of the
+// sum of the given secret keys. An empty vector is refused by OpenFHE.
+[[cpp11::register]]
+list MultipartyKeyGen__sk_vec(SEXP cc_xp, list sk_list) {
+  xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
+  std::vector<PrivateKey<DCRTPoly>> sks;
+  sks.reserve(sk_list.size());
+  for (R_xlen_t i = 0; i < sk_list.size(); ++i) {
+    SEXP sk_xp = sk_list[i];
+    xptr<PrivateKey<DCRTPoly>> sk(sk_xp);
+    sks.push_back(*sk);
+  }
+  return catch_openfhe("CryptoContext::MultipartyKeyGen(privateKeyVec)", [&]() {
+    auto kp = (*cc)->MultipartyKeyGen(sks);
+    writable::list result(2);
+    result[0] = xptr<PublicKey<DCRTPoly>>(
+      new PublicKey<DCRTPoly>(kp.publicKey));
+    result[1] = xptr<PrivateKey<DCRTPoly>>(
+      new PrivateKey<DCRTPoly>(kp.secretKey));
+    result.attr("names") = writable::strings({"public", "secret"});
+    return result;
+  });
+}
+
 // ── Multi-party Key Combining ───────────────────────────
 
 // Combine public keys from two parties. Result is a joint public

@@ -2,27 +2,39 @@
 % Please edit documentation in R/serialization.R
 \name{serialize_eval_keys}
 \alias{serialize_eval_keys}
-\title{Serialize evaluation keys to file}
+\title{Serialize evaluation keys from the key registry}
 \usage{
 serialize_eval_keys(
-  filename,
+  filename = NULL,
   type = c("mult", "automorphism", "sum"),
   format = "binary",
-  key_tag = ""
+  key_tag = "",
+  cc = NULL
 )
 }
 \arguments{
-\item{filename}{Path to output file}
+\item{filename}{Path to the output file, or \code{NULL} (default) to
+serialize in memory.}
 
-\item{type}{"mult" or "automorphism"}
+\item{type}{\code{"mult"}, \code{"automorphism"} or \code{"sum"}.}
 
 \item{format}{"binary" (default) or "json"}
 
-\item{key_tag}{Key tag (default: "")}
+\item{key_tag}{Key tag; \code{""} (default) for the keys of every tag.}
+
+\item{cc}{A \code{CryptoContext}, or \code{NULL} (default). When given,
+\code{key_tag} is not used.}
 }
 \value{
-TRUE on success (invisibly)
+With a file name, \code{TRUE} invisibly. Otherwise a raw vector
+(\code{format = "binary"}) or a character string (\code{format = "json"}).
 }
 \description{
-Serialize evaluation keys to file
+Writes the registered multiplication, automorphism or summation
+keys to a file, or, with \code{filename = NULL}, returns them serialized
+in memory. The keys are those under \code{key_tag}, or, when \code{cc} is
+given, those of that context.
+}
+\seealso{
+\code{\link[=deserialize_eval_keys]{deserialize_eval_keys()}}, \code{\link[=deserialize_eval_keys_string]{deserialize_eval_keys_string()}}
 }

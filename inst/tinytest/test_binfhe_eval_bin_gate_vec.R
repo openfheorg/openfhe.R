@@ -109,7 +109,7 @@ expect_error(eval_bin_gate(ctx_toy, BinGate$AND3, "not a list"),
 # ── Formals shape assertion ────────────────────────────
 
 expect_identical(names(formals(eval_bin_gate)),
-                 c("ctx", "gate", "ct1", "ct2"))
+                 c("ctx", "gate", "ct1", "ct2", "extended"))
 expect_null(formals(eval_bin_gate)$ct2)
 
 # ── eval_sign formals + scheme_switch default check ────

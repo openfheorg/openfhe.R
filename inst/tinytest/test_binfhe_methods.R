@@ -1,6 +1,6 @@
 ## Phase 8: BinFHE with different methods (AP, LMKCDEY)
-## @openfhe-python: boolean-ap.py [FULL]
-## @openfhe-python: boolean-lmkcdey.py [FULL]
+## @openfhe-python: boolean-ap.py [PARTIAL: steps omitted: the example's circuit with NOT; parameter set STD128_AP where the example passes (STD128, AP)]
+## @openfhe-python: boolean-lmkcdey.py [PARTIAL: steps omitted: the example's circuit; parameter set STD128_LMKCDEY where the example passes (STD128, LMKCDEY)]
 library(openfhe.R)
 
 ## Heavy bootstrapping (multiple STD128 bootstrap-key contexts) — skip on

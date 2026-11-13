@@ -2,6 +2,11 @@
 ## @openfhe-python: boolean-truth-tables.py [FULL]
 library(openfhe.R)
 
+## Skipped on CRAN: check time against the Windows budget (D022). Runs
+## on GitHub Actions (which sets CI=true) and at home.
+if (!at_home() && Sys.getenv("CI") != "true")
+  exit_file("skipped on CRAN: check time (runs on CI and at_home)")
+
 # ── Setup (same as boolean-truth-tables.py: default STD128 + GINX) ──
 ctx <- bin_fhe_context(BinFHEParamSet$STD128, BinFHEMethod$GINX)
 sk  <- bin_key_gen(ctx)

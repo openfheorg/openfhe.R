@@ -76,7 +76,10 @@ method(encrypt, list(PublicKey, Plaintext)) <- function(key, pt, cc = NULL) {
     cli_abort("CryptoContext {.arg cc} is required for encryption")
   }
   ct_xp <- CryptoContext__Encrypt_PublicKey(get_ptr(cc), get_ptr(key), get_ptr(pt))
-  Ciphertext(ptr = ct_xp)
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = ct_xp)
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, ct_xp)
 }
 
 # encrypt(PrivateKey, Plaintext) -> Ciphertext
@@ -85,7 +88,10 @@ method(encrypt, list(PrivateKey, Plaintext)) <- function(key, pt, cc = NULL) {
     cli_abort("CryptoContext {.arg cc} is required for encryption")
   }
   ct_xp <- CryptoContext__Encrypt_PrivateKey(get_ptr(cc), get_ptr(key), get_ptr(pt))
-  Ciphertext(ptr = ct_xp)
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = ct_xp)
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, ct_xp)
 }
 
 # decrypt(PrivateKey, Ciphertext) -> Plaintext: the header's key-first
@@ -102,7 +108,10 @@ method(decrypt, list(Ciphertext, PrivateKey)) <- function(ct, key, cc = NULL) {
     cli_abort("CryptoContext {.arg cc} is required for decryption")
   }
   pt_xp <- CryptoContext__Decrypt(get_ptr(cc), get_ptr(key), get_ptr(ct))
-  Plaintext(ptr = pt_xp)
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Plaintext(ptr = pt_xp)
+  ## <<< S7-FAST-NEW
+  .fast_new(Plaintext, pt_xp)
 }
 
 #' Make a packed integer plaintext
@@ -135,7 +144,10 @@ make_packed_plaintext <- function(cc, values,
     as.integer(noise_scale_deg),
     as.integer(level)
   )
-  Plaintext(ptr = pt_xp)
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Plaintext(ptr = pt_xp)
+  ## <<< S7-FAST-NEW
+  .fast_new(Plaintext, pt_xp)
 }
 
 #' Make a coefficient-packed integer plaintext
@@ -163,5 +175,8 @@ make_coef_packed_plaintext <- function(cc, values,
     as.integer(noise_scale_deg),
     as.integer(level)
   )
-  Plaintext(ptr = pt_xp)
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Plaintext(ptr = pt_xp)
+  ## <<< S7-FAST-NEW
+  .fast_new(Plaintext, pt_xp)
 }

@@ -3,14 +3,13 @@
 // The Eval* argument-completion
 // surface. 20 new cpp11 bindings:
 //
-//   In-place family (8):
-//     EvalAddInPlace ct/ct, ct/pt, ct/scalar
-//     EvalSubInPlace ct/ct, ct/pt, ct/scalar
-//     EvalMultInPlace ct/scalar (no ct/ct variant in the header —
-//       cryptocontext.h only declares the scalar overloads; the
-//       ct/ct and ct/pt overloads Python P1 refers to live on
-//       SchemeBase and aren't exposed on CryptoContextImpl)
+//   In-place family:
+//     EvalAddInPlace ct/ct, ct/pt
+//     EvalSubInPlace ct/ct, ct/pt
 //     EvalNegateInPlace
+//     The scalar forms, the plaintext-first forms and EvalMultInPlace
+//     are in pke_eval_arith.cpp. cryptocontext.h declares
+//     EvalMultInPlace for scalars only.
 //   Mutable family (4):
 //     EvalAddMutable, EvalSubMutable, EvalMultMutable, EvalSquareMutable
 //     (all ct/ct returning Ciphertext)
@@ -30,7 +29,16 @@
 
 using namespace cpp11;
 
-// ── In-place family ─────────────────────────────────────
+// An EvalKey handle, or the null key for R's NULL. LevelReduce takes a
+// key that the RNS schemes ignore; the OpenFHE examples and
+// openfhe-python (None) pass a null one.
+static EvalKey<DCRTPoly> eval_key_or_null(SEXP eval_key_xp) {
+  if (Rf_isNull(eval_key_xp)) return EvalKey<DCRTPoly>(nullptr);
+  xptr<EvalKey<DCRTPoly>> ek(eval_key_xp);
+  return *ek;
+}
+
+// ── In-place family─────────────────────────────────────
 
 [[cpp11::register]]
 void EvalAddInPlace__ct_ct(SEXP ct1_xp, SEXP ct2_xp) {
@@ -51,14 +59,6 @@ void EvalAddInPlace__ct_pt(SEXP ct_xp, SEXP pt_xp) {
 }
 
 [[cpp11::register]]
-void EvalAddInPlace__ct_scalar(SEXP ct_xp, double scalar) {
-  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
-  catch_openfhe("CryptoContext::EvalAddInPlace(ct, double)", [&]() {
-    (*ct)->GetCryptoContext()->EvalAddInPlace(*ct, scalar);
-  });
-}
-
-[[cpp11::register]]
 void EvalSubInPlace__ct_ct(SEXP ct1_xp, SEXP ct2_xp) {
   xptr<Ciphertext<DCRTPoly>> ct1(ct1_xp);
   xptr<Ciphertext<DCRTPoly>> ct2(ct2_xp);
@@ -73,22 +73,6 @@ void EvalSubInPlace__ct_pt(SEXP ct_xp, SEXP pt_xp) {
   xptr<Plaintext> pt(pt_xp);
   catch_openfhe("CryptoContext::EvalSubInPlace(ct, pt)", [&]() {
     (*ct)->GetCryptoContext()->EvalSubInPlace(*ct, *pt);
-  });
-}
-
-[[cpp11::register]]
-void EvalSubInPlace__ct_scalar(SEXP ct_xp, double scalar) {
-  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
-  catch_openfhe("CryptoContext::EvalSubInPlace(ct, double)", [&]() {
-    (*ct)->GetCryptoContext()->EvalSubInPlace(*ct, scalar);
-  });
-}
-
-[[cpp11::register]]
-void EvalMultInPlace__ct_scalar(SEXP ct_xp, double scalar) {
-  xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
-  catch_openfhe("CryptoContext::EvalMultInPlace(ct, double)", [&]() {
-    (*ct)->GetCryptoContext()->EvalMultInPlace(*ct, scalar);
   });
 }
 
@@ -202,10 +186,10 @@ void ModReduceInPlace__ct(SEXP ct_xp) {
 [[cpp11::register]]
 SEXP LevelReduce__ct(SEXP ct_xp, SEXP eval_key_xp, int levels) {
   xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
-  xptr<EvalKey<DCRTPoly>> ek(eval_key_xp);
+  EvalKey<DCRTPoly> ek = eval_key_or_null(eval_key_xp);
   return catch_openfhe("CryptoContext::LevelReduce", [&]() {
     auto result = (*ct)->GetCryptoContext()->LevelReduce(
-        *ct, *ek, static_cast<size_t>(levels));
+        *ct, ek, static_cast<size_t>(levels));
     return xptr<Ciphertext<DCRTPoly>>(
         new Ciphertext<DCRTPoly>(result));
   });
@@ -214,10 +198,10 @@ SEXP LevelReduce__ct(SEXP ct_xp, SEXP eval_key_xp, int levels) {
 [[cpp11::register]]
 void LevelReduceInPlace__ct(SEXP ct_xp, SEXP eval_key_xp, int levels) {
   xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
-  xptr<EvalKey<DCRTPoly>> ek(eval_key_xp);
+  EvalKey<DCRTPoly> ek = eval_key_or_null(eval_key_xp);
   catch_openfhe("CryptoContext::LevelReduceInPlace", [&]() {
     (*ct)->GetCryptoContext()->LevelReduceInPlace(
-        *ct, *ek, static_cast<size_t>(levels));
+        *ct, ek, static_cast<size_t>(levels));
   });
 }
 

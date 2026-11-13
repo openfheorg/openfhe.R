@@ -9,8 +9,8 @@ level_reduce(x, ...)
 \arguments{
 \item{x}{A \code{Ciphertext}.}
 
-\item{...}{Method-specific arguments: \code{eval_key} (an \code{EvalKey}
-from \code{key_gen}), \code{levels} (integer, default \code{1L}).}
+\item{...}{Method-specific arguments: \code{eval_key} (an \code{EvalKey}, or
+\code{NULL} for no key), \code{levels} (integer, default \code{1L}).}
 }
 \value{
 A \code{Ciphertext} at \code{x$level + levels}.
@@ -22,6 +22,7 @@ ciphertext it will interact with next; level-reducing brings
 them onto the same rung of the chain.
 }
 \details{
-An evaluation key is required — supply it from
-\code{key_gen(cc, eval_mult = TRUE)}.
+The C++ signature takes an evaluation key, which the RNS schemes
+do not use. Pass \code{NULL}, as the OpenFHE examples pass a null key,
+or an \code{EvalKey}.
 }

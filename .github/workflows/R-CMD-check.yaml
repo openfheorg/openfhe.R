@@ -27,6 +27,10 @@ jobs:
           - {os: windows-latest,  r: 'release'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
+          # Linux arm64: gcc 13 on Ubuntu 24.04 arm64 is where an error
+          # raised inside a binding ended the R process (cpp11 vector
+          # iterators in the frame); kept as a standing check.
+          - {os: ubuntu-24.04-arm, r: 'release'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

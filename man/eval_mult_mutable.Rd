@@ -7,10 +7,12 @@
 eval_mult_mutable(x, ...)
 }
 \arguments{
-\item{x}{A \code{Ciphertext} (may be modified internally).}
+\item{x}{A \code{Ciphertext} or a \code{Plaintext} (may be modified
+internally).}
 
-\item{...}{Method-specific arguments: \code{y} — a \code{Ciphertext}
-(may be modified internally).}
+\item{...}{Method-specific arguments: \code{y}, a \code{Ciphertext} or a
+\code{Plaintext} (may be modified internally). At least one of \code{x}
+and \code{y} is a \code{Ciphertext}.}
 }
 \value{
 A new \code{Ciphertext} holding \code{x * y}.

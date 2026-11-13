@@ -43,10 +43,9 @@
 #' `double`. The underlying field is a `double` — R binds per the
 #' header, not per the setter signature.
 #'
-#' `get_plaintext_modulus` returns an R `integer` on 32-bit-safe
-#' values; for moduli that exceed the 32-bit signed integer range
-#' the return value is a `numeric` (double) carrying a losslessly
-#' rounded 53-bit integer.
+#' `get_plaintext_modulus` returns a number for a modulus of at most
+#' 2^53 and a string of decimal digits for a larger one, which an R
+#' number cannot hold exactly.
 #'
 #' @param params A `BFVParams`, `BGVParams`, or `CKKSParams`.
 #' @param ... Reserved for future method-specific arguments (currently
@@ -73,7 +72,9 @@ get_ring_dim <- new_generic("get_ring_dim", "params")
 #'   `Z_t[x]/Phi_m(x)` and every homomorphic operation is performed
 #'   modulo `t`. On a `CKKSParams` object this returns the default
 #'   field value (`0`) because CKKS does not use a plaintext
-#'   modulus.
+#'   modulus. The value is a number when it is at most 2^53 and a
+#'   string of decimal digits above that, where an R number is no
+#'   longer exact.
 #' @export
 get_plaintext_modulus <- new_generic("get_plaintext_modulus", "params")
 

@@ -42,6 +42,12 @@ method(print, SecretShareMap) <- function(x, ...) {
   invisible(x)
 }
 
+## Python returns a dict; len() of it is the number of shares.
+method(length, SecretShareMap) <- function(x) {
+  if (!ptr_is_valid(x)) return(0L)
+  SecretShareMap__length(get_ptr(x))
+}
+
 #' Distribute a secret key into shares
 #'
 #' Produces the set of shares that party `index` would
@@ -74,12 +80,20 @@ method(print, SecretShareMap) <- function(x, ...) {
 #' @param sharing_scheme Character; either `"additive"` (default)
 #'   or `"shamir"`.
 #' @return A `SecretShareMap` suitable for passing to
-#'   [recover_shared_key()].
+#'   [recover_shared_key()]. `length()` of it is the number of shares.
 #' @seealso [recover_shared_key()]
 #' @export
 share_keys <- function(cc, sk, n_parties, threshold, index,
                        sharing_scheme = "additive") {
-  SecretShareMap(ptr = CryptoContext__ShareKeys(
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## SecretShareMap(ptr = CryptoContext__ShareKeys(
+  ##   get_ptr(cc), get_ptr(sk),
+  ##   as.integer(n_parties),
+  ##   as.integer(threshold),
+  ##   as.integer(index),
+  ##   as.character(sharing_scheme)))
+  ## <<< S7-FAST-NEW
+  .fast_new(SecretShareMap, CryptoContext__ShareKeys(
     get_ptr(cc), get_ptr(sk),
     as.integer(n_parties),
     as.integer(threshold),
@@ -117,7 +131,14 @@ share_keys <- function(cc, sk, n_parties, threshold, index,
 #' @export
 recover_shared_key <- function(cc, share_map, n_parties, threshold,
                                sharing_scheme = "additive") {
-  PrivateKey(ptr = CryptoContext__RecoverSharedKey(
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## PrivateKey(ptr = CryptoContext__RecoverSharedKey(
+  ##   get_ptr(cc), get_ptr(share_map),
+  ##   as.integer(n_parties),
+  ##   as.integer(threshold),
+  ##   as.character(sharing_scheme)))
+  ## <<< S7-FAST-NEW
+  .fast_new(PrivateKey, CryptoContext__RecoverSharedKey(
     get_ptr(cc), get_ptr(share_map),
     as.integer(n_parties),
     as.integer(threshold),

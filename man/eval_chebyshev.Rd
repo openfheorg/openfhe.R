@@ -9,7 +9,12 @@ eval_chebyshev(ct, coefficients, a, b)
 \arguments{
 \item{ct}{A Ciphertext}
 
-\item{coefficients}{Numeric vector of Chebyshev coefficients}
+\item{coefficients}{Integer, double or complex vector of Chebyshev
+coefficients. Each type is evaluated with its own arithmetic, as
+for \code{\link[=eval_poly]{eval_poly()}}. Pass whole-number coefficients as doubles
+(\code{c(1, 2, 3)}, not \code{c(1L, 2L, 3L)}): at OpenFHE 1.6.1 the
+Paterson-Stockmeyer evaluator, which this function uses from
+degree 5, returns wrong values for integer coefficients.}
 
 \item{a}{Lower bound of the approximation interval}
 

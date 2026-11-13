@@ -117,27 +117,17 @@ make_ckks_packed_plaintext <- function(cc, values,
   ## complex before calling the same internal helper), so the
   ## R-side behavioral contract is unchanged for existing
   ## double callers.
+  params_xp <- if (is.null(params)) NULL else get_ptr(params)
   if (is.complex(values)) {
-    ## The complex overload currently does not accept the
-    ## `params` argument at the R layer — pass NULL internally.
-    ## The params surface is an advanced knob that the existing
-    ## double path supports; complex callers that need it can
-    ## reach for the underlying cpp11 binding directly.
-    if (!is.null(params)) {
-      cli::cli_abort(c(
-        "The {.arg params} argument is not yet supported on the complex path.",
-        "i" = "Reach the underlying cpp11 binding directly, or file an issue if you need this combination."
-      ))
-    }
     pt_xp <- MakeCKKSPackedPlaintext__complex(
       get_ptr(cc),
       values,
       as.integer(noise_scale_deg),
       as.integer(level),
+      params_xp,
       as.integer(slots)
     )
   } else {
-    params_xp <- if (is.null(params)) NULL else get_ptr(params)
     pt_xp <- CryptoContext__MakeCKKSPackedPlaintext(
       get_ptr(cc),
       as.double(values),
@@ -147,7 +137,10 @@ make_ckks_packed_plaintext <- function(cc, values,
       as.integer(slots)
     )
   }
-  Plaintext(ptr = pt_xp)
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Plaintext(ptr = pt_xp)
+  ## <<< S7-FAST-NEW
+  .fast_new(Plaintext, pt_xp)
 }
 
 #' Get real values from a CKKS plaintext

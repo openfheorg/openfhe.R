@@ -1,4 +1,4 @@
-## @openfhe-python: function-evaluation.py [FULL]
+## @openfhe-python: function-evaluation.py [PARTIAL: binding absent: EvalChebyshevFunctionPtxt]
 ##
 ## Mirrors the two sub-examples of function-evaluation.py:
 ##   1. eval_logistic_example — cc.EvalLogistic on [-4, 4] at degree 16

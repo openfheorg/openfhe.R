@@ -1,5 +1,5 @@
 ## Phase 8: CKKS serialization round-trip
-## @openfhe-python: simple-real-numbers-serial.py [FULL]
+## @openfhe-python: simple-real-numbers-serial.py [PARTIAL: multiplicative depth reduced 5 -> 1; steps omitted: rotation keys, client-side operations, return leg]
 library(openfhe.R)
 
 tmpdir <- tempdir()

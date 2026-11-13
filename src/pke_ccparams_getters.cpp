@@ -33,6 +33,7 @@
 // openfhe_helpers.h per design.md §5.
 #include "openfhe_cpp11.h"
 #include "openfhe_helpers.h"
+#include "wide_integers.h"
 
 using namespace cpp11;
 
@@ -47,10 +48,10 @@ int BFVParams__GetScheme(SEXP params_xp) {
 }
 
 [[cpp11::register]]
-int64_t BFVParams__GetPlaintextModulus(SEXP params_xp) {
+SEXP BFVParams__GetPlaintextModulus(SEXP params_xp) {
   xptr<CCParams<CryptoContextBFVRNS>> p(params_xp);
-  return catch_openfhe("BFVParams::GetPlaintextModulus", [&]() -> int64_t {
-    return static_cast<int64_t>(p->GetPlaintextModulus());
+  return catch_openfhe("BFVParams::GetPlaintextModulus", [&]() -> SEXP {
+    return openfhe_r::uint64_to_r(p->GetPlaintextModulus());
   });
 }
 
@@ -313,10 +314,10 @@ int BGVParams__GetScheme(SEXP params_xp) {
 }
 
 [[cpp11::register]]
-int64_t BGVParams__GetPlaintextModulus(SEXP params_xp) {
+SEXP BGVParams__GetPlaintextModulus(SEXP params_xp) {
   xptr<CCParams<CryptoContextBGVRNS>> p(params_xp);
-  return catch_openfhe("BGVParams::GetPlaintextModulus", [&]() -> int64_t {
-    return static_cast<int64_t>(p->GetPlaintextModulus());
+  return catch_openfhe("BGVParams::GetPlaintextModulus", [&]() -> SEXP {
+    return openfhe_r::uint64_to_r(p->GetPlaintextModulus());
   });
 }
 
@@ -579,10 +580,10 @@ int CKKSParams__GetScheme(SEXP params_xp) {
 }
 
 [[cpp11::register]]
-int64_t CKKSParams__GetPlaintextModulus(SEXP params_xp) {
+SEXP CKKSParams__GetPlaintextModulus(SEXP params_xp) {
   xptr<CCParams<CryptoContextCKKSRNS>> p(params_xp);
-  return catch_openfhe("CKKSParams::GetPlaintextModulus", [&]() -> int64_t {
-    return static_cast<int64_t>(p->GetPlaintextModulus());
+  return catch_openfhe("CKKSParams::GetPlaintextModulus", [&]() -> SEXP {
+    return openfhe_r::uint64_to_r(p->GetPlaintextModulus());
   });
 }
 

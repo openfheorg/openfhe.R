@@ -30,6 +30,8 @@ bool Serialize__EvalSumKey(std::string filename, bool binary,
                            std::string key_tag) {
   return catch_openfhe("CryptoContextImpl::SerializeEvalSumKey", [&]() {
     std::ofstream ofs(filename, std::ios::out | std::ios::binary);
+    // A JSON archive on a closed stream reports success and writes nothing.
+    if (!ofs.is_open()) cpp11::stop("Cannot open '%s' for writing", filename.c_str());
     bool ok;
     if (binary) {
       ok = CryptoContextImpl<DCRTPoly>::SerializeEvalSumKey<SerType::SERBINARY>(

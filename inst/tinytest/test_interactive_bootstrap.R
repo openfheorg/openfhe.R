@@ -5,18 +5,17 @@
 ## family + IntMPBoot 6-function family.
 ##
 ## Full end-to-end validation of the interactive bootstrap
-## protocols requires OpenFHE's PrivateKeyImpl clone + set-
-## elements surface that is not bound here (out of scope).
-## Instead this test file verifies:
+## protocols, with numeric checks, is in
+## test_example_interactive_bootstrapping.R and the two
+## test_example_tckks_interactive_mp_bootstrapping*.R files. This file
+## predates the `clone()` / `set_elements()` bindings those use, and
+## verifies:
 ##   - all 11 bindings dispatch cleanly and return the expected
 ##     wrapper type;
 ##   - the IntBoot single-party 4-method pipeline can be
 ##     chained end-to-end without throwing (numeric fidelity
-##     of the refreshed ciphertext is cross-referenced against
-##     the upstream UnitTestInteractiveBootstrap.cpp
-##     `UnitTest_MultiPartyBootThresholdFHE2` protocol but
-##     deferred to a later test file when Clone / SetElements
-##     are bound);
+##     of the refreshed ciphertext is checked in the example
+##     files named above);
 ##   - `key_switch_down()` accepts an ext-rotated ciphertext
 ##     (which lives in the P*Q basis) and returns a valid
 ##     Ciphertext in the Q basis;

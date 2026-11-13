@@ -9,7 +9,8 @@ eval_chebyshev_linear(ct, coefficients, a, b)
 \arguments{
 \item{ct}{A Ciphertext}
 
-\item{coefficients}{Numeric vector of Chebyshev coefficients}
+\item{coefficients}{Integer, double or complex vector of Chebyshev
+coefficients, as for \code{\link[=eval_chebyshev]{eval_chebyshev()}}}
 
 \item{a}{Lower bound of the approximation interval}
 

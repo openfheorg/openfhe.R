@@ -4,23 +4,36 @@
 \alias{bin_encrypt}
 \title{Encrypt a value for Binary FHE}
 \usage{
-bin_encrypt(ctx, sk, message, output = 2L, p = 4L, mod = NULL)
+bin_encrypt(
+  ctx,
+  sk,
+  message,
+  output = BinFHEOutput$BOOTSTRAPPED,
+  p = 4L,
+  mod = NULL
+)
 }
 \arguments{
 \item{ctx}{A BinFHE context}
 
-\item{sk}{An LWEPrivateKey}
+\item{sk}{An LWEPrivateKey, or an \link{LWEPublicKey} to encrypt under
+the public key.}
 
 \item{message}{Integer (0 or 1 for Boolean; larger for integer FHE)}
 
-\item{output}{BINFHE_OUTPUT (default: 2 = BOOTSTRAPPED). Use
+\item{output}{An element of \link{BinFHEOutput} (default:
+\code{BinFHEOutput$BOOTSTRAPPED}). Use
 \code{BinFHEOutput$LARGE_DIM} together with \code{mod} for the
-functional-bootstrapping path.}
+functional-bootstrapping path. With a public key the default is
+\code{BinFHEOutput$SMALL_DIM}, as in openfhe-python, which needs the
+switching key that \code{\link[=bin_bt_key_gen]{bin_bt_key_gen()}} generates.}
 
 \item{p}{Plaintext modulus (default: 4)}
 
 \item{mod}{Optional large ciphertext modulus Q for the LARGE_DIM
-path. NULL (default) selects the standard small-modulus encrypt.}
+path. NULL (default) selects the standard small-modulus encrypt.
+A whole number of at most 2^53, or a string of decimal digits for
+a larger value.}
 }
 \value{
 An LWECiphertext

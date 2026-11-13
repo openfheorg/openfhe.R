@@ -10,8 +10,8 @@ compress(x, ...)
 \item{x}{A \code{Ciphertext}.}
 
 \item{...}{Method-specific arguments: \code{towers_left} (integer,
-target tower count), \code{noise_scale_deg} (integer, default
-\code{1L}).}
+target tower count, default \code{1L}), \code{noise_scale_deg} (integer,
+default \code{1L}).}
 }
 \value{
 A compressed \code{Ciphertext}.

@@ -20,6 +20,7 @@ reference:
 - title: Context and Keys
   contents:
   - fhe_context
+  - gen_crypto_context
   - key_gen
   - enable_feature
   - CryptoContext
@@ -94,6 +95,31 @@ reference:
   - level_reduce
   - level_reduce_in_place
   - compress
+  - eval_add_many
+  - eval_merge
+  - eval_linear_wsum
+  - eval_inner_product
+  - eval_sum_rows
+  - eval_at_index
+  - eval_square_in_place
+  - eval_add_mutable_in_place
+  - eval_add_in_place_no_check
+  - composed_eval_mult
+  - eval_mult_keys_gen
+  - make_string_plaintext
+
+- title: Proxy re-encryption and key switching
+  contents:
+  - re_key_gen
+  - key_switch_gen
+  - key_switch_ext
+  - sparse_key_gen
+  - multi_mult_eval_key
+  - clear_eval_sum_keys
+  - get_all_contexts
+  - enable_precompute_crt_tables_after_deserializaton
+  - eval_chebyshev_function_ptxt
+  - get_multiplicative_depth_by_coeff_vector
 
 - title: CKKS Advanced
   contents:
@@ -105,6 +131,8 @@ reference:
   - eval_chebyshev_ps
   - eval_chebyshev_coefficients
   - eval_chebyshev_function
+  - eval_powers
+  - SeriesPowers
   - eval_sin
   - eval_cos
   - eval_logistic
@@ -112,6 +140,8 @@ reference:
   - eval_bootstrap
   - eval_bootstrap_setup
   - eval_bootstrap_key_gen
+  - eval_bootstrap_precompute
+  - eval_bootstrap_stc_first
   - get_bootstrap_depth
   - get_ckks_boot_correction_factor
   - set_ckks_boot_correction_factor
@@ -142,8 +172,11 @@ reference:
   contents:
   - fhe_serialize
   - fhe_deserialize
+  - fhe_deserialize_string
   - serialize_eval_keys
   - deserialize_eval_keys
+  - deserialize_eval_keys_string
+  - serialize_eval_bootstrap_key
   - clear_fhe_state
   - with_fhe_context
   - eval_sum_key_gen
@@ -198,9 +231,35 @@ reference:
   - eval_floor
   - generate_lut_via_function
   - get_max_plaintext_space
+  - bin_key_gen_pair
+  - switch_ct_to_qn
+  - bin_bootstrap
+  - eval_constant
+  - eval_decomp
+  - get_bt_key
+  - get_public_key
+  - get_n
+  - get_pt_modulus
   - BinFHEContext
   - LWECiphertext
   - LWEPrivateKey
+  - LWEPublicKey
+  - LWEKeyPair
+  - LWESwitchingKey
+  - RingGSWBTKey
+
+- title: Scheme switching
+  desc: >
+    Switching between CKKS and FHEW ciphertexts, and the comparison,
+    minimum and maximum built on it.
+  contents:
+  - SchSwchParams
+  - eval_ckks_to_fhew_setup
+  - eval_fhew_to_ckks_setup
+  - eval_scheme_switching_setup
+  - get_bin_cc_for_scheme_switch
+  - set_params_from_ckks_cryptocontext
+  - SchemeSwitchingDataSerializer
 
 - title: Enums
   contents:
@@ -226,15 +285,53 @@ reference:
   - CompressionLevel
   - SchemeId
 
+- title: Functional bootstrapping
+  desc: >
+    CKKS functional bootstrapping of RLWE ciphertexts: look-up tables,
+    several tables on one input, and Fourier series.
+  contents:
+  - eval_fbt_setup
+  - eval_mvb_precompute
+  - eval_hermite_trig_series
+  - eval_fe_func_bootstrap_setup
+  - get_hermite_trig_coefficients
+  - get_fbt_depth
+  - schemelet_get_element_params
+  - schemelet_convert_rlwe_to_ckks
+  - PolyVector
+
 - title: Supporting types
   contents:
   - ElementParams
   - CryptoParameters
   - EncodingParams
 
+- title: Object accessors
+  contents:
+  - get_modulus
+  - get_modulus_ckks
+  - get_plaintext_generator
+  - set_scheme_id
+  - serialized_object_name
+  - clear_all_ckks_caches
+  - get_plaintext_for_decrypt
+  - get_existing_eval_automorphism_key_indices
+  - clone
+  - number_ciphertext_elements
+  - get_hop_level
+  - encode
+  - get_element_modulus
+  - DCRTPoly
+  - SchemeBase
+  - Format
+
 - title: CCParams getters
   contents:
   - ccparams_getters
+
+- title: CCParams setters
+  contents:
+  - ccparams_setters
 
 - title: Utilities
   contents:

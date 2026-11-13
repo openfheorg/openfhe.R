@@ -20,8 +20,8 @@ BinFHEContext__KeyGen <- function(ctx_xp) {
   .Call(`_openfhe_R_BinFHEContext__KeyGen`, ctx_xp)
 }
 
-BinFHEContext__BTKeyGen <- function(ctx_xp, sk_xp, keygen_mode) {
-  invisible(.Call(`_openfhe_R_BinFHEContext__BTKeyGen`, ctx_xp, sk_xp, keygen_mode))
+BinFHEContext__BTKeyGen <- function(ctx_xp, sk_xp, keygen_mode, internal32) {
+  invisible(.Call(`_openfhe_R_BinFHEContext__BTKeyGen`, ctx_xp, sk_xp, keygen_mode, internal32))
 }
 
 BinFHEContext__Encrypt <- function(ctx_xp, sk_xp, message, output, p) {
@@ -36,16 +36,20 @@ BinFHEContext__Decrypt <- function(ctx_xp, sk_xp, ct_xp, p) {
   .Call(`_openfhe_R_BinFHEContext__Decrypt`, ctx_xp, sk_xp, ct_xp, p)
 }
 
-BinFHEContext__EvalBinGate <- function(ctx_xp, gate, ct1_xp, ct2_xp) {
-  .Call(`_openfhe_R_BinFHEContext__EvalBinGate`, ctx_xp, gate, ct1_xp, ct2_xp)
+BinFHEContext__EvalBinGate <- function(ctx_xp, gate, ct1_xp, ct2_xp, extended) {
+  .Call(`_openfhe_R_BinFHEContext__EvalBinGate`, ctx_xp, gate, ct1_xp, ct2_xp, extended)
 }
 
-BinFHEContext__EvalBinGate__vec <- function(ctx_xp, gate, ct_list) {
-  .Call(`_openfhe_R_BinFHEContext__EvalBinGate__vec`, ctx_xp, gate, ct_list)
+BinFHEContext__EvalBinGate__vec <- function(ctx_xp, gate, ct_list, extended) {
+  .Call(`_openfhe_R_BinFHEContext__EvalBinGate__vec`, ctx_xp, gate, ct_list, extended)
 }
 
 BinFHEContext__EvalNOT <- function(ctx_xp, ct_xp) {
   .Call(`_openfhe_R_BinFHEContext__EvalNOT`, ctx_xp, ct_xp)
+}
+
+LWECiphertext__GetLength <- function(ct_xp) {
+  .Call(`_openfhe_R_LWECiphertext__GetLength`, ct_xp)
 }
 
 BinFHEContext__EvalSign <- function(ctx_xp, ct_xp, scheme_switch) {
@@ -58,6 +62,122 @@ BinFHEContext__EvalFloor <- function(ctx_xp, ct_xp, roundbits) {
 
 BinFHEContext__EvalFunc <- function(ctx_xp, ct_xp, plaintext_lut) {
   .Call(`_openfhe_R_BinFHEContext__EvalFunc`, ctx_xp, ct_xp, plaintext_lut)
+}
+
+BinFHEContext__KeyGenN <- function(ctx_xp) {
+  .Call(`_openfhe_R_BinFHEContext__KeyGenN`, ctx_xp)
+}
+
+BinFHEContext__KeyGenPair <- function(ctx_xp) {
+  .Call(`_openfhe_R_BinFHEContext__KeyGenPair`, ctx_xp)
+}
+
+BinFHEContext__PubKeyGen <- function(ctx_xp, sk_xp) {
+  .Call(`_openfhe_R_BinFHEContext__PubKeyGen`, ctx_xp, sk_xp)
+}
+
+BinFHEContext__KeySwitchGen <- function(ctx_xp, sk_xp, skn_xp) {
+  .Call(`_openfhe_R_BinFHEContext__KeySwitchGen`, ctx_xp, sk_xp, skn_xp)
+}
+
+BinFHEContext__EncryptPK <- function(ctx_xp, pk_xp, message, output, p, mod) {
+  .Call(`_openfhe_R_BinFHEContext__EncryptPK`, ctx_xp, pk_xp, message, output, p, mod)
+}
+
+BinFHEContext__SwitchCTtoqn <- function(ctx_xp, ksk_xp, ct_xp) {
+  .Call(`_openfhe_R_BinFHEContext__SwitchCTtoqn`, ctx_xp, ksk_xp, ct_xp)
+}
+
+BinFHEContext__Bootstrap <- function(ctx_xp, ct_xp, extended) {
+  .Call(`_openfhe_R_BinFHEContext__Bootstrap`, ctx_xp, ct_xp, extended)
+}
+
+BinFHEContext__EvalConstant <- function(ctx_xp, value) {
+  .Call(`_openfhe_R_BinFHEContext__EvalConstant`, ctx_xp, value)
+}
+
+BinFHEContext__EvalDecomp <- function(ctx_xp, ct_xp) {
+  .Call(`_openfhe_R_BinFHEContext__EvalDecomp`, ctx_xp, ct_xp)
+}
+
+BinFHEContext__GetBTKey <- function(ctx_xp) {
+  .Call(`_openfhe_R_BinFHEContext__GetBTKey`, ctx_xp)
+}
+
+BinFHEContext__GetBTKeyMap <- function(ctx_xp) {
+  .Call(`_openfhe_R_BinFHEContext__GetBTKeyMap`, ctx_xp)
+}
+
+BinFHEContext__GetSwitchKey <- function(ctx_xp) {
+  .Call(`_openfhe_R_BinFHEContext__GetSwitchKey`, ctx_xp)
+}
+
+BinFHEContext__GetPublicKey <- function(ctx_xp) {
+  .Call(`_openfhe_R_BinFHEContext__GetPublicKey`, ctx_xp)
+}
+
+BinFHEContext__BTKeyLoad <- function(ctx_xp, key_xp, internal32) {
+  invisible(.Call(`_openfhe_R_BinFHEContext__BTKeyLoad`, ctx_xp, key_xp, internal32))
+}
+
+BinFHEContext__BTKeyMapLoadSingleElement <- function(ctx_xp, base_g, key_xp) {
+  invisible(.Call(`_openfhe_R_BinFHEContext__BTKeyMapLoadSingleElement`, ctx_xp, base_g, key_xp))
+}
+
+BinFHEContext__ClearBTKeys <- function(ctx_xp) {
+  invisible(.Call(`_openfhe_R_BinFHEContext__ClearBTKeys`, ctx_xp))
+}
+
+BinFHEContext__HasInternal32Key <- function(ctx_xp, refresh) {
+  .Call(`_openfhe_R_BinFHEContext__HasInternal32Key`, ctx_xp, refresh)
+}
+
+BinFHEContext__GetParam <- function(ctx_xp, which) {
+  .Call(`_openfhe_R_BinFHEContext__GetParam`, ctx_xp, which)
+}
+
+BinFHEContext__SerializedObjectName <- function(ctx_xp) {
+  .Call(`_openfhe_R_BinFHEContext__SerializedObjectName`, ctx_xp)
+}
+
+BinFHEContext__SerializedVersion <- function() {
+  .Call(`_openfhe_R_BinFHEContext__SerializedVersion`)
+}
+
+LWE__GetLength <- function(xp, kind) {
+  .Call(`_openfhe_R_LWE__GetLength`, xp, kind)
+}
+
+LWE__GetModulus <- function(xp, kind) {
+  .Call(`_openfhe_R_LWE__GetModulus`, xp, kind)
+}
+
+LWE__equal <- function(a_xp, b_xp, kind) {
+  .Call(`_openfhe_R_LWE__equal`, a_xp, b_xp, kind)
+}
+
+LWECiphertext__GetptModulus <- function(ct_xp) {
+  .Call(`_openfhe_R_LWECiphertext__GetptModulus`, ct_xp)
+}
+
+LWECiphertext__SetModulus <- function(ct_xp, modulus) {
+  invisible(.Call(`_openfhe_R_LWECiphertext__SetModulus`, ct_xp, modulus))
+}
+
+LWECiphertext__SetptModulus <- function(ct_xp, plaintext_modulus) {
+  invisible(.Call(`_openfhe_R_LWECiphertext__SetptModulus`, ct_xp, plaintext_modulus))
+}
+
+BinFHE__SerializeToFile <- function(xp, kind, filename, binary) {
+  .Call(`_openfhe_R_BinFHE__SerializeToFile`, xp, kind, filename, binary)
+}
+
+BinFHE__DeserializeFromFile <- function(filename, kind, binary) {
+  .Call(`_openfhe_R_BinFHE__DeserializeFromFile`, filename, kind, binary)
+}
+
+openfhe_enum_values <- function() {
+  .Call(`_openfhe_R_openfhe_enum_values`)
 }
 
 openfhe_set_num_threads <- function(n) {
@@ -308,14 +428,6 @@ Plaintext__GetRealPackedValue <- function(pt_xp) {
   .Call(`_openfhe_R_Plaintext__GetRealPackedValue`, pt_xp)
 }
 
-EvalPoly <- function(ct_xp, coefficients) {
-  .Call(`_openfhe_R_EvalPoly`, ct_xp, coefficients)
-}
-
-EvalChebyshevSeries <- function(ct_xp, coefficients, a, b) {
-  .Call(`_openfhe_R_EvalChebyshevSeries`, ct_xp, coefficients, a, b)
-}
-
 EvalSin_ <- function(ct_xp, a, b, degree) {
   .Call(`_openfhe_R_EvalSin_`, ct_xp, a, b, degree)
 }
@@ -346,6 +458,10 @@ CryptoContext__EvalBootstrap <- function(ct_xp, num_iterations, precision) {
 
 FHECKKSRNS__GetBootstrapDepth <- function(level_budget, secret_key_dist) {
   .Call(`_openfhe_R_FHECKKSRNS__GetBootstrapDepth`, level_budget, secret_key_dist)
+}
+
+FHECKKSRNS__GetBootstrapDepth__approx <- function(approx_mod_depth, level_budget, secret_key_dist) {
+  .Call(`_openfhe_R_FHECKKSRNS__GetBootstrapDepth__approx`, approx_mod_depth, level_budget, secret_key_dist)
 }
 
 CryptoContext__EvalSumKeyGen <- function(cc_xp, sk_xp) {
@@ -748,6 +864,14 @@ CKKSParams__GetCKKSDataType <- function(params_xp) {
   .Call(`_openfhe_R_CKKSParams__GetCKKSDataType`, params_xp)
 }
 
+CCParams__Set <- function(params_xp, field, value) {
+  invisible(.Call(`_openfhe_R_CCParams__Set`, params_xp, field, value))
+}
+
+CCParams__ToString <- function(params_xp) {
+  .Call(`_openfhe_R_CCParams__ToString`, params_xp)
+}
+
 BFVParams__SetDigitSize <- function(params_xp, value) {
   invisible(.Call(`_openfhe_R_BFVParams__SetDigitSize`, params_xp, value))
 }
@@ -996,8 +1120,8 @@ CryptoContext__GetScalingFactorReal <- function(cc_xp, level) {
   .Call(`_openfhe_R_CryptoContext__GetScalingFactorReal`, cc_xp, level)
 }
 
-MakeCKKSPackedPlaintext__complex <- function(cc_xp, values_complex, noise_scale_deg, level, slots) {
-  .Call(`_openfhe_R_MakeCKKSPackedPlaintext__complex`, cc_xp, values_complex, noise_scale_deg, level, slots)
+MakeCKKSPackedPlaintext__complex <- function(cc_xp, values_complex, noise_scale_deg, level, params_xp, slots) {
+  .Call(`_openfhe_R_MakeCKKSPackedPlaintext__complex`, cc_xp, values_complex, noise_scale_deg, level, params_xp, slots)
 }
 
 Plaintext__GetCKKSPackedValue <- function(pt_xp) {
@@ -1020,20 +1144,28 @@ EvalAutomorphism__ <- function(ct_xp, idx, map_xp) {
   .Call(`_openfhe_R_EvalAutomorphism__`, ct_xp, idx, map_xp)
 }
 
-EvalPolyLinear__ <- function(ct_xp, coefficients) {
-  .Call(`_openfhe_R_EvalPolyLinear__`, ct_xp, coefficients)
+EvalSeriesPowers__ <- function(ct_xp, chebyshev, coefficients, a, b) {
+  .Call(`_openfhe_R_EvalSeriesPowers__`, ct_xp, chebyshev, coefficients, a, b)
 }
 
-EvalPolyPS__ <- function(ct_xp, coefficients) {
-  .Call(`_openfhe_R_EvalPolyPS__`, ct_xp, coefficients)
+EvalSeriesWithPrecomp__ <- function(powers_xp, chebyshev, coefficients) {
+  .Call(`_openfhe_R_EvalSeriesWithPrecomp__`, powers_xp, chebyshev, coefficients)
 }
 
-EvalChebyshevSeriesLinear__ <- function(ct_xp, coefficients, a, b) {
-  .Call(`_openfhe_R_EvalChebyshevSeriesLinear__`, ct_xp, coefficients, a, b)
+SeriesPowers__info <- function(powers_xp) {
+  .Call(`_openfhe_R_SeriesPowers__info`, powers_xp)
 }
 
-EvalChebyshevSeriesPS__ <- function(ct_xp, coefficients, a, b) {
-  .Call(`_openfhe_R_EvalChebyshevSeriesPS__`, ct_xp, coefficients, a, b)
+EvalBootstrapPrecompute__ <- function(cc_xp, slots) {
+  invisible(.Call(`_openfhe_R_EvalBootstrapPrecompute__`, cc_xp, slots))
+}
+
+EvalBootstrapStCFirst__ <- function(ct_xp, num_iterations, precision) {
+  .Call(`_openfhe_R_EvalBootstrapStCFirst__`, ct_xp, num_iterations, precision)
+}
+
+EvalSeries__ <- function(ct_xp, which, coefficients, a, b) {
+  .Call(`_openfhe_R_EvalSeries__`, ct_xp, which, coefficients, a, b)
 }
 
 CryptoContext__GetCKKSBootCorrectionFactor <- function(cc_xp) {
@@ -1212,24 +1344,12 @@ EvalAddInPlace__ct_pt <- function(ct_xp, pt_xp) {
   invisible(.Call(`_openfhe_R_EvalAddInPlace__ct_pt`, ct_xp, pt_xp))
 }
 
-EvalAddInPlace__ct_scalar <- function(ct_xp, scalar) {
-  invisible(.Call(`_openfhe_R_EvalAddInPlace__ct_scalar`, ct_xp, scalar))
-}
-
 EvalSubInPlace__ct_ct <- function(ct1_xp, ct2_xp) {
   invisible(.Call(`_openfhe_R_EvalSubInPlace__ct_ct`, ct1_xp, ct2_xp))
 }
 
 EvalSubInPlace__ct_pt <- function(ct_xp, pt_xp) {
   invisible(.Call(`_openfhe_R_EvalSubInPlace__ct_pt`, ct_xp, pt_xp))
-}
-
-EvalSubInPlace__ct_scalar <- function(ct_xp, scalar) {
-  invisible(.Call(`_openfhe_R_EvalSubInPlace__ct_scalar`, ct_xp, scalar))
-}
-
-EvalMultInPlace__ct_scalar <- function(ct_xp, scalar) {
-  invisible(.Call(`_openfhe_R_EvalMultInPlace__ct_scalar`, ct_xp, scalar))
 }
 
 EvalNegateInPlace__ct <- function(ct_xp) {
@@ -1284,6 +1404,186 @@ Compress__ct <- function(ct_xp, towers_left, noise_scale_deg) {
   .Call(`_openfhe_R_Compress__ct`, ct_xp, towers_left, noise_scale_deg)
 }
 
+EvalArith__real <- function(op, ct_xp, scalar, scalar_first) {
+  .Call(`_openfhe_R_EvalArith__real`, op, ct_xp, scalar, scalar_first)
+}
+
+EvalArith__complex <- function(op, ct_xp, re, im, scalar_first) {
+  .Call(`_openfhe_R_EvalArith__complex`, op, ct_xp, re, im, scalar_first)
+}
+
+EvalArithInPlace__real <- function(op, ct_xp, scalar, scalar_first) {
+  invisible(.Call(`_openfhe_R_EvalArithInPlace__real`, op, ct_xp, scalar, scalar_first))
+}
+
+EvalArithInPlace__complex <- function(op, ct_xp, re, im, scalar_first) {
+  invisible(.Call(`_openfhe_R_EvalArithInPlace__complex`, op, ct_xp, re, im, scalar_first))
+}
+
+EvalArith__pt_ct <- function(op, pt_xp, ct_xp) {
+  .Call(`_openfhe_R_EvalArith__pt_ct`, op, pt_xp, ct_xp)
+}
+
+EvalArithInPlace__pt_ct <- function(op, pt_xp, ct_xp) {
+  invisible(.Call(`_openfhe_R_EvalArithInPlace__pt_ct`, op, pt_xp, ct_xp))
+}
+
+EvalArithMutable__pt <- function(op, ct_xp, pt_xp, pt_first) {
+  .Call(`_openfhe_R_EvalArithMutable__pt`, op, ct_xp, pt_xp, pt_first)
+}
+
+EvalAddMany__ <- function(cts) {
+  .Call(`_openfhe_R_EvalAddMany__`, cts)
+}
+
+EvalAddManyInPlace__ <- function(cts) {
+  .Call(`_openfhe_R_EvalAddManyInPlace__`, cts)
+}
+
+EvalMultMany__ <- function(cts) {
+  .Call(`_openfhe_R_EvalMultMany__`, cts)
+}
+
+EvalMerge__ <- function(cts) {
+  .Call(`_openfhe_R_EvalMerge__`, cts)
+}
+
+EvalLinearWSum__ <- function(cts, constants) {
+  .Call(`_openfhe_R_EvalLinearWSum__`, cts, constants)
+}
+
+EvalLinearWSumMutable__ <- function(constants, cts) {
+  .Call(`_openfhe_R_EvalLinearWSumMutable__`, constants, cts)
+}
+
+EvalInnerProduct__ct_ct <- function(ct1_xp, ct2_xp, batch_size) {
+  .Call(`_openfhe_R_EvalInnerProduct__ct_ct`, ct1_xp, ct2_xp, batch_size)
+}
+
+EvalInnerProduct__ct_pt <- function(ct_xp, pt_xp, batch_size) {
+  .Call(`_openfhe_R_EvalInnerProduct__ct_pt`, ct_xp, pt_xp, batch_size)
+}
+
+EvalSumRowsKeyGen__ <- function(cc_xp, sk_xp, pk_xp, row_size, subring_dim) {
+  .Call(`_openfhe_R_EvalSumRowsKeyGen__`, cc_xp, sk_xp, pk_xp, row_size, subring_dim)
+}
+
+EvalSumColsKeyGen__ <- function(cc_xp, sk_xp) {
+  .Call(`_openfhe_R_EvalSumColsKeyGen__`, cc_xp, sk_xp)
+}
+
+EvalSumRows__ <- function(ct_xp, num_rows, map_xp, subring_dim) {
+  .Call(`_openfhe_R_EvalSumRows__`, ct_xp, num_rows, map_xp, subring_dim)
+}
+
+EvalSumCols__ <- function(ct_xp, num_cols, map_xp) {
+  .Call(`_openfhe_R_EvalSumCols__`, ct_xp, num_cols, map_xp)
+}
+
+EvalAtIndex__ <- function(ct_xp, index) {
+  .Call(`_openfhe_R_EvalAtIndex__`, ct_xp, index)
+}
+
+ReKeyGen__ <- function(cc_xp, old_sk_xp, new_pk_xp) {
+  .Call(`_openfhe_R_ReKeyGen__`, cc_xp, old_sk_xp, new_pk_xp)
+}
+
+ReEncrypt__ <- function(ct_xp, ek_xp, pk_xp) {
+  .Call(`_openfhe_R_ReEncrypt__`, ct_xp, ek_xp, pk_xp)
+}
+
+MakeStringPlaintext__ <- function(cc_xp, str) {
+  .Call(`_openfhe_R_MakeStringPlaintext__`, cc_xp, str)
+}
+
+EvalUnaryInPlace__ <- function(ct_xp, which) {
+  invisible(.Call(`_openfhe_R_EvalUnaryInPlace__`, ct_xp, which))
+}
+
+EvalMutableInPlace__ <- function(op, ct1_xp, ct2_xp) {
+  invisible(.Call(`_openfhe_R_EvalMutableInPlace__`, op, ct1_xp, ct2_xp))
+}
+
+EvalAddInPlaceNoCheck__ <- function(ct1_xp, ct2_xp) {
+  invisible(.Call(`_openfhe_R_EvalAddInPlaceNoCheck__`, ct1_xp, ct2_xp))
+}
+
+EvalMultNoCheck__ <- function(ct_xp, scalar) {
+  .Call(`_openfhe_R_EvalMultNoCheck__`, ct_xp, scalar)
+}
+
+EvalMultNoRelinNoCheck__ <- function(ct1_xp, ct2_xp) {
+  .Call(`_openfhe_R_EvalMultNoRelinNoCheck__`, ct1_xp, ct2_xp)
+}
+
+ComposedEvalMult__ <- function(ct1_xp, ct2_xp) {
+  .Call(`_openfhe_R_ComposedEvalMult__`, ct1_xp, ct2_xp)
+}
+
+EvalMultKeysGen__ <- function(cc_xp, sk_xp) {
+  invisible(.Call(`_openfhe_R_EvalMultKeysGen__`, cc_xp, sk_xp))
+}
+
+GetFBTDepth__ <- function(level_budget, coefficients, p_input, order, skd, first_mod_size) {
+  .Call(`_openfhe_R_GetFBTDepth__`, level_budget, coefficients, p_input, order, skd, first_mod_size)
+}
+
+GetFEFBTDepth__ <- function(level_budget, coefficients, skd, first_mod_size) {
+  .Call(`_openfhe_R_GetFEFBTDepth__`, level_budget, coefficients, skd, first_mod_size)
+}
+
+EvalFBTSetup__ <- function(cc_xp, coeffs, num_slots, p_in, p_out, big_q, pk_xp, dim1, level_budget, lvls_after_boot, depth_leveled_computation, order) {
+  invisible(.Call(`_openfhe_R_EvalFBTSetup__`, cc_xp, coeffs, num_slots, p_in, p_out, big_q, pk_xp, dim1, level_budget, lvls_after_boot, depth_leveled_computation, order))
+}
+
+EvalFBT__ <- function(ct_xp, coeffs, digit_bit_size, initial_scaling, post_scaling, level_to_reduce, order) {
+  .Call(`_openfhe_R_EvalFBT__`, ct_xp, coeffs, digit_bit_size, initial_scaling, post_scaling, level_to_reduce, order)
+}
+
+EvalFBTNoDecoding__ <- function(ct_xp, coeffs, digit_bit_size, initial_scaling, order) {
+  .Call(`_openfhe_R_EvalFBTNoDecoding__`, ct_xp, coeffs, digit_bit_size, initial_scaling, order)
+}
+
+EvalHomDecoding__ <- function(ct_xp, post_scaling, level_to_reduce) {
+  .Call(`_openfhe_R_EvalHomDecoding__`, ct_xp, post_scaling, level_to_reduce)
+}
+
+EvalMVBPrecompute__ <- function(ct_xp, coeffs, digit_bit_size, initial_scaling, order) {
+  .Call(`_openfhe_R_EvalMVBPrecompute__`, ct_xp, coeffs, digit_bit_size, initial_scaling, order)
+}
+
+EvalMVB__ <- function(powers_xp, coeffs, digit_bit_size, post_scaling, level_to_reduce, order) {
+  .Call(`_openfhe_R_EvalMVB__`, powers_xp, coeffs, digit_bit_size, post_scaling, level_to_reduce, order)
+}
+
+EvalMVBNoDecoding__ <- function(powers_xp, coeffs, digit_bit_size, order) {
+  .Call(`_openfhe_R_EvalMVBNoDecoding__`, powers_xp, coeffs, digit_bit_size, order)
+}
+
+EvalHermiteTrigSeries__ <- function(ct_xp, coefficients_cheb, a, b, coefficients_herm, precomp) {
+  .Call(`_openfhe_R_EvalHermiteTrigSeries__`, ct_xp, coefficients_cheb, a, b, coefficients_herm, precomp)
+}
+
+EvalFEFuncBootstrapSetup__ <- function(cc_xp, level_budget, dim1, slots) {
+  invisible(.Call(`_openfhe_R_EvalFEFuncBootstrapSetup__`, cc_xp, level_budget, dim1, slots))
+}
+
+EvalFEFuncBootstrap__ <- function(ct_xp, coefficients) {
+  .Call(`_openfhe_R_EvalFEFuncBootstrap__`, ct_xp, coefficients)
+}
+
+EvalFEFuncBootstrapPrecompute__ <- function(ct_xp, coefficients) {
+  .Call(`_openfhe_R_EvalFEFuncBootstrapPrecompute__`, ct_xp, coefficients)
+}
+
+EvalFEFuncBootstrapWithPrecomp__ <- function(powers_xp, coefficients) {
+  .Call(`_openfhe_R_EvalFEFuncBootstrapWithPrecomp__`, powers_xp, coefficients)
+}
+
+GetHermiteTrigCoefficients__ <- function(func, p, order, scale) {
+  .Call(`_openfhe_R_GetHermiteTrigCoefficients__`, func, p, order, scale)
+}
+
 CryptoContext__GetAllEvalMultKeys <- function() {
   .Call(`_openfhe_R_CryptoContext__GetAllEvalMultKeys`)
 }
@@ -1310,6 +1610,62 @@ CryptoContext__ClearEvalMultKeys__tag <- function(key_tag) {
 
 CryptoContext__ClearEvalAutomorphismKeys__tag <- function(key_tag) {
   invisible(.Call(`_openfhe_R_CryptoContext__ClearEvalAutomorphismKeys__tag`, key_tag))
+}
+
+KeySwitchGen__ <- function(cc_xp, old_sk_xp, new_sk_xp) {
+  .Call(`_openfhe_R_KeySwitchGen__`, cc_xp, old_sk_xp, new_sk_xp)
+}
+
+KeySwitch__ <- function(ct_xp, ek_xp) {
+  .Call(`_openfhe_R_KeySwitch__`, ct_xp, ek_xp)
+}
+
+KeySwitchInPlace__ <- function(ct_xp, ek_xp) {
+  invisible(.Call(`_openfhe_R_KeySwitchInPlace__`, ct_xp, ek_xp))
+}
+
+KeySwitchExt__ <- function(ct_xp, add_first) {
+  .Call(`_openfhe_R_KeySwitchExt__`, ct_xp, add_first)
+}
+
+KeySwitchDownFirstElement__ <- function(ct_xp) {
+  .Call(`_openfhe_R_KeySwitchDownFirstElement__`, ct_xp)
+}
+
+SparseKeyGen__ <- function(cc_xp) {
+  .Call(`_openfhe_R_SparseKeyGen__`, cc_xp)
+}
+
+MultiMultEvalKey__ <- function(cc_xp, sk_xp, ek_xp, key_tag) {
+  .Call(`_openfhe_R_MultiMultEvalKey__`, cc_xp, sk_xp, ek_xp, key_tag)
+}
+
+ClearEvalSumKeys__ <- function() {
+  invisible(.Call(`_openfhe_R_ClearEvalSumKeys__`))
+}
+
+ClearEvalSumKeys__tag <- function(key_tag) {
+  invisible(.Call(`_openfhe_R_ClearEvalSumKeys__tag`, key_tag))
+}
+
+GetAllContexts__ <- function() {
+  .Call(`_openfhe_R_GetAllContexts__`)
+}
+
+PrecomputeCRTTablesAfterDeserializaton__set <- function(enable) {
+  invisible(.Call(`_openfhe_R_PrecomputeCRTTablesAfterDeserializaton__set`, enable))
+}
+
+PrecomputeCRTTablesAfterDeserializaton__get <- function() {
+  .Call(`_openfhe_R_PrecomputeCRTTablesAfterDeserializaton__get`)
+}
+
+EvalChebyshevFunctionPtxt__ <- function(func, ptxt, a, b, degree) {
+  .Call(`_openfhe_R_EvalChebyshevFunctionPtxt__`, func, ptxt, a, b, degree)
+}
+
+GetMultiplicativeDepthByCoeffVector__ <- function(n_coefficients, is_normalized) {
+  .Call(`_openfhe_R_GetMultiplicativeDepthByCoeffVector__`, n_coefficients, is_normalized)
 }
 
 MultiEvalAutomorphismKeyGen__ <- function(cc_xp, sk_xp, map_xp, index_list, key_tag) {
@@ -1352,6 +1708,10 @@ MultipartyKeyGen <- function(cc_xp, pk_xp, make_sparse, fresh) {
   .Call(`_openfhe_R_MultipartyKeyGen`, cc_xp, pk_xp, make_sparse, fresh)
 }
 
+MultipartyKeyGen__sk_vec <- function(cc_xp, sk_list) {
+  .Call(`_openfhe_R_MultipartyKeyGen__sk_vec`, cc_xp, sk_list)
+}
+
 MultiAddPubKeys <- function(cc_xp, pk1_xp, pk2_xp, key_tag) {
   .Call(`_openfhe_R_MultiAddPubKeys`, cc_xp, pk1_xp, pk2_xp, key_tag)
 }
@@ -1378,6 +1738,154 @@ MultipartyDecryptMain <- function(cc_xp, sk_xp, ct_xp) {
 
 MultipartyDecryptFusion <- function(cc_xp, partials_list) {
   .Call(`_openfhe_R_MultipartyDecryptFusion`, cc_xp, partials_list)
+}
+
+ElementParams__GetCyclotomicOrder <- function(ep_xp) {
+  .Call(`_openfhe_R_ElementParams__GetCyclotomicOrder`, ep_xp)
+}
+
+ElementParams__GetRingDimension <- function(ep_xp) {
+  .Call(`_openfhe_R_ElementParams__GetRingDimension`, ep_xp)
+}
+
+ElementParams__GetModulus <- function(ep_xp) {
+  .Call(`_openfhe_R_ElementParams__GetModulus`, ep_xp)
+}
+
+EncodingParams__GetBatchSize <- function(ep_xp) {
+  .Call(`_openfhe_R_EncodingParams__GetBatchSize`, ep_xp)
+}
+
+EncodingParams__GetPlaintextModulus <- function(ep_xp) {
+  .Call(`_openfhe_R_EncodingParams__GetPlaintextModulus`, ep_xp)
+}
+
+EncodingParams__GetPlaintextGenerator <- function(ep_xp) {
+  .Call(`_openfhe_R_EncodingParams__GetPlaintextGenerator`, ep_xp)
+}
+
+CryptoContext__GetModulus <- function(cc_xp) {
+  .Call(`_openfhe_R_CryptoContext__GetModulus`, cc_xp)
+}
+
+CryptoContext__GetModulusCKKS <- function(cc_xp) {
+  .Call(`_openfhe_R_CryptoContext__GetModulusCKKS`, cc_xp)
+}
+
+CryptoContext__GetRootOfUnity <- function(cc_xp) {
+  .Call(`_openfhe_R_CryptoContext__GetRootOfUnity`, cc_xp)
+}
+
+CryptoContext__GetScheme <- function(cc_xp) {
+  .Call(`_openfhe_R_CryptoContext__GetScheme`, cc_xp)
+}
+
+CryptoContext__setSchemeId <- function(cc_xp, scheme_tag) {
+  invisible(.Call(`_openfhe_R_CryptoContext__setSchemeId`, cc_xp, scheme_tag))
+}
+
+CryptoContext__SerializedObjectName <- function(cc_xp) {
+  .Call(`_openfhe_R_CryptoContext__SerializedObjectName`, cc_xp)
+}
+
+CryptoContext__SerializedVersion <- function() {
+  .Call(`_openfhe_R_CryptoContext__SerializedVersion`)
+}
+
+CryptoContext__ClearCaches <- function(cc_xp, which) {
+  invisible(.Call(`_openfhe_R_CryptoContext__ClearCaches`, cc_xp, which))
+}
+
+CryptoContext__SetRNS <- function(cc_xp, field, value) {
+  invisible(.Call(`_openfhe_R_CryptoContext__SetRNS`, cc_xp, field, value))
+}
+
+CryptoContext__GetPlaintextForDecrypt <- function(encoding_type, ep_xp, encp_xp, ckks_data_type) {
+  .Call(`_openfhe_R_CryptoContext__GetPlaintextForDecrypt`, encoding_type, ep_xp, encp_xp, ckks_data_type)
+}
+
+CryptoContext__GetUniqueValues <- function(old_values, new_values) {
+  .Call(`_openfhe_R_CryptoContext__GetUniqueValues`, old_values, new_values)
+}
+
+CryptoContext__GetExistingEvalAutomorphismKeyIndices <- function(key_tag) {
+  .Call(`_openfhe_R_CryptoContext__GetExistingEvalAutomorphismKeyIndices`, key_tag)
+}
+
+CryptoContext__GetEvalAutomorphismNoKeyIndices <- function(key_tag, indices) {
+  .Call(`_openfhe_R_CryptoContext__GetEvalAutomorphismNoKeyIndices`, key_tag, indices)
+}
+
+EvalKey__GetKeyTag <- function(ek_xp) {
+  .Call(`_openfhe_R_EvalKey__GetKeyTag`, ek_xp)
+}
+
+EvalKey__SetKeyTag <- function(ek_xp, tag) {
+  invisible(.Call(`_openfhe_R_EvalKey__SetKeyTag`, ek_xp, tag))
+}
+
+PublicKey__GetCryptoContext <- function(pk_xp) {
+  .Call(`_openfhe_R_PublicKey__GetCryptoContext`, pk_xp)
+}
+
+PrivateKey__GetCryptoContext <- function(sk_xp) {
+  .Call(`_openfhe_R_PrivateKey__GetCryptoContext`, sk_xp)
+}
+
+Ciphertext__Clone <- function(ct_xp, empty) {
+  .Call(`_openfhe_R_Ciphertext__Clone`, ct_xp, empty)
+}
+
+Ciphertext__NumberCiphertextElements <- function(ct_xp) {
+  .Call(`_openfhe_R_Ciphertext__NumberCiphertextElements`, ct_xp)
+}
+
+Ciphertext__RemoveElement <- function(ct_xp, index) {
+  invisible(.Call(`_openfhe_R_Ciphertext__RemoveElement`, ct_xp, index))
+}
+
+Ciphertext__GetHopLevel <- function(ct_xp) {
+  .Call(`_openfhe_R_Ciphertext__GetHopLevel`, ct_xp)
+}
+
+Ciphertext__SetHopLevel <- function(ct_xp, hop_level) {
+  invisible(.Call(`_openfhe_R_Ciphertext__SetHopLevel`, ct_xp, hop_level))
+}
+
+Ciphertext__SetEncodingType <- function(ct_xp, encoding_type) {
+  invisible(.Call(`_openfhe_R_Ciphertext__SetEncodingType`, ct_xp, encoding_type))
+}
+
+Ciphertext__GetElements <- function(ct_xp) {
+  .Call(`_openfhe_R_Ciphertext__GetElements`, ct_xp)
+}
+
+Ciphertext__SetElements <- function(ct_xp, elements) {
+  invisible(.Call(`_openfhe_R_Ciphertext__SetElements`, ct_xp, elements))
+}
+
+Plaintext__Encode <- function(pt_xp) {
+  .Call(`_openfhe_R_Plaintext__Encode`, pt_xp)
+}
+
+Plaintext__Decode <- function(pt_xp) {
+  .Call(`_openfhe_R_Plaintext__Decode`, pt_xp)
+}
+
+Plaintext__Decode__ckks <- function(pt_xp, depth, scaling_factor, scal_tech, execution_mode) {
+  .Call(`_openfhe_R_Plaintext__Decode__ckks`, pt_xp, depth, scaling_factor, scal_tech, execution_mode)
+}
+
+Plaintext__GetElementModulus <- function(pt_xp) {
+  .Call(`_openfhe_R_Plaintext__GetElementModulus`, pt_xp)
+}
+
+Plaintext__GetEncodingParams <- function(pt_xp) {
+  .Call(`_openfhe_R_Plaintext__GetEncodingParams`, pt_xp)
+}
+
+Plaintext__SetFormat <- function(pt_xp, format) {
+  invisible(.Call(`_openfhe_R_Plaintext__SetFormat`, pt_xp, format))
 }
 
 Plaintext__GetEncodingType <- function(pt_xp) {
@@ -1484,6 +1992,174 @@ Plaintext__SetIntVectorValue <- function(pt_xp, value) {
   invisible(.Call(`_openfhe_R_Plaintext__SetIntVectorValue`, pt_xp, value))
 }
 
+SchSwchParams__new <- function() {
+  .Call(`_openfhe_R_SchSwchParams__new`)
+}
+
+SchSwchParams__Set <- function(xp, field, value) {
+  invisible(.Call(`_openfhe_R_SchSwchParams__Set`, xp, field, value))
+}
+
+SchSwchParams__Get <- function(xp, field) {
+  .Call(`_openfhe_R_SchSwchParams__Get`, xp, field)
+}
+
+SchSwchParams__SetInitialCKKSModulus <- function(xp, modulus) {
+  invisible(.Call(`_openfhe_R_SchSwchParams__SetInitialCKKSModulus`, xp, modulus))
+}
+
+SchSwchParams__GetInitialCKKSModulus <- function(xp) {
+  .Call(`_openfhe_R_SchSwchParams__GetInitialCKKSModulus`, xp)
+}
+
+SchSwchParams__SetParamsFromCKKSCryptocontextCalled <- function(xp) {
+  invisible(.Call(`_openfhe_R_SchSwchParams__SetParamsFromCKKSCryptocontextCalled`, xp))
+}
+
+SchSwchParams__str <- function(xp) {
+  .Call(`_openfhe_R_SchSwchParams__str`, xp)
+}
+
+SetParamsFromCKKSCryptocontext__ <- function(cc_xp, params_xp) {
+  invisible(.Call(`_openfhe_R_SetParamsFromCKKSCryptocontext__`, cc_xp, params_xp))
+}
+
+GetBinCCForSchemeSwitch__ <- function(cc_xp) {
+  .Call(`_openfhe_R_GetBinCCForSchemeSwitch__`, cc_xp)
+}
+
+SetBinCCForSchemeSwitch__ <- function(cc_xp, bin_xp) {
+  invisible(.Call(`_openfhe_R_SetBinCCForSchemeSwitch__`, cc_xp, bin_xp))
+}
+
+GetSwkFC__ <- function(cc_xp) {
+  .Call(`_openfhe_R_GetSwkFC__`, cc_xp)
+}
+
+SetSwkFC__ <- function(cc_xp, ct_xp) {
+  invisible(.Call(`_openfhe_R_SetSwkFC__`, cc_xp, ct_xp))
+}
+
+SchemeSwitchSetup__ <- function(cc_xp, params_xp, both) {
+  .Call(`_openfhe_R_SchemeSwitchSetup__`, cc_xp, params_xp, both)
+}
+
+EvalCkksToFhewKeyGen__ <- function(cc_xp, pk_xp, sk_xp, lwesk_xp) {
+  invisible(.Call(`_openfhe_R_EvalCkksToFhewKeyGen__`, cc_xp, pk_xp, sk_xp, lwesk_xp))
+}
+
+EvalSchemeSwitchingKeyGen__ <- function(cc_xp, pk_xp, sk_xp, lwesk_xp) {
+  invisible(.Call(`_openfhe_R_EvalSchemeSwitchingKeyGen__`, cc_xp, pk_xp, sk_xp, lwesk_xp))
+}
+
+EvalCKKStoFHEWPrecompute__ <- function(cc_xp, scale) {
+  invisible(.Call(`_openfhe_R_EvalCKKStoFHEWPrecompute__`, cc_xp, scale))
+}
+
+EvalCKKStoFHEW__ <- function(ct_xp, num_ctxts) {
+  .Call(`_openfhe_R_EvalCKKStoFHEW__`, ct_xp, num_ctxts)
+}
+
+EvalFHEWtoCKKSSetup__ <- function(cc_xp, bin_xp, num_slots_ckks, log_q) {
+  invisible(.Call(`_openfhe_R_EvalFHEWtoCKKSSetup__`, cc_xp, bin_xp, num_slots_ckks, log_q))
+}
+
+EvalFhewToCkksKeyGen__ <- function(cc_xp, pk_xp, sk_xp, lwesk_xp, num_slots, num_ctxts, dim1, l) {
+  invisible(.Call(`_openfhe_R_EvalFhewToCkksKeyGen__`, cc_xp, pk_xp, sk_xp, lwesk_xp, num_slots, num_ctxts, dim1, l))
+}
+
+EvalFHEWtoCKKS__ <- function(cc_xp, lwe_ciphertexts, num_ctxts, num_slots, p, pmin, pmax, dim1) {
+  .Call(`_openfhe_R_EvalFHEWtoCKKS__`, cc_xp, lwe_ciphertexts, num_ctxts, num_slots, p, pmin, pmax, dim1)
+}
+
+EvalCompareSwitchPrecompute__ <- function(cc_xp, p_lwe, scale_sign, unit) {
+  invisible(.Call(`_openfhe_R_EvalCompareSwitchPrecompute__`, cc_xp, p_lwe, scale_sign, unit))
+}
+
+EvalCompareSchemeSwitching__ <- function(ct1_xp, ct2_xp, num_ctxts, num_slots, p_lwe, scale_sign, unit) {
+  .Call(`_openfhe_R_EvalCompareSchemeSwitching__`, ct1_xp, ct2_xp, num_ctxts, num_slots, p_lwe, scale_sign, unit)
+}
+
+EvalMinMaxSchemeSwitching__ <- function(ct_xp, pk_xp, which, num_values, num_slots, p_lwe, scale_sign) {
+  .Call(`_openfhe_R_EvalMinMaxSchemeSwitching__`, ct_xp, pk_xp, which, num_values, num_slots, p_lwe, scale_sign)
+}
+
+PolyVector__new <- function() {
+  .Call(`_openfhe_R_PolyVector__new`)
+}
+
+PolyVector__length <- function(xp) {
+  .Call(`_openfhe_R_PolyVector__length`, xp)
+}
+
+PolyVector__clone <- function(xp) {
+  .Call(`_openfhe_R_PolyVector__clone`, xp)
+}
+
+PolyVector__SwitchModulus <- function(xp, modulus) {
+  invisible(.Call(`_openfhe_R_PolyVector__SwitchModulus`, xp, modulus))
+}
+
+PolyVector__sub <- function(a_xp, b_xp) {
+  .Call(`_openfhe_R_PolyVector__sub`, a_xp, b_xp)
+}
+
+Schemelet__GetElementParams <- function(sk_xp, level) {
+  .Call(`_openfhe_R_Schemelet__GetElementParams`, sk_xp, level)
+}
+
+Schemelet__EncryptCoeff <- function(input, q, p, sk_xp, ep_xp, bit_reverse) {
+  .Call(`_openfhe_R_Schemelet__EncryptCoeff`, input, q, p, sk_xp, ep_xp, bit_reverse)
+}
+
+Schemelet__DecryptCoeff <- function(input_xp, q, p, sk_xp, ep_xp, num_slots, length, bit_reverse) {
+  .Call(`_openfhe_R_Schemelet__DecryptCoeff`, input_xp, q, p, sk_xp, ep_xp, num_slots, length, bit_reverse)
+}
+
+Schemelet__ModSwitch <- function(input_xp, q1, q2) {
+  invisible(.Call(`_openfhe_R_Schemelet__ModSwitch`, input_xp, q1, q2))
+}
+
+Schemelet__ConvertRLWEToCKKS <- function(cc_xp, coeffs_xp, pk_xp, big_q, slots, level) {
+  .Call(`_openfhe_R_Schemelet__ConvertRLWEToCKKS`, cc_xp, coeffs_xp, pk_xp, big_q, slots, level)
+}
+
+Schemelet__ConvertCKKSToRLWE <- function(ct_xp, q) {
+  .Call(`_openfhe_R_Schemelet__ConvertCKKSToRLWE`, ct_xp, q)
+}
+
+Schemelet__GetQPrime <- function(pk_xp, lvls) {
+  .Call(`_openfhe_R_Schemelet__GetQPrime`, pk_xp, lvls)
+}
+
+SchSwchSerializer__new <- function(cc_xp, pk_xp, ct_xp) {
+  .Call(`_openfhe_R_SchSwchSerializer__new`, cc_xp, pk_xp, ct_xp)
+}
+
+SchSwchDeserializer__new <- function() {
+  .Call(`_openfhe_R_SchSwchDeserializer__new`)
+}
+
+SchSwchSerializer__SetDataDirectory <- function(xp, dir) {
+  invisible(.Call(`_openfhe_R_SchSwchSerializer__SetDataDirectory`, xp, dir))
+}
+
+SchSwchDeserializer__SetDataDirectory <- function(xp, dir) {
+  invisible(.Call(`_openfhe_R_SchSwchDeserializer__SetDataDirectory`, xp, dir))
+}
+
+SchSwchSerializer__Serialize <- function(xp) {
+  invisible(.Call(`_openfhe_R_SchSwchSerializer__Serialize`, xp))
+}
+
+SchSwchDeserializer__Deserialize <- function(xp) {
+  invisible(.Call(`_openfhe_R_SchSwchDeserializer__Deserialize`, xp))
+}
+
+SchSwchDeserializer__get <- function(xp, which) {
+  .Call(`_openfhe_R_SchSwchDeserializer__get`, xp, which)
+}
+
 MultipartyDecryptLead__ct_vec <- function(cc_xp, sk_xp, ct_list) {
   .Call(`_openfhe_R_MultipartyDecryptLead__ct_vec`, cc_xp, sk_xp, ct_list)
 }
@@ -1494,6 +2170,10 @@ MultipartyDecryptMain__ct_vec <- function(cc_xp, sk_xp, ct_list) {
 
 CryptoContext__ShareKeys <- function(cc_xp, sk_xp, n_parties, threshold, index, sharing_scheme) {
   .Call(`_openfhe_R_CryptoContext__ShareKeys`, cc_xp, sk_xp, n_parties, threshold, index, sharing_scheme)
+}
+
+SecretShareMap__length <- function(share_map_xp) {
+  .Call(`_openfhe_R_SecretShareMap__length`, share_map_xp)
 }
 
 CryptoContext__RecoverSharedKey <- function(cc_xp, share_map_xp, n_parties, threshold, sharing_scheme) {
@@ -1558,6 +2238,42 @@ ClearEvalAutomorphismKeys <- function() {
 
 ReleaseAllContexts <- function() {
   invisible(.Call(`_openfhe_R_ReleaseAllContexts`))
+}
+
+SerializeMem__ <- function(xp, kind, binary) {
+  .Call(`_openfhe_R_SerializeMem__`, xp, kind, binary)
+}
+
+SerializeMem__EvalKeyVector <- function(eks, binary) {
+  .Call(`_openfhe_R_SerializeMem__EvalKeyVector`, eks, binary)
+}
+
+DeserializeMem__ <- function(data, kind, binary) {
+  .Call(`_openfhe_R_DeserializeMem__`, data, kind, binary)
+}
+
+SerializeFile__ <- function(xp, kind, filename, binary) {
+  .Call(`_openfhe_R_SerializeFile__`, xp, kind, filename, binary)
+}
+
+DeserializeFile__ <- function(filename, kind, binary) {
+  .Call(`_openfhe_R_DeserializeFile__`, filename, kind, binary)
+}
+
+SerializeEvalKeys__ <- function(which, filename, binary, key_tag, cc_xp) {
+  .Call(`_openfhe_R_SerializeEvalKeys__`, which, filename, binary, key_tag, cc_xp)
+}
+
+DeserializeEvalKeysMem__ <- function(data, which, binary) {
+  .Call(`_openfhe_R_DeserializeEvalKeysMem__`, data, which, binary)
+}
+
+SerializeEvalBootstrapKey__ <- function(filename, binary, cc_xp, key_tag, slots) {
+  .Call(`_openfhe_R_SerializeEvalBootstrapKey__`, filename, binary, cc_xp, key_tag, slots)
+}
+
+DeserializeEvalBootstrapKey__ <- function(filename, binary, cc_xp, key_tag, slots, index_list) {
+  .Call(`_openfhe_R_DeserializeEvalBootstrapKey__`, filename, binary, cc_xp, key_tag, slots, index_list)
 }
 
 Serialize__EvalSumKey <- function(filename, binary, key_tag) {

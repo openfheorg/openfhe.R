@@ -39,16 +39,13 @@ cd ${R_OPENFHE_PKG_HOME}
 OPENFHE_INSTALL_DIR=${R_OPENFHE_PKG_HOME}/src/openfhelib
 OPENFHE_INCDIR="${OPENFHE_INSTALL_DIR}/include/openfhe"
 
-# Same discipline as configure: delete inst/openfhe ONLY when we are at
-# the end-user install from a built tarball (inst/doc present), never at
-# R CMD build's pre-install vignette-build step (inst/doc absent). See
-# the detailed comment in configure for the reasoning.
-if test -d inst/doc; then
-    echo "* Removing inst/openfhe/ (tarball install, inst/doc present)"
-    rm -rf inst/openfhe
-fi
+# As in configure: the vendored source (inst/openfhe) is not deleted
+# here. .Rinstignore keeps it out of the installed package.
 
-OPENFHE_CFLAGS="-I${OPENFHE_INCDIR} -I${OPENFHE_INCDIR}/core -I${OPENFHE_INCDIR}/pke -I${OPENFHE_INCDIR}/binfhe -I${OPENFHE_INCDIR}/cereal"
+# -DOPENFHE_R_VENDORED tells src/r_streams.cpp that the archives were
+# built by inst/build_openfhe.sh, which must leave OpenFHE's built-in
+# diagnostic sink out; the file fails the build if it is present.
+OPENFHE_CFLAGS="-DOPENFHE_R_VENDORED -I${OPENFHE_INCDIR} -I${OPENFHE_INCDIR}/core -I${OPENFHE_INCDIR}/pke -I${OPENFHE_INCDIR}/binfhe -I${OPENFHE_INCDIR}/cereal"
 OPENFHE_LIBS="-L${OPENFHE_INSTALL_DIR}/lib -lOPENFHEpke -lOPENFHEbinfhe -lOPENFHEcore"
 
 # ── Mirror the library's PARALLEL define ───────────────

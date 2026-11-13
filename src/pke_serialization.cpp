@@ -106,6 +106,8 @@ SEXP Deserialize__Ciphertext(std::string filename, bool binary) {
 [[cpp11::register]]
 bool Serialize__EvalMultKey(std::string filename, bool binary, std::string key_tag) {
   std::ofstream ofs(filename, std::ios::out | std::ios::binary);
+  // A JSON archive on a closed stream reports success and writes nothing.
+  if (!ofs.is_open()) cpp11::stop("Cannot open '%s' for writing", filename.c_str());
   bool ok;
   if (binary)
     ok = CryptoContextImpl<DCRTPoly>::SerializeEvalMultKey<SerType::SERBINARY>(ofs, SerType::BINARY, key_tag);
@@ -130,6 +132,8 @@ bool Deserialize__EvalMultKey(std::string filename, bool binary) {
 [[cpp11::register]]
 bool Serialize__EvalAutomorphismKey(std::string filename, bool binary, std::string key_tag) {
   std::ofstream ofs(filename, std::ios::out | std::ios::binary);
+  // A JSON archive on a closed stream reports success and writes nothing.
+  if (!ofs.is_open()) cpp11::stop("Cannot open '%s' for writing", filename.c_str());
   bool ok;
   if (binary)
     ok = CryptoContextImpl<DCRTPoly>::SerializeEvalAutomorphismKey<SerType::SERBINARY>(ofs, SerType::BINARY, key_tag);

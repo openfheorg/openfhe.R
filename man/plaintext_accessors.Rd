@@ -115,7 +115,8 @@ time. Incremented by each multiplication before a rescale.
 packed plaintext — the number of slots that hold user-supplied
 values. Defaults to the full batch size at construction;
 \code{set_length()} can shorten it for display or decryption
-purposes.
+purposes. For an \code{LWECiphertext} it is the dimension of the
+ciphertext vector.
 
 \item \code{get_level}: Integer level of the plaintext
 in the RNS modulus chain. \code{0} for a fresh plaintext;
@@ -152,8 +153,8 @@ plaintext from a complex vector.
 encoding type (see \code{PlaintextEncodings} for the enum values).
 
 \item \code{get_scaling_factor_int}: BGV integer
-scaling factor. Returned as a double carrying a losslessly
-rounded 53-bit integer.
+scaling factor, as a string of decimal digits. The value is a
+64-bit integer, which an R number cannot always hold exactly.
 
 \item \code{get_scheme_id}: scheme
 identifier (see \code{SchemeId} enum).
@@ -197,7 +198,8 @@ crypto context's ring dimension.
 plaintext scaling factor.
 
 \item \code{set_scaling_factor_int}: set the BGV
-plaintext integer scaling factor.
+plaintext integer scaling factor. \code{value} is a whole number of at
+most 2^53, or a string of decimal digits for a larger value.
 
 \item \code{set_noise_scale_deg}: set the
 plaintext noise scale degree. Most users should not call this

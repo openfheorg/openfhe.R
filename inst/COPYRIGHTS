@@ -14,7 +14,8 @@ The R package itself
 -------------------------------------------------------------------------
 
 Copyright (c) 2026 Balasubramanian Narasimhan
-  Files: R/**, src/**, man/**, vignettes/**, inst/tinytest/**,
+  Files: R/**, src/** (except the two files named under OpenFHE
+         below), man/**, vignettes/**, inst/tinytest/**,
          configure, configure.win, cleanup, inst/build_openfhe.sh
   License: BSD-2-Clause (see LICENSE)
 
@@ -36,17 +37,27 @@ Copyright (c) 2026 Balasubramanian Narasimhan
 Bundled third-party source, compiled at install time
 -------------------------------------------------------------------------
 
-OpenFHE (https://github.com/openfheorg/openfhe-development), v1.5.1
+OpenFHE (https://github.com/openfheorg/openfhe-development), v1.6.1
   Files: inst/openfhe/src/**, inst/openfhe/CMakeLists.txt,
          inst/openfhe/CMakeLists.User.txt, inst/openfhe/PreLoad.cmake,
          inst/openfhe/OpenFHEConfig.cmake.in,
          inst/openfhe/OpenFHEConfigVersion.cmake.in,
-         inst/openfhe/configure/**
+         inst/openfhe/configure/**,
+         src/schemeswitching-data-serializer.h,
+         src/schemeswitching-data-serializer.cpp
   Copyright (c) 2014-2026, NJIT, Duality Technologies Inc. and other
     contributors.  All rights reserved.
   Copyright (c) 2022, OpenFHE
   License: BSD-2-Clause.  Full text in inst/openfhe/LICENSE, and
     repeated in the header of every source file.
+
+  The two files under src/ are copies of
+  src/pke/unittest/utils/schemeswitching-data-serializer.{h,cpp} of
+  OpenFHE, a class the library compiles only into its unit tests.
+  They are compiled into the package's own shared object.  Their
+  copyright and license header is preserved, and the changes made
+  (removals only, and one added include) are listed at the top of
+  each file.
 
 BLAKE2 and BLAKE2X reference implementations
   Files: inst/openfhe/src/core/include/utils/prng/blake2.h

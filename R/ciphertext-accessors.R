@@ -37,7 +37,10 @@ get_crypto_context <- new_generic("get_crypto_context", "ct")
 
 method(get_crypto_context, Ciphertext) <- function(ct) {
   cc_xp <- Ciphertext__GetCryptoContext(get_ptr(ct))
-  CryptoContext(ptr = cc_xp)
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## CryptoContext(ptr = cc_xp)
+  ## <<< S7-FAST-NEW
+  .fast_new(CryptoContext, cc_xp)
 }
 
 #' Real-valued CKKS scaling factor at a modulus-chain level
@@ -123,7 +126,7 @@ method(get_scaling_factor_int, Ciphertext) <- function(x)
   Ciphertext__GetScalingFactorInt(get_ptr(x))
 
 method(set_scaling_factor_int, Ciphertext) <- function(x, value) {
-  Ciphertext__SetScalingFactorInt(get_ptr(x), as.integer(value))
+  Ciphertext__SetScalingFactorInt(get_ptr(x), wide_integer(value))
   invisible(x)
 }
 

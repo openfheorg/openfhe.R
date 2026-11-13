@@ -53,10 +53,17 @@ using EvalKeyMapSP = std::shared_ptr<EvalKeyMapT>;
 [[cpp11::register]]
 SEXP MakeCKKSPackedPlaintext__complex(SEXP cc_xp, SEXP values_complex,
                                       int noise_scale_deg, int level,
-                                      int slots) {
+                                      SEXP params_xp, int slots) {
   xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
   if (TYPEOF(values_complex) != CPLXSXP) {
     cpp11::stop("values must be a complex vector");
+  }
+  // NULL -> nullptr: the context's own parameters at `level`, as in the
+  // real-valued overload (pke_bindings.cpp).
+  std::shared_ptr<typename DCRTPoly::Params> params_ptr = nullptr;
+  if (params_xp != R_NilValue) {
+    xptr<std::shared_ptr<typename DCRTPoly::Params>> ep(params_xp);
+    params_ptr = *ep;
   }
   return catch_openfhe("CryptoContext::MakeCKKSPackedPlaintext(complex)", [&]() {
     const R_xlen_t n = Rf_xlength(values_complex);
@@ -70,7 +77,7 @@ SEXP MakeCKKSPackedPlaintext__complex(SEXP cc_xp, SEXP values_complex,
       vec,
       static_cast<size_t>(noise_scale_deg),
       static_cast<uint32_t>(level),
-      nullptr,
+      params_ptr,
       static_cast<uint32_t>(slots));
     return xptr<Plaintext>(new Plaintext(pt));
   });

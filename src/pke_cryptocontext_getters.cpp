@@ -32,6 +32,7 @@
 // design.md §5.
 #include "openfhe_cpp11.h"
 #include "openfhe_helpers.h"
+#include "wide_integers.h"
 
 using namespace cpp11;
 
@@ -136,10 +137,10 @@ std::shared_ptr<CryptoParametersRNS> as_rns_params(
 }
 
 [[cpp11::register]]
-int64_t CryptoContext__GetPlaintextModulus(SEXP cc_xp) {
+SEXP CryptoContext__GetPlaintextModulus(SEXP cc_xp) {
   xptr<CryptoContext<DCRTPoly>> cc(cc_xp);
-  return catch_openfhe("CryptoContext::GetPlaintextModulus", [&]() -> int64_t {
-    return static_cast<int64_t>(
+  return catch_openfhe("CryptoContext::GetPlaintextModulus", [&]() -> SEXP {
+    return openfhe_r::uint64_to_r(
         (*cc)->GetCryptoParameters()->GetPlaintextModulus());
   });
 }

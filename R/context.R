@@ -69,7 +69,10 @@ fhe_context <- function(scheme = c("BFV", "BGV", "CKKS"), ..., features = NULL) 
     cli_abort("Scheme {.val {scheme}} not yet implemented")
   }
 
-  cc <- CryptoContext(ptr = cc_xp)
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## cc <- CryptoContext(ptr = cc_xp)
+  ## <<< S7-FAST-NEW
+  cc <- .fast_new(CryptoContext, cc_xp)
 
   CryptoContext__Enable(cc_xp, Feature$PKE)
   CryptoContext__Enable(cc_xp, Feature$KEYSWITCH)
@@ -82,6 +85,43 @@ fhe_context <- function(scheme = c("BFV", "BGV", "CKKS"), ..., features = NULL) 
   }
 
   cc
+}
+
+#' Generate a CryptoContext from a parameter object
+#'
+#' The counterpart of OpenFHE's `GenCryptoContext(parameters)`. It
+#' returns the context with no feature enabled; call
+#' [enable_feature()] for each feature the computation needs, as the
+#' OpenFHE examples do. [fhe_context()] does both steps in one call
+#' and enables the three features most computations use.
+#'
+#' @param params A `BFVParams`, `BGVParams`, or `CKKSParams` object.
+#' @return A `CryptoContext` with no feature enabled.
+#' @seealso [fhe_context()], [enable_feature()], [ccparams_setters]
+#' @examples
+#' p <- BFVParams()
+#' set_plaintext_modulus(p, 65537)
+#' set_multiplicative_depth(p, 2L)
+#' cc <- gen_crypto_context(p)
+#' enable_feature(cc, Feature$PKE)
+#' enable_feature(cc, Feature$KEYSWITCH)
+#' enable_feature(cc, Feature$LEVELEDSHE)
+#' ring_dimension(cc)
+#' @export
+gen_crypto_context <- function(params) {
+  cc_xp <- if (S7::S7_inherits(params, BFVParams)) {
+    GenCryptoContext__BFV(get_ptr(params))
+  } else if (S7::S7_inherits(params, BGVParams)) {
+    GenCryptoContext__BGV(get_ptr(params))
+  } else if (S7::S7_inherits(params, CKKSParams)) {
+    GenCryptoContext__CKKS(get_ptr(params))
+  } else {
+    cli_abort("{.arg params} must be a {.cls BFVParams}, {.cls BGVParams}, or {.cls CKKSParams} object.")
+  }
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## CryptoContext(ptr = cc_xp)
+  ## <<< S7-FAST-NEW
+  .fast_new(CryptoContext, cc_xp)
 }
 
 #' Enable a feature on a CryptoContext

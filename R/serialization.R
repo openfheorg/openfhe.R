@@ -1,84 +1,338 @@
 ## OPENFHE PYTHON SOURCE: src/lib/pke/serialization.cpp
 
-#' Serialize an OpenFHE object to file
+## Object kinds and key registries, as numbered in
+## src/pke_serialization_memory.cpp.
+.SER_KIND <- c(CryptoContext = 0L, PublicKey = 1L, PrivateKey = 2L,
+               Ciphertext = 3L, EvalKey = 4L, EvalKeyMap = 5L,
+               EvalKeyVector = 6L)
+.SER_REGISTRY <- c(mult = 0L, automorphism = 1L, sum = 2L)
+
+## The format of serialized data held in memory: a raw vector is
+## binary, a character string JSON. `format`, when given, must agree.
+ser_data_is_binary <- function(data, format, call = rlang::caller_env()) {
+  if (is.raw(data)) {
+    binary <- TRUE
+  } else if (is.character(data) && length(data) == 1L && !is.na(data)) {
+    binary <- FALSE
+  } else {
+    cli_abort("{.arg data} must be a raw vector or a single string.", call = call)
+  }
+  if (!is.null(format) && (format == "binary") != binary) {
+    cli_abort(c("{.arg data} and {.arg format} disagree.",
+                i = "A raw vector is binary data; a string is JSON."),
+              call = call)
+  }
+  binary
+}
+
+#' Serialize an OpenFHE object
 #'
-#' @param x An OpenFHE object (CryptoContext, PublicKey, PrivateKey, Ciphertext)
-#' @param ... Method-specific arguments (filename, format)
-#' @return TRUE on success (invisibly)
+#' Writes an object to a file, or, with `filename = NULL`, returns its
+#' serialized form: a raw vector for the binary format and a character
+#' string for JSON.
+#'
+#' @param x A `CryptoContext`, `PublicKey`, `PrivateKey`, `Ciphertext`,
+#'   `EvalKey` or `EvalKeyMap`, or a list of `EvalKey` objects (in
+#'   memory only). For Binary FHE, a `BinFHEContext`, `LWECiphertext`,
+#'   `LWEPrivateKey`, `LWEPublicKey` or `RingGSWBTKey` (to a file
+#'   only).
+#' @param ... Method arguments: `filename`, a path, or `NULL` (default)
+#'   to serialize in memory; `format`, `"binary"` (default) or
+#'   `"json"`.
+#' @return With a file name, `TRUE` invisibly. Otherwise a raw vector
+#'   (`format = "binary"`) or a character string (`format = "json"`).
+#' @seealso [fhe_deserialize()], [fhe_deserialize_string()]
+#' @examples
+#' cc <- fhe_context("BFV", plaintext_modulus = 65537, multiplicative_depth = 1)
+#' keys <- key_gen(cc)
+#' bytes <- fhe_serialize(keys@public)
+#' pk <- fhe_deserialize_string(bytes, "PublicKey")
 #' @export
 fhe_serialize <- new_generic("fhe_serialize", "x")
 
-method(fhe_serialize, CryptoContext) <- function(x, filename, format = "binary") {
+method(fhe_serialize, CryptoContext) <- function(x, filename = NULL, format = "binary") {
+  if (is.null(filename)) {
+    return(SerializeMem__(x@ptr, .SER_KIND[["CryptoContext"]], format == "binary"))
+  }
   ok <- Serialize__CryptoContext(x@ptr, filename, format == "binary")
   if (!ok) cli_abort("Failed to serialize {.cls CryptoContext} to {.path {filename}}")
   invisible(ok)
 }
 
-method(fhe_serialize, PublicKey) <- function(x, filename, format = "binary") {
+method(fhe_serialize, PublicKey) <- function(x, filename = NULL, format = "binary") {
+  if (is.null(filename)) {
+    return(SerializeMem__(x@ptr, .SER_KIND[["PublicKey"]], format == "binary"))
+  }
   ok <- Serialize__PublicKey(x@ptr, filename, format == "binary")
   if (!ok) cli_abort("Failed to serialize {.cls PublicKey} to {.path {filename}}")
   invisible(ok)
 }
 
-method(fhe_serialize, PrivateKey) <- function(x, filename, format = "binary") {
+method(fhe_serialize, PrivateKey) <- function(x, filename = NULL, format = "binary") {
+  if (is.null(filename)) {
+    return(SerializeMem__(x@ptr, .SER_KIND[["PrivateKey"]], format == "binary"))
+  }
   ok <- Serialize__PrivateKey(x@ptr, filename, format == "binary")
   if (!ok) cli_abort("Failed to serialize {.cls PrivateKey} to {.path {filename}}")
   invisible(ok)
 }
 
-method(fhe_serialize, Ciphertext) <- function(x, filename, format = "binary") {
+method(fhe_serialize, Ciphertext) <- function(x, filename = NULL, format = "binary") {
+  if (is.null(filename)) {
+    return(SerializeMem__(x@ptr, .SER_KIND[["Ciphertext"]], format == "binary"))
+  }
   ok <- Serialize__Ciphertext(x@ptr, filename, format == "binary")
   if (!ok) cli_abort("Failed to serialize {.cls Ciphertext} to {.path {filename}}")
   invisible(ok)
 }
 
+method(fhe_serialize, EvalKey) <- function(x, filename = NULL, format = "binary") {
+  if (is.null(filename)) {
+    return(SerializeMem__(x@ptr, .SER_KIND[["EvalKey"]], format == "binary"))
+  }
+  ok <- SerializeFile__(x@ptr, .SER_KIND[["EvalKey"]], filename, format == "binary")
+  if (!ok) cli_abort("Failed to serialize {.cls EvalKey} to {.path {filename}}")
+  invisible(ok)
+}
+
+method(fhe_serialize, EvalKeyMap) <- function(x, filename = NULL, format = "binary") {
+  if (is.null(filename)) {
+    return(SerializeMem__(x@ptr, .SER_KIND[["EvalKeyMap"]], format == "binary"))
+  }
+  ok <- SerializeFile__(x@ptr, .SER_KIND[["EvalKeyMap"]], filename, format == "binary")
+  if (!ok) cli_abort("Failed to serialize {.cls EvalKeyMap} to {.path {filename}}")
+  invisible(ok)
+}
+
+method(fhe_serialize, class_list) <- function(x, filename = NULL, format = "binary") {
+  if (!all(vapply(x, function(k) S7::S7_inherits(k, EvalKey), logical(1)))) {
+    cli_abort("A list given to {.fn fhe_serialize} must hold {.cls EvalKey} objects.")
+  }
+  if (!is.null(filename)) {
+    cli_abort("A list of {.cls EvalKey} objects is serialized in memory only.")
+  }
+  SerializeMem__EvalKeyVector(lapply(x, get_ptr), format == "binary")
+}
+
 #' Deserialize an OpenFHE object from file
 #'
 #' @param filename Path to serialized file
-#' @param type One of "CryptoContext", "PublicKey", "PrivateKey", "Ciphertext"
+#' @param type One of `"CryptoContext"`, `"PublicKey"`, `"PrivateKey"`,
+#'   `"Ciphertext"`, `"EvalKey"`, `"EvalKeyMap"`, or, for Binary FHE,
+#'   `"BinFHEContext"`, `"LWECiphertext"`, `"LWEPrivateKey"`,
+#'   `"LWEPublicKey"`, `"RingGSWBTKey"`.
 #' @param format "binary" (default) or "json"
 #' @return The deserialized object
+#' @seealso [fhe_deserialize_string()] for data held in memory.
 #' @export
 fhe_deserialize <- function(filename, type = c("CryptoContext", "PublicKey",
-                                                "PrivateKey", "Ciphertext"),
+                                                "PrivateKey", "Ciphertext",
+                                                "EvalKey", "EvalKeyMap",
+                                                "BinFHEContext", "LWECiphertext",
+                                                "LWEPrivateKey", "LWEPublicKey",
+                                                "RingGSWBTKey"),
                             format = "binary") {
   type <- match.arg(type)
   binary <- format == "binary"
+  if (type %in% names(.BINFHE_SER_KIND)) {
+    return(.binfhe_deserialize(filename, type, binary))
+  }
   switch(type,
-    CryptoContext = CryptoContext(ptr = Deserialize__CryptoContext(filename, binary)),
-    PublicKey     = PublicKey(ptr = Deserialize__PublicKey(filename, binary)),
-    PrivateKey    = PrivateKey(ptr = Deserialize__PrivateKey(filename, binary)),
-    Ciphertext    = Ciphertext(ptr = Deserialize__Ciphertext(filename, binary))
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## CryptoContext = CryptoContext(ptr = Deserialize__CryptoContext(filename, binary)),
+    ## <<< S7-FAST-NEW
+    CryptoContext = .fast_new(CryptoContext, Deserialize__CryptoContext(filename, binary)),
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## PublicKey     = PublicKey(ptr = Deserialize__PublicKey(filename, binary)),
+    ## <<< S7-FAST-NEW
+    PublicKey     = .fast_new(PublicKey, Deserialize__PublicKey(filename, binary)),
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## PrivateKey    = PrivateKey(ptr = Deserialize__PrivateKey(filename, binary)),
+    ## <<< S7-FAST-NEW
+    PrivateKey    = .fast_new(PrivateKey, Deserialize__PrivateKey(filename, binary)),
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## Ciphertext    = Ciphertext(ptr = Deserialize__Ciphertext(filename, binary)),
+    ## <<< S7-FAST-NEW
+    Ciphertext    = .fast_new(Ciphertext, Deserialize__Ciphertext(filename, binary)),
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## EvalKey       = EvalKey(ptr = DeserializeFile__(filename, .SER_KIND[["EvalKey"]], binary)),
+    ## <<< S7-FAST-NEW
+    EvalKey       = .fast_new(EvalKey, DeserializeFile__(filename, .SER_KIND[["EvalKey"]], binary)),
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## EvalKeyMap    = EvalKeyMap(ptr = DeserializeFile__(filename, .SER_KIND[["EvalKeyMap"]], binary))
+    ## <<< S7-FAST-NEW
+    EvalKeyMap    = .fast_new(EvalKeyMap, DeserializeFile__(filename, .SER_KIND[["EvalKeyMap"]], binary))
   )
 }
 
-#' Serialize evaluation keys to file
+#' Deserialize an OpenFHE object held in memory
 #'
-#' @param filename Path to output file
-#' @param type "mult" or "automorphism"
-#' @param format "binary" (default) or "json"
-#' @param key_tag Key tag (default: "")
-#' @return TRUE on success (invisibly)
+#' The inverse of [fhe_serialize()] with `filename = NULL`.
+#'
+#' @param data A raw vector (binary format) or a character string
+#'   (JSON), as [fhe_serialize()] returns.
+#' @param type One of `"CryptoContext"`, `"PublicKey"`, `"PrivateKey"`,
+#'   `"Ciphertext"`, `"EvalKey"`, `"EvalKeyMap"`, or `"EvalKeyVector"`
+#'   for a serialized list of `EvalKey` objects.
+#' @param format `NULL` (default) to take the format from `data`, or
+#'   `"binary"` or `"json"`, which must then agree with `data`.
+#' @return The deserialized object; for `"EvalKeyVector"` a list of
+#'   `EvalKey` objects.
 #' @export
-serialize_eval_keys <- function(filename,
+fhe_deserialize_string <- function(data,
+                                   type = c("CryptoContext", "PublicKey",
+                                            "PrivateKey", "Ciphertext",
+                                            "EvalKey", "EvalKeyMap",
+                                            "EvalKeyVector"),
+                                   format = NULL) {
+  type <- match.arg(type)
+  binary <- ser_data_is_binary(data, format)
+  res <- DeserializeMem__(data, .SER_KIND[[type]], binary)
+  switch(type,
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## CryptoContext = CryptoContext(ptr = res),
+    ## <<< S7-FAST-NEW
+    CryptoContext = .fast_new(CryptoContext, res),
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## PublicKey     = PublicKey(ptr = res),
+    ## <<< S7-FAST-NEW
+    PublicKey     = .fast_new(PublicKey, res),
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## PrivateKey    = PrivateKey(ptr = res),
+    ## <<< S7-FAST-NEW
+    PrivateKey    = .fast_new(PrivateKey, res),
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## Ciphertext    = Ciphertext(ptr = res),
+    ## <<< S7-FAST-NEW
+    Ciphertext    = .fast_new(Ciphertext, res),
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## EvalKey       = EvalKey(ptr = res),
+    ## <<< S7-FAST-NEW
+    EvalKey       = .fast_new(EvalKey, res),
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## EvalKeyMap    = EvalKeyMap(ptr = res),
+    ## <<< S7-FAST-NEW
+    EvalKeyMap    = .fast_new(EvalKeyMap, res),
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## EvalKeyVector = lapply(res, function(p) EvalKey(ptr = p))
+    ## <<< S7-FAST-NEW
+    EvalKeyVector = lapply(res, function(p) .fast_new(EvalKey, p))
+  )
+}
+
+#' Serialize evaluation keys from the key registry
+#'
+#' Writes the registered multiplication, automorphism or summation
+#' keys to a file, or, with `filename = NULL`, returns them serialized
+#' in memory. The keys are those under `key_tag`, or, when `cc` is
+#' given, those of that context.
+#'
+#' @param filename Path to the output file, or `NULL` (default) to
+#'   serialize in memory.
+#' @param type `"mult"`, `"automorphism"` or `"sum"`.
+#' @param format "binary" (default) or "json"
+#' @param key_tag Key tag; `""` (default) for the keys of every tag.
+#' @param cc A `CryptoContext`, or `NULL` (default). When given,
+#'   `key_tag` is not used.
+#' @return With a file name, `TRUE` invisibly. Otherwise a raw vector
+#'   (`format = "binary"`) or a character string (`format = "json"`).
+#' @seealso [deserialize_eval_keys()], [deserialize_eval_keys_string()]
+#' @export
+serialize_eval_keys <- function(filename = NULL,
                                 type = c("mult", "automorphism", "sum"),
-                                format = "binary", key_tag = "") {
-  ## "sum" added as a third serialization
-  ## type. On the C++ side `SerializeEvalSumKey` delegates to
-  ## `SerializeEvalAutomorphismKey` (cryptocontext-ser.h line 730),
-  ## so the bytes on disk are identical between a `type = "sum"`
-  ## and a `type = "automorphism"` write. Both entry points are
-  ## exposed so callers can match whichever OpenFHE doc they are
+                                format = "binary", key_tag = "", cc = NULL) {
+  ## On the C++ side `SerializeEvalSumKey` delegates to
+  ## `SerializeEvalAutomorphismKey`, so `type = "sum"` and
+  ## `type = "automorphism"` produce the same bytes. Both entry points
+  ## are exposed so callers can match whichever OpenFHE doc they are
   ## reading.
   type <- match.arg(type)
   binary <- format == "binary"
-  ok <- switch(type,
-    mult = Serialize__EvalMultKey(filename, binary, key_tag),
-    automorphism = Serialize__EvalAutomorphismKey(filename, binary, key_tag),
-    sum = Serialize__EvalSumKey(filename, binary, key_tag)
-  )
+  if (is.null(filename) || !is.null(cc)) {
+    res <- SerializeEvalKeys__(.SER_REGISTRY[[type]], filename, binary,
+                               as.character(key_tag),
+                               if (is.null(cc)) NULL else get_ptr(cc))
+    if (is.null(filename)) return(res)
+    ok <- res
+  } else {
+    ok <- switch(type,
+      mult = Serialize__EvalMultKey(filename, binary, key_tag),
+      automorphism = Serialize__EvalAutomorphismKey(filename, binary, key_tag),
+      sum = Serialize__EvalSumKey(filename, binary, key_tag)
+    )
+  }
   if (!ok) cli_abort("Failed to serialize {type} eval keys")
   invisible(ok)
+}
+
+#' Deserialize evaluation keys held in memory
+#'
+#' Registers the keys in `data`, as [serialize_eval_keys()] with
+#' `filename = NULL` returns them.
+#'
+#' @param data A raw vector (binary format) or a character string
+#'   (JSON).
+#' @param type `"mult"`, `"automorphism"` or `"sum"`.
+#' @param format `NULL` (default) to take the format from `data`, or
+#'   `"binary"` or `"json"`, which must then agree with `data`.
+#' @return `TRUE`, invisibly.
+#' @export
+deserialize_eval_keys_string <- function(data,
+                                         type = c("mult", "automorphism", "sum"),
+                                         format = NULL) {
+  type <- match.arg(type)
+  binary <- ser_data_is_binary(data, format)
+  ok <- DeserializeEvalKeysMem__(data, .SER_REGISTRY[[type]], binary)
+  if (!ok) cli_abort("Failed to deserialize {type} eval keys")
+  invisible(ok)
+}
+
+#' Serialize the keys CKKS bootstrapping uses
+#'
+#' `serialize_eval_bootstrap_key()` writes to a file the automorphism
+#' keys that bootstrapping with `slots` slots uses, out of those
+#' registered for `cc` under `key_tag`.
+#' `deserialize_eval_bootstrap_key()` reads such a file into the
+#' registry: with `cc` and `slots`, the keys that bootstrapping setup
+#' asks for; without `cc`, the keys with the automorphism indices in
+#' `index_list`.
+#'
+#' @param filename Path to the file.
+#' @param cc A `CryptoContext` on which [eval_bootstrap_setup()] has
+#'   been called. For `deserialize_eval_bootstrap_key()`, `NULL` to
+#'   select keys by `index_list`.
+#' @param key_tag Character string; the key tag.
+#' @param slots Integer; the number of slots.
+#' @param index_list Integer vector of automorphism indices; used when
+#'   `cc` is `NULL`.
+#' @param format "binary" (default) or "json"
+#' @return `TRUE` on success, `FALSE` otherwise.
+#' @export
+serialize_eval_bootstrap_key <- function(filename, cc, key_tag, slots,
+                                         format = "binary") {
+  SerializeEvalBootstrapKey__(filename, format == "binary", get_ptr(cc),
+                              as.character(key_tag), as.integer(slots))
+}
+
+#' @rdname serialize_eval_bootstrap_key
+#' @export
+deserialize_eval_bootstrap_key <- function(filename, cc = NULL, key_tag,
+                                           slots = NULL, index_list = NULL,
+                                           format = "binary") {
+  if (is.null(cc)) {
+    if (is.null(index_list)) {
+      cli_abort("Give {.arg cc} and {.arg slots}, or {.arg index_list}.")
+    }
+    return(DeserializeEvalBootstrapKey__(filename, format == "binary", NULL,
+                                         as.character(key_tag), 0L,
+                                         as.integer(index_list)))
+  }
+  if (is.null(slots)) {
+    cli_abort("{.arg slots} is required with {.arg cc}.")
+  }
+  DeserializeEvalBootstrapKey__(filename, format == "binary", get_ptr(cc),
+                                as.character(key_tag), as.integer(slots),
+                                integer())
 }
 
 #' Deserialize evaluation keys from file

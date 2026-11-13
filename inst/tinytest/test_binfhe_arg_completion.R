@@ -85,16 +85,18 @@ expect_true(S7::S7_inherits(ct_f_floor, LWECiphertext))
 
 # ── Enum parity pins (regression guards) ────────────────
 
-## BinFHEParamSet is 44 values wide per
-## binfhe-constants.h lines 49-96. Pin the count and a few
+## BinFHEParamSet is 112 values wide per BINFHE_PARAMSET_LIST in
+## binfhe-constants.h (OpenFHE 1.6.1). Pin the count and a few
 ## representative entries so a regression that drops or
-## re-numbers values is caught.
-expect_equal(length(BinFHEParamSet), 44L)
+## re-numbers values is caught. test_enums_compiled.R checks every
+## member against the compiled headers.
+expect_equal(length(BinFHEParamSet), 112L)
 expect_equal(BinFHEParamSet$TOY, 0L)
-expect_equal(BinFHEParamSet$STD128, 3L)
-expect_equal(BinFHEParamSet$STD192, 9L)
-expect_equal(BinFHEParamSet$STD256, 15L)
-expect_equal(BinFHEParamSet$SIGNED_MOD_TEST, 43L)
+expect_equal(BinFHEParamSet$STD128, 2L)
+expect_equal(BinFHEParamSet$STD192, 8L)
+expect_equal(BinFHEParamSet$STD256, 14L)
+expect_equal(BinFHEParamSet$STD128_AP, 74L)
+expect_equal(BinFHEParamSet$SIGNED_MOD_TEST, 110L)
 
 ## BinFHEMethod has 4 values with INVALID_METHOD at 0 per
 ## binfhe-constants.h line 115.
@@ -120,7 +122,23 @@ expect_equal(KeygenMode$PUB_ENCRYPT, 1L)
 # ── Formals shape assertions ────────────────────────────
 
 expect_identical(names(formals(bin_bt_key_gen)),
-                 c("ctx", "sk", "keygen_mode"))
+                 c("ctx", "sk", "keygen_mode", "internal32"))
 expect_equal(eval(formals(bin_bt_key_gen)$keygen_mode), 0L)
+expect_true(formals(bin_bt_key_gen)$internal32)
+
+# ── bin_bt_key_gen internal32 = FALSE (OpenFHE 1.6) ─────
+
+## Keys generated in the 64-bit form evaluate gates the same way.
+ctx64 <- bin_fhe_context(paramset = BinFHEParamSet$TOY)
+sk64 <- bin_key_gen(ctx64)
+bin_bt_key_gen(ctx64, sk64, internal32 = FALSE)
+ct64_and <- eval_bin_gate(ctx64, BinGate$AND,
+                          bin_encrypt(ctx64, sk64, 1L),
+                          bin_encrypt(ctx64, sk64, 1L))
+expect_equal(bin_decrypt(ctx64, sk64, ct64_and), 1L)
+ct64_or <- eval_bin_gate(ctx64, BinGate$OR,
+                         bin_encrypt(ctx64, sk64, 0L),
+                         bin_encrypt(ctx64, sk64, 0L))
+expect_equal(bin_decrypt(ctx64, sk64, ct64_or), 0L)
 expect_identical(names(formals(eval_floor)),
                  c("ctx", "ct", "roundbits"))

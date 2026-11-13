@@ -9,7 +9,10 @@ eval_chebyshev_ps(ct, coefficients, a, b)
 \arguments{
 \item{ct}{A Ciphertext}
 
-\item{coefficients}{Numeric vector of Chebyshev coefficients}
+\item{coefficients}{Integer, double or complex vector of Chebyshev
+coefficients, as for \code{\link[=eval_chebyshev]{eval_chebyshev()}}. Pass whole-number
+coefficients as doubles: at OpenFHE 1.6.1 this evaluator returns
+wrong values for integer coefficients.}
 
 \item{a}{Lower bound of the approximation interval}
 

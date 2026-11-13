@@ -23,10 +23,11 @@
 //   - Metadata accessors — cut-line (internal)
 #include "openfhe_cpp11.h"
 #include "openfhe_helpers.h"
+#include "wide_integers.h"
 
 using namespace cpp11;
 
-// ── Ciphertext accessors ────────────────────────────────
+// ── Ciphertext accessors────────────────────────────────
 
 [[cpp11::register]]
 int Ciphertext__GetLevel(SEXP ct_xp) {
@@ -93,18 +94,21 @@ void Ciphertext__SetScalingFactor(SEXP ct_xp, double sf) {
 }
 
 [[cpp11::register]]
-double Ciphertext__GetScalingFactorInt(SEXP ct_xp) {
+std::string Ciphertext__GetScalingFactorInt(SEXP ct_xp) {
   xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
-  return catch_openfhe("Ciphertext::GetScalingFactorInt", [&]() -> double {
-    return static_cast<double>((*ct)->GetScalingFactorInt().ConvertToInt());
+  // NativeInteger, up to 64 bits: decimal string, never a double
+  // (wide_integers.h).
+  return catch_openfhe("Ciphertext::GetScalingFactorInt", [&]() -> std::string {
+    return openfhe_r::wide_to_r((*ct)->GetScalingFactorInt());
   });
 }
 
 [[cpp11::register]]
-void Ciphertext__SetScalingFactorInt(SEXP ct_xp, int64_t sf) {
+void Ciphertext__SetScalingFactorInt(SEXP ct_xp, std::string sf) {
   xptr<Ciphertext<DCRTPoly>> ct(ct_xp);
   catch_openfhe("Ciphertext::SetScalingFactorInt", [&]() {
-    (*ct)->SetScalingFactorInt(NativeInteger(static_cast<uint64_t>(sf)));
+    (*ct)->SetScalingFactorInt(
+        openfhe_r::wide_from_r<NativeInteger>(sf, "value"));
   });
 }
 

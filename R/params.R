@@ -147,7 +147,7 @@ BFVParams <- new_class("BFVParams",
                          encryption_technique    = NULL) {
     xp <- BFVParams__new()
     if (!is.null(plaintext_modulus))
-      BFVParams__SetPlaintextModulus(xp, as.integer(plaintext_modulus))
+      BFVParams__SetPlaintextModulus(xp, wide_integer(plaintext_modulus))
     if (!is.null(multiplicative_depth))
       BFVParams__SetMultiplicativeDepth(xp, as.integer(multiplicative_depth))
     if (!is.null(scaling_mod_size))
@@ -268,7 +268,7 @@ BGVParams <- new_class("BGVParams",
                          pre_num_hops             = NULL) {
     xp <- BGVParams__new()
     if (!is.null(plaintext_modulus))
-      BGVParams__SetPlaintextModulus(xp, as.integer(plaintext_modulus))
+      BGVParams__SetPlaintextModulus(xp, wide_integer(plaintext_modulus))
     if (!is.null(multiplicative_depth))
       BGVParams__SetMultiplicativeDepth(xp, as.integer(multiplicative_depth))
     if (!is.null(scaling_mod_size))
@@ -471,17 +471,4 @@ CKKSParams <- new_class("CKKSParams",
 
 # ── Print methods ───────────────────────────────────────
 
-method(print, BFVParams) <- function(x, ...) {
-  cli::cli_text("{.cls BFVParams} [{if (ptr_is_valid(x)) 'configured' else 'null'}]")
-  invisible(x)
-}
-
-method(print, BGVParams) <- function(x, ...) {
-  cli::cli_text("{.cls BGVParams} [{if (ptr_is_valid(x)) 'configured' else 'null'}]")
-  invisible(x)
-}
-
-method(print, CKKSParams) <- function(x, ...) {
-  cli::cli_text("{.cls CKKSParams} [{if (ptr_is_valid(x)) 'configured' else 'null'}]")
-  invisible(x)
-}
+## print() and format() for the three classes: R/params-setters.R.

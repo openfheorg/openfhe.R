@@ -57,7 +57,8 @@ get_noise_scale_deg <- new_generic("get_noise_scale_deg", "x")
 #'   packed plaintext — the number of slots that hold user-supplied
 #'   values. Defaults to the full batch size at construction;
 #'   `set_length()` can shorten it for display or decryption
-#'   purposes.
+#'   purposes. For an `LWECiphertext` it is the dimension of the
+#'   ciphertext vector.
 #' @export
 get_length <- new_generic("get_length", "x")
 
@@ -110,8 +111,8 @@ set_ckks_data_type <- new_generic("set_ckks_data_type", "x")
 get_encoding_type <- new_generic("get_encoding_type", "x")
 
 #' @describeIn plaintext_accessors BGV integer
-#'   scaling factor. Returned as a double carrying a losslessly
-#'   rounded 53-bit integer.
+#'   scaling factor, as a string of decimal digits. The value is a
+#'   64-bit integer, which an R number cannot always hold exactly.
 #' @export
 get_scaling_factor_int <- new_generic("get_scaling_factor_int", "x")
 
@@ -185,7 +186,8 @@ get_element_ring_dimension <- new_generic("get_element_ring_dimension", "x")
 set_scaling_factor <- new_generic("set_scaling_factor", "x")
 
 #' @describeIn plaintext_accessors set the BGV
-#'   plaintext integer scaling factor.
+#'   plaintext integer scaling factor. `value` is a whole number of at
+#'   most 2^53, or a string of decimal digits for a larger value.
 #' @export
 set_scaling_factor_int <- new_generic("set_scaling_factor_int", "x")
 
@@ -258,7 +260,7 @@ method(set_scaling_factor, Plaintext) <- function(x, value) {
   invisible(x)
 }
 method(set_scaling_factor_int, Plaintext) <- function(x, value) {
-  Plaintext__SetScalingFactorInt(get_ptr(x), as.integer(value))
+  Plaintext__SetScalingFactorInt(get_ptr(x), wide_integer(value))
   invisible(x)
 }
 method(set_noise_scale_deg, Plaintext) <- function(x, value) {

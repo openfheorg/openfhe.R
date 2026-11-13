@@ -69,8 +69,14 @@ method(key_gen, CryptoContext) <- function(cc, eval_mult = FALSE, rotations = NU
   cc_ptr <- get_ptr(cc)
   kp_list <- CryptoContext__KeyGen(cc_ptr)
 
-  pk <- PublicKey(ptr = kp_list$public)
-  sk <- PrivateKey(ptr = kp_list$secret)
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## pk <- PublicKey(ptr = kp_list$public)
+  ## <<< S7-FAST-NEW
+  pk <- .fast_new(PublicKey, kp_list$public)
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## sk <- PrivateKey(ptr = kp_list$secret)
+  ## <<< S7-FAST-NEW
+  sk <- .fast_new(PrivateKey, kp_list$secret)
 
   if (eval_mult) {
     CryptoContext__EvalMultKeyGen(cc_ptr, kp_list$secret)

@@ -25,7 +25,9 @@ eval_bootstrap_setup(
 
 \item{correction_factor}{Correction factor (default: 0)}
 
-\item{precompute}{Precompute rotation keys (default: TRUE)}
+\item{precompute}{Logical; compute the encoding and decoding
+plaintexts of bootstrapping now (default: TRUE). With \code{FALSE},
+call \code{\link[=eval_bootstrap_precompute]{eval_bootstrap_precompute()}} before \code{\link[=eval_bootstrap]{eval_bootstrap()}}.}
 
 \item{bt_slots_encoding}{Logical; controls whether the
 bootstrap precomputes with slot-count encoding (the
@@ -39,5 +41,8 @@ precomputed and cached inside the C++ context. Call it before
 \code{\link[=eval_bootstrap_key_gen]{eval_bootstrap_key_gen()}}.
 }
 \description{
-Set up CKKS bootstrapping
+The multiplicative depth of \code{cc} must be at least
+\code{\link[=get_bootstrap_depth]{get_bootstrap_depth()}} for \code{level_budget}. At OpenFHE 1.6.1 the
+library does not check this, and a setup with \code{precompute = TRUE}
+on a shallower context ends the R session.
 }

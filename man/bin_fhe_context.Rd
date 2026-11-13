@@ -19,9 +19,11 @@ bin_fhe_context(
 \item{method}{A BinFHEMethod value (default: GINX)}
 
 \item{arb_func}{If TRUE, build a context that supports
-arbitrary-function bootstrapping (EvalSign, EvalFunc). Selecting
-any of \code{arb_func}, \code{log_q}, \code{n}, or \code{time_optimization} activates
-the extended overload.}
+arbitrary-function bootstrapping (EvalSign, EvalFunc). Supplying
+any of \code{arb_func}, \code{log_q}, \code{n}, or \code{time_optimization}, even at
+its default value, selects the C++ overload that derives the
+parameters from them instead of reading the table for \code{paramset};
+the two give different contexts for the same \code{paramset}.}
 
 \item{log_q}{log2 of the large ciphertext modulus Q used by
 functional bootstrapping (default 11; use 17 for the eval-sign

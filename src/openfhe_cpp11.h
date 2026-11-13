@@ -85,6 +85,23 @@ template <> struct xptr_traits<std::shared_ptr<EncodingParamsImpl>> {
   static const char* name() { return "openfhe.R::EncodingParams"; } };
 template <> struct xptr_traits<std::shared_ptr<CryptoParametersBase<DCRTPoly>>> {
   static const char* name() { return "openfhe.R::CryptoParameters"; } };
+// Handle classes added with the OpenFHE 1.6.1 surface.
+template <> struct xptr_traits<DCRTPoly> {
+  static const char* name() { return "openfhe.R::DCRTPoly"; } };
+template <> struct xptr_traits<std::shared_ptr<SchemeBase<DCRTPoly>>> {
+  static const char* name() { return "openfhe.R::SchemeBase"; } };
+template <> struct xptr_traits<std::shared_ptr<seriesPowers<DCRTPoly>>> {
+  static const char* name() { return "openfhe.R::SeriesPowers"; } };
+template <> struct xptr_traits<std::vector<Poly>> {
+  static const char* name() { return "openfhe.R::PolyVector"; } };
+template <> struct xptr_traits<LWEPublicKey> {
+  static const char* name() { return "openfhe.R::LWEPublicKey"; } };
+template <> struct xptr_traits<LWESwitchingKey> {
+  static const char* name() { return "openfhe.R::LWESwitchingKey"; } };
+template <> struct xptr_traits<RingGSWBTKey> {
+  static const char* name() { return "openfhe.R::RingGSWBTKey"; } };
+template <> struct xptr_traits<SchSwchParams> {
+  static const char* name() { return "openfhe.R::SchSwchParams"; } };
 
 // The tag is an interned R symbol, so equality is pointer equality.
 template <typename T>

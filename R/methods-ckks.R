@@ -11,12 +11,43 @@
 #' multiplications for high-degree polynomials.
 #'
 #' @param ct A Ciphertext
-#' @param coefficients Numeric vector of polynomial coefficients
+#' @param coefficients Vector of polynomial coefficients, constant
+#'   term first. An integer, double or complex vector; OpenFHE
+#'   evaluates each type with its own arithmetic (integer
+#'   coefficients as exact 64-bit integers, complex coefficients for
+#'   a context with `CKKSDataType$COMPLEX`).
 #' @return A Ciphertext
 #' @seealso [eval_poly_linear()], [eval_poly_ps()]
 #' @export
 eval_poly <- function(ct, coefficients) {
-  Ciphertext(ptr = EvalPoly(ct@ptr, as.double(coefficients)))
+  .eval_series(.SERIES_POLY, ct, coefficients)
+}
+
+## Evaluator codes shared with src/pke_ckks_eval_poly.cpp.
+.SERIES_POLY        <- 0L
+.SERIES_POLY_LINEAR <- 1L
+.SERIES_POLY_PS     <- 2L
+.SERIES_CHEB        <- 3L
+.SERIES_CHEB_LINEAR <- 4L
+.SERIES_CHEB_PS     <- 5L
+
+## Shared body of the six series evaluators. The coefficient vector
+## goes through with its own type: integer, double or complex.
+.eval_series <- function(which, ct, coefficients, a = 0, b = 0) {
+  ok <- (is.numeric(coefficients) || is.complex(coefficients)) &&
+    !is.object(coefficients) && length(coefficients) > 0L &&
+    !anyNA(coefficients)
+  if (!ok) {
+    cli_abort(
+      "{.arg coefficients} must be a non-empty integer, double or complex vector with no missing values.",
+      call = rlang::caller_env())
+  }
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalSeries__(get_ptr(ct), which, coefficients,
+  ##                               as.double(a), as.double(b)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalSeries__(get_ptr(ct), which, coefficients,
+                                     as.double(a), as.double(b)))
 }
 
 #' Evaluate a polynomial via the linear evaluator
@@ -28,12 +59,13 @@ eval_poly <- function(ct, coefficients) {
 #' [eval_poly_ps()] above that.
 #'
 #' @param ct A Ciphertext
-#' @param coefficients Numeric vector of polynomial coefficients
+#' @param coefficients Integer, double or complex vector of polynomial
+#'   coefficients, as for [eval_poly()]
 #' @return A Ciphertext
 #' @seealso [eval_poly()], [eval_poly_ps()]
 #' @export
 eval_poly_linear <- function(ct, coefficients) {
-  Ciphertext(ptr = EvalPolyLinear__(ct@ptr, as.double(coefficients)))
+  .eval_series(.SERIES_POLY_LINEAR, ct, coefficients)
 }
 
 #' Evaluate a polynomial via the Paterson-Stockmeyer method
@@ -44,12 +76,13 @@ eval_poly_linear <- function(ct, coefficients) {
 #' deeper circuit); for degree < 5 prefer [eval_poly_linear()].
 #'
 #' @param ct A Ciphertext
-#' @param coefficients Numeric vector of polynomial coefficients
+#' @param coefficients Integer, double or complex vector of polynomial
+#'   coefficients, as for [eval_poly()]
 #' @return A Ciphertext
 #' @seealso [eval_poly()], [eval_poly_linear()]
 #' @export
 eval_poly_ps <- function(ct, coefficients) {
-  Ciphertext(ptr = EvalPolyPS__(ct@ptr, as.double(coefficients)))
+  .eval_series(.SERIES_POLY_PS, ct, coefficients)
 }
 
 #' Evaluate a Chebyshev series on a ciphertext
@@ -61,7 +94,12 @@ eval_poly_ps <- function(ct, coefficients) {
 #' or the other.
 #'
 #' @param ct A Ciphertext
-#' @param coefficients Numeric vector of Chebyshev coefficients
+#' @param coefficients Integer, double or complex vector of Chebyshev
+#'   coefficients. Each type is evaluated with its own arithmetic, as
+#'   for [eval_poly()]. Pass whole-number coefficients as doubles
+#'   (`c(1, 2, 3)`, not `c(1L, 2L, 3L)`): at OpenFHE 1.6.1 the
+#'   Paterson-Stockmeyer evaluator, which this function uses from
+#'   degree 5, returns wrong values for integer coefficients.
 #' @param a Lower bound of the approximation interval
 #' @param b Upper bound of the approximation interval
 #' @return A Ciphertext
@@ -72,7 +110,7 @@ eval_poly_ps <- function(ct, coefficients) {
 #'   forcing the algorithm.
 #' @export
 eval_chebyshev <- function(ct, coefficients, a, b) {
-  Ciphertext(ptr = EvalChebyshevSeries(ct@ptr, as.double(coefficients), a, b))
+  .eval_series(.SERIES_CHEB, ct, coefficients, a, b)
 }
 
 #' Evaluate a Chebyshev series via the linear evaluator
@@ -82,15 +120,15 @@ eval_chebyshev <- function(ct, coefficients, a, b) {
 #' more multiplications at high degree.
 #'
 #' @param ct A Ciphertext
-#' @param coefficients Numeric vector of Chebyshev coefficients
+#' @param coefficients Integer, double or complex vector of Chebyshev
+#'   coefficients, as for [eval_chebyshev()]
 #' @param a Lower bound of the approximation interval
 #' @param b Upper bound of the approximation interval
 #' @return A Ciphertext
 #' @seealso [eval_chebyshev()], [eval_chebyshev_ps()]
 #' @export
 eval_chebyshev_linear <- function(ct, coefficients, a, b) {
-  Ciphertext(ptr = EvalChebyshevSeriesLinear__(
-    ct@ptr, as.double(coefficients), a, b))
+  .eval_series(.SERIES_CHEB_LINEAR, ct, coefficients, a, b)
 }
 
 #' Evaluate a Chebyshev series via the Paterson-Stockmeyer method
@@ -99,15 +137,17 @@ eval_chebyshev_linear <- function(ct, coefficients, a, b) {
 #' of degree. Efficient for high-degree polynomials.
 #'
 #' @param ct A Ciphertext
-#' @param coefficients Numeric vector of Chebyshev coefficients
+#' @param coefficients Integer, double or complex vector of Chebyshev
+#'   coefficients, as for [eval_chebyshev()]. Pass whole-number
+#'   coefficients as doubles: at OpenFHE 1.6.1 this evaluator returns
+#'   wrong values for integer coefficients.
 #' @param a Lower bound of the approximation interval
 #' @param b Upper bound of the approximation interval
 #' @return A Ciphertext
 #' @seealso [eval_chebyshev()], [eval_chebyshev_linear()]
 #' @export
 eval_chebyshev_ps <- function(ct, coefficients, a, b) {
-  Ciphertext(ptr = EvalChebyshevSeriesPS__(
-    ct@ptr, as.double(coefficients), a, b))
+  .eval_series(.SERIES_CHEB_PS, ct, coefficients, a, b)
 }
 
 #' Chebyshev coefficients for a real-valued function
@@ -198,7 +238,10 @@ eval_chebyshev_function <- function(ct, func, a, b, degree) {
 #' @return A Ciphertext
 #' @export
 eval_sin <- function(ct, a, b, degree) {
-  Ciphertext(ptr = EvalSin_(ct@ptr, a, b, as.integer(degree)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalSin_(ct@ptr, a, b, as.integer(degree)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalSin_(ct@ptr, a, b, as.integer(degree)))
 }
 
 #' Evaluate cosine on a ciphertext
@@ -209,7 +252,10 @@ eval_sin <- function(ct, a, b, degree) {
 #'   result sits `ceiling(log2(degree)) + 1` levels below `ct`.
 #' @export
 eval_cos <- function(ct, a, b, degree) {
-  Ciphertext(ptr = EvalCos_(ct@ptr, a, b, as.integer(degree)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalCos_(ct@ptr, a, b, as.integer(degree)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalCos_(ct@ptr, a, b, as.integer(degree)))
 }
 
 #' Evaluate logistic function on a ciphertext
@@ -221,7 +267,10 @@ eval_cos <- function(ct, a, b, degree) {
 #'   1` levels below `ct`.
 #' @export
 eval_logistic <- function(ct, a, b, degree) {
-  Ciphertext(ptr = EvalLogistic_(ct@ptr, a, b, as.integer(degree)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalLogistic_(ct@ptr, a, b, as.integer(degree)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalLogistic_(ct@ptr, a, b, as.integer(degree)))
 }
 
 #' Evaluate division approximation on a ciphertext
@@ -233,17 +282,27 @@ eval_logistic <- function(ct, a, b, degree) {
 #'   below `ct`.
 #' @export
 eval_divide <- function(ct, a, b, degree) {
-  Ciphertext(ptr = EvalDivide_(ct@ptr, a, b, as.integer(degree)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = EvalDivide_(ct@ptr, a, b, as.integer(degree)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, EvalDivide_(ct@ptr, a, b, as.integer(degree)))
 }
 
 #' Set up CKKS bootstrapping
+#'
+#' The multiplicative depth of `cc` must be at least
+#' [get_bootstrap_depth()] for `level_budget`. At OpenFHE 1.6.1 the
+#' library does not check this, and a setup with `precompute = TRUE`
+#' on a shallower context ends the R session.
 #'
 #' @param cc A CryptoContext
 #' @param level_budget Integer vector of length 2 (default: c(5, 4))
 #' @param dim1 Integer vector of length 2 (default: c(0, 0))
 #' @param slots Number of slots (default: 0 = automatic)
 #' @param correction_factor Correction factor (default: 0)
-#' @param precompute Precompute rotation keys (default: TRUE)
+#' @param precompute Logical; compute the encoding and decoding
+#'   plaintexts of bootstrapping now (default: TRUE). With `FALSE`,
+#'   call [eval_bootstrap_precompute()] before [eval_bootstrap()].
 #' @param bt_slots_encoding Logical; controls whether the
 #'   bootstrap precomputes with slot-count encoding (the
 #'   `BTSlotsEncoding` tail argument on cryptocontext.h line
@@ -289,18 +348,37 @@ eval_bootstrap_key_gen <- function(cc, sk, slots) {
 #' @return A refreshed Ciphertext
 #' @export
 eval_bootstrap <- function(ct, num_iterations = 1L, precision = 0L) {
-  Ciphertext(ptr = CryptoContext__EvalBootstrap(ct@ptr,
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## Ciphertext(ptr = CryptoContext__EvalBootstrap(ct@ptr,
+  ##   as.integer(num_iterations), as.integer(precision)))
+  ## <<< S7-FAST-NEW
+  .fast_new(Ciphertext, CryptoContext__EvalBootstrap(ct@ptr,
     as.integer(num_iterations), as.integer(precision)))
 }
 
 #' Get the required multiplicative depth for CKKS bootstrapping
 #'
 #' @param level_budget Integer vector of length 2
-#' @param secret_key_dist Secret key distribution (default: UNIFORM_TERNARY = 1)
+#' @param secret_key_dist Secret key distribution, an element of
+#'   [SecretKeyDist] (default: `SecretKeyDist$UNIFORM_TERNARY`)
+#' @param approx_mod_depth Optional integer: the depth of the Chebyshev
+#'   interpolation of the approximate modular reduction. When given,
+#'   the three-argument C++ form is called, which OpenFHE keeps for
+#'   backward compatibility. `NULL` (default) calls the two-argument
+#'   form, which derives that depth from `secret_key_dist`.
 #' @return Integer: required depth
 #' @export
-get_bootstrap_depth <- function(level_budget, secret_key_dist = 1L) {
-  FHECKKSRNS__GetBootstrapDepth(as.integer(level_budget), as.integer(secret_key_dist))
+get_bootstrap_depth <- function(level_budget,
+                                secret_key_dist = SecretKeyDist$UNIFORM_TERNARY,
+                                approx_mod_depth = NULL) {
+  if (is.null(approx_mod_depth)) {
+    FHECKKSRNS__GetBootstrapDepth(as.integer(level_budget),
+                                  as.integer(secret_key_dist))
+  } else {
+    FHECKKSRNS__GetBootstrapDepth__approx(as.integer(approx_mod_depth),
+                                          as.integer(level_budget),
+                                          as.integer(secret_key_dist))
+  }
 }
 
 # SecretKeyDist is defined in enums.R (from C++ headers)

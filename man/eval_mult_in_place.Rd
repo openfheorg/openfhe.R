@@ -2,26 +2,22 @@
 % Please edit documentation in R/methods-eval-extra.R
 \name{eval_mult_in_place}
 \alias{eval_mult_in_place}
-\title{Homomorphic multiplication in place}
+\title{Homomorphic multiplication by a number, in place}
 \usage{
 eval_mult_in_place(x, ...)
 }
 \arguments{
-\item{x}{A \code{Ciphertext} (modified in place).}
+\item{x}{A \code{Ciphertext}, or a single real or complex number.}
 
-\item{...}{Method-specific arguments: \code{y} — a numeric scalar
-to multiply \code{x} by.}
+\item{...}{Method-specific arguments: \code{y}, the other operand.}
 }
 \value{
-\code{x} invisibly.
+The modified \code{Ciphertext}, invisibly.
 }
 \description{
-Modifies the first argument in place to hold the result of
-multiplying by a numeric scalar. \code{CryptoContextImpl} only
-declares \code{EvalMultInPlace} scalar overloads in the v1.5.1.0
-header surface — the ct/ct and ct/pt variants that
-upstream-defects P1 refers to live on \code{SchemeBase} and are not
-exposed on \code{CryptoContextImpl}, so R's \code{eval_mult_in_place}
-supports only the scalar case. The ct/ct multiplication
-continues to work via the non-in-place \code{\link[=eval_mult]{eval_mult()}} generic.
+Multiplies a ciphertext by a single real or complex number (CKKS)
+and stores the result in the ciphertext. The operands may be given
+in either order. OpenFHE declares no in-place product of two
+ciphertexts or of a ciphertext and a plaintext on the
+\code{CryptoContext}; use \code{\link[=eval_mult]{eval_mult()}} for those.
 }

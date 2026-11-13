@@ -1,4 +1,4 @@
-## @openfhe-python: NONE — SerializeEvalSumKey/DeserializeEvalSumKey are R-first [R-ONLY]
+## @openfhe-python: src/lib/bindings.cpp [FULL: SerializeEvalSumKey, DeserializeEvalSumKey]
 ##
 ## sum-key file-based serialize/
 ## deserialize. The C++ SerializeEvalSumKey /
@@ -9,10 +9,9 @@
 ## entry point. Both are exposed so fixture authors can match
 ## whichever OpenFHE doc they are reading.
 ##
-## openfhe-python v1.5.1.0 does not bind the sum-key serialize
-## entry points — Python users reach for the automorphism form
-## directly. This is an R-only surface extension logged in
-## notes/upstream-defects.md.
+## openfhe-python binds the sum-key entry points from 1.6.1.0; at
+## v1.5.1.0 they were an R-only extension. The upstream round-trip
+## test is ported in test_upstream_api_coverage.R.
 library(openfhe.R)
 
 # ── Clean slate ─────────────────────────────────────────
@@ -35,7 +34,7 @@ tag <- get_key_tag(kp@secret)
 # ── serialize_eval_keys(type = "sum"): formals check ────
 
 expect_identical(names(formals(serialize_eval_keys)),
-                 c("filename", "type", "format", "key_tag"))
+                 c("filename", "type", "format", "key_tag", "cc"))
 ## Verify "sum" is accepted as a valid type (match.arg).
 expect_equal(eval(formals(serialize_eval_keys)$type),
              c("mult", "automorphism", "sum"))

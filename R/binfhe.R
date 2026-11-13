@@ -29,6 +29,10 @@ LWECiphertext <- new_class("LWECiphertext",
   package = "openfhe.R"
 )
 
+## get_length generic: R/plaintext-accessors.R (dispatch on `x`). For an
+## LWE ciphertext it is the dimension of the ciphertext vector.
+method(get_length, LWECiphertext) <- function(x) LWECiphertext__GetLength(get_ptr(x))
+
 #' LWE Private Key (Binary FHE)
 #' @param ptr External pointer (internal use)
 #' @return An S7 object of class `LWEPrivateKey`, inheriting from
@@ -58,9 +62,11 @@ LWEPrivateKey <- new_class("LWEPrivateKey",
 #' @param paramset A BinFHEParamSet value (default: STD128)
 #' @param method A BinFHEMethod value (default: GINX)
 #' @param arb_func If TRUE, build a context that supports
-#'   arbitrary-function bootstrapping (EvalSign, EvalFunc). Selecting
-#'   any of `arb_func`, `log_q`, `n`, or `time_optimization` activates
-#'   the extended overload.
+#'   arbitrary-function bootstrapping (EvalSign, EvalFunc). Supplying
+#'   any of `arb_func`, `log_q`, `n`, or `time_optimization`, even at
+#'   its default value, selects the C++ overload that derives the
+#'   parameters from them instead of reading the table for `paramset`;
+#'   the two give different contexts for the same `paramset`.
 #' @param log_q log2 of the large ciphertext modulus Q used by
 #'   functional bootstrapping (default 11; use 17 for the eval-sign
 #'   example).
@@ -75,8 +81,13 @@ bin_fhe_context <- function(paramset = BinFHEParamSet$STD128,
                             n = 0L,
                             time_optimization = FALSE) {
   ctx_xp <- BinFHEContext__new()
-  use_arb <- isTRUE(arb_func) || !identical(as.integer(log_q), 11L) ||
-    !identical(as.integer(n), 0L) || isTRUE(time_optimization)
+  ## C++ has two overloads: (set, method) reads the parameter table, and
+  ## (set, arbFunc, logQ, N, method, timeOptimization) derives the
+  ## parameters. Supplying any of the four extra arguments, at its
+  ## default value or not, selects the second, as it does in C++ and
+  ## Python: (STD128, arbFunc = false) has n = 1305, (STD128) has n = 554.
+  use_arb <- !missing(arb_func) || !missing(log_q) || !missing(n) ||
+    !missing(time_optimization)
   if (use_arb) {
     BinFHEContext__GenerateBinFHEContextArbFunc(
       ctx_xp,
@@ -89,7 +100,10 @@ bin_fhe_context <- function(paramset = BinFHEParamSet$STD128,
   } else {
     BinFHEContext__GenerateBinFHEContext(ctx_xp, as.integer(paramset), as.integer(method))
   }
-  BinFHEContext(ptr = ctx_xp)
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## BinFHEContext(ptr = ctx_xp)
+  ## <<< S7-FAST-NEW
+  .fast_new(BinFHEContext, ctx_xp)
 }
 
 #' Maximum supported plaintext space for functional bootstrapping
@@ -108,7 +122,10 @@ get_max_plaintext_space <- function(ctx) {
 #' @export
 bin_key_gen <- function(ctx) {
   sk_xp <- BinFHEContext__KeyGen(ctx@ptr)
-  LWEPrivateKey(ptr = sk_xp)
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## LWEPrivateKey(ptr = sk_xp)
+  ## <<< S7-FAST-NEW
+  .fast_new(LWEPrivateKey, sk_xp)
 }
 
 #' Generate BinFHE bootstrapping keys
@@ -121,16 +138,23 @@ bin_key_gen <- function(ctx) {
 #'   default and the C++ default per
 #'   `binfhe-constants.h` line 133) or public-key encryption
 #'   (`KeygenMode$PUB_ENCRYPT`), matching the
-#'   `BTKeyGen(sk, keyGenMode)` overload at
-#'   `binfhecontext.h` line 273.
+#'   `BTKeyGen(sk, keygenMode, internal32)` method in
+#'   `binfhecontext.h`.
+#' @param internal32 Logical. If `TRUE` (the default, and the C++
+#'   default), keys whose moduli fit are generated directly in the
+#'   library's 32-bit internal form; a key that does not qualify is
+#'   generated in the 64-bit form. If `FALSE`, all keys are generated
+#'   in the 64-bit form.
 #' @return Invisibly, the `ctx` BinFHE context that was passed in. Called for
 #'   its side effect: the bootstrapping and key-switching keys are
 #'   generated and stored inside the C++ context, after which
 #'   [eval_bin_gate()] and the other gate evaluations can be used.
 #' @export
 bin_bt_key_gen <- function(ctx, sk,
-                           keygen_mode = KeygenMode$SYM_ENCRYPT) {
-  BinFHEContext__BTKeyGen(ctx@ptr, sk@ptr, as.integer(keygen_mode))
+                           keygen_mode = KeygenMode$SYM_ENCRYPT,
+                           internal32 = TRUE) {
+  BinFHEContext__BTKeyGen(ctx@ptr, sk@ptr, as.integer(keygen_mode),
+                          isTRUE(internal32))
   invisible(ctx)
 }
 
@@ -151,37 +175,64 @@ bin_bt_key_gen <- function(ctx, sk,
 #' @param ctx A BinFHEContext
 #' @param ct An LWECiphertext
 #' @param roundbits Integer; the number of low-order bits to
-#'   round off.
+#'   round off. Default `0L`, the C++ header default.
 #' @return A new LWECiphertext holding the rounded value.
 #' @seealso [eval_func()], [eval_sign()]
 #' @export
-eval_floor <- function(ctx, ct, roundbits) {
-  LWECiphertext(ptr = BinFHEContext__EvalFloor(
+eval_floor <- function(ctx, ct, roundbits = 0L) {
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## LWECiphertext(ptr = BinFHEContext__EvalFloor(
+  ##   ctx@ptr, ct@ptr, as.integer(roundbits)))
+  ## <<< S7-FAST-NEW
+  .fast_new(LWECiphertext, BinFHEContext__EvalFloor(
     ctx@ptr, ct@ptr, as.integer(roundbits)))
 }
 
 #' Encrypt a value for Binary FHE
 #'
 #' @param ctx A BinFHE context
-#' @param sk An LWEPrivateKey
+#' @param sk An LWEPrivateKey, or an [LWEPublicKey] to encrypt under
+#'   the public key.
 #' @param message Integer (0 or 1 for Boolean; larger for integer FHE)
-#' @param output BINFHE_OUTPUT (default: 2 = BOOTSTRAPPED). Use
+#' @param output An element of [BinFHEOutput] (default:
+#'   `BinFHEOutput$BOOTSTRAPPED`). Use
 #'   `BinFHEOutput$LARGE_DIM` together with `mod` for the
-#'   functional-bootstrapping path.
+#'   functional-bootstrapping path. With a public key the default is
+#'   `BinFHEOutput$SMALL_DIM`, as in openfhe-python, which needs the
+#'   switching key that [bin_bt_key_gen()] generates.
 #' @param p Plaintext modulus (default: 4)
 #' @param mod Optional large ciphertext modulus Q for the LARGE_DIM
 #'   path. NULL (default) selects the standard small-modulus encrypt.
+#'   A whole number of at most 2^53, or a string of decimal digits for
+#'   a larger value.
 #' @return An LWECiphertext
 #' @export
-bin_encrypt <- function(ctx, sk, message, output = 2L, p = 4L, mod = NULL) {
+bin_encrypt <- function(ctx, sk, message, output = BinFHEOutput$BOOTSTRAPPED,
+                        p = 4L, mod = NULL) {
+  if (S7::S7_inherits(sk, LWEPublicKey)) {
+    ## The public-key overload, whose C++ default output is SMALL_DIM.
+    if (missing(output)) output <- BinFHEOutput$SMALL_DIM
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## return(LWECiphertext(ptr = BinFHEContext__EncryptPK(
+    ##   get_ptr(ctx), get_ptr(sk), as.numeric(message), as.integer(output),
+    ##   wide_integer(p), if (is.null(mod)) "0" else wide_integer(mod))))
+    ## <<< S7-FAST-NEW
+    return(.fast_new(LWECiphertext, BinFHEContext__EncryptPK(
+      get_ptr(ctx), get_ptr(sk), as.numeric(message), as.integer(output),
+      wide_integer(p), if (is.null(mod)) "0" else wide_integer(mod))))
+  }
   if (is.null(mod)) {
     ct_xp <- BinFHEContext__Encrypt(ctx@ptr, sk@ptr,
       as.integer(message), as.integer(output), as.integer(p))
   } else {
     ct_xp <- BinFHEContext__EncryptWithMod(ctx@ptr, sk@ptr,
-      as.numeric(message), as.integer(output), as.numeric(p), as.numeric(mod))
+      as.numeric(message), as.integer(output), wide_integer(p),
+      wide_integer(mod))
   }
-  LWECiphertext(ptr = ct_xp)
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## LWECiphertext(ptr = ct_xp)
+  ## <<< S7-FAST-NEW
+  .fast_new(LWECiphertext, ct_xp)
 }
 
 #' Generate a lookup table for an arbitrary plaintext function
@@ -224,7 +275,10 @@ generate_lut_via_function <- function(f, p) {
 #' @return An LWECiphertext encrypting `lut[plaintext(ct) + 1]`
 #' @export
 eval_func <- function(ctx, ct, lut) {
-  LWECiphertext(ptr = BinFHEContext__EvalFunc(ctx@ptr, ct@ptr, as.numeric(lut)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## LWECiphertext(ptr = BinFHEContext__EvalFunc(ctx@ptr, ct@ptr, as.numeric(lut)))
+  ## <<< S7-FAST-NEW
+  .fast_new(LWECiphertext, BinFHEContext__EvalFunc(ctx@ptr, ct@ptr, as.numeric(lut)))
 }
 
 #' Evaluate sign on an encrypted value (functional bootstrapping)
@@ -246,7 +300,10 @@ eval_func <- function(ctx, ct, lut) {
 #'   (i.e. lay in the upper half of [0, Q)), 1 otherwise
 #' @export
 eval_sign <- function(ctx, ct, scheme_switch = FALSE) {
-  LWECiphertext(ptr = BinFHEContext__EvalSign(ctx@ptr, ct@ptr, isTRUE(scheme_switch)))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## LWECiphertext(ptr = BinFHEContext__EvalSign(ctx@ptr, ct@ptr, isTRUE(scheme_switch)))
+  ## <<< S7-FAST-NEW
+  .fast_new(LWECiphertext, BinFHEContext__EvalSign(ctx@ptr, ct@ptr, isTRUE(scheme_switch)))
 }
 
 #' Decrypt a Binary FHE ciphertext
@@ -274,9 +331,13 @@ bin_decrypt <- function(ctx, sk, ct, p = 4L) {
 #' @param ct2 An `LWECiphertext` for the 2-input form, or
 #'   `NULL` (the default) when `ct1` is a list. The vector
 #'   dispatch follows `binfhecontext.h` line 322.
+#' @param extended Logical; if `TRUE` the result is left in the
+#'   extended ring dimension `N` rather than switched back to `n`.
+#'   Default `FALSE`, the C++ header default.
 #' @return An `LWECiphertext`
 #' @export
-eval_bin_gate <- function(ctx, gate, ct1, ct2 = NULL) {
+eval_bin_gate <- function(ctx, gate, ct1, ct2 = NULL, extended = FALSE) {
+  extended <- isTRUE(extended)
   if (is.null(ct2)) {
     ## Vector form: `ct1` is a list of LWECiphertext S7 wrappers.
     ## Dispatch to the vector-form cpp11 binding.
@@ -287,13 +348,21 @@ eval_bin_gate <- function(ctx, gate, ct1, ct2 = NULL) {
       ))
     }
     ct_ptrs <- lapply(ct1, get_ptr)
-    LWECiphertext(ptr = BinFHEContext__EvalBinGate__vec(
-      ctx@ptr, as.integer(gate), ct_ptrs))
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## LWECiphertext(ptr = BinFHEContext__EvalBinGate__vec(
+    ##   ctx@ptr, as.integer(gate), ct_ptrs, extended))
+    ## <<< S7-FAST-NEW
+    .fast_new(LWECiphertext, BinFHEContext__EvalBinGate__vec(
+      ctx@ptr, as.integer(gate), ct_ptrs, extended))
   } else {
     ## 2-input form — backward compatible with the original
     ## positional call `eval_bin_gate(ctx, gate, ct1, ct2)`.
-    LWECiphertext(ptr = BinFHEContext__EvalBinGate(ctx@ptr,
-      as.integer(gate), ct1@ptr, ct2@ptr))
+    ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+    ## LWECiphertext(ptr = BinFHEContext__EvalBinGate(ctx@ptr,
+    ##   as.integer(gate), ct1@ptr, ct2@ptr, extended))
+    ## <<< S7-FAST-NEW
+    .fast_new(LWECiphertext, BinFHEContext__EvalBinGate(ctx@ptr,
+      as.integer(gate), ct1@ptr, ct2@ptr, extended))
   }
 }
 
@@ -304,7 +373,10 @@ eval_bin_gate <- function(ctx, gate, ct1, ct2 = NULL) {
 #' @return An LWECiphertext
 #' @export
 eval_not <- function(ctx, ct) {
-  LWECiphertext(ptr = BinFHEContext__EvalNOT(ctx@ptr, ct@ptr))
+  ## >>> S7-FAST-NEW (RConsortium/S7#723): original
+  ## LWECiphertext(ptr = BinFHEContext__EvalNOT(ctx@ptr, ct@ptr))
+  ## <<< S7-FAST-NEW
+  .fast_new(LWECiphertext, BinFHEContext__EvalNOT(ctx@ptr, ct@ptr))
 }
 
 method(print, LWECiphertext) <- function(x, ...) {

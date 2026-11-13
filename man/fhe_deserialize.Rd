@@ -6,14 +6,19 @@
 \usage{
 fhe_deserialize(
   filename,
-  type = c("CryptoContext", "PublicKey", "PrivateKey", "Ciphertext"),
+  type = c("CryptoContext", "PublicKey", "PrivateKey", "Ciphertext", "EvalKey",
+    "EvalKeyMap", "BinFHEContext", "LWECiphertext", "LWEPrivateKey", "LWEPublicKey",
+    "RingGSWBTKey"),
   format = "binary"
 )
 }
 \arguments{
 \item{filename}{Path to serialized file}
 
-\item{type}{One of "CryptoContext", "PublicKey", "PrivateKey", "Ciphertext"}
+\item{type}{One of \code{"CryptoContext"}, \code{"PublicKey"}, \code{"PrivateKey"},
+\code{"Ciphertext"}, \code{"EvalKey"}, \code{"EvalKeyMap"}, or, for Binary FHE,
+\code{"BinFHEContext"}, \code{"LWECiphertext"}, \code{"LWEPrivateKey"},
+\code{"LWEPublicKey"}, \code{"RingGSWBTKey"}.}
 
 \item{format}{"binary" (default) or "json"}
 }
@@ -22,4 +27,7 @@ The deserialized object
 }
 \description{
 Deserialize an OpenFHE object from file
+}
+\seealso{
+\code{\link[=fhe_deserialize_string]{fhe_deserialize_string()}} for data held in memory.
 }

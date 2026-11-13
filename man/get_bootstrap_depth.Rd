@@ -4,12 +4,23 @@
 \alias{get_bootstrap_depth}
 \title{Get the required multiplicative depth for CKKS bootstrapping}
 \usage{
-get_bootstrap_depth(level_budget, secret_key_dist = 1L)
+get_bootstrap_depth(
+  level_budget,
+  secret_key_dist = SecretKeyDist$UNIFORM_TERNARY,
+  approx_mod_depth = NULL
+)
 }
 \arguments{
 \item{level_budget}{Integer vector of length 2}
 
-\item{secret_key_dist}{Secret key distribution (default: UNIFORM_TERNARY = 1)}
+\item{secret_key_dist}{Secret key distribution, an element of
+\link{SecretKeyDist} (default: \code{SecretKeyDist$UNIFORM_TERNARY})}
+
+\item{approx_mod_depth}{Optional integer: the depth of the Chebyshev
+interpolation of the approximate modular reduction. When given,
+the three-argument C++ form is called, which OpenFHE keeps for
+backward compatibility. \code{NULL} (default) calls the two-argument
+form, which derives that depth from \code{secret_key_dist}.}
 }
 \value{
 Integer: required depth
