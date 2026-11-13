@@ -57,3 +57,8 @@ expect_equal(truth_table(BinGate$XOR_FAST),  expected$XOR)
 
 ## @openfhe-python: boolean-truth-tables.py — XNOR_FAST (same table as XNOR)
 expect_equal(truth_table(BinGate$XNOR_FAST), expected$XNOR)
+
+## Release the bootstrapping keys now: R's collector does not see the
+## memory behind a context, so the keys would otherwise stay until a
+## collection happens to run (notes/discoveries/D043).
+bin_clear_bt_keys(ctx)

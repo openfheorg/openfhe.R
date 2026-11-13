@@ -39,3 +39,9 @@ expect_equal(bin_decrypt(ctx_lm, sk_lm, ct_nand), 1L)  # NAND(1,0) = 1
 
 ct_xor <- eval_bin_gate(ctx_lm, BinGate$XOR, ct1_lm, ct0_lm)
 expect_equal(bin_decrypt(ctx_lm, sk_lm, ct_xor), 1L)  # XOR(1,0) = 1
+
+## Release the bootstrapping keys now: R's collector does not see the
+## memory behind a context, so the keys would otherwise stay until a
+## collection happens to run (notes/discoveries/D043).
+bin_clear_bt_keys(ctx_ap)
+bin_clear_bt_keys(ctx_lm)

@@ -38,6 +38,11 @@
 
 * `bin_bt_key_gen()` gains the argument `internal32`.
 
+* The help pages for `bin_fhe_context()`, `bin_bt_key_gen()` and
+  `bin_clear_bt_keys()` have a section on memory. The bootstrapping
+  keys of a context can occupy several gigabytes that R's garbage
+  collector does not see; `bin_clear_bt_keys()` releases them at once.
+
 * `bin_encrypt()` defaults to `output = BinFHEOutput$BOOTSTRAPPED`, and
   `get_bootstrap_depth()` to `SecretKeyDist$UNIFORM_TERNARY`, as in
   OpenFHE 1.6.1.

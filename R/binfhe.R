@@ -73,6 +73,18 @@ LWEPrivateKey <- new_class("LWEPrivateKey",
 #' @param n Ring dimension override (0 lets OpenFHE pick).
 #' @param time_optimization Enable the GINX time-optimization variant.
 #' @return A [BinFHEContext] object.
+#' @section Memory:
+#' The bootstrapping keys that [bin_bt_key_gen()] stores in a context
+#' can occupy several gigabytes (about 5.8 GB for `STD128` with
+#' `arb_func = TRUE` and `log_q = 12`). R's garbage collector does not
+#' see this memory, so removing a context with `rm()` does not release
+#' it until a collection happens to run.
+#'
+#' * Build one context and reuse it. The keys depend only on the
+#'   parameters and the secret key.
+#' * When a context is no longer needed, call [bin_clear_bt_keys()].
+#'   The keys are released at once.
+#' * To release the rest of the context, remove it and call [gc()].
 #' @export
 bin_fhe_context <- function(paramset = BinFHEParamSet$STD128,
                             method = BinFHEMethod$GINX,
@@ -149,6 +161,17 @@ bin_key_gen <- function(ctx) {
 #'   its side effect: the bootstrapping and key-switching keys are
 #'   generated and stored inside the C++ context, after which
 #'   [eval_bin_gate()] and the other gate evaluations can be used.
+#' @section Memory:
+#' The bootstrapping keys can occupy several gigabytes (about 5.8 GB
+#' for `STD128` with `arb_func = TRUE` and `log_q = 12`). R's garbage
+#' collector does not see this memory, so removing a context with
+#' `rm()` does not release it until a collection happens to run.
+#'
+#' * Build one context and reuse it. The keys depend only on the
+#'   parameters and the secret key.
+#' * When a context is no longer needed, call [bin_clear_bt_keys()].
+#'   The keys are released at once.
+#' * To release the rest of the context, remove it and call [gc()].
 #' @export
 bin_bt_key_gen <- function(ctx, sk,
                            keygen_mode = KeygenMode$SYM_ENCRYPT,

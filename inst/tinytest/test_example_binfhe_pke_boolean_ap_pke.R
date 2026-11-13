@@ -53,3 +53,8 @@ result <- bin_decrypt(cc, sk, ct_result)
 ## (1 AND 1) OR (1 AND (NOT 1)) in the clear
 expected <- as.integer((1L && 1L) || (1L && !1L))
 expect_identical(result, expected)
+
+## Release the bootstrapping keys now: R's collector does not see the
+## memory behind a context, so the keys would otherwise stay until a
+## collection happens to run (notes/discoveries/D043).
+bin_clear_bt_keys(cc)

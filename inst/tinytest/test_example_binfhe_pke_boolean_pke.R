@@ -64,3 +64,8 @@ ct_result <- eval_bin_gate(cc, BinGate$OR, ct_and1, ct_and2)
 result <- bin_decrypt(cc, sk, ct_result)
 ## (1 AND 1) OR (1 AND (NOT 1)) in the clear
 expect_identical(result, as.integer((1L && 1L) || (1L && !1L)))
+
+## Release the bootstrapping keys now: R's collector does not see the
+## memory behind a context, so the keys would otherwise stay until a
+## collection happens to run (notes/discoveries/D043).
+bin_clear_bt_keys(cc)

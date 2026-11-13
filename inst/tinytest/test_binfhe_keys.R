@@ -280,3 +280,9 @@ for (i in seq_along(decomp)) {
 expect_equal(sum(digits * weights), m)
 
 unlink(tmpdir, recursive = TRUE)
+
+## Release the bootstrapping keys now: R's collector does not see the
+## memory behind a context, so the keys would otherwise stay until a
+## collection happens to run (notes/discoveries/D043).
+bin_clear_bt_keys(ctx)
+bin_clear_bt_keys(ctd)

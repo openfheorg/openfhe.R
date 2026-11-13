@@ -105,3 +105,8 @@ expect_identical(bin_decrypt(cc, sk, ct_and4, p),
 ## OR(1, 0, 0, 0)
 expect_identical(bin_decrypt(cc, sk, ct_or4, p),
                  as.integer(any(c(1, 0, 0, 0) == 1)))
+
+## Release the bootstrapping keys now: R's collector does not see the
+## memory behind a context, so the keys would otherwise stay until a
+## collection happens to run (notes/discoveries/D043).
+bin_clear_bt_keys(cc)

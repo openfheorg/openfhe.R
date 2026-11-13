@@ -62,3 +62,8 @@ expect_identical(truth_table(BinGate$XOR), as.integer(xor(a, b)))
 
 # ══ Step 9: Evaluation of XNOR gates ═════════════════════
 expect_identical(truth_table(BinGate$XNOR), as.integer(!xor(a, b)))
+
+## Release the bootstrapping keys now: R's collector does not see the
+## memory behind a context, so the keys would otherwise stay until a
+## collection happens to run (notes/discoveries/D043).
+bin_clear_bt_keys(cc)

@@ -273,6 +273,18 @@ eval_decomp <- function(ctx, ct) {
 #'   [LWESwitchingKey], or `NULL` if the context holds none in the
 #'   64-bit form. The `has_` functions: a logical. The others: `ctx`,
 #'   invisibly.
+#' @section Memory:
+#' The bootstrapping keys of a context can occupy several gigabytes
+#' (about 5.8 GB for `STD128` with `arb_func = TRUE` and `log_q = 12`).
+#' R's garbage collector does not see this memory, so removing a
+#' context with `rm()` does not release it until a collection happens
+#' to run.
+#'
+#' * Build one context and reuse it. The keys depend only on the
+#'   parameters and the secret key.
+#' * When a context is no longer needed, call `bin_clear_bt_keys()`.
+#'   The keys are released at once.
+#' * To release the rest of the context, remove it and call [gc()].
 #' @export
 get_bt_key <- function(ctx) {
   ## >>> S7-FAST-NEW (RConsortium/S7#723): original

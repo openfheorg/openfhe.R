@@ -44,7 +44,7 @@ All run against the tarball being submitted.
   with the check platforms' thread environment applied
   (`_R_CHECK_LIMIT_CORES_=TRUE`, the test, vignette and example
   CPU-to-elapsed gates at 2.5, `KMP_BLOCKTIME=200ms`,
-  `OMP_NUM_THREADS=32`): 0 ERRORs, 0 WARNINGs, 0 NOTEs. Tests 49s/26s,
+  `OMP_NUM_THREADS=32`): 0 ERRORs, 0 WARNINGs, 0 NOTEs. Tests 55s/29s,
   vignettes 29s/16s, examples OK. The bundled library was compiled from
   source in this check, as it is on CRAN.
 * [TO FILL BEFORE UPLOAD: win-builder R-devel.]
@@ -75,15 +75,16 @@ version, without being reinstalled.
   added bindings.
 
 * Thread policy is unchanged: two OpenMP threads under `R CMD check`,
-  set once in `.onLoad()`.
+  set once in `.onLoad()`. A test now reads the thread count in use
+  and fails if it exceeds two under the check.
 
 * Check time. The test suite grew with the bindings, from 971
-  assertions to 3239. To keep the Windows check within the time the
+  assertions to 3242. To keep the Windows check within the time the
   incoming checks allow, 32 test files are skipped on CRAN and run on
   GitHub Actions and locally. They cover bootstrapping (CKKS and
   Binary FHE), scheme switching, serialization of large key files, and
   the longer ports of the upstream examples; each states its reason in
-  its `exit_file()` message. 2513 assertions run on CRAN.
+  its `exit_file()` message. 2516 assertions run on CRAN.
 
 * Possibly misspelled words in DESCRIPTION have been reported on some
   platforms (BFV, BGV, CKKS, FHEW, TFHE, Brakerski, Cheon, Chillotti,

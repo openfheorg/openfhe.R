@@ -44,3 +44,8 @@ result <- bin_decrypt(cc, sk, ct_rounded, p %/% 2^bits)
 
 ## Expected: the input shifted right by `bits`
 expect_identical(result, bitwShiftR(input, bits))
+
+## Release the bootstrapping keys now: R's collector does not see the
+## memory behind a context, so the keys would otherwise stay until a
+## collection happens to run (notes/discoveries/D043).
+bin_clear_bt_keys(cc)

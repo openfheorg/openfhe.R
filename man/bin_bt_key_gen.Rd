@@ -40,3 +40,18 @@ generated and stored inside the C++ context, after which
 \description{
 Generate BinFHE bootstrapping keys
 }
+\section{Memory}{
+
+The bootstrapping keys can occupy several gigabytes (about 5.8 GB
+for \code{STD128} with \code{arb_func = TRUE} and \code{log_q = 12}). R's garbage
+collector does not see this memory, so removing a context with
+\code{rm()} does not release it until a collection happens to run.
+\itemize{
+\item Build one context and reuse it. The keys depend only on the
+parameters and the secret key.
+\item When a context is no longer needed, call \code{\link[=bin_clear_bt_keys]{bin_clear_bt_keys()}}.
+The keys are released at once.
+\item To release the rest of the context, remove it and call \code{\link[=gc]{gc()}}.
+}
+}
+

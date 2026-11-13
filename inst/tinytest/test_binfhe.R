@@ -58,3 +58,8 @@ ct_compound <- eval_bin_gate(ctx, BinGate$OR,
   eval_bin_gate(ctx, BinGate$AND, bin_encrypt(ctx, sk, 1L), bin_encrypt(ctx, sk, 1L)),
   eval_not(ctx, bin_encrypt(ctx, sk, 1L)))
 expect_equal(bin_decrypt(ctx, sk, ct_compound), 1L)
+
+## Release the bootstrapping keys now: R's collector does not see the
+## memory behind a context, so the keys would otherwise stay until a
+## collection happens to run (notes/discoveries/D043).
+bin_clear_bt_keys(ctx)

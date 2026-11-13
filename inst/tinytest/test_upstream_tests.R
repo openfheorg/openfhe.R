@@ -81,6 +81,10 @@ for (a in 0:1) for (b in 0:1) {
   result <- bin_decrypt(bcc, bsk, eval_bin_gate(bcc, BinGate$OR, ct_and1, ct_and2))
   expect_equal(result, as.integer((a && b) || (a && !b)))
 }
+## Release the bootstrapping keys now: R's collector does not see the
+## memory behind a context, so the keys would otherwise stay until a
+## collection happens to run (notes/discoveries/D043).
+bin_clear_bt_keys(bcc)
 
 # ══ tests/test_cryptocontext.py ══════════════════════════
 ## @openfhe-python: tests/test_cryptocontext.py::test_ckks_context [BUILD-CONFIG: runs only on a 128-bit native integer build; the package is built with 64-bit]

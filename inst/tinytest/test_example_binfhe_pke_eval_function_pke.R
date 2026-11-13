@@ -46,3 +46,8 @@ for (i in seq_len(p) - 1) {
 
   expect_equal(result, fp(i, p))
 }
+
+## Release the bootstrapping keys now: R's collector does not see the
+## memory behind a context, so the keys would otherwise stay until a
+## collection happens to run (notes/discoveries/D043).
+bin_clear_bt_keys(cc)

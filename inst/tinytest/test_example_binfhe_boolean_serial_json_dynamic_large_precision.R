@@ -118,3 +118,9 @@ for (i in 0:7) {
 }
 
 unlink(tmpdir, recursive = TRUE)
+
+## Release the bootstrapping keys now: R's collector does not see the
+## memory behind a context, so the keys would otherwise stay until a
+## collection happens to run (notes/discoveries/D043).
+bin_clear_bt_keys(cc1)
+bin_clear_bt_keys(cc)

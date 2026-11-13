@@ -120,3 +120,9 @@ expect_null(formals(eval_bin_gate)$ct2)
 expect_identical(names(formals(eval_sign)),
                  c("ctx", "ct", "scheme_switch"))
 expect_equal(formals(eval_sign)$scheme_switch, FALSE)
+
+## Release the bootstrapping keys now: R's collector does not see the
+## memory behind a context, so the keys would otherwise stay until a
+## collection happens to run (notes/discoveries/D043).
+bin_clear_bt_keys(ctx_toy)
+bin_clear_bt_keys(ctx3)
