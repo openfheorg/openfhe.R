@@ -21,7 +21,8 @@ eval_poly_linear(ct, coefficients)
 
 - coefficients:
 
-  Numeric vector of polynomial coefficients
+  Integer, double or complex vector of polynomial coefficients, as for
+  [`eval_poly()`](https://openfheorg.github.io/openfhe.R/reference/eval_poly.md)
 
 ## Value
 

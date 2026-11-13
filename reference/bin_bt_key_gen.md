@@ -5,7 +5,12 @@ Generate BinFHE bootstrapping keys
 ## Usage
 
 ``` r
-bin_bt_key_gen(ctx, sk, keygen_mode = KeygenMode$SYM_ENCRYPT)
+bin_bt_key_gen(
+  ctx,
+  sk,
+  keygen_mode = KeygenMode$SYM_ENCRYPT,
+  internal32 = TRUE
+)
 ```
 
 ## Arguments
@@ -26,7 +31,14 @@ bin_bt_key_gen(ctx, sk, keygen_mode = KeygenMode$SYM_ENCRYPT)
   symmetric-key encryption (`KeygenMode$SYM_ENCRYPT`, the default and
   the C++ default per `binfhe-constants.h` line 133) or public-key
   encryption (`KeygenMode$PUB_ENCRYPT`), matching the
-  `BTKeyGen(sk, keyGenMode)` overload at `binfhecontext.h` line 273.
+  `BTKeyGen(sk, keygenMode, internal32)` method in `binfhecontext.h`.
+
+- internal32:
+
+  Logical. If `TRUE` (the default, and the C++ default), keys whose
+  moduli fit are generated directly in the library's 32-bit internal
+  form; a key that does not qualify is generated in the 64-bit form. If
+  `FALSE`, all keys are generated in the 64-bit form.
 
 ## Value
 

@@ -7,7 +7,9 @@ Deserialize an OpenFHE object from file
 ``` r
 fhe_deserialize(
   filename,
-  type = c("CryptoContext", "PublicKey", "PrivateKey", "Ciphertext"),
+  type = c("CryptoContext", "PublicKey", "PrivateKey", "Ciphertext", "EvalKey",
+    "EvalKeyMap", "BinFHEContext", "LWECiphertext", "LWEPrivateKey", "LWEPublicKey",
+    "RingGSWBTKey"),
   format = "binary"
 )
 ```
@@ -20,7 +22,10 @@ fhe_deserialize(
 
 - type:
 
-  One of "CryptoContext", "PublicKey", "PrivateKey", "Ciphertext"
+  One of `"CryptoContext"`, `"PublicKey"`, `"PrivateKey"`,
+  `"Ciphertext"`, `"EvalKey"`, `"EvalKeyMap"`, or, for Binary FHE,
+  `"BinFHEContext"`, `"LWECiphertext"`, `"LWEPrivateKey"`,
+  `"LWEPublicKey"`, `"RingGSWBTKey"`.
 
 - format:
 
@@ -29,3 +34,8 @@ fhe_deserialize(
 ## Value
 
 The deserialized object
+
+## See also
+
+[`fhe_deserialize_string()`](https://openfheorg.github.io/openfhe.R/reference/fhe_deserialize_string.md)
+for data held in memory.

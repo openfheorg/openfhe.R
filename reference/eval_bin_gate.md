@@ -5,7 +5,7 @@ Evaluate a binary gate on encrypted values
 ## Usage
 
 ``` r
-eval_bin_gate(ctx, gate, ct1, ct2 = NULL)
+eval_bin_gate(ctx, gate, ct1, ct2 = NULL, extended = FALSE)
 ```
 
 ## Arguments
@@ -33,6 +33,12 @@ eval_bin_gate(ctx, gate, ct1, ct2 = NULL)
   An `LWECiphertext` for the 2-input form, or `NULL` (the default) when
   `ct1` is a list. The vector dispatch follows `binfhecontext.h` line
   322.
+
+- extended:
+
+  Logical; if `TRUE` the result is left in the extended ring dimension
+  `N` rather than switched back to `n`. Default `FALSE`, the C++ header
+  default.
 
 ## Value
 

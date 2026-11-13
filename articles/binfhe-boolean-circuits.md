@@ -32,12 +32,14 @@ STD128_3 / STD128_4 for multi-input gates).
 ## Context and key setup
 
 A BinFHE context is built with a parameter set and a bootstrap method.
-`BinFHEParamSet` carries 44 values covering the full C++ header range —
+`BinFHEParamSet` carries 112 values covering the full C++ header range —
 **TOY** for tests, **STD128** / **STD128Q** for 128-bit classical /
-quantum security, **STD192** / **STD256** for higher security, and the
-**LMKCDEY** family for the newer bootstrap algorithm. `BinFHEMethod`
-chooses between **GINX** (default), **AP** (Ducas-Micciancio), and
-**LMKCDEY** (the fastest variant in the current OpenFHE release).
+quantum security, **STD192** / **STD256** for higher security, the
+**LPF** variants with a lower probability of failure, and the
+\*\*\_LMKCDEY\*\* and \*\*\_AP\*\* families for those two bootstrap
+algorithms. `BinFHEMethod` chooses between **GINX** (default), **AP**
+(Ducas-Micciancio), and **LMKCDEY** (the fastest variant in the current
+OpenFHE release).
 
 ``` r
 
@@ -195,7 +197,7 @@ cts <- list(encrypt_bit_maj(1L),
 bin_decrypt(ctx3, sk3,
             eval_bin_gate(ctx3, BinGate$MAJORITY, cts),
             p = p_maj)
-## 1 (majority of two 1s and one 0)
+#> [1] 1
 ```
 
 ## Arbitrary function evaluation
@@ -366,15 +368,29 @@ The two schemes solve different problems.
 | Per-op cost | cheap multiply / add, expensive bootstrap | every gate is a bootstrap internally |
 | Depth budget | yes — bootstrap refreshes, see [ckks-bootstrapping](https://openfheorg.github.io/openfhe.R/articles/ckks-bootstrapping.md) | no — gates self-refresh |
 | Good at | polynomial arithmetic, statistics, batched linear algebra | comparisons, branching, per-bit logic, arbitrary univariate functions |
-| Audience-A fit in this package | **primary** — cox / cvxr / mle / encrypted-regression etc. | **secondary** — comparators, thresholding, custom LUT evaluation |
+| Use in statistical work | regression, likelihood and optimization on encrypted data (the `homomorpheR` vignettes) | comparators, thresholding, custom LUT evaluation |
 
-In practice the two schemes are complementary. A hybrid workflow — use
-CKKS for the heavy lifting, then scheme-switch to BinFHE for a
-comparison or a LUT evaluation — exists in the OpenFHE C++ library (via
-`eval_sign(scheme_switch = TRUE)` and the `EvalSchemeSwitching*`
-family). The scheme-switching pipeline itself is not yet exposed in
-`openfhe.R`’s R interface but a future version could if a concrete use
-case demands it.
+The two schemes are complementary, and OpenFHE can move an encrypted
+value from one to the other. *Scheme switching* does the arithmetic in
+CKKS and converts to BinFHE for a comparison or a lookup-table
+evaluation, then converts the result back. `openfhe.R` binds this
+pipeline:
+[`SchSwchParams()`](https://openfheorg.github.io/openfhe.R/reference/SchSwchParams.md)
+holds its parameters,
+[`eval_scheme_switching_setup()`](https://openfheorg.github.io/openfhe.R/reference/eval_scheme_switching_setup.md)
+and
+[`eval_scheme_switching_key_gen()`](https://openfheorg.github.io/openfhe.R/reference/eval_scheme_switching_setup.md)
+prepare both contexts,
+[`eval_ckks_to_fhew()`](https://openfheorg.github.io/openfhe.R/reference/eval_ckks_to_fhew_setup.md)
+and
+[`eval_fhew_to_ckks()`](https://openfheorg.github.io/openfhe.R/reference/eval_fhew_to_ckks_setup.md)
+convert in each direction, and
+[`eval_compare_scheme_switching()`](https://openfheorg.github.io/openfhe.R/reference/eval_scheme_switching_setup.md),
+[`eval_min_scheme_switching()`](https://openfheorg.github.io/openfhe.R/reference/eval_scheme_switching_setup.md)
+and
+[`eval_max_scheme_switching()`](https://openfheorg.github.io/openfhe.R/reference/eval_scheme_switching_setup.md)
+compare encrypted real numbers. See
+[`?eval_scheme_switching_setup`](https://openfheorg.github.io/openfhe.R/reference/eval_scheme_switching_setup.md).
 
 ## Further reading
 

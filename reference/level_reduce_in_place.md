@@ -16,8 +16,8 @@ level_reduce_in_place(x, ...)
 
 - ...:
 
-  Method-specific arguments: `eval_key` (an `EvalKey`), `levels`
-  (integer, default `1L`).
+  Method-specific arguments: `eval_key` (an `EvalKey`, or `NULL` for no
+  key), `levels` (integer, default `1L`).
 
 ## Value
 

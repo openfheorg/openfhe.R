@@ -19,7 +19,8 @@ multiparty_key_gen(cc, lead_pk, make_sparse = FALSE, fresh = FALSE)
 
 - lead_pk:
 
-  The lead party's PublicKey
+  The lead party's PublicKey, or a list of `PrivateKey` objects for the
+  form that combines secret keys.
 
 - make_sparse:
 
@@ -34,4 +35,12 @@ multiparty_key_gen(cc, lead_pk, make_sparse = FALSE, fresh = FALSE)
 
 ## Value
 
-A KeyPair for this party
+A KeyPair for this party, or, for a list of secret keys, the key pair of
+the combined secret.
+
+## Details
+
+OpenFHE declares a second form that takes the secret keys of all parties
+and returns the key pair of their sum. Pass a list of `PrivateKey`
+objects as `lead_pk` to call it; `make_sparse` and `fresh` do not apply
+to that form.

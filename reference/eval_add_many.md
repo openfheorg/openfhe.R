@@ -1,0 +1,46 @@
+# Add or multiply a list of ciphertexts
+
+`eval_add_many()` returns the sum of a list of ciphertexts and
+`eval_mult_many()` their product, each computed as a binary tree, which
+keeps the multiplicative depth of the product at `ceiling(log2(n))`.
+`eval_mult_many()` relinearizes after every multiplication and needs the
+relinearization key.
+
+## Usage
+
+``` r
+eval_add_many(ciphertexts)
+
+eval_add_many_in_place(ciphertexts)
+
+eval_mult_many(ciphertexts)
+```
+
+## Arguments
+
+- ciphertexts:
+
+  A non-empty list of `Ciphertext` objects.
+
+## Value
+
+A `Ciphertext`.
+
+## Details
+
+`eval_add_many_in_place()` computes the same sum but uses the given
+ciphertexts for its intermediate results: after the call they hold
+partial sums, and the first one holds the total.
+
+## Examples
+
+``` r
+cc <- fhe_context("BFV", plaintext_modulus = 65537, multiplicative_depth = 2,
+                  features = Feature$ADVANCEDSHE)
+kp <- key_gen(cc, eval_mult = TRUE)
+cts <- lapply(1:4, function(i)
+  encrypt(kp@public, make_packed_plaintext(cc, c(i, 2L * i)), cc = cc))
+total <- decrypt(eval_add_many(cts), kp@secret, cc = cc)
+get_packed_value(set_length(total, 2L))
+#> [1] 10 20
+```

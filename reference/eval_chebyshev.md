@@ -21,7 +21,13 @@ eval_chebyshev(ct, coefficients, a, b)
 
 - coefficients:
 
-  Numeric vector of Chebyshev coefficients
+  Integer, double or complex vector of Chebyshev coefficients. Each type
+  is evaluated with its own arithmetic, as for
+  [`eval_poly()`](https://openfheorg.github.io/openfhe.R/reference/eval_poly.md).
+  Pass whole-number coefficients as doubles (`c(1, 2, 3)`, not
+  `c(1L, 2L, 3L)`): at OpenFHE 1.6.1 the Paterson-Stockmeyer evaluator,
+  which this function uses from degree 5, returns wrong values for
+  integer coefficients.
 
 - a:
 

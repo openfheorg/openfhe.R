@@ -28,8 +28,11 @@ bin_fhe_context(
 - arb_func:
 
   If TRUE, build a context that supports arbitrary-function
-  bootstrapping (EvalSign, EvalFunc). Selecting any of `arb_func`,
-  `log_q`, `n`, or `time_optimization` activates the extended overload.
+  bootstrapping (EvalSign, EvalFunc). Supplying any of `arb_func`,
+  `log_q`, `n`, or `time_optimization`, even at its default value,
+  selects the C++ overload that derives the parameters from them instead
+  of reading the table for `paramset`; the two give different contexts
+  for the same `paramset`.
 
 - log_q:
 

@@ -18,7 +18,8 @@ eval_chebyshev_linear(ct, coefficients, a, b)
 
 - coefficients:
 
-  Numeric vector of Chebyshev coefficients
+  Integer, double or complex vector of Chebyshev coefficients, as for
+  [`eval_chebyshev()`](https://openfheorg.github.io/openfhe.R/reference/eval_chebyshev.md)
 
 - a:
 

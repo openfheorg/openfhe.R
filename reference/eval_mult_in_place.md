@@ -1,14 +1,11 @@
-# Homomorphic multiplication in place
+# Homomorphic multiplication by a number, in place
 
-Modifies the first argument in place to hold the result of multiplying
-by a numeric scalar. `CryptoContextImpl` only declares `EvalMultInPlace`
-scalar overloads in the v1.5.1.0 header surface — the ct/ct and ct/pt
-variants that upstream-defects P1 refers to live on `SchemeBase` and are
-not exposed on `CryptoContextImpl`, so R's `eval_mult_in_place` supports
-only the scalar case. The ct/ct multiplication continues to work via the
-non-in-place
+Multiplies a ciphertext by a single real or complex number (CKKS) and
+stores the result in the ciphertext. The operands may be given in either
+order. OpenFHE declares no in-place product of two ciphertexts or of a
+ciphertext and a plaintext on the `CryptoContext`; use
 [`eval_mult()`](https://openfheorg.github.io/openfhe.R/reference/eval_mult.md)
-generic.
+for those.
 
 ## Usage
 
@@ -20,12 +17,12 @@ eval_mult_in_place(x, ...)
 
 - x:
 
-  A `Ciphertext` (modified in place).
+  A `Ciphertext`, or a single real or complex number.
 
 - ...:
 
-  Method-specific arguments: `y` — a numeric scalar to multiply `x` by.
+  Method-specific arguments: `y`, the other operand.
 
 ## Value
 
-`x` invisibly.
+The modified `Ciphertext`, invisibly.

@@ -1,8 +1,10 @@
 # Homomorphic addition in place
 
-Modifies the first argument in place to hold the result of adding the
-second argument. Avoids allocating a new Ciphertext, which matters in
-tight loops or when ciphertext memory footprint is a concern.
+Stores the sum of the two operands in the ciphertext operand, without
+allocating a new `Ciphertext`. One operand is a `Ciphertext`; the other
+is a `Ciphertext`, a `Plaintext`, or a single real or complex number
+(CKKS). The operands may be given in either order, as in the C++
+library. When both are ciphertexts the first one receives the result.
 
 ## Usage
 
@@ -14,13 +16,12 @@ eval_add_in_place(x, ...)
 
 - x:
 
-  A `Ciphertext` (modified in place).
+  A `Ciphertext`, a `Plaintext`, or a single real or complex number.
 
 - ...:
 
-  Method-specific arguments: `y` — a `Ciphertext`, `Plaintext`, or
-  numeric scalar to add into `x`.
+  Method-specific arguments: `y`, the other operand.
 
 ## Value
 
-`x` invisibly.
+The modified `Ciphertext`, invisibly.

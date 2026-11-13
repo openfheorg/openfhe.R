@@ -21,11 +21,11 @@ three, with runnable examples, and maps each to the R interface that
     bootstrap keys and can refresh any ciphertext on its own.
 2.  **Iterative non-interactive bootstrap** — the same thing in a loop,
     for circuits deep enough that one refresh isn’t enough.
-3.  **Interactive multi-party bootstrap** — the 9117 addition. Each
-    party contributes to the refresh, no single party holds enough key
-    material to bootstrap alone. This is the variant that composes with
-    the threshold-FHE workflow the cox-threshold and cvxr-consensus-admm
-    vignettes build on.
+3.  **Interactive multi-party bootstrap**. Each party contributes to the
+    refresh, no single party holds enough key material to bootstrap
+    alone. This is the variant that composes with the threshold-FHE
+    workflow that the vignettes of the companion package `homomorpheR`
+    build on.
 
 Key point: **the bootstrap is invisible to the R user’s statistical
 code.** You still call the same `eval_mult` / `eval_add` / `decrypt`
@@ -197,6 +197,10 @@ tighter noise bounds.
 
 ## Same cc, same keys — just more iterations per call.
 ct_refreshed_2 <- eval_bootstrap(ct_y, num_iterations = 2L)
+res_refresh_2 <- decrypt(ct_refreshed_2, kp@secret, cc = cc)
+set_length(res_refresh_2, 4L)
+round(get_real_packed_value(res_refresh_2)[1:4], 4)
+#> [1] 0.0625 0.2500 0.5625 1.0000
 ```
 
 The cost scales roughly linearly in `num_iterations`; two iterations is
@@ -228,7 +232,7 @@ ciphertext at a fresh modulus level without any party ever holding
 enough key material to decrypt alone.
 
 This is the bootstrap variant that composes with the threshold-FHE flow
-used in the `cox-threshold` and `cvxr-consensus-admm` vignettes.
+used in the vignettes of the companion package `homomorpheR`.
 
 ### Setup
 

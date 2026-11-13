@@ -19,8 +19,8 @@ level_reduce(x, ...)
 
 - ...:
 
-  Method-specific arguments: `eval_key` (an `EvalKey` from `key_gen`),
-  `levels` (integer, default `1L`).
+  Method-specific arguments: `eval_key` (an `EvalKey`, or `NULL` for no
+  key), `levels` (integer, default `1L`).
 
 ## Value
 
@@ -28,5 +28,6 @@ A `Ciphertext` at `x$level + levels`.
 
 ## Details
 
-An evaluation key is required — supply it from
-`key_gen(cc, eval_mult = TRUE)`.
+The C++ signature takes an evaluation key, which the RNS schemes do not
+use. Pass `NULL`, as the OpenFHE examples pass a null key, or an
+`EvalKey`.

@@ -45,6 +45,8 @@ share_keys(cc, sk, n_parties, threshold, index, sharing_scheme = "additive")
 
 A `SecretShareMap` suitable for passing to
 [`recover_shared_key()`](https://openfheorg.github.io/openfhe.R/reference/recover_shared_key.md).
+[`length()`](https://rdrr.io/r/base/length.html) of it is the number of
+shares.
 
 ## Details
 

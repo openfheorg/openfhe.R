@@ -60,14 +60,14 @@ Modeling.” arXiv:2610.04163 \[stat.CO\].
     }
 
 Narasimhan B (2026). *openfhe.R: R Interface to the 'OpenFHE' Fully
-Homomorphic Encryption Library*. R package version 1.5.1.2,
+Homomorphic Encryption Library*. R package version 1.6.1,
 <https://openfheorg.github.io/openfhe.R/>.
 
     @Manual{,
       title = {{openfhe.R}: R Interface to the 'OpenFHE' Fully Homomorphic Encryption Library},
       author = {Balasubramanian Narasimhan},
       year = {2026},
-      note = {R package version 1.5.1.2},
+      note = {R package version 1.6.1},
       url = {https://openfheorg.github.io/openfhe.R/},
     }
 

@@ -5,7 +5,14 @@ Encrypt a value for Binary FHE
 ## Usage
 
 ``` r
-bin_encrypt(ctx, sk, message, output = 2L, p = 4L, mod = NULL)
+bin_encrypt(
+  ctx,
+  sk,
+  message,
+  output = BinFHEOutput$BOOTSTRAPPED,
+  p = 4L,
+  mod = NULL
+)
 ```
 
 ## Arguments
@@ -16,7 +23,9 @@ bin_encrypt(ctx, sk, message, output = 2L, p = 4L, mod = NULL)
 
 - sk:
 
-  An LWEPrivateKey
+  An LWEPrivateKey, or an
+  [LWEPublicKey](https://openfheorg.github.io/openfhe.R/reference/LWEPublicKey.md)
+  to encrypt under the public key.
 
 - message:
 
@@ -24,9 +33,14 @@ bin_encrypt(ctx, sk, message, output = 2L, p = 4L, mod = NULL)
 
 - output:
 
-  BINFHE_OUTPUT (default: 2 = BOOTSTRAPPED). Use
-  `BinFHEOutput$LARGE_DIM` together with `mod` for the
-  functional-bootstrapping path.
+  An element of
+  [BinFHEOutput](https://openfheorg.github.io/openfhe.R/reference/BinFHEOutput.md)
+  (default: `BinFHEOutput$BOOTSTRAPPED`). Use `BinFHEOutput$LARGE_DIM`
+  together with `mod` for the functional-bootstrapping path. With a
+  public key the default is `BinFHEOutput$SMALL_DIM`, as in
+  openfhe-python, which needs the switching key that
+  [`bin_bt_key_gen()`](https://openfheorg.github.io/openfhe.R/reference/bin_bt_key_gen.md)
+  generates.
 
 - p:
 
@@ -35,7 +49,8 @@ bin_encrypt(ctx, sk, message, output = 2L, p = 4L, mod = NULL)
 - mod:
 
   Optional large ciphertext modulus Q for the LARGE_DIM path. NULL
-  (default) selects the standard small-modulus encrypt.
+  (default) selects the standard small-modulus encrypt. A whole number
+  of at most 2^53, or a string of decimal digits for a larger value.
 
 ## Value
 

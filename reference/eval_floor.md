@@ -10,7 +10,7 @@ LUT path.
 ## Usage
 
 ``` r
-eval_floor(ctx, ct, roundbits)
+eval_floor(ctx, ct, roundbits = 0L)
 ```
 
 ## Arguments
@@ -25,7 +25,8 @@ eval_floor(ctx, ct, roundbits)
 
 - roundbits:
 
-  Integer; the number of low-order bits to round off.
+  Integer; the number of low-order bits to round off. Default `0L`, the
+  C++ header default.
 
 ## Value
 

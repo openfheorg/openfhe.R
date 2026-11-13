@@ -97,7 +97,8 @@ a silent wrong value.
   number of slots that hold user-supplied values. Defaults to the full
   batch size at construction;
   [`set_length()`](https://openfheorg.github.io/openfhe.R/reference/set_length.md)
-  can shorten it for display or decryption purposes.
+  can shorten it for display or decryption purposes. For an
+  `LWECiphertext` it is the dimension of the ciphertext vector.
 
 - `get_level`: Integer level of the plaintext in the RNS modulus chain.
   `0` for a fresh plaintext; incremented by each
@@ -130,8 +131,9 @@ a silent wrong value.
 - `get_encoding_type`: integer encoding type (see `PlaintextEncodings`
   for the enum values).
 
-- `get_scaling_factor_int`: BGV integer scaling factor. Returned as a
-  double carrying a losslessly rounded 53-bit integer.
+- `get_scaling_factor_int`: BGV integer scaling factor, as a string of
+  decimal digits. The value is a 64-bit integer, which an R number
+  cannot always hold exactly.
 
 - `get_scheme_id`: scheme identifier (see `SchemeId` enum).
 
@@ -165,7 +167,8 @@ a silent wrong value.
 - `set_scaling_factor`: set the CKKS plaintext scaling factor.
 
 - `set_scaling_factor_int`: set the BGV plaintext integer scaling
-  factor.
+  factor. `value` is a whole number of at most 2^53, or a string of
+  decimal digits for a larger value.
 
 - `set_noise_scale_deg`: set the plaintext noise scale degree. Most
   users should not call this directly — the factory methods and the

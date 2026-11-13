@@ -19,8 +19,8 @@ compress(x, ...)
 
 - ...:
 
-  Method-specific arguments: `towers_left` (integer, target tower
-  count), `noise_scale_deg` (integer, default `1L`).
+  Method-specific arguments: `towers_left` (integer, target tower count,
+  default `1L`), `noise_scale_deg` (integer, default `1L`).
 
 ## Value
 

@@ -1,6 +1,10 @@
 # Set up CKKS bootstrapping
 
-Set up CKKS bootstrapping
+The multiplicative depth of `cc` must be at least
+[`get_bootstrap_depth()`](https://openfheorg.github.io/openfhe.R/reference/get_bootstrap_depth.md)
+for `level_budget`. At OpenFHE 1.6.1 the library does not check this,
+and a setup with `precompute = TRUE` on a shallower context ends the R
+session.
 
 ## Usage
 
@@ -40,7 +44,11 @@ eval_bootstrap_setup(
 
 - precompute:
 
-  Precompute rotation keys (default: TRUE)
+  Logical; compute the encoding and decoding plaintexts of bootstrapping
+  now (default: TRUE). With `FALSE`, call
+  [`eval_bootstrap_precompute()`](https://openfheorg.github.io/openfhe.R/reference/eval_bootstrap_precompute.md)
+  before
+  [`eval_bootstrap()`](https://openfheorg.github.io/openfhe.R/reference/eval_bootstrap.md).
 
 - bt_slots_encoding:
 
