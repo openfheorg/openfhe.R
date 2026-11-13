@@ -84,6 +84,19 @@ its side effect: the bootstrapping and key-switching keys are
 generated and stored inside the C++ context, after which
 <code><a href="eval_bin_gate.html">eval_bin_gate()</a></code> and the other gate evaluations can be used.</p>
     </div>
+    <div class="section level2">
+    <h2 id="memory">Memory<a class="anchor" aria-label="anchor" href="#memory"></a></h2>
+
+
+<p>The bootstrapping keys can occupy several gigabytes (about 5.8 GB
+for <code>STD128</code> with <code>arb_func = TRUE</code> and <code>log_q = 12</code>). R's garbage
+collector does not see this memory, so removing a context with
+<code><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm()</a></code> does not release it until a collection happens to run.</p><ul><li><p>Build one context and reuse it. The keys depend only on the
+parameters and the secret key.</p></li>
+<li><p>When a context is no longer needed, call <code><a href="get_bt_key.html">bin_clear_bt_keys()</a></code>.
+The keys are released at once.</p></li>
+<li><p>To release the rest of the context, remove it and call <code><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc()</a></code>.</p></li>
+</ul></div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

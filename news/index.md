@@ -44,6 +44,16 @@
 - [`bin_bt_key_gen()`](https://openfheorg.github.io/openfhe.R/reference/bin_bt_key_gen.md)
   gains the argument `internal32`.
 
+- The help pages for
+  [`bin_fhe_context()`](https://openfheorg.github.io/openfhe.R/reference/bin_fhe_context.md),
+  [`bin_bt_key_gen()`](https://openfheorg.github.io/openfhe.R/reference/bin_bt_key_gen.md)
+  and
+  [`bin_clear_bt_keys()`](https://openfheorg.github.io/openfhe.R/reference/get_bt_key.md)
+  have a section on memory. The bootstrapping keys of a context can
+  occupy several gigabytes that R’s garbage collector does not see;
+  [`bin_clear_bt_keys()`](https://openfheorg.github.io/openfhe.R/reference/get_bt_key.md)
+  releases them at once.
+
 - [`bin_encrypt()`](https://openfheorg.github.io/openfhe.R/reference/bin_encrypt.md)
   defaults to `output = BinFHEOutput$BOOTSTRAPPED`, and
   [`get_bootstrap_depth()`](https://openfheorg.github.io/openfhe.R/reference/get_bootstrap_depth.md)

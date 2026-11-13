@@ -52,3 +52,23 @@ bin_fhe_context(
 A
 [BinFHEContext](https://openfheorg.github.io/openfhe.R/reference/BinFHEContext.md)
 object.
+
+## Memory
+
+The bootstrapping keys that
+[`bin_bt_key_gen()`](https://openfheorg.github.io/openfhe.R/reference/bin_bt_key_gen.md)
+stores in a context can occupy several gigabytes (about 5.8 GB for
+`STD128` with `arb_func = TRUE` and `log_q = 12`). R's garbage collector
+does not see this memory, so removing a context with
+[`rm()`](https://rdrr.io/r/base/rm.html) does not release it until a
+collection happens to run.
+
+- Build one context and reuse it. The keys depend only on the parameters
+  and the secret key.
+
+- When a context is no longer needed, call
+  [`bin_clear_bt_keys()`](https://openfheorg.github.io/openfhe.R/reference/get_bt_key.md).
+  The keys are released at once.
+
+- To release the rest of the context, remove it and call
+  [`gc()`](https://rdrr.io/r/base/gc.html).
